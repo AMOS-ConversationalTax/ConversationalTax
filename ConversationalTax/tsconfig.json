@@ -6,6 +6,7 @@
         "moduleResolution": "node",
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
+        "strictNullChecks": true,
         "esModuleInterop": true
     },
     "exclude": [
