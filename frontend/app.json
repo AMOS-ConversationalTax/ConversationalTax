@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Conversational Tax",
+    "slug": "conversational-tax",
+    "privacy": "unlisted",
+    "sdkVersion": "26.0.0",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "primaryColor": "#fff",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "packagerOpts": {
+      "sourceExts": [
+        "ts",
+        "tsx"
+      ],
+      "transformer": "node_modules/react-native-typescript-transformer/index.js"
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
