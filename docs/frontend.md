@@ -6,7 +6,7 @@
 
 ## Getting Sarted
 
-### General
+### Install
 - Clone the repository.
 - Open a terminal and navigate into the /frontend folder
 - Run `npm i` and grab a cup of coffee. (You need to re-run this command everytime the dependencies inside the package.json have been changed.)
@@ -19,7 +19,7 @@
 - Furthermore, you may also use an Android simulator. (Not tested yet)
 
 ### Testing & Linting
-Before you push your changes into the repository, you may want to run the tests with `npm run test` as well as the linting with `npm run lint`. (You can see a list of all npm run X commands inside the package.json)
+Before you push your changes into the repository, you may want to run the tests with `npm run test` as well as the linting with `npm run lint`.
 
 ## TODO
 - We need to create a set of relevant Lint-Rules. For example, sorting the imports alphabeticaly is not practical! 
