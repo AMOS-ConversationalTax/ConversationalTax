@@ -14,7 +14,7 @@ You need the following tools:
  - npm will be installed along with NodeJS
 
 ### 2. Visual Studio Code
-VS Code ist an open source editor developed by Micrsoft. You may use Atom or similar editors as well. 
+VS Code ist an open source editor developed by Microsoft. You may use Atom or similar editors as well. 
 - Download it from https://code.visualstudio.com/
 - Open it and select the extension panle. (A sqaured symbol inside of the left sidebar. Alternative: Ctrl + Shift + X)
 - Install the following extensions:
