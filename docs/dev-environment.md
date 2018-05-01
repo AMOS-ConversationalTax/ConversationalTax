@@ -32,3 +32,4 @@ You may use anything you like. For me personal, GitBash is the way to go.
 - All external dependencies are available at https://www.npmjs.com/
 - The dependencies are listed inside the package.json file.
 - The dependecnies are stored inside the node_modules folder. (You have to run `npm i` first.)
+- In each package.json file you may find the definitions for npm run X.
