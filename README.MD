@@ -5,3 +5,13 @@ Conversational Tax is a students' project taking place in the summersemester 201
 - [Development Environment](docs/dev-environment.md)
 - [Frontend - Getting Started](docs/frontend.md)
 - [Backend - Getting Started](docs/backend.md)
+
+## Build Status
+
+### Master-Branch
+
+[![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
+
+### Develop-Branch
+
+[![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
