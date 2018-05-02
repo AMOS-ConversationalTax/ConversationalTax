@@ -5,32 +5,30 @@ import {
   Text,
   View,
   Button,
+  StatusBar
 } from 'react-native';
-import Logo from '../components/Logo';
 import TopBar from '../components/TopBar';
-import BottomBar from '../components/BottomBar';
 import globalStyles from '../global_styles';
+import BottomBar from './../components/BottomBar';
 
 interface IProps {
   navigation: any
 }
 
-export default class Home extends Component<IProps> {
-
+export default class Notifications extends Component<IProps> {
   public render() {
     return (
       <View style={globalStyles.container}>
         <TopBar navigation={this.props.navigation} />
         <View style={globalStyles.content}>
           <Text style={styles.welcome}>
-            Home
+            Notifications
           </Text>
         </View>
         <BottomBar />
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -44,4 +42,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  statusBar: {
+    height: 22,
+  }
 });

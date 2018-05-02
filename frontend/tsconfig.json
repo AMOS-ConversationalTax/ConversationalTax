@@ -7,7 +7,8 @@
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "experimentalDecorators": true
     },
     "exclude": [
         "node_modules"

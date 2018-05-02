@@ -22,7 +22,8 @@
     "packagerOpts": {
       "sourceExts": [
         "ts",
-        "tsx"
+        "tsx",
+        "ttf"
       ],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
     },

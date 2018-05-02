@@ -21,5 +21,8 @@
 ### Testing & Linting
 Before you push your changes into the repository, you may want to run the tests with `npm run test` as well as the linting with `npm run lint`.
 
+### Debugging
+TODO
+
 ## TODO
 - We need to create a set of relevant Lint-Rules. For example, sorting the imports alphabeticaly is not practical! 
