@@ -8,15 +8,14 @@
 
 import React, { Component } from 'react';
 import { DrawerNavigator } from 'react-navigation';
-import Home from './containers/Home';
-import Start from './containers/Start';
-import Conversation from './containers/Conversation';
-import Notifications from './containers/Notifications';
+import Home from './screens/home/Home';
+import Start from './screens/start/Start';
+import Conversation from './screens/conversation/Conversation';
+import Notifications from './screens/notifications/Notifications';
 
 // Temporary fix to supress warnings
 // https://stackoverflow.com/questions/49789150/warning-ismounted-is-deprecated-in-plain-javascript-classes
 import { YellowBox } from 'react-native';
-
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
 export default DrawerNavigator({

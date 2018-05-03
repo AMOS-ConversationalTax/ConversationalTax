@@ -6,10 +6,10 @@ import {
   View,
   Button,
 } from 'react-native';
-import Logo from '../components/Logo';
-import TopBar from '../components/TopBar';
-import BottomBar from '../components/BottomBar';
-import globalStyles from '../global_styles';
+import Logo from '../../shared/Logo';
+import TopBar from '../../shared/TopBar';
+import BottomBar from '../../shared/BottomBar';
+import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 
 interface IProps {

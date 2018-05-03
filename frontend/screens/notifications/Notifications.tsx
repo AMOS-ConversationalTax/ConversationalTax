@@ -7,9 +7,9 @@ import {
   Button,
   StatusBar
 } from 'react-native';
-import TopBar from '../components/TopBar';
-import globalStyles from '../global_styles';
-import BottomBar from './../components/BottomBar';
+import TopBar from '../../shared/TopBar';
+import BottomBar from '../../shared/BottomBar';
+import globalStyles from '../../global_styles';
 
 interface IProps {
   navigation: any
