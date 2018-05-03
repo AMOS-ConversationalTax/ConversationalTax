@@ -29,7 +29,21 @@ npm run test
 npm run lint
 ```
 
-Both, the backend and frontend tests, run in parallel.
+Both, the backend and frontend tests, run in parallel. All branches are tested by https://semaphoreci.com/ automaticly after a new commit. A passing test is prerequisite for merging a branch into Master or Develop. The Master branch and the Develop branch have some cool badges, too:
+
+### Master-Branch
+
+Build status for the master branch should be green all the time.
+
+[![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
+
+### Develop-Branch
+
+Build status for the develop branch should be green all the time, too
+
+[![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
+
+To be honest all branches should feature a green build status.
 
 ## CD
 
@@ -127,7 +141,7 @@ echo " "
 echo " "
 ```
 
-The Linux user "amos" does not have any sudo rights, so there has to be a workaround (/etc/sudoers):
+The Linux user "amos" does not have any sudo rights as he should not be able to do anything than starting the both CD containers. There has to be a workaround (/etc/sudoers):
 
 ```
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
