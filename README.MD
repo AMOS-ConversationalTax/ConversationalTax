@@ -21,4 +21,4 @@ Build status for the develop branch should be green all the time, too:
 
 [![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
 
-To be totally honest with you all branches should feature a green build status. **All the time!**
+To be totally honest with you: All branches should feature a green build status. **All the time!**
