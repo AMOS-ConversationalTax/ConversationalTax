@@ -46,7 +46,7 @@ cd backend
 npm install
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
-ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh"
+ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh master"
 ```
 
 The code for the Develop branch is:
@@ -58,7 +58,7 @@ cd backend
 npm install
 docker build -t amosconversationaltax/conversational-tax-dev .
 docker push amosconversationaltax/conversational-tax-dev
-ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker_dev.sh"
+ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh develop"
 ```
 
 ### Deploy on CD-Server
@@ -67,15 +67,21 @@ We use an Debain Wheezy Rootserver with Docker installed for deployment of both 
 
 Due to the fact that Docker containers have to be started with sudo rights, where is an extensive setup being made.
 
-The key part of the deployment are the starting scripts for the containers.
-
-The one for the Master container (/home/docker/amos_scripts/run_docker.sh) is:
+The key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
 
 ```
 #!/bin/bash
 
-# Constants
-CONTAINERNAME="conversational-tax"
+# Variables
+if [ $1 == "master" ]; then
+  CONTAINERNAME="conversational-tax"
+  CONTAINERIMAGE="amosconversationaltax/conversational-tax"
+  PRIMARYPORT="3000"
+else
+  CONTAINERNAME="conversational-tax-dev"
+  CONTAINERIMAGE="amosconversationaltax/conversational-tax-dev"
+  PRIMARYPORT="3010"
+fi
 
 # Check whether the container is already running
 RUNNING=$(docker inspect --format="{{.State.Running}}" $CONTAINERNAME 2> /dev/null)
@@ -107,7 +113,7 @@ echo "###########################################"
 echo "## Pull the newest image from DockerHub: ##"
 echo "###########################################"
 echo " "
-docker pull amosconversationaltax/conversational-tax
+docker pull $CONTAINERIMAGE
 echo " "
 echo " "
 
@@ -116,59 +122,7 @@ echo "###########################################"
 echo "# Start the new latest docker container:  #"
 echo "###########################################"
 echo " "
-docker run -p 3000:3000 -d --name=$CONTAINERNAME --restart=always amosconversationaltax/conversational-tax
-echo " "
-echo " "
-```
-
-The one for the Devolop container (/home/docker/amos_scripts/run_docker_dev.sh) is:
-
-```
-#!/bin/bash
-
-# Constants
-CONTAINERNAME="conversational-tax-dev"
-
-# Check whether the container is already running
-RUNNING=$(docker inspect --format="{{.State.Running}}" $CONTAINERNAME 2> /dev/null)
-
-if [ "$RUNNING" == "true" ]; then
-
-  # Stop the running container
-  echo "###########################################"
-  echo "####### Stop the running container: #######"
-  echo "###########################################"
-  echo " "
-  docker stop $CONTAINERNAME
-  echo " "
-  echo " "
-
-  # Remove the stopped container
-  echo "###########################################"
-  echo "###### Remove the stopped container: ######"
-  echo "###########################################"
-  echo " "
-  docker rm $CONTAINERNAME
-  echo " "
-  echo " "
-
-fi
-
-# Pull the newest image from DockerHub
-echo "###########################################"
-echo "## Pull the newest image from DockerHub: ##"
-echo "###########################################"
-echo " "
-docker pull amosconversationaltax/conversational-tax-dev
-echo " "
-echo " "
-
-# Start the new container
-echo "###########################################"
-echo "# Start the new latest docker container:  #"
-echo "###########################################"
-echo " "
-docker run -p 3010:3000 -d --name=$CONTAINERNAME --restart=always amosconversationaltax/conversational-tax-dev
+docker run -p $PRIMARYPORT:3000 -d --name=$CONTAINERNAME --restart=always $CONTAINERIMAGE
 echo " "
 echo " "
 ```
@@ -176,6 +130,5 @@ echo " "
 The Linux user "amos" does not have any sudo rights, so there has to be a workaround (/etc/sudoers):
 
 ```
-amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker_dev.sh
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
 ```
