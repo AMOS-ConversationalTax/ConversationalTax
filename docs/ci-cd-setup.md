@@ -33,17 +33,17 @@ Both, the backend and frontend tests, run in parallel. All branches are tested b
 
 ### Master-Branch
 
-Build status for the master branch should be green all the time.
+Build status for the master branch should be green all the time: 
 
 [![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
 
 ### Develop-Branch
 
-Build status for the develop branch should be green all the time, too
+Build status for the develop branch should be green all the time, too:
 
 [![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
 
-To be honest all branches should feature a green build status.
+To be totally honest with you: All branches should feature a green build status. **All the time!**
 
 ## CD
 
