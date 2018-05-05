@@ -22,7 +22,15 @@
 Before you push your changes into the repository, you may want to run the tests with `npm run test` as well as the linting with `npm run lint`.
 
 ### Debugging
-TODO
+You may Debug the App with the Google Chrome's DevTools. In order to do so, click "Debug Remote JS" in the Expo client on your smartphone. 
 
-## TODO
-- We need to create a set of relevant Lint-Rules. For example, sorting the imports alphabeticaly is not practical! 
+## Application structure
+
+### App.tsx
+App.tsx is the main file for the application. We defined our Routing (DrawerNavigation) in there. The routing is similar to URI system of webpages. You may open the start screen by navigating to 'start'. Furthermore you can even pass data into the screen via the route. 
+
+### /screens
+The app is structured as feature modules. Each page of the app has it's own subfolder in /screens. Subcomponents of a screen life sinside the /components folder of the screen. 
+
+### /shared
+Every component, which is used by more than one other component is placed in the /shared folder. 
