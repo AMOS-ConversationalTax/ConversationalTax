@@ -91,12 +91,10 @@ if [ $1 == "master" ]; then
   CONTAINERNAME="conversational-tax"
   CONTAINERIMAGE="amosconversationaltax/conversational-tax"
   PRIMARYPORT="3000"
-  NETWORKNAME="conversational-tax-network"
 else
   CONTAINERNAME="conversational-tax-dev"
   CONTAINERIMAGE="amosconversationaltax/conversational-tax-dev"
   PRIMARYPORT="3010"
-  NETWORKNAME="conversational-tax-dev-network"
 fi
 
 # Check whether the container is already running
@@ -138,7 +136,7 @@ echo "###########################################"
 echo "# Start the new latest docker container:  #"
 echo "###########################################"
 echo " "
-docker run -p $PRIMARYPORT:3000 -d --name=$CONTAINERNAME --net=$NETWORKNAME --restart=always $CONTAINERIMAGE
+docker run -p $PRIMARYPORT:3000 -d --name=$CONTAINERNAME --restart=always $CONTAINERIMAGE
 echo " "
 echo " "
 ```
@@ -147,28 +145,4 @@ The Linux user "amos" does not have any sudo rights (Docker container have to be
 
 ```
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
-```
-
-#### Setup of MongoDB and the corresponding Docker Network
-
-As we decided to use MongoDB for data storage, we need to setup a MongoDB container for each of the CD containers. 
-
-At first we need to create two Docker networks:
-
-```
-docker network create conversational-tax-network
-```
-
-```
-docker network create conversational-tax-dev-network
-```
-
-Secondly we start the two MongoDB instances:
-
-```
-docker run -d -v ~/amos_data/conversational-tax-mongo:/data/db --hostname mongo --name=conversational-tax-mongo --net=conversational-tax-network --expose=27017 --restart=always mongo
-```
-
-```
-docker run -d -v ~/amos_data/conversational-tax-dev-mongo:/data/db --hostname mongo --name=conversational-tax-dev-mongo --net=conversational-tax-dev-network --expose=27017 --restart=always mongo
 ```
