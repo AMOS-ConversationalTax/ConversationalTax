@@ -28,3 +28,5 @@ This part has only been tested under Linux (Debian).
 Our database MongoDB is running with Docker, too
 - Run `npm run docker:createnet` to create a Docker network for communication between the containers. This has to be done *before* using `npm run docker:run`.
 - Run `npm run docker:runmongo` to start MongoDB
+
+The database itself is now available as `mongodb://mongo` within the created Docker container.
