@@ -33,7 +33,7 @@ export default class Start extends Component<IProps> {
 
   @autobind
   private goHome() {
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Conversation');
   }
 
 }

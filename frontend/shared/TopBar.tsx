@@ -5,7 +5,8 @@ import {
   Text,
   StatusBar,
   StyleSheet,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TouchableOpacity
 } from 'react-native';
 import autobind from 'autobind-decorator'
 import { Ionicons, Entypo } from '@expo/vector-icons';
@@ -17,7 +18,7 @@ interface IProps {
 export default class TopBar extends Component<IProps> {
   public render() {
     return (
-      <View> 
+      <View style={styles.wrapper} >
         <View style={{ height: 20 }} />
         <View style={styles.topBar}>
           <TouchableWithoutFeedback onPress={this.openNavi}>
@@ -46,9 +47,6 @@ export default class TopBar extends Component<IProps> {
 
 const styles = StyleSheet.create({
   topBar: {
-    backgroundColor: '#fff', 
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
     paddingLeft: 20,
     paddingRight: 20,
     height: 60,
@@ -56,4 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  wrapper: {
+    backgroundColor: '#fff', 
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  }
 });

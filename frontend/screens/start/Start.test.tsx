@@ -34,6 +34,6 @@ describe('Start', () => {
     });
 
     expect(mockObj.navigate.mock.calls.length).toBe(1);
-    expect(mockObj.navigate.mock.calls[0][0]).toBe('Home');
+    expect(mockObj.navigate.mock.calls[0][0]).toBe('Conversation');
   });
 });
