@@ -15,7 +15,7 @@ For building and testing the frontend:
 
 ```
 cd frontend
-npm install
+npm ci
 npm run test
 npm run lint
 ```
@@ -24,7 +24,7 @@ For building and testing the backend:
 
 ```
 cd backend
-npm install
+npm ci
 npm run test
 npm run lint
 ```
@@ -57,7 +57,7 @@ The code for the Master branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
-npm install
+npm ci
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh master"
@@ -69,7 +69,7 @@ The code for the Develop branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
-npm install
+npm ci
 docker build -t amosconversationaltax/conversational-tax-dev .
 docker push amosconversationaltax/conversational-tax-dev
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh develop"
@@ -79,7 +79,7 @@ ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos
 
 We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
 
-Due to the fact that Docker containers have to be started with sudo rights, where is an extensive setup being made.
+#### Starting script
 
 The key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
 
@@ -141,7 +141,7 @@ echo " "
 echo " "
 ```
 
-The Linux user "amos" does not have any sudo rights as he should not be able to do anything than starting the both CD containers. There has to be a workaround (/etc/sudoers):
+The Linux user "amos" does not have any sudo rights (Docker container have to be strated with sudo rights) as he should not be able to do anything than starting the both CD containers. There has to be a workaround (/etc/sudoers):
 
 ```
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
