@@ -5,7 +5,7 @@
 - `npm i && npm run start`
 - To dockerize it: `npm run docker:build && npm run docker:run`
 
-## Getting Sarted
+## Getting Started
 
 ### Install
 - Clone the repository.
@@ -23,3 +23,8 @@ This part has only been tested under Linux (Debian).
 - You may want to add your current user to the docker group. `sudo usermod -aG docker $USER`
 - Run `npm run docker:build` inside the /backend dir to create the docker image.
 - Run `npm run docker:run` to start the created image. 
+
+### Adding MongoDB
+Our database MongoDB is running with Docker, too
+- Run `npm run docker:createnet` to create a Docker network for communication between the containers. This has to be done *before* using `npm run docker:run`.
+- Run `npm run docker:runmongo` to start MongoDB

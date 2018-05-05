@@ -79,7 +79,7 @@ ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos
 
 We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
 
-Due to the fact that Docker containers have to be started with sudo rights, where is an extensive setup being made.
+#### Starting script
 
 The key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
 
@@ -91,10 +91,12 @@ if [ $1 == "master" ]; then
   CONTAINERNAME="conversational-tax"
   CONTAINERIMAGE="amosconversationaltax/conversational-tax"
   PRIMARYPORT="3000"
+  NETWORKNAME="conversational-tax-network"
 else
   CONTAINERNAME="conversational-tax-dev"
   CONTAINERIMAGE="amosconversationaltax/conversational-tax-dev"
   PRIMARYPORT="3010"
+  NETWORKNAME="conversational-tax-dev-network"
 fi
 
 # Check whether the container is already running
@@ -136,13 +138,37 @@ echo "###########################################"
 echo "# Start the new latest docker container:  #"
 echo "###########################################"
 echo " "
-docker run -p $PRIMARYPORT:3000 -d --name=$CONTAINERNAME --restart=always $CONTAINERIMAGE
+docker run -p $PRIMARYPORT:3000 -d --name=$CONTAINERNAME --net=$NETWORKNAME --restart=always $CONTAINERIMAGE
 echo " "
 echo " "
 ```
 
-The Linux user "amos" does not have any sudo rights as he should not be able to do anything than starting the both CD containers. There has to be a workaround (/etc/sudoers):
+The Linux user "amos" does not have any sudo rights (Docker container have to be strated with sudo rights) as he should not be able to do anything than starting the both CD containers. There has to be a workaround (/etc/sudoers):
 
 ```
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
+```
+
+#### Setup of MongoDB and the corresponding Docker Network
+
+As we decided to use MongoDB for data storage, we need to setup a MongoDB container for each of the CD containers. 
+
+At first we need to create two Docker networks:
+
+```
+docker network create conversational-tax-network
+```
+
+```
+docker network create conversational-tax-dev-network
+```
+
+Secondly we start the two MongoDB instances:
+
+```
+docker run -d -v ~/amos_data/conversational-tax-mongo:/data/db --hostname mongo --name=conversational-tax-mongo --net=conversational-tax-network --expose=27017 --restart=always mongo
+```
+
+```
+docker run -d -v ~/amos_data/conversational-tax-dev-mongo:/data/db --hostname mongo --name=conversational-tax-dev-mongo --net=conversational-tax-dev-network --expose=27017 --restart=always mongo
 ```
