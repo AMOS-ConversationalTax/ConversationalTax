@@ -15,7 +15,7 @@ For building and testing the frontend:
 
 ```
 cd frontend
-npm install
+npm ci
 npm run test
 npm run lint
 ```
@@ -24,7 +24,7 @@ For building and testing the backend:
 
 ```
 cd backend
-npm install
+npm ci
 npm run test
 npm run lint
 ```
@@ -57,7 +57,7 @@ The code for the Master branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
-npm install
+npm ci
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh master"
@@ -69,7 +69,7 @@ The code for the Develop branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
-npm install
+npm ci
 docker build -t amosconversationaltax/conversational-tax-dev .
 docker push amosconversationaltax/conversational-tax-dev
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh develop"
