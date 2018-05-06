@@ -2,9 +2,9 @@
   "expo": {
     "name": "Conversational Tax",
     "slug": "conversational-tax",
-    "privacy": "unlisted",
+    "privacy": "public",
     "sdkVersion": "27.0.0",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#fff",
     "icon": "./assets/icon.png",

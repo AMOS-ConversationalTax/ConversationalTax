@@ -75,6 +75,21 @@ docker push amosconversationaltax/conversational-tax-dev
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh develop"
 ```
 
+### Building and Deploying the Frontend
+
+Similar to the backend build, we use SemaphoreCI's tools for the frontend CD. The code for both branches is:
+
+```
+cd ../frontend
+npm ci
+npm i -g exp
+exp login -u $USERNAME -p $PASSWORD
+sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
+sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
+npm run publish
+```
+(The environment variables USERNAME, PASSWORD have to be set through SemaphoreCI. The BRANCH is directly replaced with develop or master.)
+
 ### Deploy on CD-Server
 
 We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
