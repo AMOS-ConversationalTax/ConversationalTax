@@ -15,23 +15,25 @@ export default class App extends Component<IProps> {
 
   public bar = new RestConnection();
 
-public componentDidMount() {
-  this.bar.read().then(
-    (val) => {console.log(val);}
-  );
-  const dummydataCreate = {title: 'foo', body: 'bar', userId: 1};
-  this.bar.create(dummydataCreate).then(
-    (val) => {console.log(val);}
-  );
-  const dummydataUpdate = {id: 1, title: 'foo', body: 'bar', userId: 1};
-  this.bar.update(dummydataUpdate).then(
-    (val) => {console.log(val);}
-  );
-  this.bar.delete().then(
-    (val) => {console.log(val);}
-  );
-
-}
+// Manual Testing
+/*
+  public componentDidMount() {
+    this.bar.read().then(
+      (val) => {console.log(val);}
+    );
+    const dummydataCreate = {title: 'foo', body: 'bar', userId: 1};
+    this.bar.create(dummydataCreate).then(
+      (val) => {console.log(val);}
+    );
+    const dummydataUpdate = {id: 1, title: 'foo', body: 'bar', userId: 1};
+    this.bar.update(dummydataUpdate).then(
+      (val) => {console.log(val);}
+    );
+    this.bar.delete().then(
+      (val) => {console.log(val);}
+    );
+  }
+*/
 
   public render() {
     return (
