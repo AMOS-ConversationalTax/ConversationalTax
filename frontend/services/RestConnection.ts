@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default class RestConnection implements IConnection {
 
-    public findById(id: string): Promise<string> {
+    public read(): Promise<string> {
         const url = 'https://jsonplaceholder.typicode.com/posts/1';
         const promise = new Promise<string>((resolve, reject) => {
             axios.get(url)
@@ -17,16 +17,23 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
-    public test(): string {
-        return 'test';
+    public create(data: {}): Promise<string> {
+        const url = 'https://jsonplaceholder.typicode.com/posts';
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.post(url, data)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('fail');
+            });
+        });
+        return promise;
     }
 
-    public create(data: ResponseData): void {
+    public update(data: string): Promise<string> {
     }
 
-    public update(data: ResponseData): void {
-    }
-
-    public delete(data: ResponseData): void {
+    public delete(data: string): Promise<string> {
     }
 }

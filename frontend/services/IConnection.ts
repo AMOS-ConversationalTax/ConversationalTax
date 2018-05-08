@@ -1,6 +1,6 @@
 interface IConnection {
-    findById(id: string): Promise<string>;
-    create(data: ResponseData): void;
-    update(data: ResponseData): void;
-    delete(data: ResponseData): void;
+    read(): Promise<string>;
+    create(data: {}): Promise<string>;
+    update(data: string): Promise<string>;
+    delete(data: string): Promise<string>;
 }

@@ -16,7 +16,11 @@ export default class App extends Component<IProps> {
   public bar = new RestConnection();
 
 public componentDidMount() {
-  this.bar.findById('').then(
+  this.bar.read().then(
+    (val) => {console.log(val);}
+  );
+  const dummydata = {title: 'foo', body: 'bar', userId: 1};
+  this.bar.create(dummydata).then(
     (val) => {console.log(val);}
   );
 }
