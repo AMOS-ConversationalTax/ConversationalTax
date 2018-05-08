@@ -1,13 +1,14 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+        "tslint-react"
     ],
     "jsRules": {},
     "rules": {
         "quotemark": [true, "single", "jsx-double"],
         "object-literal-sort-keys": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "linebreak-style": false
     },
     "rulesDirectory": [],
     "linterOptions": {
