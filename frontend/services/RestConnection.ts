@@ -11,7 +11,7 @@ export default class RestConnection implements IConnection {
                 resolve(response.data);
             })
             .catch((error) => {
-                reject('fail');
+                reject('reading failed');
             });
         });
         return promise;
@@ -25,13 +25,24 @@ export default class RestConnection implements IConnection {
                 resolve(response.data);
             })
             .catch((error) => {
-                reject('fail');
+                reject('creating failed');
             });
         });
         return promise;
     }
 
     public update(data: string): Promise<string> {
+        const url = 'https://jsonplaceholder.typicode.com/posts/1';
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.put(url, data)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('updating failed');
+            });
+        });
+        return promise;
     }
 
     public delete(data: string): Promise<string> {
