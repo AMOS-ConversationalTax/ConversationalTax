@@ -27,6 +27,9 @@ public componentDidMount() {
   this.bar.update(dummydata_update).then(
     (val) => {console.log(val);}
   );
+  this.bar.delete().then(
+    (val) => {console.log(val);}
+  );
 
 }
 

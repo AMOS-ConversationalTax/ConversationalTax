@@ -45,6 +45,17 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
-    public delete(data: string): Promise<string> {
+    public delete(): Promise<string> {
+        const url = 'https://jsonplaceholder.typicode.com/posts/1';
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.delete(url)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('deleting failed');
+            });
+        });
+        return promise;
     }
 }
