@@ -19,12 +19,12 @@ public componentDidMount() {
   this.bar.read().then(
     (val) => {console.log(val);}
   );
-  const dummydata_create = {title: 'foo', body: 'bar', userId: 1};
-  this.bar.create(dummydata_create).then(
+  const dummydataCreate = {title: 'foo', body: 'bar', userId: 1};
+  this.bar.create(dummydataCreate).then(
     (val) => {console.log(val);}
   );
-  const dummydata_update = {id: 1, title: 'foo', body: 'bar', userId: 1};
-  this.bar.update(dummydata_update).then(
+  const dummydataUpdate = {id: 1, title: 'foo', body: 'bar', userId: 1};
+  this.bar.update(dummydataUpdate).then(
     (val) => {console.log(val);}
   );
   this.bar.delete().then(
