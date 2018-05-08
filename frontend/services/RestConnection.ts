@@ -1,7 +1,24 @@
-class RestConnection implements IConnection {
+import { rejects } from 'assert';
+import axios from 'axios';
 
-    public findById(id: string): ResponseData {
-        return new ResponseData();
+export default class RestConnection implements IConnection {
+
+    public findById(id: string): Promise<string> {
+        const url = 'https://jsonplaceholder.typicode.com/posts/1';
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.get(url)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('fail');
+            });
+        });
+        return promise;
+    }
+
+    public test(): string {
+        return 'test';
     }
 
     public create(data: ResponseData): void {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   Platform,
   StyleSheet,
@@ -6,10 +7,20 @@ import {
   View,
 } from 'react-native';
 import Logo from '../components/Logo';
+import RestConnection from '../services/RestConnection';
 
 interface IProps {}
 
 export default class App extends Component<IProps> {
+
+  public bar = new RestConnection();
+
+public componentDidMount() {
+  this.bar.findById('').then(
+    (val) => {console.log(val);}
+  );
+}
+
   public render() {
     return (
       <View style={styles.container}>
