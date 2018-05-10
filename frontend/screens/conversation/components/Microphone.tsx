@@ -85,14 +85,20 @@ export default class Microphone extends Component<IProps> {
 
         // Button is started to being pressed
         this.buttonPressed = true;
-        this.render();
 
         // Check whether there is an recording being processed at the moment or not
         if(this.recordingStatus) {
 
+            console.log('Already recording');
+
             // No action should be triggered while an other recording is being processed
 
         } else {
+
+            console.log('Recording now');
+
+            // Is recording now
+            this.recordingStatus = true;
 
             // Custom audio settings for recording
             await Audio.setAudioModeAsync({
@@ -110,7 +116,8 @@ export default class Microphone extends Component<IProps> {
             await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY)));
 
             // Send status updates to recordingStatusUpdate()
-            recording.setOnRecordingStatusUpdate(this.recordingStatusUpdate);
+            // recording.setOnRecordingStatusUpdate(this.recordingStatusUpdate);
+            recording.setOnRecordingStatusUpdate();
 
             // Save object into class attributes
             this.recordingObject = recording;
@@ -122,45 +129,25 @@ export default class Microphone extends Component<IProps> {
     }
 
     // Handler for the PressOut Event on the Microphone button
-    // Stops a new recording (It might take some time for the recording to be processed)
+    // Stops the recording
     @autobind
     private async onPressOut() {
         console.log(`Out`);
 
         // Button is not pressed any more
         this.buttonPressed = false;
-        this.render();
 
         // Stop the recording
         try {
 
             // Finish the recording
-            // We still have to wait for some time till the recording is processed after that
-            // RecordingStatusUpdate() is meant to handle the finished recording
             await this.recordingObject.stopAndUnloadAsync();
 
-        } catch (error) {
-
-            // Do nothing -- we are already unloaded.
-
-        }         
-    }
-
-    // Handler for a status change at the recording
-    // Is called several times, but is used to process the finished recording
-    @autobind
-    private async recordingStatusUpdate() {
-        // Get current status of the recording
-        var status = await this.recordingObject.getStatusAsync();
-
-        if (status.isDoneRecording && this.recordingStatus) {
-
-            // Print the file path to the recording und other information
             var info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
             console.log(`Info: ${JSON.stringify(info)}`);
 
-            // Custom settings for the output
-            await Audio.setAudioModeAsync({
+             // Custom settings for the output
+             await Audio.setAudioModeAsync({
                 allowsRecordingIOS: false,
                 interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
                 playsInSilentModeIOS: true,
@@ -178,7 +165,7 @@ export default class Microphone extends Component<IProps> {
                     rate: 1.0,
                     shouldCorrectPitch: true,
                 },
-                true
+                this.recordingStatusUpdate
             ); 
 
             // Set the recording status to false again and clean up the objects
@@ -188,7 +175,20 @@ export default class Microphone extends Component<IProps> {
             }
 
             this.recordingStatus = false;
-        }
+
+            console.log("Finish");
+
+        } catch (error) {
+
+            // Do nothing -- we are already unloaded.
+
+        }         
+    }
+
+    // Handler for a status change at the recording
+    @autobind
+    private async recordingStatusUpdate() {
+       
     }
 }
 
