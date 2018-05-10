@@ -22,6 +22,8 @@ export default class Microphone extends Component<IProps> {
         private recordingObject: Audio.Recording;
         // Recording status - true for recording, false for no recording 
         private recordingStatus: boolean;
+        // Recording status synced - true if onPressIn is done, false if not
+        private recordingStatusSynced: boolean;
         // Is the button being pressed - true is pressed, false is not pressed
         private buttonPressed: boolean;
 
@@ -34,6 +36,7 @@ export default class Microphone extends Component<IProps> {
 
         // There is no recording going on at the beginning
         this.recordingStatus = false;
+        this.recordingStatusSynced = false;
 
         // Button is not pressed by default
         this.buttonPressed = false;
@@ -91,6 +94,8 @@ export default class Microphone extends Component<IProps> {
 
             console.log('Already recording');
 
+            this.statusOutput();
+
             // No action should be triggered while an other recording is being processed
 
         } else {
@@ -99,15 +104,6 @@ export default class Microphone extends Component<IProps> {
 
             // Is recording now
             this.recordingStatus = true;
-
-            // Custom audio settings for recording
-            await Audio.setAudioModeAsync({
-                allowsRecordingIOS: true,
-                interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-                playsInSilentModeIOS: true,
-                shouldDuckAndroid: true,
-                interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-            });
 
             // Create a new object
             let recording = new Audio.Recording();
@@ -125,6 +121,8 @@ export default class Microphone extends Component<IProps> {
             // Start recording audio
             await this.recordingObject.startAsync();
 
+            this.recordingStatusSynced = true;
+
         }
     }
 
@@ -140,21 +138,18 @@ export default class Microphone extends Component<IProps> {
         // Stop the recording
         try {
 
+            // Waiting for onPressIn() to be finished
+            // this.waitForSync();
+
+            this.statusOutput();
+
             // Finish the recording
             await this.recordingObject.stopAndUnloadAsync();
 
+            this.statusOutput();
+
             var info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
             console.log(`Info: ${JSON.stringify(info)}`);
-
-             // Custom settings for the output
-             await Audio.setAudioModeAsync({
-                allowsRecordingIOS: false,
-                interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
-                playsInSilentModeIOS: true,
-                playsInSilentLockedModeIOS: true,
-                shouldDuckAndroid: true,
-                interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-            });
 
             // Create the final sound
             const { sound, state } = await this.recordingObject.createNewLoadedSound(
@@ -175,12 +170,11 @@ export default class Microphone extends Component<IProps> {
             }
 
             this.recordingStatus = false;
+            this.recordingStatusSynced = false;
 
             console.log("Finish");
 
         } catch (error) {
-
-            // Do nothing -- we are already unloaded.
 
         }         
     }
@@ -190,6 +184,44 @@ export default class Microphone extends Component<IProps> {
     private async recordingStatusUpdate() {
        
     }
+
+    // Debugging function for status output
+    @autobind
+    private async statusOutput()
+    {
+        console.log(`Recording object null:`);
+        console.log(this.recordingObject == null);
+        // Recording might be to short to be started
+        var status = await this.recordingObject.getStatusAsync();
+        if(this.recordingObject != null)
+        {
+        console.log(`Status can record:`);
+        console.log(status.canRecord);
+        console.log(`Status is done recording:`);
+        console.log(status.isDoneRecording);
+        console.log(`Status is Recording:`);
+        console.log(status.isRecording);
+        console.log(`Status Duration Millis:`);
+        console.log(status.durationMillis);
+        }
+    }
+
+    /*
+    @autobind
+    private waitForSync() 
+    {
+        // Loop while recordingStatusSynced is false (= onPressIn is not finished)
+        if(!this.recordingStatusSynced)
+        {
+            console.log(`Wait for sync`);
+            setTimeout(this.waitForSync, 10);
+        }
+
+        console.log(`Synced`);
+
+        return;
+    }
+    */
 }
 
 const styles = StyleSheet.create({
