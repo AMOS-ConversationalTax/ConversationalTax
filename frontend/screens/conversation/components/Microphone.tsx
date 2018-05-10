@@ -7,13 +7,22 @@ import {
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
+import { isUndefined } from 'util';
 
 interface IProps {
 }
 
 export default class Microphone extends Component<IProps> {
-    // Create the Recording object only one time
-    private recording = new Audio.Recording();
+
+    // Private attributes
+    private recording: Audio.Recording;
+
+    constructor(props) {
+        super(props);
+
+        // No recoring attribute for now
+        this.recording = null;
+    }
 
     public render() {
         return (
@@ -44,15 +53,27 @@ export default class Microphone extends Component<IProps> {
             shouldDuckAndroid: true,
             interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
         });
+
+        // Clean up old objects
+        if (this.recording !== null) {
+            this.recording.setOnRecordingStatusUpdate(null);
+            this.recording = null;
+        }
+
+        // Create a new object
+        const recording = new Audio.Recording();
       
         // Expo Audio requires to prepare before recording audio
-        await this.recording.prepareToRecordAsync(JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY)));
+        await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY)));
+
+        // Send status updates to recordingStatusUpdate()
+        recording.setOnRecordingStatusUpdate(this.recordingStatusUpdate);
+
+        // Save obeject into class attributes
+        this.recording = recording;
 
         // Start recording audio
         await this.recording.startAsync();
-
-        // Send status updates to recordingStatusUpdate()
-        this.recording.setOnRecordingStatusUpdate(this.recordingStatusUpdate);
     }
 
     private async onPressOut() {
@@ -74,10 +95,11 @@ export default class Microphone extends Component<IProps> {
             console.log('Fertig');
         }
 
-        /*
-        const info = await FileSystem.getInfoAsync(this.recording.getURI());
-        console.log(`FILE INFO: ${JSON.stringify(info)}`);
+        // Print the file path to the recording und other information
+        var info = await FileSystem.getInfoAsync(this.recording.getURI());
+        console.log(`Info: ${JSON.stringify(info)}`);
 
+        // Custom settings for the output
         await Audio.setAudioModeAsync({
             allowsRecordingIOS: false,
             interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -87,7 +109,8 @@ export default class Microphone extends Component<IProps> {
             interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
         });
 
-        const { sound, status } = await this.recording.createNewLoadedSound(
+        // Create the final sound
+        const { sound, state } = await this.recording.createNewLoadedSound(
             {
                 isLooping: false,
                 isMuted: false,
@@ -97,7 +120,6 @@ export default class Microphone extends Component<IProps> {
             },
             true
         ); 
-        */
     }
 }
 
