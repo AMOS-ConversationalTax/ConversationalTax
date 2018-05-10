@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {
     View,
     StyleSheet,
-    TouchableOpacity
+    TouchableWithoutFeedback
 } from 'react-native';
 import autobind from 'autobind-decorator';
 
@@ -14,18 +14,26 @@ export default class Microphone extends Component<IProps> {
     public render() {
         return (
             <View style={styles.view}>
-                <TouchableOpacity onPress={this.onPress}>
+                <TouchableWithoutFeedback 
+                    onPressIn={this.onPressIn} 
+                    onPressOut={this.onPressOut}
+                    >
                     <View style={styles.circle}>
                         <Ionicons name="md-mic" size={75} color="#000" />
                     </View>
-                </TouchableOpacity>
+                </TouchableWithoutFeedback>
             </View>
         );
     }
 
     @autobind
-    private onPress() {
-        
+    private onPressIn() {
+        // console.log("Press in");
+    }
+
+    @autobind
+    private onPressOut() {
+        // console.log("Press out");
     }
 }
 
