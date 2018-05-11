@@ -52,7 +52,7 @@ export default class Microphone extends Component<IProps> {
                     <TouchableWithoutFeedback 
                         onPressIn={this.onPressIn} 
                         onPressOut={this.onPressOut}
-                        >
+                    >
                         <View style={styles.circle}>
                             <Ionicons name="md-mic" size={75} color="#000" />
                         </View>
@@ -65,7 +65,7 @@ export default class Microphone extends Component<IProps> {
                     <TouchableWithoutFeedback 
                         onPressIn={this.onPressIn} 
                         onPressOut={this.onPressOut}
-                        >
+                    >
                         <View style={styles.circle}>
                             <Ionicons name="md-mic" size={75} color="#7b322c" />
                         </View>
@@ -78,7 +78,7 @@ export default class Microphone extends Component<IProps> {
                     <TouchableWithoutFeedback 
                         onPressIn={this.onPressIn} 
                         onPressOut={this.onPressOut}
-                        >
+                    >
                         <View style={styles.circle}>
                             <Ionicons name="md-mic" size={75} color="#ddd" />
                         </View>
@@ -108,7 +108,7 @@ export default class Microphone extends Component<IProps> {
     // Starts a new recording (if it is waitingForRecordActive)
     @autobind
     private async onPressIn() {
-        console.log('In');
+        // console.log('In');
 
         // Start the new recording
         await this.startANewRecording();
@@ -118,7 +118,7 @@ export default class Microphone extends Component<IProps> {
     // Stops the recording
     @autobind
     private async onPressOut() {
-        console.log(`Out`);
+        // console.log(`Out`);
 
         // End the recording
         await this.endARecording();
