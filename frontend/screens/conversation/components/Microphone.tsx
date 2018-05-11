@@ -13,6 +13,29 @@ import { isUndefined } from 'util';
 interface IProps {
 }
 
+// Custom recording options
+export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
+    android: {
+        extension: '.m4a',
+        outputFormat: Expo.Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+        audioEncoder: Expo.Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+        sampleRate: 44100,
+        numberOfChannels: 2,
+        bitRate: 128000,
+    },
+    ios: {
+        extension: '.m4a',
+        outputFormat: Expo.Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC,
+        audioQuality: Expo.Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
+        sampleRate: 44100,
+        numberOfChannels: 2,
+        bitRate: 128000,
+        linearPCMBitDepth: 16,
+        linearPCMIsBigEndian: false,
+        linearPCMIsFloat: false,
+    },
+};
+
 export default class Microphone extends Component<IProps> {
 
     // Private attributes:
@@ -80,7 +103,7 @@ export default class Microphone extends Component<IProps> {
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circle}>
-                            <Ionicons name="md-mic" size={75} color="#ddd" />
+                            <Ionicons name="md-mic" size={75} color="#b0b0b0" />
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -140,7 +163,7 @@ export default class Microphone extends Component<IProps> {
             let recording = new Audio.Recording();
                     
             // Expo Audio requires to prepare before recording audio
-            await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(Audio.RECORDING_OPTIONS_PRESET_LOW_QUALITY)));
+            await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(RECORDING_OPTIONS_CUSTOM)));
             
             // Send status updates to recordingStatusUpdate()
             recording.setOnRecordingStatusUpdate();
@@ -187,21 +210,52 @@ export default class Microphone extends Component<IProps> {
             // End the recording
             await this.recordingObject.stopAndUnloadAsync();
 
+            // Set the recording on inactive
+            this.setState({
+                recordingActive: false,
+            });
+
+            // We need the filepath to work with the recording
             var info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
-            console.log(`Info: ${JSON.stringify(info)}`);
+            var filepath = this.recordingObject.getURI();
+
+            // Get the content of the recorded file
+            var content = await FileSystem.readAsStringAsync(filepath);
+
+            // Convert the String to Base64
+            var base64 = await this.binaryStringToBase64(content);
+            // console.log(base64);
 
             // Delete the recording object
             this.recordingObject.setOnRecordingStatusUpdate(null);
             this.recordingObject = null;
 
-            // Set the processing and the recording inactive and wait for new recording
+            // Set the processing on inactive and wait for new recording
             this.setState({
-                recordingActive: false,
                 processingActive: false,
                 waitingForRecordActive: true
             });
 
         }
+
+    }
+
+    // Convert a string URI
+    @autobind
+    private async binaryStringToBase64(input: string) {
+       
+        // Create a new ArrayBuffer - 2 Bytes for each char
+        var buffer = new ArrayBuffer(input.length * 2); 
+        var bufferView = new Uint16Array(buffer);
+        for (var i=0, strLen=input.length; i < strLen; i++) {
+          bufferView[i] = input.charCodeAt(i);
+        }
+
+        // Use the native React Native function to convert the ArrayBuffer to Base64
+        var binaryToBase64 = require('binaryToBase64');
+        var output = binaryToBase64(buffer);
+
+        return output;
 
     }
 
