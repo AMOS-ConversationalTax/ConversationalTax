@@ -19,10 +19,9 @@ export default class Microphone extends Component<IProps> {
     // Recording object
     private recordingObject: Audio.Recording;
 
-    // Minimal and maximal recording time in ms
+    // Minimal recording time in ms
     // Min has to be above 300ms due to https://github.com/expo/expo/issues/1709
     private minRecordingTime: number = 500;
-    private maxRecordingTime: number = 600000;
 
     // Main constructor of the Microphone button
     constructor(props: any) {
@@ -112,7 +111,7 @@ export default class Microphone extends Component<IProps> {
         console.log('In');
 
         // Start the new recording
-        await this.startANewRecording()
+        await this.startANewRecording();
     }
 
     // Handler for the PressOut Event on the Microphone button
@@ -211,27 +210,6 @@ export default class Microphone extends Component<IProps> {
     private async recordingStatusUpdate()
     {
        
-    }
-
-    // Debugging function for status output
-    @autobind
-    private async statusOutput()
-    {
-        console.log(`Recording object null:`);
-        console.log(this.recordingObject == null);
-        // Recording might be to short to be started
-        var status = await this.recordingObject.getStatusAsync();
-        if(this.recordingObject != null)
-        {
-        console.log(`Status can record:`);
-        console.log(status.canRecord);
-        console.log(`Status is done recording:`);
-        console.log(status.isDoneRecording);
-        console.log(`Status is Recording:`);
-        console.log(status.isRecording);
-        console.log(`Status Duration Millis:`);
-        console.log(status.durationMillis);
-        }
     }
 }
 
