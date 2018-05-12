@@ -48,6 +48,7 @@ export default class Microphone extends Component<IProps> {
 
     // Main constructor of the Microphone button
     constructor(props: any) {
+
         super(props);
 
         // Recording object is generated on the fly
@@ -68,91 +69,109 @@ export default class Microphone extends Component<IProps> {
 
     // Rendering function of React Native
     public render() {
-        if (this.state.waitingForRecordActive)
-        {
+
+        if (this.state.waitingForRecordActive) {
+
             return (
                 <View style={styles.view}>
                     <TouchableWithoutFeedback 
                         onPressIn={this.onPressIn} 
                         onPressOut={this.onPressOut}
                     >
-                        <View style={styles.circle}>
-                            <Ionicons name="md-mic" size={75} color="#000" />
+                        <View style={styles.circleBorderWaiting}>
+                            <View style={styles.circle}>
+                                <Ionicons name="md-mic" size={75} color="#000" />
+                            </View>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
             );
+
         } else if (this.state.recordingActive) {
+
             return (
                 <View style={styles.view}>
                     <TouchableWithoutFeedback 
                         onPressIn={this.onPressIn} 
                         onPressOut={this.onPressOut}
                     >
-                        <View style={styles.circle}>
-                            <Ionicons name="md-mic" size={75} color="#7b322c" />
+                        <View style={styles.circleBorderActive}>
+                            <View style={styles.circle}>
+                                <Ionicons name="md-mic" size={75} color="#000" />
+                            </View>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
             );
+
         } else {
+
             return (
                 <View style={styles.view}>
                     <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
-                        onPressOut={this.onPressOut}
+                        disabled={true}
                     >
-                        <View style={styles.circle}>
-                            <Ionicons name="md-mic" size={75} color="#b0b0b0" />
+                        <View style={styles.circleBorderProcessing}>
+                            <View style={styles.circle}>
+                                <Ionicons name="md-mic" size={75} color="#000" />
+                            </View>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
             );
+
         }
+
     }
 
     // Recording is in need of seperate permissions - This function asks for them
     @autobind
-    private async askForPermissions()
-    {
+    private async askForPermissions() {
+
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
 
-        if(response.status === 'granted')
-        {
+        if(response.status === 'granted') {
+
             // Set the button active
             this.setState({
                 haveRecordingPermissions: true,
                 waitingForRecordActive: true,
             });
+
         }
+
     }
 
     // Handler for the PressIn Event on the Microphone button
     // Starts a new recording (if it is waitingForRecordActive)
     @autobind
     private async onPressIn() {
+
         // console.log('In');
 
         // Start the new recording
         await this.startANewRecording();
+
     }
 
     // Handler for the PressOut Event on the Microphone button
     // Stops the recording
     @autobind
     private async onPressOut() {
+
         // console.log(`Out`);
 
         // End the recording
         await this.endARecording();
+
     }
 
     // Start a new recording
     @autobind
     private async startANewRecording() {
 
-        if(this.state.waitingForRecordActive)
-        {
+        if(this.state.waitingForRecordActive) {
+
             // Set the button inactive and 
             this.setState({
                 waitingForRecordActive: false,
@@ -173,10 +192,12 @@ export default class Microphone extends Component<IProps> {
             
             // Start recording audio
             await this.recordingObject.startAsync();
+
         } 
 
     }
 
+    // End the recording
     @autobind
     private async endARecording() {
 
@@ -188,24 +209,27 @@ export default class Microphone extends Component<IProps> {
             });
 
             // Get current status of the recording object
-            var status = await this.recordingObject.getStatusAsync();
+            let status = await this.recordingObject.getStatusAsync();
 
             // Control whether min recording time is reached
-            if(status.durationMillis > this.minRecordingTime)
-            {
+            if(status.durationMillis > this.minRecordingTime) {
+
                 this.endARecordingHelper();
+
             } else {
+
                 setTimeout(this.endARecordingHelper, this.minRecordingTime - status.durationMillis);
+
             }
         }
 
     }
 
+    // Helper function for endARecording() to enable the setTimeout functionality
     @autobind
     private async endARecordingHelper() {
 
-        if(this.state.recordingActive && this.state.processingActive)
-        {
+        if(this.state.recordingActive && this.state.processingActive) {
             
             // End the recording
             await this.recordingObject.stopAndUnloadAsync();
@@ -216,14 +240,14 @@ export default class Microphone extends Component<IProps> {
             });
 
             // We need the filepath to work with the recording
-            var info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
-            var filepath = this.recordingObject.getURI();
+            let info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
+            let filepath = this.recordingObject.getURI();
 
             // Get the content of the recorded file
-            var content = await FileSystem.readAsStringAsync(filepath);
+            let content = await FileSystem.readAsStringAsync(filepath);
 
             // Convert the String to Base64
-            var base64 = await this.binaryStringToBase64(content);
+            let base64 = await this.binaryStringToBase64(content);
             // console.log(base64);
 
             // Delete the recording object
@@ -240,30 +264,25 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // Convert a string URI
+    // Convert a string to Base64 format
     @autobind
     private async binaryStringToBase64(input: string) {
        
         // Create a new ArrayBuffer - 2 Bytes for each char
-        var buffer = new ArrayBuffer(input.length * 2); 
-        var bufferView = new Uint16Array(buffer);
-        for (var i=0, strLen=input.length; i < strLen; i++) {
+        let buffer = new ArrayBuffer(input.length * 2); 
+        let bufferView = new Uint16Array(buffer);
+        for (let i=0, strLen=input.length; i < strLen; i++) {
+
           bufferView[i] = input.charCodeAt(i);
+
         }
 
         // Use the native React Native function to convert the ArrayBuffer to Base64
-        var binaryToBase64 = require('binaryToBase64');
-        var output = binaryToBase64(buffer);
+        let binaryToBase64 = require('binaryToBase64');
+        let output = binaryToBase64(buffer);
 
         return output;
 
-    }
-
-    // Handler for a status change at the recording
-    @autobind
-    private async recordingStatusUpdate()
-    {
-       
     }
 }
 
@@ -281,5 +300,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#ddd',
+    },
+    circleBorderWaiting: {
+        borderRadius: 78,
+        width: 156,
+        height: 156,
+        paddingTop: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ccc',
+    },
+    circleBorderActive: {
+        borderRadius: 78,
+        width: 156,
+        height: 156,
+        paddingTop: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#cde6ff',
+    },
+    circleBorderProcessing: {
+        borderRadius: 78,
+        width: 156,
+        height: 156,
+        paddingTop: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#cde6ff',
     },
 });
