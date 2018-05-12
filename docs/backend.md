@@ -23,3 +23,13 @@ This part has only been tested under Linux (Debian).
 - You may want to add your current user to the docker group. `sudo usermod -aG docker $USER`
 - Run `npm run docker:build` inside the /backend dir to create the docker image.
 - Run `npm run docker:run` to start the created image. 
+
+## DialogFlow Auth
+In order to use DialogFlow you need to provide an appropriate keyfile, which has to be placed at /backend/dialogflowKey.json
+
+### Getting the Keyfile
+- Log into the console of DialogFlow
+- Go the the agents settings. (Left navigation on the top - settings symbol)
+- Click onto your 'Service Account'. 
+- In the new window, click on the three dots on the right side of the selected row.
+- Choose to generate the key. 
