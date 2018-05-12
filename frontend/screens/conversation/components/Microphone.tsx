@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
+import FileServices from '../../../services/FileServices'
 
 interface IProps {
 }
@@ -186,7 +187,7 @@ export default class Microphone extends Component<IProps> {
 
             // There is some rare case there button is released before recording is active
             // In this case it is necessary to wait some ms
-            setTimeout(this.endARecording, 20);
+            setTimeout(this.onPressOut, 20);
 
         }
 
