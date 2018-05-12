@@ -125,7 +125,8 @@ export default class Microphone extends Component<IProps> {
             return (
                 <View style={styles.view}>
                     <TouchableWithoutFeedback 
-                        disabled={true}
+                        onPressIn={this.onPressIn} 
+                        onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderAlternative}>
                             <View style={styles.circle}>
