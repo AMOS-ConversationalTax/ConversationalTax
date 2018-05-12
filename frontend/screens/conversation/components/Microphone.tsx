@@ -275,7 +275,7 @@ export default class Microphone extends Component<IProps> {
 
             // Convert the String to Base64
             let content = await this.binaryStringToBase64(filepath);
-            console.log(content);
+            // console.log(content);
 
             // Delete the recording object
             this.recordingObject.setOnRecordingStatusUpdate(null);
