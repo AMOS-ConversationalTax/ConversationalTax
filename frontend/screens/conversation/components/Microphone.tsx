@@ -104,7 +104,7 @@ export default class Microphone extends Component<IProps> {
                 </View>
             );
 
-        } else {
+        } else if (this.state.processingActive) {
 
             return (
                 <View style={styles.view}>
@@ -112,6 +112,22 @@ export default class Microphone extends Component<IProps> {
                         disabled={true}
                     >
                         <View style={styles.circleBorderProcessing}>
+                            <View style={styles.circle}>
+                                <Ionicons name="md-mic" size={75} color="#000" />
+                            </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+            );
+
+        } else {
+
+            return (
+                <View style={styles.view}>
+                    <TouchableWithoutFeedback 
+                        disabled={true}
+                    >
+                        <View style={styles.circleBorderAlternative}>
                             <View style={styles.circle}>
                                 <Ionicons name="md-mic" size={75} color="#000" />
                             </View>
@@ -150,7 +166,7 @@ export default class Microphone extends Component<IProps> {
         // console.log('In');
 
         // Start the new recording
-        await this.startANewRecording();
+        this.startANewRecording();
 
     }
 
@@ -159,10 +175,20 @@ export default class Microphone extends Component<IProps> {
     @autobind
     private async onPressOut() {
 
-        // console.log(`Out`);
+        // console.log('Out');
 
         // End the recording
-        await this.endARecording();
+        if(this.state.recordingActive) {
+
+            this.endARecording();
+
+        } else {
+
+            // There is some rare case there button is released before recording is active
+            // In this case it is necessary to wait some ms
+            setTimeout(this.endARecording, 20);
+
+        }
 
     }
 
@@ -172,10 +198,9 @@ export default class Microphone extends Component<IProps> {
 
         if(this.state.waitingForRecordActive) {
 
-            // Set the button inactive and 
+            // Set the button on not waiting for record
             this.setState({
                 waitingForRecordActive: false,
-                recordingActive: true,
             });
 
             // Create a new object
@@ -193,6 +218,10 @@ export default class Microphone extends Component<IProps> {
             // Start recording audio
             await this.recordingObject.startAsync();
 
+            this.setState({
+                recordingActive: true,
+            });
+
         } 
 
     }
@@ -201,8 +230,8 @@ export default class Microphone extends Component<IProps> {
     @autobind
     private async endARecording() {
 
-        if(this.state.recordingActive && !this.state.processingActive)
-        {
+        if(this.state.recordingActive && !this.state.processingActive) {
+
             // Set the processing active
             this.setState({
                 processingActive: true,
@@ -221,6 +250,7 @@ export default class Microphone extends Component<IProps> {
                 setTimeout(this.endARecordingHelper, this.minRecordingTime - status.durationMillis);
 
             }
+
         }
 
     }
@@ -320,6 +350,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#cde6ff',
     },
     circleBorderProcessing: {
+        borderRadius: 78,
+        width: 156,
+        height: 156,
+        paddingTop: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#cde6ff',
+    },
+    circleBorderAlternative: {
         borderRadius: 78,
         width: 156,
         height: 156,
