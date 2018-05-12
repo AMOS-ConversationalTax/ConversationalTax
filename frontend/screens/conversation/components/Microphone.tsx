@@ -8,12 +8,11 @@ import {
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
-import { isUndefined } from 'util';
 
 interface IProps {
 }
 
-// Custom recording options
+// Custom recording settings
 export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
     android: {
         extension: '.m4a',
@@ -274,12 +273,9 @@ export default class Microphone extends Component<IProps> {
             let info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
             let filepath = this.recordingObject.getURI();
 
-            // Get the content of the recorded file
-            let content = await FileSystem.readAsStringAsync(filepath);
-
             // Convert the String to Base64
-            let base64 = await this.binaryStringToBase64(content);
-            // console.log(base64);
+            let content = await this.binaryStringToBase64(filepath);
+            console.log(content);
 
             // Delete the recording object
             this.recordingObject.setOnRecordingStatusUpdate(null);
@@ -295,9 +291,12 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // Convert a string to Base64 format
+    // Convert a URI (filepath) to a string in Base64 format
     @autobind
-    private async binaryStringToBase64(input: string) {
+    private async binaryStringToBase64(filepath: string) {
+
+        // Get the content of the recorded file
+        let input = await FileSystem.readAsStringAsync(filepath);
        
         // Create a new ArrayBuffer - 2 Bytes for each char
         let buffer = new ArrayBuffer(input.length * 2); 
