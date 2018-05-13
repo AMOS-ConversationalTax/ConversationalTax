@@ -117,27 +117,53 @@ export default class FileServices {
         // Iterate through the bit array (for bash64 we need steps of six bits)
         for(let i: number = 0; i < inputBitArray.length; i = i + 6) {
 
-            // For the case there are not enough bits left
-            if(i + 6 > inputBitArray.length) {
+            // The block of the last six bits might not be complete
+            if(i + 6 < inputBitArray.length) {
 
-                // Add the additional bits
-                for(let y: number = i; y < inputBitArray.length; y++) {
+                // Compute the corresponding decimal number to the six bits
+                let sixBitNumber: number = inputBitArrayCopy[i] * Math.pow(2, 5) + inputBitArrayCopy[i+1] * Math.pow(2, 4) + inputBitArrayCopy[i+2] * Math.pow(2, 3)
+                                        + inputBitArrayCopy[i+3] * Math.pow(2, 2) + inputBitArrayCopy[i+4] * Math.pow(2, 1) + inputBitArrayCopy[i+5] * Math.pow(2, 0);
 
-                    inputBitArrayCopy.push(0);
-
-                }
+                outputString = outputString.concat(base64Coding[sixBitNumber]);
 
             }
 
-            // Compute the corresponding decimal number to the six bits
-            let sixBitNumber: number = inputBitArrayCopy[i] * Math.pow(2, 5) + inputBitArrayCopy[i+1] * Math.pow(2, 4) + inputBitArrayCopy[i+2] * Math.pow(2, 3)
-                                     + inputBitArrayCopy[i+3] * Math.pow(2, 2) + inputBitArrayCopy[i+4] * Math.pow(2, 1) + inputBitArrayCopy[i+5] * Math.pow(2, 0);
+        }
 
-            outputString = outputString.concat(base64Coding[sixBitNumber]);
+        // For every bit of the incomplete block we would need to add an =
+        for(let i: number = 0; i < 6 - (inputBitArray.length % 6); i++) {
+
+            outputString = outputString.concat("=");
 
         }
 
         return outputString;
+
+    }
+
+    // Convert an string to Base64
+    public stringToBase64String(inputString: String): String {
+
+        // Covert the string to a byte array
+        let byteArray: Array<number> = this.stringToByteArray(inputString);
+
+        // Convert the byte array to a bit array
+        let bitArray: Array<number> = this.byteArrayToBitArray(byteArray);
+
+        // Convert the bit array to a Base64 String
+        let base64String: String = this.bitArrayToBase64String(bitArray);
+
+        return base64String;
+
+    }
+
+    // Load a file an convert it to a Base64 string
+    public async fileToBase64String(filepath: String): Promise<String> {
+
+        // Get the file content
+        let fileContent = await this.loadFileToString(filepath);
+
+        return this.stringToBase64String(fileContent);
 
     }
 
