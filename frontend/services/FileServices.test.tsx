@@ -78,7 +78,7 @@ describe('FileServices:', () => {
     
     });
 
-    it('charCodeArrayToBitArray() - Small charCode that has to be filled up to 8 Bits', () => {
+    it('charCodeArrayToBitArray() - Small charCode that has to be filled up to 8 Bits (1)', () => {
 
         // Create FileServices object
         let fs: FileServices = new FileServices();
@@ -86,6 +86,34 @@ describe('FileServices:', () => {
         // Input and expected output
         let input: Array<number> = [23];
         let output: Array<number> = [0, 0, 0, 1, 0, 1, 1, 1];
+
+        // Test the function
+        expect(fs.charCodeArrayToBitArray(input)).toEqual(output);
+    
+    });
+
+    it('charCodeArrayToBitArray() - Small charCode that has to be filled up to 8 Bits (2)', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: Array<number> = [84];
+        let output: Array<number> = [0, 1, 0, 1, 0, 1, 0, 0];
+
+        // Test the function
+        expect(fs.charCodeArrayToBitArray(input)).toEqual(output);
+    
+    });
+
+    it('charCodeArrayToBitArray() - Small charCode that has to be filled up to 8 Bits (3)', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: Array<number> = [32];
+        let output: Array<number> = [0, 0, 1, 0, 0, 0, 0, 0];
 
         // Test the function
         expect(fs.charCodeArrayToBitArray(input)).toEqual(output);
@@ -246,7 +274,7 @@ describe('FileServices:', () => {
     
     });
 
-    it('bitArrayToBase64String() - Exception: Noly 0 and 1 in input', () => {
+    it('bitArrayToBase64String() - Exception: Only 0 and 1 in input', () => {
 
         // Create FileServices object
         let fs: FileServices = new FileServices();
@@ -259,7 +287,7 @@ describe('FileServices:', () => {
     
     });
 
-    it('bitArrayToBase64String() - Exception: Noly 0 and 1 in input (2)', () => {
+    it('bitArrayToBase64String() - Exception: Only 0 and 1 in input (2)', () => {
 
         // Create FileServices object
         let fs: FileServices = new FileServices();
@@ -272,7 +300,7 @@ describe('FileServices:', () => {
     
     });
 
-    it('bitArrayToBase64String() - Exception: Noly 0 and 1 in input (3)', () => {
+    it('bitArrayToBase64String() - Exception: Only 0 and 1 in input (3)', () => {
 
         // Create FileServices object
         let fs: FileServices = new FileServices();
@@ -285,6 +313,132 @@ describe('FileServices:', () => {
     
     });
 
+    // stringToBitArray()
 
+    it('stringToBitArray() - Empty input', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = '';
+        let output: Array<number> = [];
+
+        // Test the function
+        expect(fs.stringToBitArray(input)).toEqual(output);
+
+    });
+
+    it('stringToBitArray() - String without special characters', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = 'Test';
+        let output: Array<number> = [0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+                                     1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0];
+
+        // Test the function
+        expect(fs.stringToBitArray(input)).toEqual(output);
+
+    });
+
+    it('stringToBitArray() - String with common special characters (1)', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = '!§2&';
+        let output: Array<number> = [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0,
+                                     0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0];
+
+        // Test the function
+        expect(fs.stringToBitArray(input)).toEqual(output);
+
+    });
+
+    it('stringToBitArray() - String with common special characters (2)', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = 'Test a special (!!!) Base64 converting function #cool';
+        let output: Array<number> = [0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+                                     1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0,
+                                     1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1,
+                                     0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1,
+                                     0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+                                     0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 
+                                     0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+                                     0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+                                     0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 
+                                     0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1,
+                                     0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1,
+                                     1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1,
+                                     0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0,
+                                     0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1,
+                                     1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1,
+                                     0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0,
+                                     0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0,
+                                     1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0,
+                                     1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1,
+                                     1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
+                                     0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1,
+                                     0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1,
+                                     1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+                                     1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1,
+                                     0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0];
+
+        // Test the function
+        expect(fs.stringToBitArray(input)).toEqual(output);
+
+    });
+
+    // stringToBase64String()
+
+    it('stringToBase64String() - Empty input', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = '';
+        let output: String = '';
+
+        // Test the function
+        expect(fs.stringToBase64String(input)).toEqual(output);
+
+    });
+
+    it('stringToBase64String() - String without special characters', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = 'Test';
+        let output: String = 'VGVzdA==';
+
+        // Test the function
+        expect(fs.stringToBase64String(input)).toEqual(output);
+
+    });
+
+    it('stringToBase64String() - String with common special characters', () => {
+
+        // Create FileServices object
+        let fs: FileServices = new FileServices();
+
+        // Input and expected output
+        let input: String = 'Test a special (!!!) Base64 converting function #cool';
+        let output: String = 'VGVzdCBhIHNwZWNpYWwgKCEhISkgQmFzZTY0IGNvbnZlcnRpbmcgZnVuY3Rpb24gI2Nvb2w=';
+
+        // Test the function
+        expect(fs.stringToBase64String(input)).toEqual(output);
+
+    });
 
 });

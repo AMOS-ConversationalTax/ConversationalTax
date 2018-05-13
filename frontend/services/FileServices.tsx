@@ -60,7 +60,7 @@ export default class FileServices {
             let potencyOfTwo: number = 0;
 
             // Try a higher potency
-            while(byte > Math.pow(2,potencyOfTwo)) {
+            while(byte >= Math.pow(2,potencyOfTwo)) {
 
                 potencyOfTwo++;
 
@@ -189,13 +189,23 @@ export default class FileServices {
     }
 
     // Convert an string to Base64
-    public stringToBase64String(inputString: String): String {
+    public stringToBitArray(inputString: String): Array<number> {
 
         // Covert the string to a byte array
         let byteArray: Array<number> = this.stringToCharCodeArray(inputString);
 
         // Convert the byte array to a bit array
         let bitArray: Array<number> = this.charCodeArrayToBitArray(byteArray);
+
+        return bitArray;
+
+    }
+
+    // Convert an string to Base64
+    public stringToBase64String(inputString: String): String {
+
+        // Convert the string to a bit array
+        let bitArray: Array<number> = this.stringToBitArray(inputString);
 
         // Convert the bit array to a Base64 String
         let base64String: String = this.bitArrayToBase64String(bitArray);
