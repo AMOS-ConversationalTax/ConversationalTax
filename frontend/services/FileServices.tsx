@@ -16,7 +16,7 @@ export default class FileServices {
     }
 
     // Convert a string to a byte array
-    public stringToByteArray(inputString: String): Array<number> {
+    public stringToCharCodeArray(inputString: String): Array<number> {
 
         // Initialize a new byte array
         let bytes: Array<number> = new Array<number>(inputString.length);
@@ -36,8 +36,8 @@ export default class FileServices {
 
     }
 
-    // Convert a byte array into a bit array
-    public byteArrayToBitArray(inputByteArray: Array<number>): Array<number> {
+    // Convert a char code array into a bit array
+    public charCodeArrayToBitArray(inputByteArray: Array<number>): Array<number> {
 
         // Initialize a new bit array
         let bits: Array<number> = new Array<number>();
@@ -47,6 +47,13 @@ export default class FileServices {
 
             // Current byte
             let byte: number = inputByteArray[i];
+
+            // Test preconditions
+            if(byte < 0 || byte % 1 != 0) {
+
+                throw 'Only positive integers are accepted';
+
+            } 
 
             // Find the highest contained potency of two
             // Start potency
@@ -79,7 +86,7 @@ export default class FileServices {
 
             }
 
-            // There have to be at least 8 bits per byte
+            // There have to be at least 8 bits per byte (Javascript string coding is UTF16)
             // We want to fill up with leading 0
             for(let y: number = 0; y < (8 - byteInBitsReverse.length); y++) {
 
@@ -105,35 +112,75 @@ export default class FileServices {
     // Convert a bit array into a base64 string
     public bitArrayToBase64String(inputBitArray: Array<number>): String {
 
-        // Copied Input array - we might need to push some new elements later on
+        // Test preconditions
+        for(let i: number = 0; i < inputBitArray.length; i++) {
+
+            if(!(inputBitArray[i] == 0 || inputBitArray[i] == 1)) {
+
+                throw 'Array must have only 0 and 1 as elements allowed';
+
+            } 
+
+        }
+
+        // Copied Input array - we need to push some new elements later on
         let inputBitArrayCopy: Array<number> = inputBitArray.slice();
 
         // Base64 Coding
-        let base64Coding: Array<string> = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
+        let base64Coding: Array<string> = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
         
         // Initialize the output string
-        let outputString: String = "";
-        
-        // Iterate through the bit array (for bash64 we need steps of six bits)
-        for(let i: number = 0; i < inputBitArray.length; i = i + 6) {
+        let outputString: String = '';
 
-            // The block of the last six bits might not be complete
-            if(i + 6 < inputBitArray.length) {
+        // We need to fill up the copied input array to be dividable through 8
+        if(inputBitArray.length % 8 != 0) {
+            
+            for(let i: number = 0; i < 8 - inputBitArray.length % 8; i++) {
 
-                // Compute the corresponding decimal number to the six bits
-                let sixBitNumber: number = inputBitArrayCopy[i] * Math.pow(2, 5) + inputBitArrayCopy[i+1] * Math.pow(2, 4) + inputBitArrayCopy[i+2] * Math.pow(2, 3)
-                                        + inputBitArrayCopy[i+3] * Math.pow(2, 2) + inputBitArrayCopy[i+4] * Math.pow(2, 1) + inputBitArrayCopy[i+5] * Math.pow(2, 0);
-
-                outputString = outputString.concat(base64Coding[sixBitNumber]);
+                inputBitArrayCopy.unshift(0);
 
             }
 
         }
 
-        // For every bit of the incomplete block we would need to add an =
-        for(let i: number = 0; i < 6 - (inputBitArray.length % 6); i++) {
+        // We need to fill up the copied input array to be dividable through 6
+        if(inputBitArrayCopy.length % 6 != 0) {
 
-            outputString = outputString.concat("=");
+            // We need to cache the inputBitArrayCopy.length
+            let inputBitArrayCopyLength = inputBitArrayCopy.length;
+            
+            for(let i: number = 0; i < 6 - inputBitArrayCopyLength % 6; i++) {
+
+                inputBitArrayCopy.push(0);
+
+            }
+
+        }
+
+        // Iterate through the bit array (for bash64 we need steps of six bits)
+        for(let i: number = 0; i < inputBitArrayCopy.length; i = i + 6) {
+
+            // Compute the corresponding decimal number to the six bits
+            let sixBitNumber: number = inputBitArrayCopy[i] * Math.pow(2, 5) + inputBitArrayCopy[i+1] * Math.pow(2, 4) + inputBitArrayCopy[i+2] * Math.pow(2, 3)
+                                    + inputBitArrayCopy[i+3] * Math.pow(2, 2) + inputBitArrayCopy[i+4] * Math.pow(2, 1) + inputBitArrayCopy[i+5] * Math.pow(2, 0);
+
+            outputString = outputString.concat(base64Coding[sixBitNumber]);
+
+        }
+
+        let fullByteLength: number = inputBitArray.length;
+
+        // First we need to fill the array to match full bytes
+        if(inputBitArray.length % 8 != 0) {
+
+            fullByteLength = inputBitArray.length + 8 - inputBitArray.length % 8;
+
+        }
+
+        // Now we add an = for every byte we need to fill up to be divideable through 3
+        for(let i: number = fullByteLength; i % 24 != 0; i = i + 8) {
+
+            outputString = outputString.concat('=');
 
         }
 
@@ -145,10 +192,10 @@ export default class FileServices {
     public stringToBase64String(inputString: String): String {
 
         // Covert the string to a byte array
-        let byteArray: Array<number> = this.stringToByteArray(inputString);
+        let byteArray: Array<number> = this.stringToCharCodeArray(inputString);
 
         // Convert the byte array to a bit array
-        let bitArray: Array<number> = this.byteArrayToBitArray(byteArray);
+        let bitArray: Array<number> = this.charCodeArrayToBitArray(byteArray);
 
         // Convert the bit array to a Base64 String
         let base64String: String = this.bitArrayToBase64String(bitArray);
