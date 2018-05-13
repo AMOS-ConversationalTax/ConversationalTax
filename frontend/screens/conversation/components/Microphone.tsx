@@ -205,7 +205,7 @@ export default class Microphone extends Component<IProps> {
             });
 
             // Create a new object
-            let recording = new Audio.Recording();
+            let recording: Audio.Recording = new Audio.Recording();
                     
             // Expo Audio requires to prepare before recording audio
             await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(RECORDING_OPTIONS_CUSTOM)));
@@ -271,11 +271,12 @@ export default class Microphone extends Component<IProps> {
             });
 
             // We need the filepath to work with the recording
-            let info = await FileSystem.getInfoAsync(this.recordingObject.getURI());
-            let filepath = this.recordingObject.getURI();
+            let filepath: String = this.recordingObject.getURI();
 
             // Convert the String to Base64
-            let content = await this.binaryStringToBase64(filepath);
+            let fs: FileServices = new FileServices();
+            let content: String = await fs.fileToBase64String(filepath);
+
             // console.log(content);
 
             // Delete the recording object
@@ -289,30 +290,6 @@ export default class Microphone extends Component<IProps> {
             });
 
         }
-
-    }
-
-    // Convert a URI (filepath) to a string in Base64 format
-    @autobind
-    private async binaryStringToBase64(filepath: string) {
-
-        // Get the content of the recorded file
-        let input = await FileSystem.readAsStringAsync(filepath);
-       
-        // Create a new ArrayBuffer - 2 Bytes for each char
-        let buffer = new ArrayBuffer(input.length * 2); 
-        let bufferView = new Uint16Array(buffer);
-        for (let i=0, strLen=input.length; i < strLen; i++) {
-
-          bufferView[i] = input.charCodeAt(i);
-
-        }
-
-        // Use the native React Native function to convert the ArrayBuffer to Base64
-        let binaryToBase64 = require('binaryToBase64');
-        let output = binaryToBase64(buffer);
-
-        return output;
 
     }
 }
