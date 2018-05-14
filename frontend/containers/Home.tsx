@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
   Platform,
   StyleSheet,
@@ -7,34 +6,10 @@ import {
   View,
 } from 'react-native';
 import Logo from '../components/Logo';
-import RestConnection from '../services/RestConnection';
 
 interface IProps {}
 
 export default class App extends Component<IProps> {
-
-  public bar = new RestConnection();
-
-// Manual Testing
-/*
-  public componentDidMount() {
-    this.bar.read().then(
-      (val) => {console.log(val);}
-    );
-    const dummydataCreate = {title: 'foo', body: 'bar', userId: 1};
-    this.bar.create(dummydataCreate).then(
-      (val) => {console.log(val);}
-    );
-    const dummydataUpdate = {id: 1, title: 'foo', body: 'bar', userId: 1};
-    this.bar.update(dummydataUpdate).then(
-      (val) => {console.log(val);}
-    );
-    this.bar.delete().then(
-      (val) => {console.log(val);}
-    );
-  }
-*/
-
   public render() {
     return (
       <View style={styles.container}>
