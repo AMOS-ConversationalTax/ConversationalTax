@@ -9,6 +9,7 @@ import {
 import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
 import FileServices from '../../../services/FileServices'
+import * as fs from 'fs';
 
 interface IProps {
 }
@@ -37,34 +38,28 @@ export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
 };
 
 export default class Microphone extends Component<IProps> {
+    // Save the initial states
+    state = {
+        haveRecordingPermissions: false,
+        waitingForRecordActive: false,
+        recordingActive: false,
+        processingActive: false,
+    }
 
     // Private attributes:
     // Recording object
-    private recordingObject: Audio.Recording;
+    private recordingObject: Audio.Recording | null = null;
 
     // Minimal recording time in ms
     // Min has to be above 300ms due to https://github.com/expo/expo/issues/1709
     private minRecordingTime: number = 500;
 
     // Main constructor of the Microphone button
-    constructor(props: any) {
-
+    constructor(props: IProps) {
         super(props);
-
-        // Recording object is generated on the fly
-        this.recordingObject = null;
-
-        // Save the initial states
-        this.state = {
-            haveRecordingPermissions: false,
-            waitingForRecordActive: false,
-            recordingActive: false,
-            processingActive: false, 
-        }
 
         // Ask for recording permissions for the first time
         this.askForPermissions();
-
     }
 
     // Rendering function of React Native
@@ -74,8 +69,8 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
+                    <TouchableWithoutFeedback
+                        onPressIn={this.onPressIn}
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderWaiting}>
@@ -91,8 +86,8 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
+                    <TouchableWithoutFeedback
+                        onPressIn={this.onPressIn}
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderActive}>
@@ -108,7 +103,7 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
+                    <TouchableWithoutFeedback
                         disabled={true}
                     >
                         <View style={styles.circleBorderProcessing}>
@@ -124,8 +119,8 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
+                    <TouchableWithoutFeedback
+                        onPressIn={this.onPressIn}
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderAlternative}>
@@ -138,16 +133,14 @@ export default class Microphone extends Component<IProps> {
             );
 
         }
-
     }
 
     // Recording is in need of seperate permissions - This function asks for them
-    @autobind
     private async askForPermissions() {
 
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
 
-        if(response.status === 'granted') {
+        if (response.status === 'granted') {
 
             // Set the button active
             this.setState({
@@ -179,7 +172,7 @@ export default class Microphone extends Component<IProps> {
         // console.log('Out');
 
         // End the recording
-        if(this.state.recordingActive) {
+        if (this.state.recordingActive) {
 
             this.endARecording();
 
@@ -194,10 +187,9 @@ export default class Microphone extends Component<IProps> {
     }
 
     // Start a new recording
-    @autobind
     private async startANewRecording() {
 
-        if(this.state.waitingForRecordActive) {
+        if (this.state.waitingForRecordActive) {
 
             // Set the button on not waiting for record
             this.setState({
@@ -206,16 +198,16 @@ export default class Microphone extends Component<IProps> {
 
             // Create a new object
             let recording: Audio.Recording = new Audio.Recording();
-                    
+
             // Expo Audio requires to prepare before recording audio
             await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(RECORDING_OPTIONS_CUSTOM)));
-            
+
             // Send status updates to recordingStatusUpdate()
             recording.setOnRecordingStatusUpdate();
-            
+
             // Save object into class attributes
             this.recordingObject = recording;
-            
+
             // Start recording audio
             await this.recordingObject.startAsync();
 
@@ -223,26 +215,29 @@ export default class Microphone extends Component<IProps> {
                 recordingActive: true,
             });
 
-        } 
+        }
 
     }
 
     // End the recording
-    @autobind
     private async endARecording() {
 
-        if(this.state.recordingActive && !this.state.processingActive) {
+        if (this.state.recordingActive && !this.state.processingActive) {
 
             // Set the processing active
             this.setState({
                 processingActive: true,
             });
 
+            if (this.recordingObject == null) {
+                throw new Error('RecordingObj was unexpectedly null');
+            }
             // Get current status of the recording object
-            let status = await this.recordingObject.getStatusAsync();
+            let status: any = await this.recordingObject.getStatusAsync();
+            
 
             // Control whether min recording time is reached
-            if(status.durationMillis > this.minRecordingTime) {
+            if (status.durationMillis > this.minRecordingTime) {
 
                 this.endARecordingHelper();
 
@@ -256,12 +251,39 @@ export default class Microphone extends Component<IProps> {
 
     }
 
+    // TODO function has to be moved to Rest Client
+    async uploadAudioAsync(uri: string) {
+        let apiUrl = ''; // TODO backend URL here
+        let uriParts = uri.split('.');
+        let fileType = uriParts[uriParts.length - 1];
+
+        let formData = new FormData();
+        formData.append('file', {
+            uri,
+            name: `recording.${fileType}`,
+            type: `audio/x-${fileType}`,
+        });
+
+        let options = {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+        };
+
+        return fetch(apiUrl, options);
+    }
+
     // Helper function for endARecording() to enable the setTimeout functionality
-    @autobind
     private async endARecordingHelper() {
 
-        if(this.state.recordingActive && this.state.processingActive) {
-            
+        if (this.state.recordingActive && this.state.processingActive) {
+
+            if (this.recordingObject == null) {
+                throw new Error('RecordingObj was unexpectedly null');
+            }
             // End the recording
             await this.recordingObject.stopAndUnloadAsync();
 
@@ -271,16 +293,16 @@ export default class Microphone extends Component<IProps> {
             });
 
             // We need the filepath to work with the recording
-            let filepath: String = this.recordingObject.getURI();
+            let filepath = this.recordingObject.getURI();
 
-            // Convert the String to Base64
-            let fs: FileServices = new FileServices();
-            let content: String = await fs.fileToBase64String(filepath);
+            if (!filepath) {
+                throw new Error('Could not get file path of audio recording');
+            }
 
-            // console.log(content);
+            await this.uploadAudioAsync(filepath);
 
             // Delete the recording object
-            this.recordingObject.setOnRecordingStatusUpdate(null);
+            this.recordingObject.setOnRecordingStatusUpdate(() => {});
             this.recordingObject = null;
 
             // Set the processing on inactive and wait for new recording
