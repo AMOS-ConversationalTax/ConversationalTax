@@ -37,34 +37,28 @@ export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
 };
 
 export default class Microphone extends Component<IProps> {
+    // Save the initial states
+    state = {
+        haveRecordingPermissions: false,
+        waitingForRecordActive: false,
+        recordingActive: false,
+        processingActive: false,
+    }
 
     // Private attributes:
     // Recording object
-    private recordingObject: Audio.Recording;
+    private recordingObject: Audio.Recording | null = null;
 
     // Minimal recording time in ms
     // Min has to be above 300ms due to https://github.com/expo/expo/issues/1709
     private minRecordingTime: number = 500;
 
     // Main constructor of the Microphone button
-    constructor(props: any) {
-
+    constructor(props: IProps) {
         super(props);
-
-        // Recording object is generated on the fly
-        this.recordingObject = null;
-
-        // Save the initial states
-        this.state = {
-            haveRecordingPermissions: false,
-            waitingForRecordActive: false,
-            recordingActive: false,
-            processingActive: false, 
-        }
 
         // Ask for recording permissions for the first time
         this.askForPermissions();
-
     }
 
     // Rendering function of React Native
@@ -74,8 +68,8 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
+                    <TouchableWithoutFeedback
+                        onPressIn={this.onPressIn}
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderWaiting}>
@@ -91,8 +85,8 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
+                    <TouchableWithoutFeedback
+                        onPressIn={this.onPressIn}
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderActive}>
@@ -108,7 +102,7 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
+                    <TouchableWithoutFeedback
                         disabled={true}
                     >
                         <View style={styles.circleBorderProcessing}>
@@ -124,8 +118,8 @@ export default class Microphone extends Component<IProps> {
 
             return (
                 <View style={styles.view}>
-                    <TouchableWithoutFeedback 
-                        onPressIn={this.onPressIn} 
+                    <TouchableWithoutFeedback
+                        onPressIn={this.onPressIn}
                         onPressOut={this.onPressOut}
                     >
                         <View style={styles.circleBorderAlternative}>
@@ -138,16 +132,14 @@ export default class Microphone extends Component<IProps> {
             );
 
         }
-
     }
 
     // Recording is in need of seperate permissions - This function asks for them
-    @autobind
     private async askForPermissions() {
 
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
 
-        if(response.status === 'granted') {
+        if (response.status === 'granted') {
 
             // Set the button active
             this.setState({
@@ -179,7 +171,7 @@ export default class Microphone extends Component<IProps> {
         // console.log('Out');
 
         // End the recording
-        if(this.state.recordingActive) {
+        if (this.state.recordingActive) {
 
             this.endARecording();
 
@@ -194,10 +186,9 @@ export default class Microphone extends Component<IProps> {
     }
 
     // Start a new recording
-    @autobind
     private async startANewRecording() {
 
-        if(this.state.waitingForRecordActive) {
+        if (this.state.waitingForRecordActive) {
 
             // Set the button on not waiting for record
             this.setState({
@@ -206,16 +197,16 @@ export default class Microphone extends Component<IProps> {
 
             // Create a new object
             let recording: Audio.Recording = new Audio.Recording();
-                    
+
             // Expo Audio requires to prepare before recording audio
             await recording.prepareToRecordAsync(JSON.parse(JSON.stringify(RECORDING_OPTIONS_CUSTOM)));
-            
+
             // Send status updates to recordingStatusUpdate()
             recording.setOnRecordingStatusUpdate();
-            
+
             // Save object into class attributes
             this.recordingObject = recording;
-            
+
             // Start recording audio
             await this.recordingObject.startAsync();
 
@@ -223,15 +214,14 @@ export default class Microphone extends Component<IProps> {
                 recordingActive: true,
             });
 
-        } 
+        }
 
     }
 
     // End the recording
-    @autobind
     private async endARecording() {
 
-        if(this.state.recordingActive && !this.state.processingActive) {
+        if (this.state.recordingActive && !this.state.processingActive) {
 
             // Set the processing active
             this.setState({
@@ -242,7 +232,7 @@ export default class Microphone extends Component<IProps> {
             let status = await this.recordingObject.getStatusAsync();
 
             // Control whether min recording time is reached
-            if(status.durationMillis > this.minRecordingTime) {
+            if (status.durationMillis > this.minRecordingTime) {
 
                 this.endARecordingHelper();
 
@@ -257,11 +247,10 @@ export default class Microphone extends Component<IProps> {
     }
 
     // Helper function for endARecording() to enable the setTimeout functionality
-    @autobind
     private async endARecordingHelper() {
 
-        if(this.state.recordingActive && this.state.processingActive) {
-            
+        if (this.state.recordingActive && this.state.processingActive) {
+
             // End the recording
             await this.recordingObject.stopAndUnloadAsync();
 
