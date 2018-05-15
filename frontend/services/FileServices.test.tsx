@@ -12,7 +12,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = '';
+        let input: string = '';
         let output: Array<number> = [];
 
         // Test the function
@@ -26,7 +26,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test';
+        let input: string = 'Test';
         let output: Array<number> = [84, 101, 115, 116];
 
         // Test the function
@@ -40,7 +40,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test !&%*+';
+        let input: string = 'Test !&%*+';
         let output: Array<number> = [84, 101, 115, 116, 32, 33, 38, 37, 42, 43];
 
         // Test the function
@@ -54,7 +54,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test «mdatÚ©¶';
+        let input: string = 'Test «mdatÚ©¶';
         let output: Array<number> = [84, 101, 115, 116, 32, 171, 109, 100, 97, 116, 218, 169, 182];
 
         // Test the function
@@ -321,7 +321,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = '';
+        let input: string = '';
         let output: Array<number> = [];
 
         // Test the function
@@ -335,7 +335,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test';
+        let input: string = 'Test';
         let output: Array<number> = [0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0,
                                      1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0];
 
@@ -350,7 +350,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = '!§2&';
+        let input: string = '!§2&';
         let output: Array<number> = [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0,
                                      0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0];
 
@@ -365,7 +365,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test a special (!!!) Base64 converting function #cool';
+        let input: string = 'Test a special (!!!) Base64 converting function #cool';
         let output: Array<number> = [0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0,
                                      1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0,
                                      1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1,
@@ -405,7 +405,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = '';
+        let input: string = '';
         let output: String = '';
 
         // Test the function
@@ -419,7 +419,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test';
+        let input: string = 'Test';
         let output: String = 'VGVzdA==';
 
         // Test the function
@@ -433,7 +433,7 @@ describe('FileServices:', () => {
         let fs: FileServices = new FileServices();
 
         // Input and expected output
-        let input: String = 'Test a special (!!!) Base64 converting function #cool';
+        let input: string = 'Test a special (!!!) Base64 converting function #cool';
         let output: String = 'VGVzdCBhIHNwZWNpYWwgKCEhISkgQmFzZTY0IGNvbnZlcnRpbmcgZnVuY3Rpb24gI2Nvb2w=';
 
         // Test the function

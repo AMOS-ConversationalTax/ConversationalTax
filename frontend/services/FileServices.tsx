@@ -5,10 +5,10 @@ import Expo, { FileSystem } from 'expo';
 export default class FileServices {
 
     // Read a file within the Expo context as string
-    private async loadFileToString(filepath: String): Promise<String> {
+    private async loadFileToString(filepath: string): Promise<String> {
                 
         // Get the content of the recorded file
-        let file: String = await FileSystem.readAsStringAsync(filepath);
+        let file: string = await FileSystem.readAsStringAsync(filepath);
 
         // Return the file content
         return file;
@@ -16,7 +16,7 @@ export default class FileServices {
     }
 
     // Convert a string to a byte array
-    public stringToCharCodeArray(inputString: String): Array<number> {
+    public stringToCharCodeArray(inputString: string): Array<number> {
 
         // Initialize a new byte array
         let bytes: Array<number> = new Array<number>(inputString.length);
@@ -130,7 +130,7 @@ export default class FileServices {
         let base64Coding: Array<string> = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
         
         // Initialize the output string
-        let outputString: String = '';
+        let outputString: string = '';
 
         // We need to fill up the copied input array to be dividable through 8
         if(inputBitArray.length % 8 != 0) {
@@ -189,7 +189,7 @@ export default class FileServices {
     }
 
     // Convert an string to Base64
-    public stringToBitArray(inputString: String): Array<number> {
+    public stringToBitArray(inputString: string): Array<number> {
 
         // Covert the string to a byte array
         let byteArray: Array<number> = this.stringToCharCodeArray(inputString);
@@ -202,25 +202,25 @@ export default class FileServices {
     }
 
     // Convert an string to Base64
-    public stringToBase64String(inputString: String): String {
+    public stringToBase64String(inputString: string): string {
 
         // Convert the string to a bit array
         let bitArray: Array<number> = this.stringToBitArray(inputString);
 
         // Convert the bit array to a Base64 String
-        let base64String: String = this.bitArrayToBase64String(bitArray);
+        let base64String = this.bitArrayToBase64String(bitArray);
 
-        return base64String;
+        return base64String.toString();
 
     }
 
     // Load a file an convert it to a Base64 string
-    public async fileToBase64String(filepath: String): Promise<String> {
+    public async fileToBase64String(filepath: string): Promise<string> {
 
         // Get the file content
         let fileContent = await this.loadFileToString(filepath);
 
-        return this.stringToBase64String(fileContent);
+        return this.stringToBase64String(fileContent.toString());
 
     }
 

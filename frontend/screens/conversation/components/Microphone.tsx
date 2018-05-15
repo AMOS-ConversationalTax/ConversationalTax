@@ -8,24 +8,31 @@ import {
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
-import FileServices from '../../../services/FileServices'
+import FileServices from '../../../services/FileServices';
+import * as fs from 'fs';
+
+// TODO: Move to Rest clientnp
+import Config from '../../../config/config';
+
 
 interface IProps {
 }
 
-// Custom recording settings
+/**
+ * Custom recording settings
+ */
 export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
     android: {
-        extension: '.m4a',
-        outputFormat: Expo.Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
-        audioEncoder: Expo.Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
-        sampleRate: 44100,
+        extension: '.awb',
+        outputFormat: Expo.Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB,
+        audioEncoder: Expo.Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB,
+        sampleRate: 16000,
         numberOfChannels: 2,
         bitRate: 128000,
     },
     ios: {
-        extension: '.m4a',
-        outputFormat: Expo.Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC,
+        extension: '.pcm',
+        outputFormat: Expo.Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM,
         audioQuality: Expo.Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
         sampleRate: 44100,
         numberOfChannels: 2,
@@ -36,8 +43,15 @@ export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
     },
 };
 
+/**
+ * This class implements the Microphone button and its functionality
+ * @class Microphone
+ */
 export default class Microphone extends Component<IProps> {
-    // Save the initial states
+
+    /**
+     * Save the initial states
+     */
     state = {
         haveRecordingPermissions: false,
         waitingForRecordActive: false,
@@ -45,15 +59,25 @@ export default class Microphone extends Component<IProps> {
         processingActive: false,
     }
 
-    // Private attributes:
-    // Recording object
+    /**
+     * The recording object for Expo.io
+     * @name Microphone#recordingObject
+     * @type {Audio.Recording | null}
+     */
     private recordingObject: Audio.Recording | null = null;
 
-    // Minimal recording time in ms
-    // Min has to be above 300ms due to https://github.com/expo/expo/issues/1709
+    /**
+     * Minimal recording time in ms
+     * Min has to be above 300ms due to https://github.com/expo/expo/issues/1709
+     * @name Microphone#recordingObject
+     * @type {Audio.Recording | null}
+     */
     private minRecordingTime: number = 500;
 
-    // Main constructor of the Microphone button
+    /**
+     * Create a Microphone object
+     * @param {IProps} props - The props of the parent object
+     */
     constructor(props: IProps) {
         super(props);
 
@@ -61,7 +85,9 @@ export default class Microphone extends Component<IProps> {
         this.askForPermissions();
     }
 
-    // Rendering function of React Native
+    /**
+     * Render the Microphone component
+     */
     public render() {
 
         if (this.state.waitingForRecordActive) {
@@ -134,7 +160,9 @@ export default class Microphone extends Component<IProps> {
         }
     }
 
-    // Recording is in need of seperate permissions - This function asks for them
+    /**
+     * Recording is in need of seperate permissions - This function asks for them
+     */
     private async askForPermissions() {
 
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
@@ -151,8 +179,9 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // Handler for the PressIn Event on the Microphone button
-    // Starts a new recording (if it is waitingForRecordActive)
+    /**
+     * Handler for the PressIn Event of the Microphone button
+     */
     @autobind
     private async onPressIn() {
 
@@ -163,8 +192,9 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // Handler for the PressOut Event on the Microphone button
-    // Stops the recording
+    /**
+     * Handler for the PressOut Event of the Microphone button
+     */
     @autobind
     private async onPressOut() {
 
@@ -185,7 +215,9 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // Start a new recording
+    /**
+     * Starts a new recording if no other recording is running or processing
+     */
     private async startANewRecording() {
 
         if (this.state.waitingForRecordActive) {
@@ -218,7 +250,9 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // End the recording
+    /**
+     * Ends a  recording if a recording is running
+     */
     private async endARecording() {
 
         if (this.state.recordingActive && !this.state.processingActive) {
@@ -228,9 +262,13 @@ export default class Microphone extends Component<IProps> {
                 processingActive: true,
             });
 
-            // Get current status of the recording object
-            let status = await this.recordingObject.getStatusAsync();
+            if (this.recordingObject == null) {
+                throw new Error('RecordingObj was unexpectedly null');
+            }
 
+            // Get current status of the recording object
+            let status: any = await this.recordingObject.getStatusAsync();
+            
             // Control whether min recording time is reached
             if (status.durationMillis > this.minRecordingTime) {
 
@@ -246,10 +284,17 @@ export default class Microphone extends Component<IProps> {
 
     }
 
-    // Helper function for endARecording() to enable the setTimeout functionality
+    /**
+     * Helper function for endARecording() to enable the setTimeout functionality
+     */
+    @autobind
     private async endARecordingHelper() {
 
         if (this.state.recordingActive && this.state.processingActive) {
+
+            if (this.recordingObject == null) {
+                throw new Error('RecordingObj was unexpectedly null');
+            }
 
             // End the recording
             await this.recordingObject.stopAndUnloadAsync();
@@ -260,16 +305,16 @@ export default class Microphone extends Component<IProps> {
             });
 
             // We need the filepath to work with the recording
-            let filepath: String = this.recordingObject.getURI();
+            let filepath = this.recordingObject.getURI();
 
-            // Convert the String to Base64
-            let fs: FileServices = new FileServices();
-            let content: String = await fs.fileToBase64String(filepath);
+            if (!filepath) {
+                throw new Error('Could not get file path of audio recording');
+            }
 
-            // console.log(content);
+            await this.uploadAudioAsync(filepath);
 
             // Delete the recording object
-            this.recordingObject.setOnRecordingStatusUpdate(null);
+            this.recordingObject.setOnRecordingStatusUpdate(() => {});
             this.recordingObject = null;
 
             // Set the processing on inactive and wait for new recording
@@ -281,6 +326,46 @@ export default class Microphone extends Component<IProps> {
         }
 
     }
+
+    /**
+     * TODO function has to be moved to Rest Client
+     * Uploads an audio file to the backend
+     * @param {string} uri - The (Expo.io) filepath of the file to be uploaded 
+     */
+    async uploadAudioAsync(uri: string) {
+
+        let apiUrl = Config.SERVER_URL; 
+        let uriParts = uri.split('.');
+        let fileType = uriParts[uriParts.length - 1];
+
+        let formData = new FormData();
+        formData.append('file', {
+            uri,
+            name: `recording.${fileType}`,
+            type: `audio/x-${fileType}`,
+        });
+
+        let options = {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+        };
+
+        try {
+
+            return fetch(apiUrl, options);
+
+        } catch (Error) {
+
+            console.log("Couldn't be sent");
+
+        }
+
+    }
+
 }
 
 const styles = StyleSheet.create({
