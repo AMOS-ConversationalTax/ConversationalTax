@@ -1,10 +1,7 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module, forwardRef } from '@nestjs/common';
+import { CatsModule } from './cats/cats.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost:27017')],
-  controllers: [AppController],
-  components: [],
+  imports: [CatsModule],
 })
 export class AppModule {}
