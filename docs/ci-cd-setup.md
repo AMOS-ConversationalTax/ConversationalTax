@@ -84,11 +84,12 @@ cd ../frontend
 npm ci
 npm i -g exp
 exp login -u $USERNAME -p $PASSWORD
+sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.tsx
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
 npm run publish
 ```
-(The environment variables USERNAME, PASSWORD have to be set through SemaphoreCI. The BRANCH is directly replaced with develop or master.)
+(The environment variables USERNAME, PASSWORD have to be set through SemaphoreCI. The URL is replaced with the IP of our CD server and the PORT is replaced with 3000 for the master branch and 3010 for the develop branch. The BRANCH is directly replaced with develop or master.)
 
 ### Deploy on CD-Server
 

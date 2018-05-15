@@ -10,9 +10,7 @@ import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
 import FileServices from '../../../services/FileServices';
 import * as fs from 'fs';
-
-// TODO: Move to Rest clientnp
-import Config from '../../../config/config';
+import RestConnection from '../../../services/RestConnection';
 
 
 interface IProps {
@@ -319,7 +317,9 @@ export default class Microphone extends Component<IProps> {
                 throw new Error('Could not get file path of audio recording');
             }
 
-            await this.uploadAudioAsync(filepath);
+            // Upload the audio file
+            let rest: RestConnection = new RestConnection();
+            await rest.uploadAudioAsync(filepath);
 
             // Delete the recording object
             this.recordingObject.setOnRecordingStatusUpdate(() => {});
@@ -333,48 +333,6 @@ export default class Microphone extends Component<IProps> {
 
         }
 
-    }
-
-    /**
-     * TODO function has to be moved to Rest Client
-     * Uploads an audio file to the backend
-     * @param {string} uri - The (Expo.io) filepath of the file to be uploaded 
-     */
-    async uploadAudioAsync(uri: string) {
-        let platform: 'ios' | 'android';
-        if (Expo.Constants.platform.android !== undefined) {
-            platform = 'android';
-        } else if (Expo.Constants.platform.ios !== undefined) {
-            platform = 'ios';
-        } else {
-            console.error('Could not identify current platform');
-            return;
-        }
-        let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}`; 
-        let uriParts = uri.split('.');
-        let fileType = uriParts[uriParts.length - 1];
-
-        let formData = new FormData();
-        formData.append('file', {
-            uri,
-            name: `recording.${fileType}`,
-            type: `audio/x-${fileType}`,
-        });
-
-        let options = {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'multipart/form-data',
-            },
-        };
-
-        try {
-            return await fetch(apiUrl, options);
-        } catch (e) {
-            console.error(`Could not upload audio recording. ${e}`);
-        }
     }
 
 }
