@@ -1,19 +1,46 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Param } from '@nestjs/common';
 import { DialogFlowService } from './dialog-flow.service';
 import { AudioIntentParams, TextIntentParams } from './lang.dto';
+
+const ANDROID_AUDIO_SETTINGS = {
+  encoding: 'AUDIO_ENCODING_AMR_WB',
+  sampleRate: 16000,
+};
+
+const IOS_AUDIO_SETTINGS = {
+  encoding: 'AUDIO_ENCODING_LINEAR_16',
+  sampleRate: 44100,
+};
 
 @Controller('lang')
 export class LangController {
 
   constructor(private dialogFlowService: DialogFlowService) {}
 
-  @Post('audio')
-  audioIntent(@Body() params: AudioIntentParams) {
-    return this.dialogFlowService.detectAudioIntent(params.encoding, params.sampleRate, params.inputAudio);
+  @Post('text')
+  textIntent(@Body() body: TextIntentParams) {
+    return this.dialogFlowService.detectTextIntent(body.textInput);
   }
 
-  @Post('text')
-  textIntent(@Body() params: TextIntentParams) {
-    return this.dialogFlowService.detectTextIntent(params.textInput);
+  @Post('audio_upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(@UploadedFile() file, @Param() params: AudioIntentParams) {
+    const base64Audio: string = file.buffer.toString('base64');
+
+    let encoding: string;
+    let sampleRate: number;
+    if (params.platform === 'android') {
+      encoding = ANDROID_AUDIO_SETTINGS.encoding;
+      sampleRate = ANDROID_AUDIO_SETTINGS.sampleRate;
+    } else if (params.platform === 'ios') {
+      encoding = IOS_AUDIO_SETTINGS.encoding;
+      sampleRate = IOS_AUDIO_SETTINGS.sampleRate;
+    } else {
+      throw new Error('Unkown platform');
+    }
+
+    const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio);
+    // console.log(dialogflowResponse);
+    return dialogflowResponse;
   }
 }

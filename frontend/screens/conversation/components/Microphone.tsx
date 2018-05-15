@@ -333,8 +333,15 @@ export default class Microphone extends Component<IProps> {
      * @param {string} uri - The (Expo.io) filepath of the file to be uploaded 
      */
     async uploadAudioAsync(uri: string) {
-
-        let apiUrl = Config.SERVER_URL; 
+        let platform: 'ios' | 'android';
+        if (Expo.Constants.platform.android !== undefined) {
+            platform = 'android';
+        } else if (Expo.Constants.platform.ios !== undefined) {
+            platform = 'ios';
+        } else {
+            throw new Error('Could not identify current platform');
+        }
+        let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}`; 
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
 
@@ -355,15 +362,10 @@ export default class Microphone extends Component<IProps> {
         };
 
         try {
-
             return fetch(apiUrl, options);
-
         } catch (Error) {
-
-            // console.log("Couldn't be sent");
-
+            throw new Error('Could not upload audio recording.');
         }
-
     }
 
 }
