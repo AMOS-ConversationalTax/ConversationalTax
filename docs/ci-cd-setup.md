@@ -152,7 +152,7 @@ echo "###########################################"
 echo "# Start the new latest docker container:  #"
 echo "###########################################"
 echo " "
-docker run -p $PRIMARYPORT:3000 -v /home/docker/amos_files/dialogflowKey.json:/usr/src/app/dist/dialogflowKey.json -d --name=$CONTAINERNAME --net=$NETWORKNAME --restart=always $CONTAINERIMAGE
+docker run -p $PRIMARYPORT:3000 -v /home/docker/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json -d --name=$CONTAINERNAME --net=$NETWORKNAME --restart=always $CONTAINERIMAGE
 echo " "
 echo " "
 ```
