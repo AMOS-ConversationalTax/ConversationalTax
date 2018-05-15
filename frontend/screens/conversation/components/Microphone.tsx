@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import Expo, { Audio, Permissions, FileSystem } from 'expo';
-import FileServices from '../../../services/FileServices';
 import * as fs from 'fs';
 import RestConnection from '../../../services/RestConnection';
 
