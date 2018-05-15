@@ -360,7 +360,7 @@ export default class Microphone extends Component<IProps> {
 
         } catch (Error) {
 
-            console.log("Couldn't be sent");
+            // console.log("Couldn't be sent");
 
         }
 
