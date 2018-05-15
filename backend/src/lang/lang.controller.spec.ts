@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow.service';
+import { AudioIntentParams } from './lang.dto';
 
 jest.mock('./dialog-flow.service'); // Mock the DialogFlowService class
 
@@ -25,12 +26,10 @@ describe('LangController', () => {
 
     describe('POST /lang/audio', () => {
         it('should forward the request to the dialogFlowService', () => {
-            const mockParams = { encoding: '', sampleRate: 0, inputAudio: '' };
-            langController.audioIntent(mockParams);
+            const mockParams: AudioIntentParams = { platform: 'ios' };
+            const mockFile = {buffer: new Buffer('')};
+            langController.uploadFile(mockFile, mockParams);
             expect(mockDialogFlowServiceInstance.detectAudioIntent).toHaveBeenCalledTimes(1);
-            expect(mockDialogFlowServiceInstance.detectAudioIntent).toHaveBeenCalledWith(
-                mockParams.encoding, mockParams.sampleRate, mockParams.inputAudio
-            );
         });
     });
 });
