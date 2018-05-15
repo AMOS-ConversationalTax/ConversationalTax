@@ -23,7 +23,7 @@ export class DialogFlowService {
 
     private validateKeyfileExists(): void {
         if (!fs.existsSync(KEYFILE_PATH)) {
-            throw new Error('Credential file for DialogFlow is missing. The keyfile is expected to be named googleCloud.json.');
+            throw new Error('Credential file for DialogFlow is missing. The keyfile is expected to be named dialogflowKey.json.');
         }
     }
 
