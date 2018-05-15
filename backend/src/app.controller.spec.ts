@@ -1,25 +1,20 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import { AppController } from './app.controller';
 
-import { CatsController } from './cats/cats.controller';
-import { CatsService } from './cats/cats.service';
-import { Model } from 'mongoose';
-import { CreateCatDto } from './cats/dto/create-cat.dto';
+describe('AppController', () => {
+  let app: TestingModule;
 
-describe('CatsController', () => {
-  let catsController: CatsController;
-  let catsService: CatsService;
-
-  beforeEach(() => {
-    catsService = new CatsService();
-    catsController = new CatsController(catsService);
+  beforeAll(async () => {
+    app = await Test.createTestingModule({
+      controllers: [AppController],
+    }).compile();
   });
 
-  describe('findAll', () => {
-    it('should return an array of cats', async () => {
-      const result = ['test'];
-      jest.spyOn(catsService, 'findAll').mockImplementation(() => result);
-
-      expect(await catsController.findAll()).toBe(result);
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      const appController = app.get<AppController>(AppController);
+      expect(appController.root()).toBe('Hello World!');
     });
   });
-
 });
