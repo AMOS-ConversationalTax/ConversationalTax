@@ -4,7 +4,11 @@ import Expo, { FileSystem } from 'expo';
 
 export default class FileServices {
 
-    // Read a file within the Expo context as string
+    /**
+     * Read a file within the Expo context as string
+     * @param {string} filepath - The filepath of the file to read
+     * @returns {Promise<String>} - A promise containing the content of the file as a string
+     */
     private async loadFileToString(filepath: string): Promise<String> {
                 
         // Get the content of the recorded file
@@ -15,7 +19,11 @@ export default class FileServices {
 
     }
 
-    // Convert a string to a byte array
+    /**
+     * Convert a string to a byte array
+     * @param {string} inputString - The string to be transformed
+     * @returns {Array<number>} - An array containing the bytes as decimal numbers
+     */
     public stringToCharCodeArray(inputString: string): Array<number> {
 
         // Initialize a new byte array
@@ -36,7 +44,11 @@ export default class FileServices {
 
     }
 
-    // Convert a char code array into a bit array
+    /**
+     * Convert a byte array into a bit array
+     * @param {Array<number>} inputByteArray - An array containing the bytes as decimal numbers
+     * @returns {Array<number>} - An array containing the bits
+     */
     public charCodeArrayToBitArray(inputByteArray: Array<number>): Array<number> {
 
         // Initialize a new bit array
@@ -109,8 +121,12 @@ export default class FileServices {
 
     }
 
-    // Convert a bit array into a base64 string
-    public bitArrayToBase64String(inputBitArray: Array<number>): String {
+    /**
+     * Convert a bit array to a string
+     * @param {Array<number>} inputBitArray - An array containing the bits
+     * @returns {string} - A Base64 String of the input Array
+     */
+    public bitArrayToBase64String(inputBitArray: Array<number>): string {
 
         // Test preconditions
         for(let i: number = 0; i < inputBitArray.length; i++) {
@@ -188,7 +204,11 @@ export default class FileServices {
 
     }
 
-    // Convert an string to Base64
+    /**
+     * Convert string into a bit array
+     * @param {string} inputString - The input string
+     * @returns {array<Number>} - A array containing the bits
+     */
     public stringToBitArray(inputString: string): Array<number> {
 
         // Covert the string to a byte array
@@ -201,7 +221,11 @@ export default class FileServices {
 
     }
 
-    // Convert an string to Base64
+    /**
+     * Convert string into a Base64 String
+     * @param {string} inputString - The input string
+     * @returns {string} - The output Base64 string
+     */
     public stringToBase64String(inputString: string): string {
 
         // Convert the string to a bit array
@@ -214,7 +238,11 @@ export default class FileServices {
 
     }
 
-    // Load a file an convert it to a Base64 string
+    /**
+     * Convert a file into a Base64 string
+     * @param {string} filepath - The file path of the input file
+     * @returns {Promise<string>} - A promise containing the output Base64 string
+     */
     public async fileToBase64String(filepath: string): Promise<string> {
 
         // Get the file content
