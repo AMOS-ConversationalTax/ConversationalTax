@@ -27,7 +27,7 @@ export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
         outputFormat: Expo.Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_AMR_WB,
         audioEncoder: Expo.Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AMR_WB,
         sampleRate: 16000,
-        numberOfChannels: 2,
+        numberOfChannels: 1,
         bitRate: 128000,
     },
     ios: {
@@ -35,7 +35,7 @@ export const RECORDING_OPTIONS_CUSTOM: Expo.Audio.RecordingOptions = {
         outputFormat: Expo.Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM,
         audioQuality: Expo.Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
         sampleRate: 44100,
-        numberOfChannels: 2,
+        numberOfChannels: 1,
         bitRate: 128000,
         linearPCMBitDepth: 16,
         linearPCMIsBigEndian: false,
@@ -225,6 +225,14 @@ export default class Microphone extends Component<IProps> {
             // Set the button on not waiting for record
             this.setState({
                 waitingForRecordActive: false,
+            });
+
+            await Audio.setAudioModeAsync({
+                allowsRecordingIOS: true,
+                interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+                playsInSilentModeIOS: true,
+                shouldDuckAndroid: true,
+                interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
             });
 
             // Create a new object
