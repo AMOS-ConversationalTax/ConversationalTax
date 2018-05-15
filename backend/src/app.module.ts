@@ -1,7 +1,7 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { CatsModule } from './cats/cats.module';
+import { Module } from '@nestjs/common';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
-  imports: [CatsModule],
+  imports: [PostsModule],
 })
 export class AppModule {}
