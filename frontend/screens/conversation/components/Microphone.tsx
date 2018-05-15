@@ -339,7 +339,8 @@ export default class Microphone extends Component<IProps> {
         } else if (Expo.Constants.platform.ios !== undefined) {
             platform = 'ios';
         } else {
-            throw new Error('Could not identify current platform');
+            console.error('Could not identify current platform');
+            return;
         }
         let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}`; 
         let uriParts = uri.split('.');
@@ -362,9 +363,9 @@ export default class Microphone extends Component<IProps> {
         };
 
         try {
-            return fetch(apiUrl, options);
-        } catch (Error) {
-            throw new Error('Could not upload audio recording.');
+            return await fetch(apiUrl, options);
+        } catch (e) {
+            console.error(`Could not upload audio recording. ${e}`);
         }
     }
 

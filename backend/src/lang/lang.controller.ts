@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Param } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Query, BadRequestException } from '@nestjs/common';
 import { DialogFlowService } from './dialog-flow.service';
 import { AudioIntentParams, TextIntentParams } from './lang.dto';
 
@@ -24,7 +24,10 @@ export class LangController {
 
   @Post('audio_upload')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file, @Param() params: AudioIntentParams) {
+  async uploadFile(@UploadedFile() file, @Query() params: AudioIntentParams) {
+    if (file === undefined || file.buffer === undefined) {
+      throw new BadRequestException('No audio file was uploaded');
+    }
     const base64Audio: string = file.buffer.toString('base64');
 
     let encoding: string;
@@ -36,7 +39,7 @@ export class LangController {
       encoding = IOS_AUDIO_SETTINGS.encoding;
       sampleRate = IOS_AUDIO_SETTINGS.sampleRate;
     } else {
-      throw new Error('Unkown platform');
+      throw new BadRequestException('Unkown platform');
     }
 
     const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio);
