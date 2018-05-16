@@ -23,6 +23,8 @@
     "@nestjs/testing": "^5.0.0",
     "@nestjs/websockets": "^5.0.0",
     "@types/superagent": "^3.5.8",
+    "class-transformer": "^0.1.9",
+    "class-validator": "^0.8.5",
     "dialogflow": "^0.4.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.1.0",
