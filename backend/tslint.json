@@ -49,6 +49,14 @@
         ],
         "one-variable-per-declaration": [
             false
+        ],
+        "no-console": [
+            true,
+            "log",
+            "debug",
+            "dir",
+            "warn",
+            "error"
         ]
     },
     "rulesDirectory": []
