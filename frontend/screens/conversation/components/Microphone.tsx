@@ -9,11 +9,14 @@ import {
 import autobind from 'autobind-decorator';
 import RestConnection from '../../../services/RestConnection';
 import RecordingService from '../../../services/RecordingService';
+import SpeechService from '../../../services/SpeechService';
+import { Length } from 'class-validator';
 
 
 interface IProps {
     recordingService: RecordingService,
     restClient: RestConnection,
+    speechService: SpeechService,
 }
 
 enum RecordingState {
@@ -54,16 +57,20 @@ export default class Microphone extends Component<IProps> {
         // In case we don't have the recording permission
         let recordingButtonStyle = styles.circleBorderAlternative;
         let recordingButtonDisabled = true;
+        let recordingIcon = 'md-mic-off';
 
         if (this.state.currentState == RecordingState.waitingToRecord) {
             recordingButtonStyle = styles.circleBorderWaiting;
             recordingButtonDisabled = false;
+            recordingIcon = 'md-mic';
         } else if (this.state.currentState == RecordingState.recordingActive) {
             recordingButtonStyle = styles.circleBorderActive;
             recordingButtonDisabled = false;
+            recordingIcon = 'md-mic';
         } else if (this.state.currentState == RecordingState.processingActive) {
             recordingButtonStyle = styles.circleBorderProcessing;
             recordingButtonDisabled = true;
+            recordingIcon = 'ios-cloud-upload';
         } 
 
         return (
@@ -75,7 +82,7 @@ export default class Microphone extends Component<IProps> {
                 >
                     <View style={recordingButtonStyle}>
                         <View style={styles.circle}>
-                            <Ionicons name="md-mic" size={75} color="#000" />
+                            <Ionicons name={recordingIcon} size={75} color="#000" />
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -88,7 +95,6 @@ export default class Microphone extends Component<IProps> {
      */
     @autobind
     private async onPressIn() {
-        this.setState({ currentState: RecordingState.processingActive });
         await this.props.recordingService.startRecording();
         // Set the button on not waiting for record
         this.setState({ currentState: RecordingState.recordingActive });
@@ -117,7 +123,14 @@ export default class Microphone extends Component<IProps> {
         const filepath = await this.props.recordingService.stopRecording();
 
         // Upload the audio file
-        console.log(await this.props.restClient.uploadAudioAsync(filepath));
+        let responseText = await this.props.restClient.uploadAudioAsync(filepath);
+
+        if (responseText.text.length < 2) {
+            responseText.text = 'DialogFlow konnte dich leider nicht verstehen.';
+        }
+
+        //Read out the response
+        this.props.speechService.speak(responseText.text);
 
         // Set the button on not waiting for record
         this.setState({ currentState: RecordingState.waitingToRecord });
@@ -174,6 +187,6 @@ const styles = StyleSheet.create({
         paddingTop: 0,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#cde6ff',
+        backgroundColor: '#ccc',
     },
 });
