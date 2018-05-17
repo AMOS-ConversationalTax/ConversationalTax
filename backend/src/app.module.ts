@@ -7,6 +7,6 @@ import { DialogFlowService } from './lang/dialog-flow.service';
 @Module({
   imports: [PostsModule],
   controllers: [AppController, LangController],
-  components: [DialogFlowService],
+  providers: [DialogFlowService],
 })
 export class AppModule {}

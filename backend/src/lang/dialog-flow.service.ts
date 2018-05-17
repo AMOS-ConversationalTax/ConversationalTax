@@ -1,4 +1,4 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
 import * as fs from 'fs';
 
@@ -10,7 +10,7 @@ const LANG_CODE = 'de-DE';
 /**
  * A wrapper class around the dialogflow sdk.
  */
-@Component()
+@Injectable()
 export class DialogFlowService {
     private sessionPath: any;
     private sessionClient: any;

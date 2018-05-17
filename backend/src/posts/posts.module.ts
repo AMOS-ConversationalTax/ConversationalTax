@@ -7,7 +7,7 @@ import { DatabaseModule } from '../database/database.module';
 @Module({
     imports: [DatabaseModule],
     controllers: [PostsController],
-    components: [
+    providers: [
         PostsService,
         ...postsProviders,
     ],

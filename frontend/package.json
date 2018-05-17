@@ -33,7 +33,7 @@
     "@types/superagent": "^3.5.8",
     "babel-jest": "22.4.3",
     "eslint": "^4.19.1",
-    "exp": "^53.1.0",
+    "exp": "^54.0.0",
     "jest": "22.4.3",
     "jest-expo": "^27.0.0",
     "react-native-typescript-transformer": "^1.2.5",
