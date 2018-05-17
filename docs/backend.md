@@ -60,3 +60,12 @@ The backend is now available at `http://localhost:3000`
 - The result will be visible at `http://localhost:3000/posts`
 
 
+## DialogFlow Auth
+In order to use DialogFlow you need to provide an appropriate keyfile, which has to be placed at /backend/dialogflowKey.json
+
+### Getting the Keyfile
+- Log into the console of DialogFlow
+- Go the the agents settings. (Left navigation on the top - settings symbol)
+- Click onto your 'Service Account'. 
+- In the new window, click on the three dots on the right side of the selected row.
+- Choose to generate the key. 
