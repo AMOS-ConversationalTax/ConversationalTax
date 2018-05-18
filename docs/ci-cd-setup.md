@@ -97,7 +97,7 @@ We use an Debain Wheezy Rootserver with Docker installed for deployment of both 
 
 #### Docker-Compose files and starting script
 
-The key part of the deployment are the Docker-Compose files for the containers. This one is for the master branch:
+The key part of the deployment are the Docker-Compose files for the containers. This one is for the master branch (/home/docker/amos_scripts/master/docker-compose.yml):
 
 ```
 version: '2'
@@ -125,7 +125,7 @@ services:
             - ~/amos_data/conversational-tax-mongo:/data/db
 ```
 
-And this one for the develop branch:
+And this one for the develop branch (/home/docker/amos_scripts/develop/docker-compose.yml):
 
 ```
 version: '2'
