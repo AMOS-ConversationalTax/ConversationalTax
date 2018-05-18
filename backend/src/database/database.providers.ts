@@ -1,12 +1,12 @@
 import * as mongoose from 'mongoose';
-import { DB_PROVIDER } from '../constants';
+import Config from '../../config/config';
 
 export const databaseProviders = [
     {
-        provide: DB_PROVIDER,
+        provide: Config.DB_PROVIDER,
         useFactory: async () => {
             (mongoose as any).Promise = global.Promise;
-            return await mongoose.connect('mongodb://mongo');
+            return await mongoose.connect(Config.MONGO_URL);
         },
     },
 ];

@@ -1,12 +1,12 @@
 import { Connection } from 'mongoose';
 
 import { PostSchema } from './posts.schema';
-import { POST_MODEL_PROVIDER, DB_PROVIDER } from '../constants';
+import Config from '../../../config/config';
 
 export const postsProviders = [
     {
-        provide: POST_MODEL_PROVIDER,
+        provide: Config.POST_MODEL_PROVIDER,
         useFactory: (connection: Connection) => connection.model('Post', PostSchema),
-        inject: [DB_PROVIDER],
+        inject: [Config.DB_PROVIDER],
     },
 ];

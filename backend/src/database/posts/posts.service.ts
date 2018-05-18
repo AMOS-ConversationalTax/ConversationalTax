@@ -1,14 +1,13 @@
 import { Model } from 'mongoose';
 import { Inject, Injectable } from '@nestjs/common';
-
 import { Post } from './interfaces/post.interface';
 import { CreatePostDto } from './dto/create-post.dto';
-import { POST_MODEL_PROVIDER } from '../constants';
+import Config from '../../../config/config';
 
 @Injectable()
 export class PostsService {
     constructor(
-        @Inject(POST_MODEL_PROVIDER) private readonly postModel: Model<Post>) { }
+        @Inject(Config.POST_MODEL_PROVIDER) private readonly postModel: Model<Post>) { }
 
     async create(createPostDto: CreatePostDto): Promise<Post> {
         const createdPost = new this.postModel(createPostDto);
