@@ -95,67 +95,106 @@ npm run publish
 
 We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
 
-#### Starting script
+#### Docker-Compose files and starting script
 
-The key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
+The key part of the deployment are the Docker-Compose files for the containers. This one is for the master branch:
+
+```
+version: '2'
+services:
+    conversational-tax:
+        restart: always
+        image: amosconversationaltax/conversational-tax
+        container_name: conversational-tax
+        depends_on:
+            - mongo
+        privileged: true
+        ports:
+            - 3000:3000
+        links:
+            - mongo
+        volumes:
+            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
+    mongo:
+        restart: always
+        image: mongo
+        container_name: conversational-tax-mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/amos_data/conversational-tax-mongo:/data/db
+```
+
+And this one for the develop branch:
+
+```
+version: '2'
+services:
+    conversational-tax-dev:
+        restart: always
+        image: amosconversationaltax/conversational-tax-dev
+        container_name: conversational-tax-dev
+        depends_on:
+            - mongo
+        privileged: true
+        ports:
+            - 3010:3000
+        links:
+            - mongo
+        volumes:
+            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
+    mongo:
+        restart: always
+        image: mongo
+        container_name: conversational-tax-dev-mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/amos_data/conversational-tax-dev-mongo:/data/db
+```
+
+Another key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
 
 ```
 #!/bin/bash
 
-# Variables
+echo "###########################################"
+echo "######## Enter correct directory:  ########"
+echo "###########################################"
+
 if [ $1 == "master" ]; then
-  CONTAINERNAME="conversational-tax"
-  CONTAINERIMAGE="amosconversationaltax/conversational-tax"
-  PRIMARYPORT="3000"
-  NETWORKNAME="conversational-tax-network"
+
+  cd /home/docker/amos_scripts/master
+  echo " "
+  echo "Entered /home/docker/amos_scripts/master successfully"
+  echo " "
+
 else
-  CONTAINERNAME="conversational-tax-dev"
-  CONTAINERIMAGE="amosconversationaltax/conversational-tax-dev"
-  PRIMARYPORT="3010"
-  NETWORKNAME="conversational-tax-dev-network"
-fi
 
-# Check whether the container is already running
-RUNNING=$(docker inspect --format="{{.State.Running}}" $CONTAINERNAME 2> /dev/null)
-
-if [ "$RUNNING" == "true" ]; then
-
-  # Stop the running container
-  echo "###########################################"
-  echo "####### Stop the running container: #######"
-  echo "###########################################"
+  cd /home/docker/amos_scripts/develop
   echo " "
-  docker stop $CONTAINERNAME
-  echo " "
-  echo " "
-
-  # Remove the stopped container
-  echo "###########################################"
-  echo "###### Remove the stopped container: ######"
-  echo "###########################################"
-  echo " "
-  docker rm $CONTAINERNAME
-  echo " "
+  echo "Entered /home/docker/amos_scripts/develop successfully"
   echo " "
 
 fi
 
-# Pull the newest image from DockerHub
 echo "###########################################"
-echo "## Pull the newest image from DockerHub: ##"
+echo "############ Pull new images:  ############"
 echo "###########################################"
+
 echo " "
-docker pull $CONTAINERIMAGE
-echo " "
+docker-compose pull
 echo " "
 
-# Start the new container
+# We do not need to stop containers as docker-compose
+# up will decide whether this is needed or not
+
 echo "###########################################"
-echo "# Start the new latest docker container:  #"
+echo "########## Start new containers: ##########"
 echo "###########################################"
+
 echo " "
-docker run -p $PRIMARYPORT:3000 -v /home/docker/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json -d --name=$CONTAINERNAME --net=$NETWORKNAME --restart=always $CONTAINERIMAGE
-echo " "
+docker-compose up -d
 echo " "
 ```
 
@@ -163,28 +202,4 @@ The Linux user "amos" does not have any sudo rights (Docker container have to be
 
 ```
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
-```
-
-#### Setup of MongoDB and the corresponding Docker Network
-
-As we decided to use MongoDB for data storage, we need to setup a MongoDB container for each of the CD containers. 
-
-At first we need to create two Docker networks:
-
-```
-docker network create conversational-tax-network
-```
-
-```
-docker network create conversational-tax-dev-network
-```
-
-Secondly we start the two MongoDB instances:
-
-```
-docker run -d -v ~/amos_data/conversational-tax-mongo:/data/db --hostname mongo --name=conversational-tax-mongo --net=conversational-tax-network --expose=27017 --restart=always mongo
-```
-
-```
-docker run -d -v ~/amos_data/conversational-tax-dev-mongo:/data/db --hostname mongo --name=conversational-tax-dev-mongo --net=conversational-tax-dev-network --expose=27017 --restart=always mongo
 ```
