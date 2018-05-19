@@ -56,32 +56,39 @@ In contrast to the previous interation of MongoDB in our project, the database c
 
 To access the datastore import the suiting service and create an instance of it. After that you can create new database entries, modify existing ones and delete entries. For a full list of functions and their meaning take a look at the corresponding JsDoc. Let's include a short example of creating a new reminder, reading all reminders for a specific user at a specific date and delete a reminder:
 
-```
+```javascript
 // Import the suiting service
 import { ReminderService } from 'backend/src/database/reminder/reminder.service.ts';
 
-// Create the ReminderService object
-const reminderSer = new ReminderService;
+class ReminderDemo {
+    private reminderService: ReminderService;
 
-// Create a new reminder
-let id = await reminderSer.create("John Doe", "This is a description", new Date(1995,6,23));
+    constructor(reminderService: ReminderService) {
+        this.reminderService = reminderService;
+    }
 
-// Read all reminders of a specific user at a specific date 
-console.log(await reminderSer.findReminderByUser("John Doe", new Date(1995,6,23)));
+    public demo() { 
+      // Create a new reminder
+      let id = await reminderSer.create("John Doe", "This is a description", new Date(1995,6,23));
 
-// Output with previously empty datastore:
-// [ { _id: '[Random Object ID]',
-//     user_id: 'John Doe',
-//     description: 'This is a description',
-//     date: 1995-07-22T22:00:00.000Z,
-//     __v: 0 } ]
+      // Read all reminders of a specific user at a specific date 
+      console.log(await reminderSer.findReminderByUser("John Doe", new Date(1995,6,23)));
 
-// Delete the previously created reminder
-await reminderSer.deleteReminder(id);
+      // Output with previously empty datastore:
+      // [ { _id: '[Random Object ID]',
+      //     user_id: 'John Doe',
+      //     description: 'This is a description',
+      //     date: 1995-07-22T22:00:00.000Z,
+      //     __v: 0 } ]
 
-// Read all reminders of a specific user at a specific date again
-console.log(await reminderSer.findReminderByUser("John Doe", new Date(1995,6,23)));
+      // Delete the previously created reminder
+      await reminderSer.deleteReminder(id);
 
-// Output with previously empty datastore:
-// []
+      // Read all reminders of a specific user at a specific date again
+      console.log(await reminderSer.findReminderByUser("John Doe", new Date(1995,6,23)));
+
+      // Output with previously empty datastore:
+      // []
+    }
+}
 ```
