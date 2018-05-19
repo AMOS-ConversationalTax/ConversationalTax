@@ -35,5 +35,5 @@ export const employmentContractSchema: mongoose.Schema = new mongoose.Schema({
     endDate_string: {
         type: String,
         required: false,
-    }
+    },
 });

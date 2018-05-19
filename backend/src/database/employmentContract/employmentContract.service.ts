@@ -27,11 +27,11 @@ export class EmploymentContractService {
      */
     async create(user_id: string): Promise<string> {
 
-        // Get a new ObjectID 
-        let _id: string = mongoose.Types.ObjectId();
+        // Get a new ObjectID
+        const _id: string = mongoose.Types.ObjectId();
 
         // No user with this id exists => create a new one
-        let document: Model<EmploymentContract> = new this.employmentContractModel({ "_id": _id, "user_id": user_id });
+        const document: Model<EmploymentContract> = new this.employmentContractModel({ '_id': _id, 'user_id': user_id });
         await document.save();
 
         return _id;
@@ -46,13 +46,13 @@ export class EmploymentContractService {
      */
     async editName(_id: string, name: string): Promise<boolean> {
 
-        // Test whether employmentContract with _id is existing 
-        let existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ "_id": _id });
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
 
-        if(existingEmploymentContract.length == 1) {
+        if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
-            await this.employmentContractModel.update({ "_id": _id },{ $set: { "name": name } });
+            await this.employmentContractModel.update({ '_id': _id }, { $set: { 'name': name } });
 
             return true;
 
@@ -73,13 +73,13 @@ export class EmploymentContractService {
      */
     async editStartDateExact(_id: string, startDate_exact: Date): Promise<boolean> {
 
-        // Test whether employmentContract with _id is existing 
-        let existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ "_id": _id });
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
 
-        if(existingEmploymentContract.length == 1) {
+        if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
-            await this.employmentContractModel.update({ "_id": _id },{ $set: { "startDate_exact": startDate_exact } });
+            await this.employmentContractModel.update({ '_id': _id }, { $set: { 'startDate_exact': startDate_exact } });
 
             return true;
 
@@ -92,7 +92,7 @@ export class EmploymentContractService {
 
     }
 
-     /**
+    /**
      * Set or update the startDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} startDate_string - The (new) string startDate of the employmentContract
@@ -100,13 +100,13 @@ export class EmploymentContractService {
      */
     async editStartDateString(_id: string, startDate_string: string): Promise<boolean> {
 
-        // Test whether employmentContract with _id is existing 
-        let existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ "_id": _id });
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
 
-        if(existingEmploymentContract.length == 1) {
+        if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
-            await this.employmentContractModel.update({ "_id": _id },{ $set: { "startDate_string": startDate_string } });
+            await this.employmentContractModel.update({ '_id': _id }, { $set: { 'startDate_string': startDate_string } });
 
             return true;
 
@@ -127,13 +127,13 @@ export class EmploymentContractService {
      */
     async editEndDateExact(_id: string, endDate_exact: Date): Promise<boolean> {
 
-        // Test whether employmentContract with _id is existing 
-        let existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ "_id": _id });
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
 
-        if(existingEmploymentContract.length == 1) {
+        if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
-            await this.employmentContractModel.update({ "_id": _id },{ $set: { "endDate_exact": endDate_exact } });
+            await this.employmentContractModel.update({ '_id': _id }, { $set: { 'endDate_exact': endDate_exact } });
 
             return true;
 
@@ -146,7 +146,7 @@ export class EmploymentContractService {
 
     }
 
-     /**
+    /**
      * Set or update the endDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} endDate_exact - The (new) string endDate of the employmentContract
@@ -154,13 +154,13 @@ export class EmploymentContractService {
      */
     async editEndDateString(_id: string, endDate_string: string): Promise<boolean> {
 
-        // Test whether employmentContract with _id is existing 
-        let existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ "_id": _id });
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
 
-        if(existingEmploymentContract.length == 1) {
+        if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
-            await this.employmentContractModel.update({ "_id": _id },{ $set: { "endDate_string": endDate_string } });
+            await this.employmentContractModel.update({ '_id': _id }, { $set: { 'endDate_string': endDate_string } });
 
             return true;
 
@@ -180,7 +180,7 @@ export class EmploymentContractService {
      */
     async findEmploymentContract(_id: string): Promise<Array<EmploymentContract>> {
 
-        return await this.employmentContractModel.find({ "_id": _id }).exec();
+        return await this.employmentContractModel.find({ '_id': _id }).exec();
 
     }
 
@@ -191,7 +191,7 @@ export class EmploymentContractService {
      */
     async findEmploymentContractsOfUser(user_id: string): Promise<Array<EmploymentContract>> {
 
-        return await this.employmentContractModel.find({ "user_id": user_id }).exec();
+        return await this.employmentContractModel.find({ 'user_id': user_id }).exec();
 
     }
 
@@ -202,7 +202,7 @@ export class EmploymentContractService {
      */
     async findEmploymentContractsOfUserByName(user_id: string, name: string): Promise<Array<EmploymentContract>> {
 
-        return await this.employmentContractModel.find({ "user_id": user_id, "name": name }).exec();
+        return await this.employmentContractModel.find({ 'user_id': user_id, 'name': name }).exec();
 
     }
 
@@ -223,13 +223,13 @@ export class EmploymentContractService {
      */
     async deleteEmploymentContract(_id: string): Promise<boolean> {
 
-        // Test whether employmentContract with _id is existing 
-        let existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ "_id": _id });
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
 
-        if(existingEmploymentContract.length == 1) {
+        if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
-            await this.employmentContractModel.remove({ "_id": _id });
+            await this.employmentContractModel.remove({ '_id': _id });
 
             return true;
 

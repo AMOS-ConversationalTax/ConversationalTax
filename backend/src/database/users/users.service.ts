@@ -5,7 +5,6 @@ import { User } from './interfaces/users.interface';
 import { userSchema } from './schemas/users.schema';
 import DBConfig from '../dbconfig';
 
-
 /**
  * This class implements the connection to the users table in the datastore
  * @class UsersService
@@ -29,12 +28,12 @@ export class UsersService {
     async create(_id: string): Promise<boolean> {
 
         // Test whether user with _id is already existing
-        let existingUsers: Array<User> = await this.userModel.find({ "_id": _id });
+        const existingUsers: Array<User> = await this.userModel.find({ '_id': _id });
 
-        if(existingUsers.length == 0) {
+        if ( existingUsers.length === 0 ) {
 
             // No user with this id exists => create a new one
-            let document: Model<User> = new this.userModel({ "_id": _id });
+            const document: Model<User> = new this.userModel({ '_id': _id });
             await document.save();
 
             return true;
@@ -55,7 +54,7 @@ export class UsersService {
      */
     async findUser(_id: string): Promise<Array<User>> {
 
-        return await this.userModel.find({ "_id": _id }).exec();
+        return await this.userModel.find({ '_id': _id }).exec();
 
     }
 

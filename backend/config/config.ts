@@ -6,7 +6,7 @@ namespace Config {
      * - "mongodb://mongo/conv-tax" for our Docker images
      * @name Config#MONGO_URL
      * @type {string}
-     */ 
+     */
     export const MONGO_URL: string = 'mongodb://localhost/conv-tax';
 
 }
