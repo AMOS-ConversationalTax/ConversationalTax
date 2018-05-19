@@ -12,7 +12,7 @@ namespace DBConfig {
      * @name DBConfig#USER_MODEL_PROVIDER
      * @type {string}
      */
-    export const USER_MODEL_PROVIDER: string = 'Users';
+    export const USER_MODEL_PROVIDER: string = 'User';
 
     /**
      * The main provider of the employmentContract model
@@ -21,6 +21,13 @@ namespace DBConfig {
      * @type {string}
      */
     export const EMPLOYMENTCONTRACT_MODEL_PROVIDER: string = 'EmploymentContract';
+
+    /**
+     * The main provider of the reminder model (= name of the reminder "table")
+     * @name DBConfig#REMINDER_MODEL_PROVIDER
+     * @type {string}
+     */
+    export const REMINDER_MODEL_PROVIDER: string = 'Reminder';
 
 }
 

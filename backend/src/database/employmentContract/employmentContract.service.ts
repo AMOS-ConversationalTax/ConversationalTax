@@ -14,7 +14,7 @@ export class EmploymentContractService {
     /**
      * The model of the employmentContract table
      * Implements the connection to this table, too
-     * Corresponds to db.users in MongoDB
+     * Corresponds to db.employmentContract in MongoDB
      * @name EmploymentContractService#employmentContractModel
      * @type {Model<User>}
      */

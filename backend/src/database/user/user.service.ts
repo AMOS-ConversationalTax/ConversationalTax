@@ -1,21 +1,21 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from './interfaces/users.interface';
-import { userSchema } from './schemas/users.schema';
+import { User } from './interfaces/user.interface';
+import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 
 /**
  * This class implements the connection to the users table in the datastore
- * @class UsersService
+ * @class UserService
  */
-export class UsersService {
+export class UserService {
 
     /**
      * The model of the user table
      * Implements the connection to this table, too
-     * Corresponds to db.users in MongoDB
-     * @name UsersService#userModel
+     * Corresponds to db.user in MongoDB
+     * @name UserService#userModel
      * @type {Model<User>}
      */
     private userModel: Model<User> = mongoose.model(DBConfig.USER_MODEL_PROVIDER, userSchema);

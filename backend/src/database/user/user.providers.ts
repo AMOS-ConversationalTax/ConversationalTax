@@ -1,13 +1,13 @@
 import { Connection } from 'mongoose';
-import { userSchema } from './schemas/users.schema';
+import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 
 /**
  * The provider of the users table in the mongo datastore
- * @name usersProviders
+ * @name userProviders
  * @type {any}
  */
-export const usersProviders: any = [
+export const userProviders: any = [
     {
         provide: DBConfig.USER_MODEL_PROVIDER,
         useFactory: (connection: Connection) => connection.model(DBConfig.USER_MODEL_PROVIDER, userSchema),

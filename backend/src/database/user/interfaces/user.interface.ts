@@ -6,6 +6,11 @@ import { Document } from 'mongoose';
  */
 export interface User extends Document {
 
+    /**
+     * The unique id of the User
+     * @name User#_id
+     * @type {string}
+     */
     readonly _id: string;
 
 }
