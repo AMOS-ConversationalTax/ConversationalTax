@@ -34,26 +34,6 @@ This part has only been tested under Linux (Debian).
 
 The server will be available at `mongodb://localhost:27017`
 
-### Simulate Rest API interaction with the Database
-
-- Install `Postman`
-- run the project with `npm run start`
-
-The backend is now available at `http://localhost:3000`
-
-- Open `Postman`
-- Select in the start screen `POST` as the method
-- Type the URL of the needed database
--- In this case its `http://localhost:3000/posts`
-- Then add a new header with name `Content-Type` and value `application/json`
-- Now go to the body tab and set body type raw and paste the following content:
-
-`{"title": "this is post one", "content": "You've gotta write clearer so you can be read when you're dead", "userId": "5ab25d50740ce24b63cc9c83"}`
-
-- Now press Send
-- The result will be visible at `http://localhost:3000/posts`
-
-
 ## DialogFlow Auth
 In order to use DialogFlow you need to provide an appropriate keyfile, which has to be placed at /backend/dialogflowKey.json
 
