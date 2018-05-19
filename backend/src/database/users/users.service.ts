@@ -22,16 +22,16 @@ export class UsersService {
     private userModel: Model<User> = mongoose.model(DBConfig.USER_MODEL_PROVIDER, userSchema);
 
     /**
-     * Create a new user in the datastore
+     * Create a new user in the datastore - checks if the user already exists
      * @param {string} _id - The unique id of the user
-     * @returns {Promise<boolean>} - A promise containing the success of creating the user
+     * @returns {Promise<boolean>} - A promise containing true for a new user being created
      */
     async create(_id: string): Promise<boolean> {
 
-        // Test whether user with _id is existing already
-        let count: number = await this.userModel.find({ "_id": _id }).limit(1).length;
+        // Test whether user with _id is already existing
+        let existingUsers: Array<User> = await this.userModel.find({ "_id": _id });
 
-        if(count == 0) {
+        if(existingUsers.length == 0) {
 
             // No user with this id exists => create a new one
             let document: Model<User> = new this.userModel({ "_id": _id });

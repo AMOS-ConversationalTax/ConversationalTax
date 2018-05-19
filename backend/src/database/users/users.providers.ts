@@ -10,7 +10,7 @@ import DBConfig from '../dbconfig';
 export const usersProviders: any = [
     {
         provide: DBConfig.USER_MODEL_PROVIDER,
-        useFactory: (connection: Connection) => connection.model('Users', userSchema),
+        useFactory: (connection: Connection) => connection.model(DBConfig.USER_MODEL_PROVIDER, userSchema),
         inject: [DBConfig.DB_PROVIDER],
     },
 ];

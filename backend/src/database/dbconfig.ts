@@ -14,6 +14,14 @@ namespace DBConfig {
      */ 
     export const USER_MODEL_PROVIDER: string = 'Users';
 
+    /**
+     * The main provider of the employmentContract model 
+     * (= name of the employmentContract "table")
+     * @name DBConfig#EMPLOYMENTCONTRACT_MODEL_PROVIDER
+     * @type {string}
+     */ 
+    export const EMPLOYMENTCONTRACT_MODEL_PROVIDER: string = 'EmploymentContract';
+
 }
 
 export default DBConfig;
