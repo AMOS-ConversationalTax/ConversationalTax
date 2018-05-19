@@ -67,7 +67,7 @@ const reminderSer = new ReminderService;
 let id = await reminderSer.create("John Doe", "This is a description", new Date(1995,6,23));
 
 // Read all reminders of a specific user at a specific date 
-console.log(await test.findReminderByUser("John Doe", new Date(1995,6,23)));
+console.log(await reminderSer.findReminderByUser("John Doe", new Date(1995,6,23)));
 
 // Output with previously empty datastore:
 // [ { _id: '[Random Object ID]',
@@ -77,10 +77,10 @@ console.log(await test.findReminderByUser("John Doe", new Date(1995,6,23)));
 //     __v: 0 } ]
 
 // Delete the previously created reminder
-await test.deleteReminder(id);
+await reminderSer.deleteReminder(id);
 
 // Read all reminders of a specific user at a specific date again
-console.log(await test.findReminderByUser("John Doe", new Date(1995,6,23)));
+console.log(await reminderSer.findReminderByUser("John Doe", new Date(1995,6,23)));
 
 // Output with previously empty datastore:
 // []
