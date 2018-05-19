@@ -57,6 +57,7 @@ The code for the Master branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
+sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
@@ -69,6 +70,7 @@ The code for the Develop branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
+sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax-dev .
 docker push amosconversationaltax/conversational-tax-dev

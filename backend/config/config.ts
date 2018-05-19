@@ -9,9 +9,6 @@ namespace Config {
      */ 
     export const MONGO_URL: string = 'mongodb://localhost/conv-tax';
 
-    export const DB_PROVIDER: string = 'DbConnectionToken';
-    export const POST_MODEL_PROVIDER: string = 'PostModelToken';
-
 }
 
 export default Config;

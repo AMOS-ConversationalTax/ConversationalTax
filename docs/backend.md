@@ -25,12 +25,6 @@ This part has only been tested under Linux (Debian).
 - Run `npm run docker:run` to start the created image. 
 
 ### Adding MongoDB
-#### Docker/Linux
-Our database MongoDB is running with Docker, too
-- Run `npm run docker:createnet` to create a Docker network for communication between the containers. This has to be done **before** using `npm run docker:run`.
-- Run `npm run docker:runmongo` to start MongoDB
-
-The database itself is now available as `mongodb://mongo` within the created Docker container.
 #### Windows
 - Download MongoDB at https://www.mongodb.com/dr/fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.6.4-signed.msi/download
 - Follow the instructions.
