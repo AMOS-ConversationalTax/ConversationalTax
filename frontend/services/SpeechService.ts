@@ -1,7 +1,7 @@
 import { Speech } from 'expo';
 
 export default class SpeechService {
-
+    private isSpeaking = false;
     /**
      * Transforms text into speech (audio). 
      * @param text The text to be spoken
@@ -9,26 +9,23 @@ export default class SpeechService {
      */
     public speak(text: string, abortCurrent = true) {
         if (abortCurrent) {
-            this.abortSpeaking().then(() =>{
-                this.doSpeak(text);
-            });
-            
-        } else {
-            this.doSpeak(text);
-        }
+            this.abortSpeaking();            
+        } 
+        this.doSpeak(text);
     }
 
-    private async abortSpeaking(): Promise<void> {
-        if (await this.isSpeaking()) {
+    private abortSpeaking(): void {
+        if (this.isSpeaking) {
             Speech.stop();
         }
     }
 
-    private async isSpeaking(): Promise<boolean> {
-        return await Speech.isSpeakingAsync();
-    }
-
     private doSpeak(text: string) {
-        Speech.speak(text, { language: 'de-DE' });
+        this.isSpeaking = true;
+        Speech.speak(text, { 
+            language: 'de-DE' ,
+            onDone: () => {this.isSpeaking = false},
+            onStopped: () => {this.isSpeaking = false}
+        });
     }
 }

@@ -10,8 +10,6 @@ import autobind from 'autobind-decorator';
 import RestConnection from '../../../services/RestConnection';
 import RecordingService from '../../../services/RecordingService';
 import SpeechService from '../../../services/SpeechService';
-import { Length } from 'class-validator';
-
 
 interface IProps {
     recordingService: RecordingService,
@@ -116,7 +114,7 @@ export default class Microphone extends Component<IProps> {
     }
 
     /**
-     * Ends a  recording if a recording is running
+     * Ends a recording if a recording is running
      */
     private async endRecording() {
         this.setState({ currentState: RecordingState.processingActive });
