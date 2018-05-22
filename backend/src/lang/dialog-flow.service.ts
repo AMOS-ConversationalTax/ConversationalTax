@@ -22,7 +22,13 @@ export class DialogFlowService {
     }
 
     private validateKeyfileExists(): void {
-        if (!fs.existsSync(KEYFILE_PATH)) {
+        let fileExists: boolean;
+        try {
+            fileExists = fs.existsSync(KEYFILE_PATH);
+        } catch (e) {
+            throw new Error('Failed to check for DialoglogCredentialFile. Error:' + e);
+        }
+        if (!fileExists) {
             throw new Error('Credential file for DialogFlow is missing. The keyfile is expected to be named dialogflowKey.json.');
         }
     }
