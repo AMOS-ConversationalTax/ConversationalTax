@@ -8,9 +8,12 @@
         "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "rootDir": ".",
+        "skipLibCheck": true
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "*/**.spec.ts"
     ]
 }

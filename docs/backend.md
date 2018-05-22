@@ -5,7 +5,7 @@
 - `npm i && npm run start`
 - To dockerize it: `npm run docker:build && npm run docker:run`
 
-## Getting Sarted
+## Getting Started
 
 ### Install
 - Clone the repository.
@@ -23,3 +23,23 @@ This part has only been tested under Linux (Debian).
 - You may want to add your current user to the docker group. `sudo usermod -aG docker $USER`
 - Run `npm run docker:build` inside the /backend dir to create the docker image.
 - Run `npm run docker:run` to start the created image. 
+
+### Adding MongoDB
+#### Windows
+- Download MongoDB at https://www.mongodb.com/dr/fastdl.mongodb.org/win32/mongodb-win32-x86_64-2008plus-ssl-3.6.4-signed.msi/download
+- Follow the instructions.
+- Optional: The setup will ask you to install MongoDB Compass. You can access your database very comfortable with it and have a graphical View of it.
+- To run MongoDB open the Command Prompt.
+- run `"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe"`
+
+The server will be available at `mongodb://localhost:27017`
+
+## DialogFlow Auth
+In order to use DialogFlow you need to provide an appropriate keyfile, which has to be placed at /backend/dialogflowKey.json
+
+### Getting the Keyfile
+- Log into the console of DialogFlow
+- Go the the agents settings. (Left navigation on the top - settings symbol)
+- Click onto your 'Service Account'. 
+- In the new window, click on the three dots on the right side of the selected row.
+- Choose to generate the key. 
