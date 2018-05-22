@@ -36,7 +36,7 @@ export class DialogFlowService {
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
      */
-    public detectTextIntent(inputText: string): Promise<DetectIntentResponse> {
+    public detectTextIntent(inputText: string): Promise<DetectIntentResponse[]> {
         const request: DetectIntentRequest = {
             queryInput: {
                 text: {
@@ -63,7 +63,7 @@ export class DialogFlowService {
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
      */
-    public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string): Promise<DetectIntentResponse> {
+    public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string): Promise<DetectIntentResponse[]> {
         const request: DetectIntentRequest = {
             queryInput: {
                 audioConfig: {
@@ -75,5 +75,13 @@ export class DialogFlowService {
             inputAudio,
         };
         return this.sessionClient.detectIntent({ session: this.sessionPath, ...request });
+    }
+
+    /**
+     * Extracts the answer of DialogFlow to read it out to the user.
+     * @param detectIntent Response from DialogFlow
+     */
+    public extractResponseText(detectIntent: DetectIntentResponse): string {
+        return detectIntent.queryResult.fulfillmentText;
     }
 }
