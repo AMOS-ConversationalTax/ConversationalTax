@@ -18,7 +18,7 @@ export class AppController {
   }
 
   @Delete()
-  delete() : string {
+  delete(): string {
     return 'Delete arrived!';
   }
 }
