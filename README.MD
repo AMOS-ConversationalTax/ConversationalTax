@@ -7,6 +7,7 @@ Conversational Tax is a students' project taking place in the summersemester 201
 - [Backend - Getting Started](docs/backend.md)
 - [Setup of CI and CD for our project](docs/ci-cd-setup.md)
 - [Datastore - Our MongoDB setup](docs/datastore.md)
+- [How to Unit Test](docs/testing.md)
 
 ## Build Status
 

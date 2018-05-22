@@ -18,8 +18,10 @@ export class LangController {
   constructor(private dialogFlowService: DialogFlowService) {}
 
   @Post('text')
-  textIntent(@Body() body: TextIntentParams) {
-    return this.dialogFlowService.detectTextIntent(body.textInput);
+  async textIntent(@Body() body: TextIntentParams) {
+    const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput);
+    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+    return { text: responseText };
   }
 
   @Post('audio_upload')
@@ -43,7 +45,7 @@ export class LangController {
     }
 
     const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio);
-    // console.log(dialogflowResponse);
-    return dialogflowResponse;
+    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+    return { text: responseText };
   }
 }
