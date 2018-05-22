@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Param, Put, Body } from '@nestjs/common';
 import { EmploymentContractService } from './employmentContract.service';
-import {EmploymentContract} from './interfaces/employmentContract.interface';
+import {AllIds, User_Id, Contract_Id, UserEmploymentContract} from './employmentContract.dto';
 
 @Controller('db/employmentContract')
 export class EmploymentContractController {
@@ -9,25 +9,25 @@ export class EmploymentContractController {
     // TODO this is a skeleton
     // TODO implementation needed
     @Get(':user_id/:id')
-    async findOne(@Param('user_id') user_id, @Param('id') id) {
-        return 'get (user_id, id) returns:' + user_id + ', ' + id;
+    async findOne(@Param() params: AllIds) {
+        return 'get (user_id, id) returns:' + params.user_id + ', ' + params.contract_id;
     }
 
     // TODO implementation needed
     @Get(':user_id')
-    async findAll(@Param('user_id') user_id) {
-        return 'get all employment contracts of user ' + user_id + '.';
+    async findAll(@Param() params: User_Id) {
+        return 'get all employment contracts of user ' + params.user_id + '.';
     }
 
     // TODO implementation needed
     @Post(':user_id')
-    async create(@Body() createdEmploymentContract) {
-        return 'employment contract created!';
+    async create(@Param() params: User_Id, @Body() createdEmploymentContract: UserEmploymentContract) {
+        return 'employment contract for user ' + params.user_id + ' created!';
     }
 
     // TODO implementation needed
     @Put(':user_id/:id')
-    async update(@Param('user_id') user_id, @Param('id') id, @Body() updatedEmploymentContract) {
-        return 'employment contract ' +  id + ' of user ' + user_id + ' updated!';
+    async update(@Param() params: AllIds, @Body() updatedEmploymentContract: UserEmploymentContract) {
+        return 'employment contract ' + params.user_id + ' of user ' +  params.contract_id + ' updated!';
     }
 }
