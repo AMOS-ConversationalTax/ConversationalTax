@@ -12,14 +12,14 @@ import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 import * as request from 'superagent';
+import Config from '../../config/config';
 
 interface IProps {
   navigation: any
 }
 
-export default class DebugApi extends Component<IProps> {
+export default class Debug extends Component<IProps> {
   state = {
-    path: '/',
     resText: '',
     resStatus: '',
   };
@@ -30,17 +30,9 @@ export default class DebugApi extends Component<IProps> {
         <TopBar navigation={this.props.navigation} />
         <View style={globalStyles.content}>
           <Text style={styles.welcome}>
-            Path:
+            Backend IP: {Config.SERVER_URL}
           </Text >
-          <Picker 
-            style={styles.picker}
-            selectedValue={this.state.path}
-            onValueChange={this.onPathSelected}
-          >
-            <Picker.Item label="GET:/" value="/" />
-            <Picker.Item label="GET:/notImplemented" value="/notImplemented" />
-          </Picker>
-          <Button title="Query API" onPress={this.queryApi} />
+          <Button title="Check if Backend is running" onPress={this.queryApi} />
           <Text style={styles.welcome}>
             Response:
           </Text >
@@ -57,15 +49,10 @@ export default class DebugApi extends Component<IProps> {
   }
 
   @autobind
-  private onPathSelected(itemValue: string) {
-    this.setState({ path: itemValue });
-  }
-
-  @autobind
   private queryApi() {
     this.setState({ resText: 'Loading...', resStatus: '' });
     request
-      .get(`http://88.99.211.215:3010${this.state.path}`)
+      .get(Config.SERVER_URL)
       .then((res:request.Response) => {
         this.setState({ resText: res.text, resStatus: res.status });
       });

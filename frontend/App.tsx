@@ -12,7 +12,7 @@ import Home from './screens/home/Home';
 import Start from './screens/start/Start';
 import Conversation from './screens/conversation/Conversation';
 import Notifications from './screens/notifications/Notifications';
-import DebugApi from './screens/debug-api/DebugApi';
+import Debug from './screens/debug/Debug';
 
 // Temporary fix to supress warnings
 // https://stackoverflow.com/questions/49789150/warning-ismounted-is-deprecated-in-plain-javascript-classes
@@ -32,7 +32,7 @@ export default DrawerNavigator({
   Notifications:  {
     screen: Notifications,
   },
-  DebugApi: {
-    screen: DebugApi,
+  Debug: {
+    screen: Debug,
   }
 });
