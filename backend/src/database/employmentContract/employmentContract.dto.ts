@@ -1,4 +1,4 @@
-import { IsString, Length, IsInt, Min, Max, Matches, IsDate, IsNumberString } from 'class-validator';
+import { IsString, Length, IsInt, Min, Max, Matches, IsDate, IsNumberString, IsOptional } from 'class-validator';
 
 export class AllIds {
     @Matches(/[0-9]+/)
@@ -23,14 +23,18 @@ export class UserEmploymentContract {
     readonly name: string;
 
     @IsDate()
+    @IsOptional()
     readonly startDate_exact?: Date;
 
     @IsString()
+    @IsOptional()
     readonly startDate_string?: string;
 
     @IsDate()
+    @IsOptional()
     readonly endDate_exact?: Date;
 
     @IsString()
+    @IsOptional()
     readonly endDate_string?: string;
 }
