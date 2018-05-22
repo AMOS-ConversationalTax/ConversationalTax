@@ -18,13 +18,18 @@ export default class EmployeeService {
     public processEmployeeContract(detectIntent: DetectIntentResponse) {
         const responseAction = this.dialogFlowService.extractAction(detectIntent);
         const responseParam = this.dialogFlowService.extractParameter(detectIntent)[this.fieldsString][responseAction];
-        if (responseAction === 'Vertragsname')
+        console.log(JSON.stringify(responseParam));
+        if (responseAction === 'VertragsName')
         {
             this.setContractName(responseParam);
         }
         if (responseAction === 'VertragMitDatum')
         {
             this.createContractWithDate(responseParam);
+        }
+        if (responseAction === 'EndDatum')
+        {
+            this.setEndDate(responseParam);
         }
     }
 
@@ -36,6 +41,17 @@ export default class EmployeeService {
         if (responseParameter[this.structValueString] != null){
             const contractName = responseParameter[this.structValueString][this.fieldsString][this.nameString][this.stringValueString];
             this.employmentContractService.editName('5b046b1d9bc44048d059d12f', contractName);
+        }
+    }
+
+    /**
+     * Set the exact end date inside of an existing Contract - Uses right now a hardcoded ID!!
+     * @param {object} responseParameter - All parameters extracted from the origin response
+     */
+    public setEndDate(responseParameter: object) {
+        if (responseParameter[this.stringValueString] != null){
+            const contractDate = responseParameter[this.stringValueString];
+            this.employmentContractService.editEndDateExact('5b046b1d9bc44048d059d12f', contractDate);
         }
     }
 
