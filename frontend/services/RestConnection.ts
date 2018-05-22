@@ -97,7 +97,7 @@ export default class RestConnection implements IConnection {
         };
 
         try {
-            return await fetch(apiUrl, options);
+            return await fetch(apiUrl, options).then((response) => response.json());
         } catch (e) {
             console.error(`Could not upload audio recording. ${e}`);
         }
