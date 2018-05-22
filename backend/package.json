@@ -11,8 +11,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:build": "docker build -t conversational-tax .",
     "docker:run": "docker run -p 3000:3000 -d --net=conversational-tax-network conversational-tax",
-    "docker:createnet": "docker network create conversational-tax-network",
-    "docker:runmongo": "docker run -d --hostname mongo --net=conversational-tax-network --expose=27017 mongo",
     "lint": "tslint -c tslint.json --project tsconfig.json"
   },
   "dependencies": {
