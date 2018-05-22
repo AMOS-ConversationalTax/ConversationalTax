@@ -1,40 +1,36 @@
-import { IsString, Length, IsInt, Min, Max, Matches, IsDate } from 'class-validator';
+import { IsString, Length, IsInt, Min, Max, Matches, IsDate, IsNumberString } from 'class-validator';
 
 export class AllIds {
-    @IsInt()
-    @Min(0)
-    readonly user_id: number;
+    @Matches(/[0-9]+/)
+    readonly user_id: string;
 
-    @IsInt()
-    @Min(0)
-    readonly contract_id: number;
+    @Matches(/[0-9]+/)
+    readonly id: string;
 }
 
-export class User_Id {
-    @IsInt()
-    @Min(0)
-    readonly user_id: number;
+export class UserId {
+    @Matches(/[0-9]+/)
+    readonly user_id: string;
 }
 
-export class Contract_Id {
-    @IsInt()
-    @Min(0)
-    readonly contract_id: number;
+export class ContractId {
+    @Matches(/[0-9]+/)
+    readonly id: string;
 }
 
 export class UserEmploymentContract {
     @IsString()
     readonly name: string;
-    
+
     @IsDate()
-    readonly startDate_exact: Date;
-    
+    readonly startDate_exact?: Date;
+
     @IsString()
-    readonly startDate_string: string;
-    
+    readonly startDate_string?: string;
+
     @IsDate()
-    readonly endDate_exact: Date;
-    
+    readonly endDate_exact?: Date;
+
     @IsString()
-    readonly endDate_string: string;
+    readonly endDate_string?: string;
 }
