@@ -69,10 +69,10 @@ class ReminderDemo {
 
     public demo() { 
       // Create a new reminder
-      let id = await reminderService.create("John Doe", "This is a description", new Date(1995,6,23));
+      let id = await this.reminderService.create("John Doe", "This is a description", new Date(1995,6,23));
 
       // Read all reminders of a specific user at a specific date 
-      console.log(await reminderService.findReminderByUser("John Doe", new Date(1995,6,23)));
+      console.log(await this.reminderService.findReminderByUser("John Doe", new Date(1995,6,23)));
 
       // Output with previously empty datastore:
       // [ { _id: '[Random Object ID]',
@@ -82,10 +82,10 @@ class ReminderDemo {
       //     __v: 0 } ]
 
       // Delete the previously created reminder
-      await reminderService.deleteReminder(id);
+      await this.reminderService.deleteReminder(id);
 
       // Read all reminders of a specific user at a specific date again
-      console.log(await reminderService.findReminderByUser("John Doe", new Date(1995,6,23)));
+      console.log(await this.reminderService.findReminderByUser("John Doe", new Date(1995,6,23)));
 
       // Output with previously empty datastore:
       // []
