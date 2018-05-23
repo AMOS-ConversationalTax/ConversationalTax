@@ -1,15 +1,16 @@
 import { DialogFlowService } from './dialog-flow.service';
 import { EmploymentContractService } from './../database/employmentContract/employmentContract.service';
+import { Injectable } from '@nestjs/common';
 
-export default class EmployeeService {
+@Injectable()
+export class EmployeeService {
 
     fieldsString = 'fields';
     structValueString = 'structValue';
     nameString = 'name';
     stringValueString = 'stringValue';
 
-    constructor(private dialogFlowService: DialogFlowService,
-                private employmentContractService: EmploymentContractService) {}
+    constructor(private dialogFlowService: DialogFlowService, private employmentContractService: EmploymentContractService) {}
 
     /**
      * Processes the response of a users input in the context of an employment contract

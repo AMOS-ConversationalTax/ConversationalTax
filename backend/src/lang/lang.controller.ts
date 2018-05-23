@@ -1,7 +1,7 @@
 import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Query, BadRequestException } from '@nestjs/common';
 import { DialogFlowService } from './dialog-flow.service';
 import { AudioIntentParams, TextIntentParams } from './lang.dto';
-import EmployeeService from './employee.service';
+import { EmployeeService } from './employee.service';
 import { EmploymentContractService } from 'database/employmentContract/employmentContract.service';
 
 const ANDROID_AUDIO_SETTINGS = {
@@ -17,11 +17,7 @@ const IOS_AUDIO_SETTINGS = {
 @Controller('lang')
 export class LangController {
 
-  private employeeService: EmployeeService;
-
-  constructor(private dialogFlowService: DialogFlowService) {
-    this.employeeService = new EmployeeService(dialogFlowService, new EmploymentContractService());
-  }
+  constructor(private dialogFlowService: DialogFlowService, private employeeService: EmployeeService) {}
 
   @Post('text')
   async textIntent(@Body() body: TextIntentParams) {
