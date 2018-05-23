@@ -57,6 +57,7 @@ The code for the Master branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
+sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
@@ -69,6 +70,7 @@ The code for the Develop branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
+sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax-dev .
 docker push amosconversationaltax/conversational-tax-dev
@@ -84,75 +86,117 @@ cd ../frontend
 npm ci
 npm i -g exp
 exp login -u $USERNAME -p $PASSWORD
+sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.tsx
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
 npm run publish
 ```
-(The environment variables USERNAME, PASSWORD have to be set through SemaphoreCI. The BRANCH is directly replaced with develop or master.)
+(The environment variables USERNAME, PASSWORD have to be set through SemaphoreCI. The URL is replaced with the IP of our CD server and the PORT is replaced with 3000 for the master branch and 3010 for the develop branch. The BRANCH is directly replaced with develop or master.)
 
 ### Deploy on CD-Server
 
 We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
 
-#### Starting script
+#### Docker-Compose files and starting script
 
-The key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
+The key part of the deployment are the Docker-Compose files for the containers. This one is for the master branch (/home/docker/amos_scripts/master/docker-compose.yml):
+
+```
+version: '2'
+services:
+    conversational-tax:
+        restart: always
+        image: amosconversationaltax/conversational-tax
+        container_name: conversational-tax
+        depends_on:
+            - mongo
+        privileged: true
+        ports:
+            - 3000:3000
+        links:
+            - mongo
+        volumes:
+            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
+    mongo:
+        restart: always
+        image: mongo
+        container_name: conversational-tax-mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/amos_data/conversational-tax-mongo:/data/db
+```
+
+And this one for the develop branch (/home/docker/amos_scripts/develop/docker-compose.yml):
+
+```
+version: '2'
+services:
+    conversational-tax-dev:
+        restart: always
+        image: amosconversationaltax/conversational-tax-dev
+        container_name: conversational-tax-dev
+        depends_on:
+            - mongo
+        privileged: true
+        ports:
+            - 3010:3000
+        links:
+            - mongo
+        volumes:
+            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
+    mongo:
+        restart: always
+        image: mongo
+        container_name: conversational-tax-dev-mongo
+        expose:
+            - 27017
+        volumes:
+            - ~/amos_data/conversational-tax-dev-mongo:/data/db
+```
+
+Another key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
 
 ```
 #!/bin/bash
 
-# Variables
+echo "###########################################"
+echo "######## Enter correct directory:  ########"
+echo "###########################################"
+
 if [ $1 == "master" ]; then
-  CONTAINERNAME="conversational-tax"
-  CONTAINERIMAGE="amosconversationaltax/conversational-tax"
-  PRIMARYPORT="3000"
+
+  cd /home/docker/amos_scripts/master
+  echo " "
+  echo "Entered /home/docker/amos_scripts/master successfully"
+  echo " "
+
 else
-  CONTAINERNAME="conversational-tax-dev"
-  CONTAINERIMAGE="amosconversationaltax/conversational-tax-dev"
-  PRIMARYPORT="3010"
-fi
 
-# Check whether the container is already running
-RUNNING=$(docker inspect --format="{{.State.Running}}" $CONTAINERNAME 2> /dev/null)
-
-if [ "$RUNNING" == "true" ]; then
-
-  # Stop the running container
-  echo "###########################################"
-  echo "####### Stop the running container: #######"
-  echo "###########################################"
+  cd /home/docker/amos_scripts/develop
   echo " "
-  docker stop $CONTAINERNAME
-  echo " "
-  echo " "
-
-  # Remove the stopped container
-  echo "###########################################"
-  echo "###### Remove the stopped container: ######"
-  echo "###########################################"
-  echo " "
-  docker rm $CONTAINERNAME
-  echo " "
+  echo "Entered /home/docker/amos_scripts/develop successfully"
   echo " "
 
 fi
 
-# Pull the newest image from DockerHub
 echo "###########################################"
-echo "## Pull the newest image from DockerHub: ##"
+echo "############ Pull new images:  ############"
 echo "###########################################"
+
 echo " "
-docker pull $CONTAINERIMAGE
-echo " "
+docker-compose pull
 echo " "
 
-# Start the new container
+# We do not need to stop containers as docker-compose
+# up will decide whether this is needed or not
+
 echo "###########################################"
-echo "# Start the new latest docker container:  #"
+echo "########## Start new containers: ##########"
 echo "###########################################"
+
 echo " "
-docker run -p $PRIMARYPORT:3000 -d --name=$CONTAINERNAME --restart=always $CONTAINERIMAGE
-echo " "
+docker-compose up -d
 echo " "
 ```
 

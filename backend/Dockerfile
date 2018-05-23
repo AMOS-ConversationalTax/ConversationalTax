@@ -3,6 +3,9 @@
 # Node JS 8.X
 FROM node:carbon
 
+# Install latest npm version (Npm 6)
+RUN npm i npm@latest
+
 # Create app directory
 WORKDIR /usr/src/app
 
