@@ -12,7 +12,7 @@ import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 import * as request from 'superagent';
-import Config from '../../config/config';
+import Config from '../../../config/config';
 
 interface IProps {
   navigation: any

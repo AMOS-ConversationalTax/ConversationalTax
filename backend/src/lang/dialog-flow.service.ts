@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
 import * as fs from 'fs';
+import Config from './../../../config/config';
 
 const KEYFILE_PATH = 'dialogflowKey.json';
 const PROJECT_ID = 'test-c7ec0';
@@ -16,21 +17,9 @@ export class DialogFlowService {
     private sessionClient: any;
 
     constructor() {
-        this.validateKeyfileExists();
-        this.sessionClient = new dialogflow.SessionsClient({ keyFilename: KEYFILE_PATH});
+        const credentials = Config.DIALOG_FLOW_KEY;
+        this.sessionClient = new dialogflow.SessionsClient({ credentials });
         this.sessionPath = this.sessionClient.sessionPath(PROJECT_ID, SESSION_ID);
-    }
-
-    private validateKeyfileExists(): void {
-        let fileExists: boolean;
-        try {
-            fileExists = fs.existsSync(KEYFILE_PATH);
-        } catch (e) {
-            throw new Error('Failed to check for DialoglogCredentialFile. Error:' + e);
-        }
-        if (!fileExists) {
-            throw new Error('Credential file for DialogFlow is missing. The keyfile is expected to be named dialogflowKey.json.');
-        }
     }
 
     /**
