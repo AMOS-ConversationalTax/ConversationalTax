@@ -13,9 +13,9 @@ export const databaseProviders = [
                 // tslint:disable:no-console
                 console.error('################################');
                 console.error('################################');
+                console.error('################################');
                 console.error('Could not connect to MongoDB. Skipping...');
-                console.error('Could not connect to MongoDB. Skipping...');
-                console.error('Could not connect to MongoDB. Skipping...');
+                console.error('################################');
                 console.error('################################');
                 console.error('################################');
                 // Return monogDB mock
