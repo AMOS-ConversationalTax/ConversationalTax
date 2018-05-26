@@ -1,6 +1,6 @@
 import { rejects } from 'assert';
 import axios from 'axios';
-import Config from '../../config/config';
+import Config from '../config/config';
 import Expo from 'expo';
 import * as fs from 'fs';
 

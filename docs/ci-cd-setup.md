@@ -57,6 +57,7 @@ The code for the Master branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
+sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
@@ -69,6 +70,7 @@ The code for the Develop branch is:
 nvm install 8
 npm i -g npm@latest
 cd backend
+sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax-dev .
 docker push amosconversationaltax/conversational-tax-dev
@@ -84,6 +86,7 @@ cd ../frontend
 npm ci
 npm i -g exp
 exp login -u $USERNAME -p $PASSWORD
+sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.tsx
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
 npm run publish
@@ -113,7 +116,7 @@ services:
         links:
             - mongo
         volumes:
-            - ~/amos_files/config/:/usr/src/app/dist/config/
+            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
     mongo:
         restart: always
         image: mongo
@@ -141,7 +144,7 @@ services:
         links:
             - mongo
         volumes:
-            - ~/amos_files/config/:/usr/src/app/dist/config/
+            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
     mongo:
         restart: always
         image: mongo
