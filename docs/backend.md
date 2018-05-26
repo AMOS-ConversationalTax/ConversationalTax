@@ -35,7 +35,7 @@ This part has only been tested under Linux (Debian).
 The server will be available at `mongodb://localhost:27017`
 
 ## DialogFlow Auth
-In order to use DialogFlow you need to provide an appropriate keyfile, which has to be placed at /backend/dialogflowKey.json
+In order to use DialogFlow you need to provide an appropriate keyfile, which has to be inserted into the config file located at config/config.ts
 
 ### Getting the Keyfile
 - Log into the console of DialogFlow
