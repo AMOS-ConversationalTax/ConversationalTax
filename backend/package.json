@@ -2,6 +2,7 @@
   "name": "nest-typescript-starter",
   "version": "1.0.0",
   "scripts": {
+    "postinstall": "node ./postinstall.js",
     "format": "prettier --write \"**/*.ts\"",
     "build": "tsc",
     "start": "nodemon",
