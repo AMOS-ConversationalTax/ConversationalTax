@@ -101,7 +101,7 @@ services:
         links:
             - mongo
         volumes:
-            - ~/amos_files/config:/usr/src/app/dist/config
+            - /home/docker/amos_files/config:/usr/src/app/dist/config
     mongo:
         restart: always
         image: mongo
@@ -109,7 +109,7 @@ services:
         expose:
             - 27017
         volumes:
-            - ~/amos_data/conversational-tax-mongo:/data/db
+            - /home/docker/amos_data/conversational-tax-mongo:/data/db
 ```
 
 And this one for the develop branch (/home/docker/amos_scripts/develop/docker-compose.yml):
@@ -129,7 +129,7 @@ services:
         links:
             - mongo
         volumes:
-            - ~/amos_files/config:/usr/src/app/dist/config
+            - /home/docker/amos_files/config:/usr/src/app/dist/config
     mongo:
         restart: always
         image: mongo
@@ -137,7 +137,7 @@ services:
         expose:
             - 27017
         volumes:
-            - ~/amos_data/conversational-tax-dev-mongo:/data/db
+            - /home/docker/amos_data/conversational-tax-dev-mongo:/data/db
 ```
 
 Another key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
