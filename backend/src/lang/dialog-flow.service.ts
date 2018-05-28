@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
 import Config from './../../config/config';
+import { SessionEntity } from './dialog-flow.dto';
+import * as grpc from 'grpc';
 
 const PROJECT_ID = 'test-c7ec0';
 const LANG_CODE = 'de-DE';
@@ -11,10 +13,14 @@ const LANG_CODE = 'de-DE';
 @Injectable()
 export class DialogFlowService {
     private sessionClient: any;
+    private sessionEntityTypesClient: any;
+    private contextsClient: any;
 
     constructor() {
         if (this.hasValidConfig()) {
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
+            this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient();
+            this.contextsClient = new dialogflow.ContextsClient();
         }
     }
 
@@ -101,5 +107,73 @@ export class DialogFlowService {
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
         return detectIntent.queryResult.fulfillmentText;
+    }
+
+    /**
+     * Creates a session entity type
+     *
+     * @param {string} name
+     * The name of the session entity type
+     *
+     * @param {SessionEntity[]} sessionEntities
+     * The session entities. See DialogFlow docs
+     *
+     * @param {string} u_id
+     * An id for identifing the user and his session
+     *
+     */
+    public createSessionEntityType(name: string, sessionEntities: SessionEntity[], u_id: string): void {
+
+        // Delete any existing session entity type
+        this.deleteSessionEntityType(name, u_id);
+
+        const sessionPath: any = this.sessionClient.sessionPath(PROJECT_ID, u_id);
+
+        const sessionEntityTypePath: any = this.sessionEntityTypesClient.sessionEntityTypePath(
+            PROJECT_ID,
+            u_id,
+            name,
+        );
+
+        const sessionEntityTypeRequest: any = {
+            parent: sessionPath,
+            sessionEntityType: {
+                name: sessionEntityTypePath,
+                entityOverrideMode: 'ENTITY_OVERRIDE_MODE_OVERRIDE',
+                entities: sessionEntities,
+            },
+        };
+
+        this.sessionEntityTypesClient.createSessionEntityType(sessionEntityTypeRequest);
+    }
+
+    /**
+     * Delete a session entity type
+     *
+     * @param {string} name
+     * The name of the session entity type
+     *
+     * @param {string} u_id
+     * An id for identifing the user and his session
+     *
+     */
+    public deleteSessionEntityType(name: string, u_id: string): void {
+        const sessionEntityTypePath: any = this.sessionEntityTypesClient.sessionEntityTypePath(
+            PROJECT_ID,
+            u_id,
+            name,
+        );
+
+        const request: any = {
+            name: sessionEntityTypePath,
+        };
+
+        this.sessionEntityTypesClient.deleteSessionEntityType(request).catch(err => {
+            if (err.code === grpc.status.NOT_FOUND) {
+                // Do nothing - session entity type did not exist
+            } else {
+                console.error(`Failed to delete ${name}:`, err);
+            }
+        });
     }
 }
