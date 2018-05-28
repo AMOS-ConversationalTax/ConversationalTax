@@ -1,6 +1,6 @@
 import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Query, BadRequestException } from '@nestjs/common';
 import { DialogFlowService } from './dialog-flow.service';
-import { AudioIntentParams, TextIntentParams } from './lang.dto';
+import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -18,8 +18,8 @@ export class LangController {
   constructor(private dialogFlowService: DialogFlowService) {}
 
   @Post('text')
-  async textIntent(@Body() body: TextIntentParams) {
-    const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput);
+  async textIntent(@Body() body: TextIntentBody, @Query() params: TextIntentParams) {
+    const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput, params.u_id);
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
   }
@@ -44,7 +44,7 @@ export class LangController {
       throw new BadRequestException('Unkown platform');
     }
 
-    const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio);
+    const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio, params.u_id);
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
   }
