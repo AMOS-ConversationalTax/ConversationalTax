@@ -4,8 +4,8 @@ import { ParameterHelper } from './parameter.parser';
 
 export class ChangeNameParameterHandler extends ParameterHandler{
 
-    private name: string;
-    private date: Date;
+    private contractNameOld: string;
+    private contractNameNew: string;
 
     constructor(private employmentContractService: EmploymentContractService){
         super();
@@ -13,17 +13,17 @@ export class ChangeNameParameterHandler extends ParameterHandler{
 
     public handle(parameterData: IParameterData) {
         if (parameterData.allParameterSet) {
-            const pathDate = this.getParameterPath('EndDate');
-            const pathName = this.getCustomParameterPath('ContractName');
+            const pathNameOld = this.getCustomParameterPath('ContractName', 'ContractName');
+            const pathNameNew = this.getCustomParameterPath('NewContractName', 'ContractName');
 
-            this.name = ParameterHelper.extractData(parameterData.parameter, pathName);
-            this.date = ParameterHelper.extractData(parameterData.parameter, pathDate);
+            this.contractNameOld = ParameterHelper.extractData(parameterData.parameter, pathNameOld);
+            this.contractNameNew = ParameterHelper.extractData(parameterData.parameter, pathNameNew);
 
             const employmentContract =
-                this.employmentContractService.findEmploymentContractsOfUserByName(parameterData.user, this.name);
+                this.employmentContractService.findEmploymentContractsOfUserByName(parameterData.user, this.contractNameOld);
 
             employmentContract.then( (data) => {
-                this.employmentContractService.editEndDateExact(data[0]._id, this.date);
+                this.employmentContractService.editName(data[0]._id, this.contractNameNew);
             });
         }
     }

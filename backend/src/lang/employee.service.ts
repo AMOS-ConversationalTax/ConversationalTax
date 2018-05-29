@@ -14,23 +14,14 @@ export class EmployeeService {
 
     constructor(private dialogFlowService: DialogFlowService, private employmentContractService: EmploymentContractService) {}
 
-    public test(){
-        const data = this.employmentContractService.findEmploymentContractsOfUserByName('dummyBoy', 'nein');
-        data.then((response) => {
-            console.log(response[0].name);
-        });
-    }
-
     /**
      * Processes the response of a users input in the context of an employment contract
      * @param {DetectIntentResponse} detectintent - The response received from dialogflow
      */
     public processEmployeeContract(detectIntent: DetectIntentResponse, user_name: string) {
         const responseAction = this.dialogFlowService.extractAction(detectIntent);
-        console.log('processEmployeeContract::responseAction' + responseAction);
         const factory = FactoryHelper.getFactoy(responseAction);
         if (factory !== null) {
-            console.log('processEmployeeContract::factory not null');
             const responseParam = this.dialogFlowService.extractParameter(detectIntent);
             const allParamSet = this.dialogFlowService.extractReqParameterPresent(detectIntent);
 

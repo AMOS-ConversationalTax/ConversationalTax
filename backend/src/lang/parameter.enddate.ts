@@ -14,7 +14,7 @@ export class EndDateParameterHandler extends ParameterHandler{
     public handle(parameterData: IParameterData) {
         if (parameterData.allParameterSet) {
             const pathDate = this.getParameterPath('EndDate');
-            const pathName = this.getCustomParameterPath('ContractName');
+            const pathName = this.getCustomParameterPath('ContractName', 'ContractName');
 
             this.name = ParameterHelper.extractData(parameterData.parameter, pathName);
             this.date = ParameterHelper.extractData(parameterData.parameter, pathDate);

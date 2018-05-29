@@ -10,8 +10,8 @@ export abstract class ParameterHandler{
         return [this.FIELDS, parameterName, this.STRINGVALUE];
     }
 
-    public getCustomParameterPath(parameterName: string): Array<string>{
-        return [this.FIELDS, parameterName, this.STRUCTVALUE, this.FIELDS, parameterName, this.STRINGVALUE];
+    public getCustomParameterPath(parameterName: string, parameterType: string): Array<string>{
+        return [this.FIELDS, parameterName, this.STRUCTVALUE, this.FIELDS, parameterType, this.STRINGVALUE];
     }
 
 }

@@ -3,6 +3,7 @@ import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow.service';
 import { AudioIntentParams } from './lang.dto';
 import { EmployeeService } from './employee.service';
+import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 
 jest.mock('./dialog-flow.service'); // Mock the DialogFlowService class
 jest.mock('./employee.service');
@@ -14,8 +15,9 @@ describe('LangController', () => {
     beforeEach(() => {
         DialogFlowService.mockClear();
         EmployeeService.mockClear();
-        langController = new LangController(new DialogFlowService(),EmployeeService);
         mockDialogFlowServiceInstance = DialogFlowService.mock.instances[0];
+        langController = new LangController(mockDialogFlowServiceInstance,
+        new EmployeeService(mockDialogFlowServiceInstance, new EmploymentContractService()));
     });
 
     describe('POST /lang/text', () => {

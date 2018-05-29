@@ -50,9 +50,6 @@ export class LangController {
 
     const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio);
     this.employeeService.processEmployeeContract(dialogflowResponse[0], USER_NAME);
-
-    // this.employeeService.test();
-
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
   }
