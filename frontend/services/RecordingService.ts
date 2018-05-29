@@ -13,7 +13,7 @@ const RECORDING_OPTIONS_CUSTOM: Audio.RecordingOptions = {
         extension: '.pcm',
         outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM,
         audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
-        sampleRate: 44100,
+        sampleRate: 16000,
         numberOfChannels: 1,
         bitRate: 128000,
         linearPCMBitDepth: 16,
