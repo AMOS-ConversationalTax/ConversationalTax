@@ -17,10 +17,10 @@ export class DatabaseDialogFlowService {
      *
      * @param {string} u_id
      * An id for identifing the user
-     * 
+     *
      * @param {DialogFlowService} dialogFlowService
      * A reference to a dialogFlowService object to avoid circlic dependencies
-     * 
+     *
      * @returns {Promise<boolean>>}
      * A Promise containting all current employment contracts of the user
      *
@@ -46,7 +46,7 @@ export class DatabaseDialogFlowService {
         }
 
         // Set session entities at dialogflow
-        dialogFlowService.createSessionEntityType( "EmploymentContracts", sessionEntities, u_id);
+        dialogFlowService.createSessionEntityType( 'EmploymentContracts', sessionEntities, u_id );
 
         return true;
 

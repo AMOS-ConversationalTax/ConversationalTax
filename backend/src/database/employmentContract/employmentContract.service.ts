@@ -20,7 +20,7 @@ export class EmploymentContractService {
      * @type {Model<User>}
      */
     private employmentContractModel: Model<EmploymentContract> = mongoose.model(DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER, employmentContractSchema);
-    
+
     /**
      * Create a new empty employmentContract in the datastore  - does not check if the employmentContract already exists
      * @param {string} user_id - The id of the user owning the employmentContract

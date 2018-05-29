@@ -140,7 +140,7 @@ export class DialogFlowService {
     public createSessionEntityType(name: string, sessionEntities: SessionEntity[], u_id: string): boolean {
 
         // Delete any existing session entity type
-        if(! this.deleteSessionEntityType(name, u_id)) {
+        if (! this.deleteSessionEntityType(name, u_id) ) {
 
             return false;
 
