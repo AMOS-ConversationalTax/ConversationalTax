@@ -86,6 +86,14 @@ export class DialogFlowService {
     }
 
     /**
+     * Extracts the answer of DialogFlow to read it out to the user.
+     * @param detectIntent Response from DialogFlow
+     */
+    public extractReqParameterPresent(detectIntent: DetectIntentResponse): boolean {
+        return detectIntent.queryResult.allRequiredParamsPresent;
+    }
+
+    /**
      * Extracts the parameter of the DialogFlow response
      * @param {DetectIntentResponse} detectIntent - Response from DialogFlow
      * @returns {object} - Returns a JSON Object containing the parameters

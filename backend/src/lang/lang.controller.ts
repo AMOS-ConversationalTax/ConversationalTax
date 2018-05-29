@@ -4,6 +4,8 @@ import { AudioIntentParams, TextIntentParams } from './lang.dto';
 import { EmployeeService } from './employee.service';
 import { EmploymentContractService } from 'database/employmentContract/employmentContract.service';
 
+const USER_NAME = 'dummyBoy';
+
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
   sampleRate: 16000,
@@ -47,7 +49,10 @@ export class LangController {
     }
 
     const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio);
-    this.employeeService.processEmployeeContract(dialogflowResponse[0]);
+    this.employeeService.processEmployeeContract(dialogflowResponse[0], USER_NAME);
+
+    // this.employeeService.test();
+
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
   }

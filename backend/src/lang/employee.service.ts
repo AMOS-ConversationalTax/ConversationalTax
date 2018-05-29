@@ -1,6 +1,8 @@
 import { DialogFlowService } from './dialog-flow.service';
 import { EmploymentContractService } from './../database/employmentContract/employmentContract.service';
 import { Injectable } from '@nestjs/common';
+import { ParameterHandler } from './parameter.abstract';
+import { FactoryHelper } from './factory.helper';
 
 @Injectable()
 export class EmployeeService {
@@ -12,25 +14,29 @@ export class EmployeeService {
 
     constructor(private dialogFlowService: DialogFlowService, private employmentContractService: EmploymentContractService) {}
 
+    public test(){
+        const data = this.employmentContractService.findEmploymentContractsOfUserByName('dummyBoy', 'nein');
+        data.then((response) => {
+            console.log(response[0].name);
+        });
+    }
+
     /**
      * Processes the response of a users input in the context of an employment contract
      * @param {DetectIntentResponse} detectintent - The response received from dialogflow
      */
-    public processEmployeeContract(detectIntent: DetectIntentResponse) {
+    public processEmployeeContract(detectIntent: DetectIntentResponse, user_name: string) {
         const responseAction = this.dialogFlowService.extractAction(detectIntent);
-        const responseParam = this.dialogFlowService.extractParameter(detectIntent)[this.fieldsString][responseAction];
-        console.log(JSON.stringify(responseParam));
-        if (responseAction === 'VertragsName')
-        {
-            this.setContractName(responseParam);
-        }
-        if (responseAction === 'VertragMitDatum')
-        {
-            this.createContractWithDate(responseParam);
-        }
-        if (responseAction === 'EndDatum')
-        {
-            this.setEndDate(responseParam);
+        console.log('processEmployeeContract::responseAction' + responseAction);
+        const factory = FactoryHelper.getFactoy(responseAction);
+        if (factory !== null) {
+            console.log('processEmployeeContract::factory not null');
+            const responseParam = this.dialogFlowService.extractParameter(detectIntent);
+            const allParamSet = this.dialogFlowService.extractReqParameterPresent(detectIntent);
+
+            const parameterData: IParameterData = {parameter: responseParam, allParameterSet: allParamSet, user: user_name};
+            const parameterHandler: ParameterHandler = factory.createParameterHandler();
+            parameterHandler.handle(parameterData);
         }
     }
 

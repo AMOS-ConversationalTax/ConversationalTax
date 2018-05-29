@@ -49,7 +49,6 @@ export class EmploymentContractService {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
-        console.log('test');
         if ( existingEmploymentContract.length === 1 ) {
 
             // Edit the employmentContract
@@ -80,7 +79,6 @@ export class EmploymentContractService {
 
             // Edit the employmentContract
             await this.employmentContractModel.update({ '_id': _id }, { $set: { 'startDate_exact': startDate_exact } });
-            console.log('test');
             return true;
 
         } else {
