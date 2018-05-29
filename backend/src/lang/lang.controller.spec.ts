@@ -11,7 +11,7 @@ describe('LangController', () => {
 
     beforeEach(() => {
         DialogFlowService.mockClear();
-        langController = new LangController(new DialogFlowService());
+        langController = new LangController(new DialogFlowService(null));
         mockDialogFlowServiceInstance = DialogFlowService.mock.instances[0];
     });
 
