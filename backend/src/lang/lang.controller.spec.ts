@@ -1,7 +1,7 @@
 /// <reference types="jest" />
 import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow.service';
-import {} from 
+import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.service';
 import { AudioIntentParams, TextIntentBody, TextIntentParams } from './lang.dto';
 
 jest.mock('./dialog-flow.service'); // Mock the DialogFlowService class
@@ -12,7 +12,7 @@ describe('LangController', () => {
 
     beforeEach(() => {
         DialogFlowService.mockClear();
-        langController = new LangController(new DialogFlowService());
+        langController = new LangController(new DialogFlowService(null));
         mockDialogFlowServiceInstance = DialogFlowService.mock.instances[0];
     });
 
