@@ -17,7 +17,7 @@ export class DialogFlowService {
     private sessionEntityTypesClient: any;
     private contextsClient: any;
 
-    constructor(private databaseDialogflowConnector: DatabaseDialogFlowService) {
+    constructor() {
         if (this.hasValidConfig()) {
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
             this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient();
@@ -52,12 +52,12 @@ export class DialogFlowService {
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
      */
-    public async detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
+    public detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
 
         // Set session entities at dialogflow
-        this.createSessionEntityType(   "EmploymentContracts",
-                                        await this.databaseDialogflowConnector.getExistingContractsOfUser(u_id),
-                                        u_id);
+        // this.createSessionEntityType(   "EmploymentContracts",
+        //                              await this.databaseDialogflowConnector.getExistingContractsOfUser(u_id),
+        //                              u_id);
 
         // Send request to dialogflow
         const request: DetectIntentRequest = {
@@ -71,7 +71,7 @@ export class DialogFlowService {
 
         const sessionPath = this.sessionClient.sessionPath(PROJECT_ID, u_id);
 
-        return await this.sessionClient.detectIntent({ session: sessionPath, ...request });
+        return this.sessionClient.detectIntent({ session: sessionPath, ...request });
 
     }
 
@@ -93,12 +93,12 @@ export class DialogFlowService {
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
      */
-    public async detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
+    public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
 
         // Set session entities at dialogflow
-        this.createSessionEntityType(   "EmploymentContracts",
-                                        await this.databaseDialogflowConnector.getExistingContractsOfUser(u_id),
-                                        u_id);
+        // this.createSessionEntityType(   "EmploymentContracts",
+        //                              await this.databaseDialogflowConnector.getExistingContractsOfUser(u_id),
+        //                              u_id);
 
         // Send request to dialogflow
         const request: DetectIntentRequest = {
@@ -114,7 +114,7 @@ export class DialogFlowService {
 
         const sessionPath: any = this.sessionClient.sessionPath(PROJECT_ID, u_id);
 
-        return await this.sessionClient.detectIntent({ session: sessionPath, ...request });
+        return this.sessionClient.detectIntent({ session: sessionPath, ...request });
 
     }
 
@@ -202,7 +202,7 @@ export class DialogFlowService {
 
     /**
      * Log function for debugging reasons - print a session entity type
-     * 
+     *
      * @param {string} name
      * The name of the session entity type
      *
@@ -217,24 +217,22 @@ export class DialogFlowService {
             u_id,
             name,
         );
-        
+
         const request = {
             name: sessionEntityTypePath,
         };
-        
+
         // Send the request for retrieving the sessionEntityType.
         this.sessionEntityTypesClient
             .getSessionEntityType(request)
             .then(responses => {
                 console.log('Found session entity type:');
                 console.log(
-                    `  Name:`,
-                    this.sessionEntityTypesClient.matchEntityTypeFromSessionEntityTypeName(responses[0].name)
+                    `Name:`,
+                    this.sessionEntityTypesClient.matchEntityTypeFromSessionEntityTypeName(responses[0].name),
                 );
-                console.log(
-                    `  Entity override mode: ${responses[0].entityOverrideMode}`
-                );
-                console.log(`  Entities:`);
+                console.log(`Entity override mode: ${responses[0].entityOverrideMode}`);
+                console.log(`Entities:`);
                 responses[0].entities.forEach(entity => {
                     console.log(`    ${entity.value}: ${entity.synonyms.join(', ')}`);
                 });
@@ -247,6 +245,7 @@ export class DialogFlowService {
                     console.error(`Failed to get session entity type ${name}:`, err);
                 }
             });
-        
+
     }
+
 }

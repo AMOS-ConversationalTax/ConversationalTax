@@ -12,31 +12,30 @@ export class DatabaseDialogFlowService {
     constructor(private employmentContractService: EmploymentContractService) {}
 
     /**
-     * Returns all exisiting contracts of an user 
+     * Returns all exisiting contracts of an user
      * in form of an Session Entity (ready for DialogFlow)
      *
      * @param {string} u_id
      * An id for identifing the user
      *
      * @returns {Promise<Array<SessionEntity>>}
-     * A Promise containting all current employment contracts of the user 
-     * 
+     * A Promise containting all current employment contracts of the user
+     *
      */
     public async getExistingContractsOfUser(u_id: string): Promise<Array<SessionEntity>> {
 
         // Initialize the return array
-        var sessionEntities = new Array<SessionEntity>();
+        const sessionEntities = new Array<SessionEntity>();
 
         // Get all EmploymentContracts of the user
-        const employmentContracts: EmploymentContract[] = 
-                await this.employmentContractService.findEmploymentContractsOfUser(u_id);
+        const employmentContracts: EmploymentContract[] = await this.employmentContractService.findEmploymentContractsOfUser(u_id);
 
-        for(var i = 0; i < employmentContracts.length; i++) {
-           
+        for ( const contract of employmentContracts ) {
+
             // Generate the suiting session entity
-            var sessionEntity: SessionEntity = new SessionEntity();
-            sessionEntity.value =  employmentContracts[i].name;
-            sessionEntity.synonyms.push(employmentContracts[i].name);
+            const sessionEntity: SessionEntity = new SessionEntity();
+            sessionEntity.value =  contract.name;
+            sessionEntity.synonyms.push(contract.name);
 
             // Push the session entity into the other session entities
             sessionEntities.push(sessionEntity);
@@ -46,5 +45,5 @@ export class DatabaseDialogFlowService {
         return sessionEntities;
 
     }
-    
+
 }
