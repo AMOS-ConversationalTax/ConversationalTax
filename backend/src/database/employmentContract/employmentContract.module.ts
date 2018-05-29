@@ -11,5 +11,8 @@ import {EmploymentContractController} from './employmentContract.controller';
         EmploymentContractService,
         ...employmentContractProviders,
     ],
+    exports: [
+        EmploymentContractService,
+    ],
 })
 export class EmploymentContractModule { }

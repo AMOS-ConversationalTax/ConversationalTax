@@ -9,6 +9,7 @@ import DBConfig from '../dbconfig';
  * This class implements the connection to the employmentContract table in the datastore
  * @class EmploymentContractService
  */
+@Injectable()
 export class EmploymentContractService {
 
     /**
