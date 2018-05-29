@@ -71,6 +71,7 @@ Similar to the backend build, we use SemaphoreCI's tools for the frontend CD. Th
 cd ../frontend
 npm ci
 exp login -u $USERNAME -p $PASSWORD
+sed -i -e s/WillBeReplacedAutomatically/$(date +%d.%m.%Y)/ config/config.ts
 sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.ts
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
