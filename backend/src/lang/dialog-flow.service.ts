@@ -98,8 +98,18 @@ export class DialogFlowService {
     /**
      * Extracts the answer of DialogFlow to read it out to the user.
      * @param detectIntent Response from DialogFlow
+     * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
         return detectIntent.queryResult.fulfillmentText;
+    }
+
+    /**
+     * Extracts the Intent of DialogFlow response.
+     * @param detectIntent Response from DialogFlow
+     * @returns {Intent} The Intent Object of the response
+     */
+    public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
+        return detectIntent.queryResult.intent;
     }
 }
