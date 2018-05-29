@@ -54,11 +54,6 @@ export class DialogFlowService {
      */
     public detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
 
-        // Set session entities at dialogflow
-        // this.createSessionEntityType(   "EmploymentContracts",
-        //                              await this.databaseDialogflowConnector.getExistingContractsOfUser(u_id),
-        //                              u_id);
-
         // Send request to dialogflow
         const request: DetectIntentRequest = {
             queryInput: {
@@ -94,11 +89,6 @@ export class DialogFlowService {
      * The answer of DialogFlow's API as a Promise
      */
     public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
-
-        // Set session entities at dialogflow
-        // this.createSessionEntityType(   "EmploymentContracts",
-        //                              await this.databaseDialogflowConnector.getExistingContractsOfUser(u_id),
-        //                              u_id);
 
         // Send request to dialogflow
         const request: DetectIntentRequest = {
@@ -141,10 +131,14 @@ export class DialogFlowService {
      * An id for identifing the user and his session
      *
      */
-    public createSessionEntityType(name: string, sessionEntities: SessionEntity[], u_id: string): void {
+    public createSessionEntityType(name: string, sessionEntities: SessionEntity[], u_id: string): boolean {
 
         // Delete any existing session entity type
-        this.deleteSessionEntityType(name, u_id);
+        if(! this.deleteSessionEntityType(name, u_id)) {
+
+            return false;
+
+        }
 
         const sessionPath: any = this.sessionClient.sessionPath(PROJECT_ID, u_id);
 
@@ -166,6 +160,8 @@ export class DialogFlowService {
 
         this.sessionEntityTypesClient.createSessionEntityType(sessionEntityTypeRequest);
 
+        return true;
+
     }
 
     /**
@@ -178,7 +174,7 @@ export class DialogFlowService {
      * An id for identifing the user and his session
      *
      */
-    public deleteSessionEntityType(name: string, u_id: string): void {
+    public deleteSessionEntityType(name: string, u_id: string): boolean {
 
         const sessionEntityTypePath: any = this.sessionEntityTypesClient.sessionEntityTypePath(
             PROJECT_ID,
@@ -196,7 +192,11 @@ export class DialogFlowService {
             } else {
                 console.error(`Failed to delete ${name}:`, err);
             }
+
+            return false;
         });
+
+        return true;
 
     }
 
@@ -210,7 +210,7 @@ export class DialogFlowService {
      * An id for identifing the user and his session
      *
      */
-    public logSessionEntityType(name: string, u_id: string): void {
+    public logSessionEntityType(name: string, u_id: string): boolean {
 
         const sessionEntityTypePath: any = this.sessionEntityTypesClient.sessionEntityTypePath(
             PROJECT_ID,
@@ -242,9 +242,13 @@ export class DialogFlowService {
                 if (err.code === grpc.status.NOT_FOUND) {
                     console.log(`Session entity type ${name} is not found.`);
                 } else {
-                    console.error(`Failed to get session entity type ${name}:`, err);
+                    console.log(`Failed to get session entity type ${name}:`, err);
                 }
+
+                return false;
             });
+
+        return true;
 
     }
 

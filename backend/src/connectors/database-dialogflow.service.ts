@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
+import { DialogFlowService } from '../lang/dialog-flow.service';
 import { SessionEntity } from '../lang/dialog-flow.dto';
 import { EmploymentContract } from '../database/employmentContract/interfaces/employmentContract.interface';
 
@@ -9,7 +10,7 @@ import { EmploymentContract } from '../database/employmentContract/interfaces/em
 @Injectable()
 export class DatabaseDialogFlowService {
 
-    constructor(private employmentContractService: EmploymentContractService) {}
+    constructor(private dialogFlowService: DialogFlowService) {}
 
     /**
      * Returns all exisiting contracts of an user
@@ -17,18 +18,21 @@ export class DatabaseDialogFlowService {
      *
      * @param {string} u_id
      * An id for identifing the user
-     *
+     * 
+     * @param {EmploymentContractService} employmentContractService
+     * The suiting employmentContractService
+     * 
      * @returns {Promise<Array<SessionEntity>>}
      * A Promise containting all current employment contracts of the user
      *
      */
-    public async getExistingContractsOfUser(u_id: string): Promise<Array<SessionEntity>> {
+    public async getExistingContractsOfUser(employmentContractService: EmploymentContractService, u_id: string): Promise<Array<SessionEntity>> {
 
         // Initialize the return array
         const sessionEntities = new Array<SessionEntity>();
 
         // Get all EmploymentContracts of the user
-        const employmentContracts: EmploymentContract[] = await this.employmentContractService.findEmploymentContractsOfUser(u_id);
+        const employmentContracts: EmploymentContract[] = await employmentContractService.findEmploymentContractsOfUser(u_id);
 
         for ( const contract of employmentContracts ) {
 
@@ -43,6 +47,31 @@ export class DatabaseDialogFlowService {
         }
 
         return sessionEntities;
+
+    }
+
+    /**
+     * If an EmploymentContractService is updated it is necessary to report this update to this service
+     *
+     * @param {string} u_id
+     * An id for identifing the user which was updated
+     * 
+     * @param {EmploymentContractService} employmentContractService
+     * The reporting employmentContractService
+     * 
+     * @returns {Promise<Boolean>}
+     * A Promise containting the success of the update
+     *
+     */
+    public async updatedEmploymentContracts(employmentContractService: EmploymentContractService, u_id: string): Promise<Boolean> {
+
+        if(! this.dialogFlowService.createSessionEntityType(   "EmploymentContracts",
+                                    await this.getExistingContractsOfUser(employmentContractService, u_id),
+                                    u_id)) {
+            return false;
+        }
+
+        return true;
 
     }
 
