@@ -10,29 +10,28 @@ import { EmploymentContract } from '../database/employmentContract/interfaces/em
 @Injectable()
 export class DatabaseDialogFlowService {
 
-    constructor(private dialogFlowService: DialogFlowService) {}
+    constructor( private employmentContractService: EmploymentContractService ) {}
 
     /**
-     * Returns all exisiting contracts of an user
-     * in form of an Session Entity (ready for DialogFlow)
+     * Updates the employment contract session entity
      *
      * @param {string} u_id
      * An id for identifing the user
      * 
-     * @param {EmploymentContractService} employmentContractService
-     * The suiting employmentContractService
+     * @param {DialogFlowService} dialogFlowService
+     * A reference to a dialogFlowService object to avoid circlic dependencies
      * 
-     * @returns {Promise<Array<SessionEntity>>}
+     * @returns {Promise<boolean>>}
      * A Promise containting all current employment contracts of the user
      *
      */
-    public async getExistingContractsOfUser(employmentContractService: EmploymentContractService, u_id: string): Promise<Array<SessionEntity>> {
+    public async updateEmploymentContractSessionEntity(u_id: string, dialogFlowService: DialogFlowService): Promise<boolean> {
 
         // Initialize the return array
         const sessionEntities = new Array<SessionEntity>();
 
         // Get all EmploymentContracts of the user
-        const employmentContracts: EmploymentContract[] = await employmentContractService.findEmploymentContractsOfUser(u_id);
+        const employmentContracts: EmploymentContract[] = await this.employmentContractService.findEmploymentContractsOfUser(u_id);
 
         for ( const contract of employmentContracts ) {
 
@@ -46,30 +45,8 @@ export class DatabaseDialogFlowService {
 
         }
 
-        return sessionEntities;
-
-    }
-
-    /**
-     * If an EmploymentContractService is updated it is necessary to report this update to this service
-     *
-     * @param {string} u_id
-     * An id for identifing the user which was updated
-     * 
-     * @param {EmploymentContractService} employmentContractService
-     * The reporting employmentContractService
-     * 
-     * @returns {Promise<Boolean>}
-     * A Promise containting the success of the update
-     *
-     */
-    public async updatedEmploymentContracts(employmentContractService: EmploymentContractService, u_id: string): Promise<Boolean> {
-
-        if(! this.dialogFlowService.createSessionEntityType(   "EmploymentContracts",
-                                    await this.getExistingContractsOfUser(employmentContractService, u_id),
-                                    u_id)) {
-            return false;
-        }
+        // Set session entities at dialogflow
+        dialogFlowService.createSessionEntityType( "EmploymentContracts", sessionEntities, u_id);
 
         return true;
 

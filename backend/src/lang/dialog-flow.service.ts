@@ -17,7 +17,7 @@ export class DialogFlowService {
     private sessionEntityTypesClient: any;
     private contextsClient: any;
 
-    constructor() {
+    constructor( private databaseDialogFlowService: DatabaseDialogFlowService ) {
         if (this.hasValidConfig()) {
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
             this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient({ credentials: Config.DIALOGFLOW_KEY });
@@ -54,6 +54,9 @@ export class DialogFlowService {
      */
     public detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
 
+        // Set session entities at dialogflow
+        this.databaseDialogFlowService.updateEmploymentContractSessionEntity(u_id, this);
+
         // Send request to dialogflow
         const request: DetectIntentRequest = {
             queryInput: {
@@ -89,6 +92,9 @@ export class DialogFlowService {
      * The answer of DialogFlow's API as a Promise
      */
     public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
+
+        // Set session entities at dialogflow
+        this.databaseDialogFlowService.updateEmploymentContractSessionEntity(u_id, this);
 
         // Send request to dialogflow
         const request: DetectIntentRequest = {
