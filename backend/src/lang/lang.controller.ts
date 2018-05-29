@@ -27,6 +27,18 @@ export class LangController {
   @Post('audio_upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file, @Query() params: AudioIntentParams) {
+    const dialogflowResponse = await this.processAudiofile(file, params);
+    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+    return { text: responseText };
+  }
+
+  /**
+   * Converts the received audio to Base64 and hands it to the DialogFlow service
+   * @param file The uploaded file.
+   * @param params URL params which contain the userID as well as the platform.
+   * @returns {Promise<DetectIntentResponse[]>} - A promise containing the response
+   */
+  private processAudiofile(file: any, params: AudioIntentParams): Promise<DetectIntentResponse[]> {
     if (file === undefined || file.buffer === undefined) {
       throw new BadRequestException('No audio file was uploaded');
     }
@@ -44,8 +56,6 @@ export class LangController {
       throw new BadRequestException('Unkown platform');
     }
 
-    const dialogflowResponse = await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio, params.u_id);
-    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
-    return { text: responseText };
+    return this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio, params.u_id);
   }
 }
