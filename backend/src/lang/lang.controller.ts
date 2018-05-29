@@ -9,7 +9,7 @@ const ANDROID_AUDIO_SETTINGS = {
 
 const IOS_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_LINEAR_16',
-  sampleRate: 44100,
+  sampleRate: 16000,
 };
 
 @Controller('lang')
