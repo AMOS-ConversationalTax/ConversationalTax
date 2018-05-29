@@ -20,8 +20,8 @@ export class DialogFlowService {
     constructor() {
         if (this.hasValidConfig()) {
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
-            this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient();
-            this.contextsClient = new dialogflow.ContextsClient();
+            this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient({ credentials: Config.DIALOGFLOW_KEY });
+            this.contextsClient = new dialogflow.ContextsClient({ credentials: Config.DIALOGFLOW_KEY });
         }
     }
 
