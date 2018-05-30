@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
-import * as fs from 'fs';
+import Config from './../../config/config';
 
-const KEYFILE_PATH = 'dialogflowKey.json';
 const PROJECT_ID = 'test-c7ec0';
-const SESSION_ID = 'I_am_a_ran_string';
 const LANG_CODE = 'de-DE';
 
 /**
@@ -12,19 +10,27 @@ const LANG_CODE = 'de-DE';
  */
 @Injectable()
 export class DialogFlowService {
-    private sessionPath: any;
     private sessionClient: any;
 
     constructor() {
-        this.validateKeyfileExists();
-        this.sessionClient = new dialogflow.SessionsClient({ keyFilename: KEYFILE_PATH});
-        this.sessionPath = this.sessionClient.sessionPath(PROJECT_ID, SESSION_ID);
+        if (this.hasValidConfig()) {
+            this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
+        }
     }
 
-    private validateKeyfileExists(): void {
-        if (!fs.existsSync(KEYFILE_PATH)) {
-            throw new Error('Credential file for DialogFlow is missing. The keyfile is expected to be named dialogflowKey.json.');
+    private hasValidConfig(): boolean {
+        const validConfig = Config.DIALOGFLOW_KEY.private_key.length > 0;
+        if (!validConfig) {
+            // tslint:disable:no-console
+            console.error('################################');
+            console.error('################################');
+            console.error('################################');
+            console.error('Invalid keyfile for Dialogflow. It has to be specified in config/config.ts. Skipping...');
+            console.error('################################');
+            console.error('################################');
+            console.error('################################');
         }
+        return validConfig;
     }
 
     /**
@@ -33,10 +39,13 @@ export class DialogFlowService {
      * @param {string} inputText
      * The user input as a text
      *
+     * @param {string} u_id
+     * An id for identifing the user and his session
+     *
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
      */
-    public detectTextIntent(inputText: string): Promise<DetectIntentResponse[]> {
+    public detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
         const request: DetectIntentRequest = {
             queryInput: {
                 text: {
@@ -45,7 +54,10 @@ export class DialogFlowService {
                 },
             },
         };
-        return this.sessionClient.detectIntent({ session: this.sessionPath, ...request });
+
+        const sessionPath = this.sessionClient.sessionPath(PROJECT_ID, u_id);
+
+        return this.sessionClient.detectIntent({ session: sessionPath, ...request });
     }
 
     /**
@@ -60,10 +72,13 @@ export class DialogFlowService {
      * @param {string} inputAudio
      * The user input as an base64 audio string
      *
+     * @param {string} u_id
+     * An id for identifing the user and his session
+     *
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
      */
-    public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string): Promise<DetectIntentResponse[]> {
+    public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
         const request: DetectIntentRequest = {
             queryInput: {
                 audioConfig: {
@@ -74,14 +89,27 @@ export class DialogFlowService {
             },
             inputAudio,
         };
-        return this.sessionClient.detectIntent({ session: this.sessionPath, ...request });
+
+        const sessionPath: any = this.sessionClient.sessionPath(PROJECT_ID, u_id);
+
+        return this.sessionClient.detectIntent({ session: sessionPath, ...request });
     }
 
     /**
      * Extracts the answer of DialogFlow to read it out to the user.
      * @param detectIntent Response from DialogFlow
+     * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
         return detectIntent.queryResult.fulfillmentText;
+    }
+
+    /**
+     * Extracts the Intent of DialogFlow response.
+     * @param detectIntent Response from DialogFlow
+     * @returns {Intent} The Intent Object of the response
+     */
+    public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
+        return detectIntent.queryResult.intent;
     }
 }

@@ -2,10 +2,11 @@
   "name": "nest-typescript-starter",
   "version": "1.0.0",
   "scripts": {
+    "postinstall": "node ./postinstall.js",
     "format": "prettier --write \"**/*.ts\"",
     "build": "tsc",
     "start": "nodemon",
-    "start:prod": "node dist/main.js",
+    "start:prod": "node dist/src/main.js",
     "test": "tsc && jest --verbose",
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",

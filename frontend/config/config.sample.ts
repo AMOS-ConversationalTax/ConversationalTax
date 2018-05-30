@@ -5,6 +5,11 @@ namespace Config {
      */ 
     export const SERVER_URL = 'http://localhost:3000';
 
+    /*
+    * Relevant for our CD system. Integrates the build date into the frontend.
+    */
+    export const BUILD_DATE = 'WillBeReplacedAutomatically';
+
 }
 
 export default Config;
