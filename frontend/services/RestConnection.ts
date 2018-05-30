@@ -76,7 +76,7 @@ export default class RestConnection implements IConnection {
             console.error('Could not identify current platform');
             return;
         }
-        let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}`; 
+        let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}&u_id=${Expo.Constants.deviceId}`; 
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
 
