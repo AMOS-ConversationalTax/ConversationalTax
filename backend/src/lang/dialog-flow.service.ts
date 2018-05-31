@@ -121,6 +121,7 @@ export class DialogFlowService {
     /**
      * Extracts the answer of DialogFlow to read it out to the user.
      * @param detectIntent Response from DialogFlow
+     * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
 
@@ -158,8 +159,8 @@ export class DialogFlowService {
             name,
         );
 
-        // Example at https://github.com/dialogflow/dialogflow-nodejs-client-v2/blob/master/samples/resource.js (l.1092-1102)
-        // For ENTITY_OVERRIDE_MODE_OVERRIDE see https://cloud.google.com/dialogflow-enterprise/docs/reference/rpc/google.cloud.dialogflow.v2#google.cloud.dialogflow.v2.SessionEntityType.EntityOverrideMode
+        // Example at https://goo.gl/WVPwmr (l.1092-1102)
+        // For ENTITY_OVERRIDE_MODE_OVERRIDE see https://goo.gl/3ccVpq
         const sessionEntityTypeRequest: any = {
             parent: sessionPath,
             sessionEntityType: {
@@ -260,6 +261,20 @@ export class DialogFlowService {
             });
 
         return true;
+
+    }
+
+    /*
+     * Extracts the Intent of DialogFlow response.
+     *
+     * @param detectIntent Response from DialogFlow
+     *
+     * @returns {Intent} The Intent Object of the response
+     *
+     */
+    public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
+
+        return detectIntent.queryResult.intent;
 
     }
 

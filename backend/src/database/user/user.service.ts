@@ -49,6 +49,16 @@ export class UserService {
     }
 
     /**
+     * Check whether the given user already exists.
+     * @param _id The unique id of the user
+     * @returns {Promise<boolean>} - A promise whether the user exists
+     */
+    public async exists(_id: string): Promise<boolean> {
+        const existingUsers: Array<User> = await this.userModel.find({ '_id': _id });
+        return existingUsers.length === 0;
+    }
+
+    /**
      * Find a specific user by his unique id
      * @param {string} _id - The unique id of the user
      * @returns {Promise<Array<User>>} - A promise containing the user
