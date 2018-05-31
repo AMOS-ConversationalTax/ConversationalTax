@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DatabaseDialogFlowService } from './database-dialogflow.service';
-import { EmploymentContractModule } from 'database/employmentContract/employmentContract.module';
+import { EmploymentContractModule } from '../database/employmentContract/employmentContract.module';
 
 @Module({
     imports: [EmploymentContractModule],
