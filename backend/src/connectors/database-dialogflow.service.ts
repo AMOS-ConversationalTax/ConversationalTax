@@ -22,7 +22,7 @@ export class DatabaseDialogFlowService {
      * A reference to a dialogFlowService object to avoid circlic dependencies
      *
      * @returns {Promise<boolean>>}
-     * A Promise containting all current employment contracts of the user
+     * A Promise containting the success of the update
      *
      */
     public async updateEmploymentContractSessionEntity(u_id: string, dialogFlowService: DialogFlowService): Promise<boolean> {
