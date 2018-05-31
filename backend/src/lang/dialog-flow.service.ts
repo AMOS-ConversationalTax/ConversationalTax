@@ -55,6 +55,7 @@ export class DialogFlowService {
      *
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
+     * 
      */
     public detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
 
@@ -94,6 +95,7 @@ export class DialogFlowService {
      *
      * @returns {Promise<DetectIntentResponse>}
      * The answer of DialogFlow's API as a Promise
+     * 
      */
     public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
 
@@ -120,7 +122,9 @@ export class DialogFlowService {
 
     /**
      * Extracts the answer of DialogFlow to read it out to the user.
+     * 
      * @param detectIntent Response from DialogFlow
+     * 
      * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
@@ -140,6 +144,9 @@ export class DialogFlowService {
      *
      * @param {string} u_id
      * An id for identifing the user and his session
+     * 
+     * @returns {boolean}
+     * A Boolean symbolizing the success of the update
      *
      */
     public createSessionEntityType(name: string, sessionEntities: SessionEntity[], u_id: string): boolean {
@@ -184,6 +191,9 @@ export class DialogFlowService {
      *
      * @param {string} u_id
      * An id for identifing the user and his session
+     * 
+     * @returns {boolean}
+     * A Boolean symbolizing the success of the update
      *
      */
     public deleteSessionEntityType(name: string, u_id: string): boolean {
@@ -220,6 +230,9 @@ export class DialogFlowService {
      *
      * @param {string} u_id
      * An id for identifing the user and his session
+     * 
+     * @returns {boolean}
+     * A Boolean symbolizing the success of the update
      *
      */
     public logSessionEntityType(name: string, u_id: string): boolean {
@@ -264,14 +277,14 @@ export class DialogFlowService {
 
     }
 
-    /*
+    /** 
      * Extracts the Intent of DialogFlow response.
      *
-     * @param detectIntent Response from DialogFlow
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
      *
      * @returns {Intent} The Intent Object of the response
      *
-     */
+     **/
     public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
 
         return detectIntent.queryResult.intent;
