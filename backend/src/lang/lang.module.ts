@@ -5,10 +5,11 @@ import { EmploymentContractModule } from '../database/employmentContract/employm
 import { LangController } from '../lang/lang.controller';
 import { DialogFlowService } from '../lang/dialog-flow.service';
 import { ConnectorsModule } from '../connectors/connectors.module';
+import { ExplanationService } from './explanation.service';
 
 @Module({
     imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule],
     controllers: [LangController],
-    providers: [DialogFlowService],
+    providers: [DialogFlowService, ExplanationService],
 })
 export class LangModule { }
