@@ -4,7 +4,7 @@ import { ReminderModule } from 'database/reminder/reminder.module';
 import { EmploymentContractModule } from 'database/employmentContract/employmentContract.module';
 import { LangController } from 'lang/lang.controller';
 import { DialogFlowService } from 'lang/dialog-flow.service';
-import { ConnectorsModule } from 'connectors/connectors.module'
+import { ConnectorsModule } from 'connectors/connectors.module';
 
 @Module({
     imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule],
