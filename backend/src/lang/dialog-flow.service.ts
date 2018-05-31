@@ -18,23 +18,15 @@ export class DialogFlowService {
     private contextsClient: any;
 
     constructor( private databaseDialogFlowService: DatabaseDialogFlowService ) {
-        // console.log("Test0");
+
         if (this.hasValidConfig()) {
-            // console.log("Test1");
+
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
-            // console.log("Test2");
             this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient({ credentials: Config.DIALOGFLOW_KEY });
-            // console.log("Test3");
             this.contextsClient = new dialogflow.ContextsClient({ credentials: Config.DIALOGFLOW_KEY });
-            // console.log("Test4");
+
         }
-        /*
-        console.log("Test5");
-        this.databaseDialogFlowService.updateEmploymentContractSessionEntity("we", this);
-        console.log("Test6");
-        this.logSessionEntityType("EmploymentContract", "we");
-        console.log("Test7");
-        */
+
     }
 
     private hasValidConfig(): boolean {
