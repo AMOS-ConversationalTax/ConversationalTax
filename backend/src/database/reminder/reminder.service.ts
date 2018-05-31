@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Reminder } from './interfaces/reminder.interface';
 import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
@@ -9,6 +9,7 @@ import DBConfig from '../dbconfig';
  * This class implements the connection to the reminder table in the datastore
  * @class ReminderService
  */
+@Injectable()
 export class ReminderService {
 
     /**

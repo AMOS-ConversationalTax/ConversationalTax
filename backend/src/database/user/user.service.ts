@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from './interfaces/user.interface';
 import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';

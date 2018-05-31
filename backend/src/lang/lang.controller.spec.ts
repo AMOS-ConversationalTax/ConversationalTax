@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow.service';
+import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.service';
 import { AudioIntentParams, TextIntentBody, TextIntentParams } from './lang.dto';
 import { UserService } from '../database/user/user.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
