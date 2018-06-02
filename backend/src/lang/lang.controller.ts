@@ -59,7 +59,7 @@ export class LangController {
         if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
         {
 
-          throw new Error("Contract date could not be changed");
+          throw new Error('Contract date could not be changed');
 
         }
 
