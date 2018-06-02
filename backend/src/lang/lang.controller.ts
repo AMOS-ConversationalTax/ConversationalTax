@@ -46,6 +46,31 @@ export class LangController {
       const contractId = this.contractService.create(uid);
     }
 
+    // TODO move to new architecture as soon as it has been finished.
+    // TODO intent name should be moved into a const (as part of the above task)
+    if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
+
+      try {
+
+        const response: any = dialogflowResponse[0].queryResult.parameters;
+        const startDate = response.fields.StartDate.stringValue;
+        const employmentContractId = response.fields.EmploymentContract.stringValue;
+ 
+        if( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
+        {
+
+          return { text: "Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut" };
+
+        }
+
+      } catch (error) {
+
+        return { text: "Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut" };
+
+      }      
+
+    }
+
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
   }
