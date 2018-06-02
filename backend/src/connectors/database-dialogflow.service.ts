@@ -37,8 +37,9 @@ export class DatabaseDialogFlowService {
 
             // Generate the suiting session entity
             const sessionEntity: SessionEntity = new SessionEntity();
-            sessionEntity.value =  contract.name;
+            sessionEntity.value =  contract._id;
             sessionEntity.synonyms = new Array<string>();
+            sessionEntity.synonyms.push(contract._id);
             sessionEntity.synonyms.push(contract.name);
 
             // Push the session entity into the other session entities
