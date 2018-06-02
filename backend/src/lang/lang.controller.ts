@@ -55,19 +55,19 @@ export class LangController {
         const response: any = dialogflowResponse[0].queryResult.parameters;
         const startDate = response.fields.StartDate.stringValue;
         const employmentContractId = response.fields.EmploymentContract.stringValue;
- 
-        if( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
+
+        if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
         {
 
-          return { text: "Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut" };
+          return { text: 'Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
 
         }
 
       } catch (error) {
 
-        return { text: "Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut" };
+        return { text: 'Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
 
-      }      
+      }
 
     }
 
