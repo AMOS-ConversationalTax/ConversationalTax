@@ -81,7 +81,7 @@ npm run publish
 
 ### Deploy on CD-Server
 
-We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
+We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server. Also we will not post our config files here. But it is necessary to mention that `/home/docker/amos_files/config` includes the files `config.js` and `config.js.map` (which can be created by executing `npm i` and `npm run test` after creating the initial `config.ts`). The initial `config.ts` can be found at `/home/docker/amos_files/config.ts`.
 
 #### Docker-Compose files and starting script
 
@@ -103,6 +103,7 @@ services:
             - mongo
         volumes:
             - /home/docker/amos_files/config:/usr/src/app/dist/config
+            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
     mongo:
         restart: always
         image: mongo
@@ -131,6 +132,7 @@ services:
             - mongo
         volumes:
             - /home/docker/amos_files/config:/usr/src/app/dist/config
+            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
     mongo:
         restart: always
         image: mongo
