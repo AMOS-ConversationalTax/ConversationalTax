@@ -40,7 +40,12 @@ export class DatabaseDialogFlowService {
             sessionEntity.value =  contract._id;
             sessionEntity.synonyms = new Array<string>();
             sessionEntity.synonyms.push(contract._id);
-            sessionEntity.synonyms.push(contract.name);
+
+            if (contract.name !== undefined) {
+
+                sessionEntity.synonyms.push(contract.name);
+
+            }
 
             // Push the session entity into the other session entities
             sessionEntities.push(sessionEntity);

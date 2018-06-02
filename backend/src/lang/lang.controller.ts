@@ -56,10 +56,18 @@ export class LangController {
         const startDate = response.fields.StartDate.stringValue;
         const employmentContractId = response.fields.EmploymentContract.stringValue;
 
-        if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
-        {
+        if (employmentContractId === '' || startDate === '') {
 
-          throw new Error('Contract date could not be changed');
+          // Do nothing - Dialogflow will ask for the parameters
+
+        } else {
+
+          if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
+          {
+
+            throw new Error('Contract date could not be changed');
+
+          }
 
         }
 
