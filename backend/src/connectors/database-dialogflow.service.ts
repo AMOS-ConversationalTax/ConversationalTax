@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
-import { DialogFlowService } from '../lang/dialog-flow.service';
-import { SessionEntity } from '../lang/dialog-flow.dto';
+import { DialogFlowService } from '../lang/dialog-flow/dialog-flow.service';
 import { EmploymentContract } from '../database/employmentContract/interfaces/employmentContract.interface';
 
 /**
@@ -36,10 +35,12 @@ export class DatabaseDialogFlowService {
         for ( const contract of employmentContracts ) {
 
             // Generate the suiting session entity
-            const sessionEntity: SessionEntity = new SessionEntity();
-            sessionEntity.value =  contract._id;
-            sessionEntity.synonyms = new Array<string>();
-            sessionEntity.synonyms.push(contract._id);
+            const sessionEntity: SessionEntity = {
+                value: contract._id,
+                synonyms: [
+                    contract._id,
+                ],
+            };
 
             if (contract.name !== undefined) {
 

@@ -1,6 +1,6 @@
 /// <reference types="jest" />
 import { ExplanationService } from './explanation.service';
-import { DialogFlowStructure } from './dialogflow-structure';
+import { DialogFlowStructure } from '../dialog-flow/dialogflow-structure';
 
 describe('ExplanationService', () => {
     const explanationService = new ExplanationService();

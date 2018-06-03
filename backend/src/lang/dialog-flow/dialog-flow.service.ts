@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
-import Config from './../../config/config';
-import { SessionEntity } from './dialog-flow.dto';
-import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.service';
+import Config from './../../../config/config';
+import { DatabaseDialogFlowService } from '../..//connectors/database-dialogflow.service';
 import * as grpc from 'grpc';
 
 const PROJECT_ID = 'test-c7ec0';

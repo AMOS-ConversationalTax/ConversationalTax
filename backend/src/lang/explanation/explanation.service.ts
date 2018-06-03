@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DialogFlowStructure, IntentInformation, ActionInformation } from './dialogflow-structure';
+import { DialogFlowStructure, IntentInformation, ActionInformation } from '../dialog-flow/dialogflow-structure';
 
 const FALLBACK_HELPTEXT = 'Zur letzten Antwort kann ich dir leider keine Erklärung anbieten.';
 const FALLBACK_CONTEXT_EXPLANATION = 'Wir haben gerade über kein spezifisches Thema geredet.';

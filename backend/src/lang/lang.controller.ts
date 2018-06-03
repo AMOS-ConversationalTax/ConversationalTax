@@ -1,5 +1,5 @@
 import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Query, BadRequestException } from '@nestjs/common';
-import { DialogFlowService } from './dialog-flow.service';
+import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { UserService } from '../database/user/user.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
