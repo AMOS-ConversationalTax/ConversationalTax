@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
-import Config from './../../config/config';
-import { SessionEntity } from './dialog-flow.dto';
-import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.service';
+import Config from './../../../config/config';
+import { DatabaseDialogFlowService } from '../..//connectors/database-dialogflow.service';
 import * as grpc from 'grpc';
 
 const PROJECT_ID = 'test-c7ec0';
@@ -286,9 +285,19 @@ export class DialogFlowService {
      *
      */
     public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
-
         return detectIntent.queryResult.intent;
+    }
 
+    /**
+     * Extracts the Action of DialogFlow response.
+     *
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
+     *
+     * @returns {string} The action name of the response
+     *
+     */
+    public extractResponseAction(detectIntent: DetectIntentResponse): string {
+        return detectIntent.queryResult.action;
     }
 
 }
