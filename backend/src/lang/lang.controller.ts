@@ -84,7 +84,7 @@ export class LangController {
         // If our parameters are not ready Dialogflow will ask for them
         if (employmentContractId !== '') {
 
-          if ( ! await this.contractService.editEndDateString(employmentContractId, "unbefristet"))
+          if ( ! await this.contractService.editEndDateString(employmentContractId, 'unbefristet'))
           {
 
             throw new Error('Contract end date could not be changed');
