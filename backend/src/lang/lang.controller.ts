@@ -56,16 +56,13 @@ export class LangController {
         const startDate = response.fields.StartDate.stringValue;
         const employmentContractId = response.fields.EmploymentContract.stringValue;
 
-        if (employmentContractId === '' || startDate === '') {
-
-          // Do nothing - Dialogflow will ask for the parameters
-
-        } else {
+        // If our parameters are not ready Dialogflow will ask for them
+        if (employmentContractId !== '' && startDate !== '') {
 
           if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
           {
 
-            throw new Error('Contract date could not be changed');
+            throw new Error('Contract start date could not be changed');
 
           }
 
@@ -74,6 +71,31 @@ export class LangController {
       } catch (error) {
 
         return { text: 'Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
+
+      }
+
+    } else if (intent.name === 'projects/test-c7ec0/agent/intents/d1523cf3-bb4d-47cb-8fc4-bec3d669628e') {
+
+      try {
+
+        const response: any = dialogflowResponse[0].queryResult.parameters;
+        const employmentContractId = response.fields.EmploymentContract.stringValue;
+
+        // If our parameters are not ready Dialogflow will ask for them
+        if (employmentContractId !== '') {
+
+          if ( ! await this.contractService.editEndDateString(employmentContractId, "unbefristet"))
+          {
+
+            throw new Error('Contract end date could not be changed');
+
+          }
+
+        }
+
+      } catch (error) {
+
+        return { text: 'Beim Ändern des Enddatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
 
       }
 
