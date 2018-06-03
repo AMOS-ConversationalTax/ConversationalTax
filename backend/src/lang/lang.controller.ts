@@ -3,6 +3,8 @@ import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { UserService } from '../database/user/user.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
+import { ExplanationService } from './explanation/explanation.service';
+import { DialogHistoryService } from './dialog-history/dialog-history.service';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -21,6 +23,8 @@ export class LangController {
     private dialogFlowService: DialogFlowService,
     private userService: UserService,
     private contractService: EmploymentContractService,
+    private explanationService: ExplanationService,
+    private dialogHistoryService: DialogHistoryService,
   ) {}
 
   @Post('text')
@@ -37,68 +41,14 @@ export class LangController {
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
     const uid = params.u_id;
 
-    // TODO move to new architecture as soon as it has been finished.
-    // TODO intent name should be moved into a const (as part of the above task)
-    if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
+    // Store the response in order to provide help and context functionalitity.
+    this.storeHistory(uid, dialogflowResponse[0]);
 
-      if (!await this.userService.exists(uid)) {
-
-        this.userService.create(uid);
-
+    if (intent != null) {
+      const response = await this.handleIntent(uid, intent, dialogflowResponse);
+      if (response !== undefined) {
+        return response;
       }
-      const contractId = this.contractService.create(uid);
-
-    } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
-
-      try {
-
-        const response: any = dialogflowResponse[0].queryResult.parameters;
-        const startDate = response.fields.StartDate.stringValue;
-        const employmentContractId = response.fields.EmploymentContract.stringValue;
-
-        // If our parameters are not ready Dialogflow will ask for them
-        if (employmentContractId !== '' && startDate !== '') {
-
-          if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
-          {
-
-            throw new Error('Contract start date could not be changed');
-
-          }
-
-        }
-
-      } catch (error) {
-
-        return { text: 'Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
-
-      }
-
-    } else if (intent.name === 'projects/test-c7ec0/agent/intents/d1523cf3-bb4d-47cb-8fc4-bec3d669628e') {
-
-      try {
-
-        const response: any = dialogflowResponse[0].queryResult.parameters;
-        const employmentContractId = response.fields.EmploymentContract.stringValue;
-
-        // If our parameters are not ready Dialogflow will ask for them
-        if (employmentContractId !== '') {
-
-          if ( ! await this.contractService.editEndDateString(employmentContractId, 'unbefristet'))
-          {
-
-            throw new Error('Contract end date could not be changed');
-
-          }
-
-        }
-
-      } catch (error) {
-
-        return { text: 'Beim Ändern des Enddatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
-
-      }
-
     }
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
@@ -130,5 +80,96 @@ export class LangController {
     }
 
     return await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio, params.u_id);
+  }
+
+  // TODO move to new architecture as soon as it has been finished.
+  // TODO intent name should be moved into a const (as part of the above task)
+  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse[]): Promise<object | undefined> {
+    if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
+
+      if (!await this.userService.exists(uid)) {
+
+        this.userService.create(uid);
+
+      }
+      const contractId = this.contractService.create(uid);
+
+    } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
+
+      try {
+
+        const response: any = dialogflowResponse[0].queryResult.parameters;
+        const startDate = response.fields.StartDate.stringValue;
+        const employmentContractId = response.fields.EmploymentContract.stringValue;
+
+        // If our parameters are not ready Dialogflow will ask for them
+        if (employmentContractId !== '' && startDate !== '') {
+
+          if (! await this.contractService.editStartDateExact(employmentContractId, startDate)) {
+
+            throw new Error('Contract start date could not be changed');
+
+          }
+
+        }
+
+      } catch (error) {
+
+        return { text: 'Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
+
+      }
+
+    } else if (intent.name === 'projects/test-c7ec0/agent/intents/d1523cf3-bb4d-47cb-8fc4-bec3d669628e') {
+
+      try {
+
+        const response: any = dialogflowResponse[0].queryResult.parameters;
+        const employmentContractId = response.fields.EmploymentContract.stringValue;
+
+        // If our parameters are not ready Dialogflow will ask for them
+        if (employmentContractId !== '') {
+
+          if (! await this.contractService.editEndDateString(employmentContractId, 'unbefristet')) {
+
+            throw new Error('Contract end date could not be changed');
+
+          }
+
+        }
+
+      } catch (error) {
+
+        return { text: 'Beim Ändern des Enddatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
+
+      }
+
+    } else if (intent.name === 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275') {
+      // Return Help
+      const history = this.dialogHistoryService.getHistory(uid);
+      const previousResponse = history[0];
+      const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
+      return { text };
+    } else if (intent.name === 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700') {
+      // Return Context
+      const history = this.dialogHistoryService.getHistory(uid);
+      const previousResponse = history[0];
+      const text = this.explanationService.getContextExplanation(previousResponse.intent);
+      return { text };
+    }
+    return undefined;
+  }
+
+  /**
+   * Stores the history in the DialogHistoryService
+   * @param u_id The user id of the request
+   * @param response The response from dialogflow
+   */
+  private storeHistory(u_id: string, response: DetectIntentResponse) {
+    const intent = this.dialogFlowService.extractResponseIntent(response);
+    let actionName: string | undefined = this.dialogFlowService.extractResponseAction(response);
+    if (actionName === '') {
+      actionName = undefined;
+    }
+    this.dialogHistoryService.storeHistory(u_id, intent, actionName);
   }
 }

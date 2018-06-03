@@ -285,9 +285,19 @@ export class DialogFlowService {
      *
      */
     public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
-
         return detectIntent.queryResult.intent;
+    }
 
+    /**
+     * Extracts the Action of DialogFlow response.
+     *
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
+     *
+     * @returns {string} The action name of the response
+     *
+     */
+    public extractResponseAction(detectIntent: DetectIntentResponse): string {
+        return detectIntent.queryResult.action;
     }
 
 }
