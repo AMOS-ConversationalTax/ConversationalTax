@@ -27,11 +27,11 @@ describe('DialogHistoryService', () => {
         const history = historyService.getHistory(u_id);
         expect(history.length).toBe(2);
 
-        expect(history[0].intent.name).toBe(intent.name);
-        expect(history[0].action).toBe('actionName');
+        expect(history[1].intent.name).toBe(intent.name);
+        expect(history[1].action).toBe('actionName');
 
-        expect(history[1].intent.name).toBe(intent2.name);
-        expect(history[1].action).toBe('actionName2');
+        expect(history[0].intent.name).toBe(intent2.name);
+        expect(history[0].action).toBe('actionName2');
     });
 
 });

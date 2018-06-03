@@ -21,7 +21,7 @@ export class DialogHistoryService {
         this.createUser(u_id);
         const usersHistory = this.historyStorage.get(u_id);
 
-        usersHistory.push({
+        usersHistory.unshift({
             intent,
             action: actionName,
         });

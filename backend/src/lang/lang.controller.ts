@@ -16,6 +16,9 @@ const IOS_AUDIO_SETTINGS = {
   sampleRate: 16000,
 };
 
+const INTENT_HELP = 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275';
+const INTENT_CONTEXT = 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700';
+
 @Controller('lang')
 export class LangController {
 
@@ -41,10 +44,13 @@ export class LangController {
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
     const uid = params.u_id;
 
-    // Store the response in order to provide help and context functionalitity.
-    this.storeHistory(uid, dialogflowResponse[0]);
-
     if (intent != null) {
+
+      // Store the response in order to provide help and context functionalitity.
+      if (intent.name !== INTENT_HELP && intent.name !== INTENT_CONTEXT) {
+        this.storeHistory(uid, dialogflowResponse[0]);
+      }
+
       const response = await this.handleIntent(uid, intent, dialogflowResponse);
       if (response !== undefined) {
         return response;
@@ -143,13 +149,13 @@ export class LangController {
 
       }
 
-    } else if (intent.name === 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275') {
+    } else if (intent.name === INTENT_HELP) {
       // Return Help
       const history = this.dialogHistoryService.getHistory(uid);
       const previousResponse = history[0];
       const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
       return { text };
-    } else if (intent.name === 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700') {
+    } else if (intent.name === INTENT_CONTEXT) {
       // Return Context
       const history = this.dialogHistoryService.getHistory(uid);
       const previousResponse = history[0];
