@@ -56,10 +56,18 @@ export class LangController {
         const startDate = response.fields.StartDate.stringValue;
         const employmentContractId = response.fields.EmploymentContract.stringValue;
 
-        if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
-        {
+        if (employmentContractId === '' || startDate === '') {
 
-          throw new Error('Contract date could not be changed');
+          // Do nothing - Dialogflow will ask for the parameters
+
+        } else {
+
+          if ( ! await this.contractService.editStartDateExact(employmentContractId, startDate))
+          {
+
+            throw new Error('Contract date could not be changed');
+
+          }
 
         }
 
@@ -81,7 +89,7 @@ export class LangController {
    * @param params URL params which contain the userID as well as the platform.
    * @returns {Promise<DetectIntentResponse[]>} - A promise containing the response
    */
-  private processAudiofile(file: any, params: AudioIntentParams): Promise<DetectIntentResponse[]> {
+  private async processAudiofile(file: any, params: AudioIntentParams): Promise<DetectIntentResponse[]> {
     if (file === undefined || file.buffer === undefined) {
       throw new BadRequestException('No audio file was uploaded');
     }
@@ -99,6 +107,6 @@ export class LangController {
       throw new BadRequestException('Unkown platform');
     }
 
-    return this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio, params.u_id);
+    return await this.dialogFlowService.detectAudioIntent(encoding, sampleRate, base64Audio, params.u_id);
   }
 }

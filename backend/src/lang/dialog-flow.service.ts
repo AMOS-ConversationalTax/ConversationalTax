@@ -57,10 +57,10 @@ export class DialogFlowService {
      * The answer of DialogFlow's API as a Promise
      *
      */
-    public detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
+    public async detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
 
         // Set session entities at dialogflow
-        this.databaseDialogFlowService.updateEmploymentContractSessionEntity(u_id, this);
+        await this.databaseDialogFlowService.updateEmploymentContractSessionEntity(u_id, this);
 
         // Send request to dialogflow
         const request: DetectIntentRequest = {
@@ -74,7 +74,7 @@ export class DialogFlowService {
 
         const sessionPath = this.sessionClient.sessionPath(PROJECT_ID, u_id);
 
-        return this.sessionClient.detectIntent({ session: sessionPath, ...request });
+        return await this.sessionClient.detectIntent({ session: sessionPath, ...request });
 
     }
 
@@ -97,10 +97,10 @@ export class DialogFlowService {
      * The answer of DialogFlow's API as a Promise
      *
      */
-    public detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
+    public async detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
 
         // Set session entities at dialogflow
-        this.databaseDialogFlowService.updateEmploymentContractSessionEntity(u_id, this);
+        await this.databaseDialogFlowService.updateEmploymentContractSessionEntity(u_id, this);
 
         // Send request to dialogflow
         const request: DetectIntentRequest = {
@@ -116,7 +116,7 @@ export class DialogFlowService {
 
         const sessionPath: any = this.sessionClient.sessionPath(PROJECT_ID, u_id);
 
-        return this.sessionClient.detectIntent({ session: sessionPath, ...request });
+        return await this.sessionClient.detectIntent({ session: sessionPath, ...request });
 
     }
 
