@@ -6,7 +6,7 @@ import { EmployeeService } from './services/employee.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 
 jest.mock('./dialog-flow.service'); // Mock the DialogFlowService class
-jest.mock('./employee.service');
+jest.mock('./services/employee.service');
 
 describe('LangController', () => {
     let langController: LangController;
