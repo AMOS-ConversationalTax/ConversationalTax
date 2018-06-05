@@ -2,7 +2,7 @@
 import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow.service';
 import { AudioIntentParams } from './lang.dto';
-import { EmployeeService } from './employee.service';
+import { EmployeeService } from './services/employee.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 
 jest.mock('./dialog-flow.service'); // Mock the DialogFlowService class

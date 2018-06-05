@@ -5,7 +5,7 @@ import { EmploymentContractModule } from './database/employmentContract/employme
 import { AppController } from './app.controller';
 import { LangController } from './lang/lang.controller';
 import { DialogFlowService } from './lang/dialog-flow.service';
-import { EmployeeService } from 'lang/employee.service';
+import { EmployeeService } from 'lang/services/employee.service';
 import { EmploymentContractService } from 'database/employmentContract/employmentContract.service';
 
 @Module({
