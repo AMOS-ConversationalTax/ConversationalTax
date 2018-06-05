@@ -1,8 +1,8 @@
 import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Query, BadRequestException } from '@nestjs/common';
 import { DialogFlowService } from './dialog-flow.service';
 import { AudioIntentParams, TextIntentParams } from './lang.dto';
-import { EmployeeService } from './employee.service';
-import { EmploymentContractService } from 'database/employmentContract/employmentContract.service';
+import { EmployeeService } from './services/employee.service';
+import { EmploymentContractService } from './../database/employmentContract/employmentContract.service';
 
 const USER_NAME = 'dummyBoy';
 

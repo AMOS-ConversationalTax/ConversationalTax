@@ -1,4 +1,4 @@
-import { EmploymentContractService } from 'database/employmentContract/employmentContract.service';
+import { EmploymentContractService } from './../../../database/employmentContract/employmentContract.service';
 import { ParameterHandler } from './parameter.abstract';
 import { ParameterHelper } from './parameter.parser';
 

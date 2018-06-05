@@ -1,7 +1,7 @@
-import { ChangeNameParameterHandler } from './parameter.changename';
+import { ChangeNameParameterHandler } from './parameter/parameter.changename';
 import { EmploymentContractService } from 'database/employmentContract/employmentContract.service';
-import { AbstractFactory } from './dialog-flow.factory';
-import { ParameterHandler } from './parameter.abstract';
+import { AbstractFactory } from './factory.abstract';
+import { ParameterHandler } from './parameter/parameter.abstract';
 
 export class ChangeNameWorker extends AbstractFactory {
 
