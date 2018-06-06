@@ -124,7 +124,7 @@ export default class Microphone extends Component<IProps> {
         let responseText = await this.props.restClient.uploadAudioAsync(filepath);
 
         if (responseText.text.length < 2) {
-            responseText.text = 'DialogFlow konnte dich leider nicht verstehen.';
+            responseText.text = 'Ich konnte dich leider nicht verstehen.';
         }
 
         //Read out the response
