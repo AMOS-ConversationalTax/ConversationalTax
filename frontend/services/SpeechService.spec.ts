@@ -6,6 +6,9 @@ jest.mock('expo', () => ({
         stop: jest.fn(),
         isSpeakingAsync: jest.fn(),
         speak: jest.fn(),
+    },
+    Constants: {
+        platform: {},
     }
 }));
 
