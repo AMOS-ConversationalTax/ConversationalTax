@@ -7,6 +7,7 @@ import { ConversationHistoryModule } from './database/conversationHistory/conver
 import { AppController } from './app.controller';
 import { LangModule } from './lang/lang.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { NotificationsModule } from './notifications/notifications.module';
 import Config from '../config/config';
 
 @Module({
@@ -16,6 +17,7 @@ import Config from '../config/config';
             ConversationHistoryModule,
             LangModule,
             ConnectorsModule,
+            NotificationsModule,
             MongooseModule.forRoot(Config.MONGO_URL)],
   controllers: [AppController],
   providers: [],
