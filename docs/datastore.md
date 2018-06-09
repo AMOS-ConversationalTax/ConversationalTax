@@ -9,6 +9,7 @@ At the moment we use three document-types to store data in MongoDB:
 - Users
 - EmploymentContracts
 - Reminders
+- ConversationHistory
 
 ### Users
 
@@ -43,6 +44,17 @@ The compostion of a Reminders document is:
 | description    | String | A description for the reminder  |
 | date    | Date | The date the user should be reminded  |
 
+### ConversationHistory
+
+The compostion of a ConversationHistory document is:
+
+| Field | Datatype | Description |
+| :------------- |:-------------:| -----:|
+| _id     | String | The unique identifier of a conversationHistory entry. |
+| user_id     | String | The unique identifier of user who owns the conversationHistory entry. |
+| json_entry   | String | A json entry with all of the information on the history entry  |
+| timestamp    | Date | The timestamp of the conversationHistory entry.  |
+
 
 ## How to access the datastore through code
 
@@ -53,6 +65,7 @@ In contrast to the previous interation of MongoDB in our project, the database c
 | Users    | `backend/src/database/user/user.service.ts` | 
 | EmploymentContracts   | `backend/src/database/employmentContract/employmentContract.service.ts` | 
 | Reminders  | `backend/src/database/reminder/reminder.service.ts` | 
+| ConversationHistory  | `backend/src/database/conversationHistory/conversationHistory.service.ts` | 
 
 To access the datastore import the suiting service and create an instance of it. After that you can create new database entries, modify existing ones and delete entries. For a full list of functions and their meaning take a look at the corresponding JsDoc. Let's include a short example of creating a new reminder, reading all reminders for a specific user at a specific date and delete a reminder:
 

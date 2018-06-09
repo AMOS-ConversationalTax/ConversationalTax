@@ -2,6 +2,7 @@ import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile,
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { UserService } from '../database/user/user.service';
+import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DialogHistoryService } from './dialog-history/dialog-history.service';
@@ -28,6 +29,7 @@ export class LangController {
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
     private dialogHistoryService: DialogHistoryService,
+    private conversationHistoryService: ConversationHistoryService,
   ) {}
 
   @Post('text')
@@ -43,6 +45,10 @@ export class LangController {
     const dialogflowResponse = await this.processAudiofile(file, params);
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
     const uid = params.u_id;
+
+    // Add a new conversation history entry to the data store
+    this.conversationHistoryService.create(uid, dialogflowResponse.toString(), new Date());
+    // console.log(dialogflowResponse);
 
     if (intent != null) {
 
