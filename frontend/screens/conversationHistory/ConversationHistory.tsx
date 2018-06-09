@@ -10,12 +10,25 @@ import {
 import TopBar from '../../shared/TopBar';
 import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
+import RestConnection from '../../services/RestConnection';
 
 interface IProps {
-  navigation: any
+  navigation: any,
 }
 
 export default class ConversationHistory extends Component<IProps> {
+
+  private readonly restClient = new RestConnection();
+
+  public async componentDidMount() {
+
+    const conversationHistory: any = await this.getConversationHistory();
+
+    // Id of the conversation entry
+    // console.log(conversationHistory[0]._id);
+
+  }
+
   public render() {
     return (
       <View style={globalStyles.container}>
@@ -29,6 +42,17 @@ export default class ConversationHistory extends Component<IProps> {
       </View>
     );
   }
+
+  /**
+   * Get the current conversation history of the user
+   * @returns {Promise<any>} - A promise containing the conversation history json as string
+   */
+  public async getConversationHistory(): Promise<any> {
+
+    return await this.restClient.getConversationHistory();
+
+  }
+
 }
 
 const styles = StyleSheet.create({

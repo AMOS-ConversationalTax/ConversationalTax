@@ -102,4 +102,32 @@ export default class RestConnection implements IConnection {
             console.error(`Could not upload audio recording. ${e}`);
         }
     }
+
+    /**
+     * Get the current conversation history of the user
+     * @returns {Promise<any>} - The json containing the users current conversation history
+     */
+    public async getConversationHistory(): Promise<any> {
+
+        const apiUrl: string = `${Config.SERVER_URL}/database/conversationHistory/conversationHistory?u_id=${Expo.Constants.deviceId}`;
+  
+        const options: any = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+        };
+
+        try {
+
+            return await fetch(apiUrl, options).then((response) => response.json());
+
+        } catch (e) {
+
+            console.error(`Could not get conversation history. ${e}`);
+
+        }
+
+    }
 }
