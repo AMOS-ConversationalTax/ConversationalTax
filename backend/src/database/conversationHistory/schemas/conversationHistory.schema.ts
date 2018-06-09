@@ -16,7 +16,23 @@ export const conversationHistorySchema: mongoose.Schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    json_entry: {
+    queryText: {
+        type: String,
+        required: true,
+    },
+    fulfillmentText: {
+        type: String,
+        required: true,
+    },
+    allRequiredParamsPresent: {
+        type: Boolean,
+        required: true,
+    },
+    intent: {
+        type: String,
+        required: true,
+    },
+    parameters: {
         type: String,
         required: true,
     },

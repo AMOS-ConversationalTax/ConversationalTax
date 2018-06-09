@@ -35,6 +35,18 @@ export class LangController {
   @Post('text')
   async textIntent(@Body() body: TextIntentBody, @Query() params: TextIntentParams) {
     const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput, params.u_id);
+    const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
+    const uid = params.u_id;
+
+    // Add a new conversation history entry to the data store
+    this.conversationHistoryService.create(uid,
+      dialogflowResponse[0].queryResult.queryText,
+      dialogflowResponse[0].queryResult.fulfillmentText,
+      dialogflowResponse[0].queryResult.allRequiredParamsPresent,
+      intent.name,
+      JSON.stringify(dialogflowResponse[0].queryResult.parameters),
+      new Date());
+
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
   }
@@ -47,8 +59,13 @@ export class LangController {
     const uid = params.u_id;
 
     // Add a new conversation history entry to the data store
-    this.conversationHistoryService.create(uid, dialogflowResponse.toString(), new Date());
-    // console.log(dialogflowResponse);
+    this.conversationHistoryService.create(uid,
+                                           dialogflowResponse[0].queryResult.queryText,
+                                           dialogflowResponse[0].queryResult.fulfillmentText,
+                                           dialogflowResponse[0].queryResult.allRequiredParamsPresent,
+                                           intent.name,
+                                           JSON.stringify(dialogflowResponse[0].queryResult.parameters),
+                                           new Date());
 
     if (intent != null) {
 
