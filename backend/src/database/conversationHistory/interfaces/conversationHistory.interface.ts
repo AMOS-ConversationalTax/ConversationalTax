@@ -21,42 +21,14 @@ export interface ConversationHistory extends Document {
     readonly user_id: string;
 
     /**
-     * The (recognized) input text of the user
-     * @name ConversationHistory#queryText
+     * The ConversationHistory json entry
+     * @name ConversationHistory#json_entry
      * @type {string}
      */
-    readonly queryText: string;
+    readonly json_entry: string;
 
     /**
-     * The fulfillment text answer of dialogflow
-     * @name ConversationHistory#fulfillmentText
-     * @type {string}
-     */
-    readonly fulfillmentText: string;
-
-    /**
-     * Are all required parameters detected
-     * @name ConversationHistory#allRequiredParamsPresent
-     * @type {string}
-     */
-    readonly allRequiredParamsPresent: boolean;
-
-    /**
-     * The URL of the detected intent
-     * @name ConversationHistory#intent
-     * @type {string}
-     */
-    readonly intent: string;
-
-    /**
-     * Detected parameters as json string
-     * @name ConversationHistory#parameters
-     * @type {string}
-     */
-    readonly parameters: string;
-
-    /**
-     * The timestamp of the ConversationHistory entry
+     * The timestamp of the ConversationHistory
      * @name ConversationHistory#timestamp
      * @type {Date}
      */

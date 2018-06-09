@@ -25,16 +25,18 @@ export class ConversationHistoryService {
     /**
      * Create an new conversationHistory entry in the datastore - does not check if the conversationHistory entry already exists
      * @param {string} user_id - The id of the user owning the new conversationHistory entry
-     * @param {string} queryText - The (recognized) input text of the user
-     * @param {string} fulfillmentText - The fulfillment text answer of dialogflow
-     * @param {boolean} allRequiredParamsPresent - Are all required parameters detected
-     * @param {string} intent - The URL of the detected intent
-     * @param {string} parameters - Detected parameters as json string
+     * @param {string} json_entry - The conversation history entry formated as json
      * @param {Date} timestamp - The timestamp of the conversation history entry
      * @returns {Promise<string>} - A promise containing the _id of the new conversationHistory entry
      */
-    async create(user_id: string, queryText: string, fulfillmentText: string, allRequiredParamsPresent: boolean,
-                 intent: string, parameters: string, timestamp: Date ): Promise<string> {
+    async create(user_id: string, json_entry: string, timestamp: Date): Promise<string> {
+
+        // Evalute whether json_entry is valid json
+        try {
+            JSON.parse(json_entry);
+        } catch (e) {
+            throw new Error('Input json_entry can not be parsed by JSON.parse()');
+        }
 
         // Get a new ObjectID
         const _id: string = mongoose.Types.ObjectId();
@@ -42,11 +44,7 @@ export class ConversationHistoryService {
         // No user with this id exists => create a new one
         const document: Model<ConversationHistory> = new this.conversationHistoryModel({ '_id': _id,
                                                                                          'user_id': user_id,
-                                                                                         'queryText': queryText,
-                                                                                         'fulfillmentText': fulfillmentText,
-                                                                                         'allRequiredParamsPresent': allRequiredParamsPresent,
-                                                                                         'intent': intent,
-                                                                                         'parameters': parameters,
+                                                                                         'json_entry': json_entry,
                                                                                          'timestamp': timestamp });
         await document.save();
 
