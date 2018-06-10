@@ -28,7 +28,7 @@ export class ConversationHistoryService {
      * @param {string} user_id - The id of the user owning the new conversationHistory entry
      * @param {string} query - The (recognized) query of the user in text form
      * @param {string} answer - The text answer of dialogflow
-     * @param {string} intent - The url/name of the detected intent
+     * @param {string} intent - The display name of the detected intent
      * @param {Array<ConversationHistoryParameters>} parameters - The detected parameters
      * @param {Date} timestamp - The timestamp of the conversation history entry
      * @returns {Promise<string>} - A promise containing the _id of the new conversationHistory entry

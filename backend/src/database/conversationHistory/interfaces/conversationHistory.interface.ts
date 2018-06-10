@@ -36,7 +36,7 @@ export interface ConversationHistory extends Document {
     readonly answer: string;
 
     /**
-     * The url/name of the detected intent
+     * The display name of the detected intent
      * @name ConversationHistory#intent
      * @type {string}
      */

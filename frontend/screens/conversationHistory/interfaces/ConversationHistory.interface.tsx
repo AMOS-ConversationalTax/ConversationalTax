@@ -35,7 +35,7 @@ export interface ConversationHistoryInterface {
     readonly answer: string;
 
     /**
-     * The url/name of the detected intent
+     * The display name of the detected intent
      * @name ConversationHistoryInterface#intent
      * @type {string}
      */

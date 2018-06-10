@@ -54,7 +54,7 @@ The composition of a ConversationHistory document is:
 | user_id     | String | The unique identifier of user who owns the conversationHistory entry. |
 | query   | String | The (recognized) query of the user in text form. |
 | answer   | String | The text answer of dialogflow. |
-| intent  | String | The url/name of the detected intent. |
+| intent  | String | The display name of the detected intent. |
 | parameters  | [ConversationHistoryParameters] | The detected parameters. |
 | timestamp    | Date | The timestamp of the conversationHistory entry.  |
 

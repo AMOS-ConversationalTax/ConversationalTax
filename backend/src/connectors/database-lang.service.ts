@@ -35,7 +35,7 @@ export class DatabaseLangService {
         const extractedParameters = new Array<ConversationHistoryParameters>();
 
         // Validate whether parameters include some fields
-        if (parameters.hasOwnProperty('fields')) {
+        if (parameters !== null && parameters.hasOwnProperty('fields')) {
 
             // Iterate through all keys
             for (const key in parameters.fields) {
@@ -66,7 +66,7 @@ export class DatabaseLangService {
         this.conversationHistoryService.create(uid,
                                             dialogflowResponse[0].queryResult.queryText,
                                             dialogflowResponse[0].queryResult.fulfillmentText,
-                                            intent.name,
+                                            intent.displayName,
                                             extractedParameters,
                                             new Date());
 
