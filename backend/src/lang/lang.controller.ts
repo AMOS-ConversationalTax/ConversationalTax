@@ -6,8 +6,8 @@ import { ConversationHistoryService } from '../database/conversationHistory/conv
 import { ConversationHistoryParameters } from '../database/conversationHistory/interfaces/conversationHistoryParameters.interface';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 import { ExplanationService } from './explanation/explanation.service';
-import { DialogHistoryService } from './dialog-history/dialog-history.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
+import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -21,6 +21,7 @@ const IOS_AUDIO_SETTINGS = {
 
 const INTENT_HELP = 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275';
 const INTENT_CONTEXT = 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700';
+const INTENT_DEFAULT = 'projects/test-c7ec0/agent/intents/41d8bfa1-b463-4d15-a1ea-9491f5ee1a76';
 
 @Controller('lang')
 export class LangController {
@@ -30,7 +31,6 @@ export class LangController {
     private userService: UserService,
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
-    private dialogHistoryService: DialogHistoryService,
     private databaseLangService: DatabaseLangService,
   ) {}
 
@@ -67,15 +67,11 @@ export class LangController {
 
     if (intent != null) {
 
-      // Store the response in order to provide help and context functionalitity.
-      if (intent.name !== INTENT_HELP && intent.name !== INTENT_CONTEXT) {
-        this.storeHistory(uid, dialogflowResponse[0]);
-      }
-
       const response = await this.handleIntent(uid, intent, dialogflowResponse);
       if (response !== undefined) {
         return response;
       }
+
     }
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
@@ -171,32 +167,39 @@ export class LangController {
       }
 
     } else if (intent.name === INTENT_HELP) {
+
       // Return Help
-      const history = this.dialogHistoryService.getHistory(uid);
-      const previousResponse = history[0];
-      const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
-      return { text };
+      const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(uid,
+                                                                                                                           [INTENT_HELP,
+                                                                                                                            INTENT_CONTEXT,
+                                                                                                                            INTENT_DEFAULT]);
+
+      if (history.length > 0) {
+
+        const previousResponse = history[0];
+        const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
+        return { text };
+
+      }
+
+      return { text: 'Es gibt keine letzte Anfrage zu der ich dir eine Hilfestellung geben könnte' };
+
     } else if (intent.name === INTENT_CONTEXT) {
+
       // Return Context
-      const history = this.dialogHistoryService.getHistory(uid);
-      const previousResponse = history[0];
-      const text = this.explanationService.getContextExplanation(previousResponse.intent);
-      return { text };
+      const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(uid,
+                                                                                                                           [INTENT_HELP,
+                                                                                                                            INTENT_CONTEXT,
+                                                                                                                            INTENT_DEFAULT]);
+      if (history.length > 0) {
+
+        const previousResponse = history[0];
+        const text = this.explanationService.getContextExplanation(previousResponse.intent);
+        return { text };
+
+      }
+
     }
     return undefined;
-  }
-
-  /**
-   * Stores the history in the DialogHistoryService
-   * @param u_id The user id of the request
-   * @param response The response from dialogflow
-   */
-  private storeHistory(u_id: string, response: DetectIntentResponse) {
-    const intent = this.dialogFlowService.extractResponseIntent(response);
-    let actionName: string | undefined = this.dialogFlowService.extractResponseAction(response);
-    if (actionName === '') {
-      actionName = undefined;
-    }
-    this.dialogHistoryService.storeHistory(u_id, intent, actionName);
   }
 }

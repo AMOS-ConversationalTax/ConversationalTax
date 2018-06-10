@@ -58,12 +58,30 @@ export class ConversationHistoryService {
 
     /**
      * Find all conversationHistory entries of a specific user
+     *
      * @param {string} user_id - The unique id of the user
+     *
      * @returns {Promise<Array<ConversationHistory>>} - A promise containing the conversationHistory entries sorted by their timestamp
      */
     async findConversationHistoryOfUser(user_id: string): Promise<Array<ConversationHistory>> {
 
         return await this.conversationHistoryModel.find({ 'user_id': user_id }).sort({'timestamp': 'desc'}).exec();
+
+    }
+
+    /**
+     * Find all conversationHistory entries of a specific user excluding some intent names
+     *
+     * @param {string} user_id - The unique id of the user
+     *
+     * @param {Array<string>} intent_names - The intents that are not allowed to be included
+     *
+     * @returns {Promise<Array<ConversationHistory>>} - A promise containing the conversationHistory entries sorted by their timestamp
+     */
+    async getConversationHistoryOfUserWithoutIntents(user_id: string, intent_names: Array<string>): Promise<Array<ConversationHistory>> {
+
+        return await this.conversationHistoryModel.find({ 'user_id': user_id, 'intent.name': { '$nin': intent_names } })
+                                                  .sort({ 'timestamp': 'desc' }).exec();
 
     }
 
