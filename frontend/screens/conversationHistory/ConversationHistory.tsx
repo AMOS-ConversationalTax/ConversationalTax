@@ -78,17 +78,7 @@ export default class ConversationHistory extends Component<IProps, IState> {
    */
   private async getConversationHistory(): Promise<Array<ConversationHistoryInterface>> {
 
-    try {
-      
-      const conversationHistory: Array<ConversationHistoryInterface> = await this.restClient.getConversationHistory();
-
-      return conversationHistory;
-
-    } catch (error) {
-      
-      throw new Error('Catched conversation history that does not fit into conversationHistory interface');
-
-    }
+      return await this.restClient.getConversationHistory();
 
   }
 

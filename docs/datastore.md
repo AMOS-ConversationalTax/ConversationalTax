@@ -54,7 +54,8 @@ The composition of a ConversationHistory document is:
 | user_id     | String | The unique identifier of user who owns the conversationHistory entry. |
 | query   | String | The (recognized) query of the user in text form. |
 | answer   | String | The text answer of dialogflow. |
-| intent  | String | The display name of the detected intent. |
+| intent  | ConversationHistoryIntent | The detected intent. |
+| action   | String | The action computed by Dialogflow |
 | parameters  | [ConversationHistoryParameters] | The detected parameters. |
 | timestamp    | Date | The timestamp of the conversationHistory entry.  |
 
@@ -65,6 +66,14 @@ The composition of the ConversationHistoryParameters subdocument is:
 | _id     | String | The unique identifier of a ConversationHistoryParameters entry. |
 | name    | String | The name of the recognized parameter. |
 | value  | String | The value of the recoginzed parameter. |
+
+The composition of the ConversationHistoryIntent subdocument is:
+
+| Field | Datatype | Description |
+| :------------- |:-------------:| -----:|
+| _id     | String | The unique identifier of a ConversationHistoryIntent entry. |
+| name    | String | The name of the intent |
+| displayName  | String | The displayName of the intent |
 
 
 ## How to access the datastore through code

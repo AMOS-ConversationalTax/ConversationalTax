@@ -109,25 +109,19 @@ export default class RestConnection implements IConnection {
      */
     public async getConversationHistory(): Promise<any> {
 
-        const apiUrl: string = `${Config.SERVER_URL}/database/conversationHistory/conversationHistory?u_id=${Expo.Constants.deviceId}`;
-  
-        const options: any = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'multipart/form-data',
-            },
-        };
+        const url = `${Config.SERVER_URL}/database/conversationHistory/conversationHistory?u_id=${Expo.Constants.deviceId}`;
 
-        try {
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.get(url)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('reading failed');
+            });
+        });
 
-            return await fetch(apiUrl, options).then((response) => response.json());
-
-        } catch (e) {
-
-            console.error(`Could not get conversation history. ${e}`);
-
-        }
+        return promise;
 
     }
 }

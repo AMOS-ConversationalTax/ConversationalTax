@@ -10,7 +10,7 @@ export class ConversationHistoryController {
     @Get('conversationHistory')
     async getConversationHistory(@Query() params: GetConversationHistoryParams) {
 
-        return this.conversationHistoryService.findEmploymentContractsOfUser(params.u_id);
+        return this.conversationHistoryService.findConversationHistoryOfUser(params.u_id);
 
     }
 

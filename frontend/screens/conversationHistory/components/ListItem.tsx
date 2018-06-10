@@ -34,7 +34,7 @@ export default class ListItem extends Component<IProps> {
 
       }
 
-      const parameter = this.props.parameters[i].name+' : '+this.props.parameters[i].value;
+      const parameter = this.props.parameters[i].name + ' : ' + this.props.parameters[i].value;
 
       parameters = parameters + parameter;
 

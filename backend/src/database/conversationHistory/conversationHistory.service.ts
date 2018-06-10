@@ -61,7 +61,7 @@ export class ConversationHistoryService {
      * @param {string} user_id - The unique id of the user
      * @returns {Promise<Array<ConversationHistory>>} - A promise containing the conversationHistory entries sorted by their timestamp
      */
-    async findEmploymentContractsOfUser(user_id: string): Promise<Array<ConversationHistory>> {
+    async findConversationHistoryOfUser(user_id: string): Promise<Array<ConversationHistory>> {
 
         return await this.conversationHistoryModel.find({ 'user_id': user_id }).sort({'timestamp': 'desc'}).exec();
 
