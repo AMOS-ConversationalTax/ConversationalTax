@@ -29,7 +29,8 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.1.0",
     "typescript": "^2.8.3",
-    "ws": "^5.2.0"
+    "ws": "^5.2.0",
+    "conv-tax-shared": "file:../shared/"
   },
   "devDependencies": {
     "@types/express": "^4.0.39",
