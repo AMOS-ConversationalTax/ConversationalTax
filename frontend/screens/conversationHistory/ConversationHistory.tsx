@@ -5,38 +5,40 @@ import {
   Text,
   View,
   Button,
-  StatusBar
+  StatusBar,
+  FlatList,
 } from 'react-native';
 import TopBar from '../../shared/TopBar';
 import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import RestConnection from '../../services/RestConnection';
+import List from './components/List';
+import { ConversationHistoryParametersInterface } from './interfaces/ConversationHistoryParameters.interface';
+import { ConversationHistoryInterface } from './interfaces/conversationHistory.interface';
+
 
 interface IProps {
   navigation: any,
 }
 
-export default class ConversationHistory extends Component<IProps> {
+interface IState {
+  data: ConversationHistoryInterface[],
+}
 
-  private readonly restClient = new RestConnection();
+/**
+ * This class implements the ConversationHistory and its functionality
+ * @class ConversationHistory
+ */
+export default class ConversationHistory extends Component<IProps, IState> {
 
-  public async componentDidMount() {
+  private readonly restClient: RestConnection = new RestConnection();
 
-    const conversationHistory: any = await this.getConversationHistory();
-
-    // Id of the conversation entry
-    // console.log(conversationHistory[0]._id);
-
-  }
-
-  public render() {
+  public async render() {
     return (
       <View style={globalStyles.container}>
         <TopBar navigation={this.props.navigation} />
         <View style={globalStyles.content}>
-          <Text style={styles.welcome}>
-            Conversation History
-          </Text>
+          <List data={await this.getConversationHistory()} />
         </View>
         <BottomBar />
       </View>
@@ -45,11 +47,21 @@ export default class ConversationHistory extends Component<IProps> {
 
   /**
    * Get the current conversation history of the user
-   * @returns {Promise<any>} - A promise containing the conversation history json as string
+   * @returns {Promise<Array<ConversationHistoryInterface>>} - A promise containing the conversation history json as string
    */
-  public async getConversationHistory(): Promise<any> {
+  private async getConversationHistory(): Promise<Array<ConversationHistoryInterface>> {
 
-    return await this.restClient.getConversationHistory();
+    try {
+      
+      const conversationHistory: Array<ConversationHistoryInterface> = await this.restClient.getConversationHistory();
+
+      return conversationHistory;
+
+    } catch (error) {
+      
+      throw new Error("Catched conversation history that does not fit into conversationHistory interface")
+
+    }
 
   }
 
