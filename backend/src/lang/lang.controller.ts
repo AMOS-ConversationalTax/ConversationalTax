@@ -39,9 +39,13 @@ export class LangController {
     const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput, params.u_id);
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
     const uid = params.u_id;
+    let actionName: string = this.dialogFlowService.extractResponseAction(dialogflowResponse[0]);
+    if (actionName === '') {
+      actionName = 'undefined';
+    }
 
     // Add a new conversation history entry to the data store
-    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent);
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent, actionName);
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
@@ -53,9 +57,13 @@ export class LangController {
     const dialogflowResponse = await this.processAudiofile(file, params);
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
     const uid = params.u_id;
+    let actionName: string = this.dialogFlowService.extractResponseAction(dialogflowResponse[0]);
+    if (actionName === '') {
+      actionName = 'undefined';
+    }
 
     // Add a new conversation history entry to the data store
-    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent);
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent, actionName);
 
     if (intent != null) {
 

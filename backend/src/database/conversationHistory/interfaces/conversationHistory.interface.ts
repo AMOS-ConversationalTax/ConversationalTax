@@ -1,5 +1,6 @@
 import { Document } from 'mongoose';
 import { ConversationHistoryParameters } from './conversationHistoryParameters.interface';
+import { ConversationHistoryIntent } from './conversationHistoryIntent.interface';
 
 /**
  * This implements the ConversationHistory interface used by ConversationHistoryService
@@ -36,11 +37,18 @@ export interface ConversationHistory extends Document {
     readonly answer: string;
 
     /**
-     * The display name of the detected intent
+     * The detected intent
      * @name ConversationHistory#intent
+     * @type {ConversationHistoryIntent}
+     */
+    readonly intent: ConversationHistoryIntent;
+
+    /**
+     * The action computed by Dialogflow
+     * @name ConversationHistory#action
      * @type {string}
      */
-    readonly intent: string;
+    readonly action: string;
 
     /**
      * The detected parameters

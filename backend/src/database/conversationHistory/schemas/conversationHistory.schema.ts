@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 import DBConfig from '../../dbconfig';
 import { conversationHistoryParametersSchema } from './conversationHistoryParameters.schema';
+import { conversationHistoryIntentSchema } from './conversationHistoryIntent.schema';
 
 /**
  * The schema of the conversationHistory table
@@ -26,6 +27,10 @@ export const conversationHistorySchema: mongoose.Schema = new mongoose.Schema({
         required: true,
     },
     intent: {
+        type: conversationHistoryIntentSchema,
+        required: true,
+    },
+    action: {
         type: String,
         required: true,
     },

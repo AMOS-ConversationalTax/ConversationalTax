@@ -26,7 +26,7 @@ export default class List extends Component<IProps> {
       <ListItem
         query={item.item.query}
         answer={item.item.answer}
-        intent={item.item.intent}
+        intent={item.item.intent.displayName}
         parameters={item.item.parameters}
         timestamp={new Date(item.item.timestamp)}
       />

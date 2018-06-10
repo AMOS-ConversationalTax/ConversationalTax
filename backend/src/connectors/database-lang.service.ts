@@ -28,7 +28,7 @@ export class DatabaseLangService {
      *
      */
     public async createConversationHistoryEntry( uid: string, dialogflowResponse: DetectIntentResponse[],
-                                                 intent: Intent ): Promise<boolean> {
+                                                 intent: Intent, action: string ): Promise<boolean> {
 
         // Extract the parameters out of the dialogflowResponse
         const parameters: any = dialogflowResponse[0].queryResult.parameters;
@@ -66,7 +66,8 @@ export class DatabaseLangService {
         this.conversationHistoryService.create(uid,
                                             dialogflowResponse[0].queryResult.queryText,
                                             dialogflowResponse[0].queryResult.fulfillmentText,
-                                            intent.displayName,
+                                            {'name': intent.name, 'displayName': intent.displayName},
+                                            action,
                                             extractedParameters,
                                             new Date());
 

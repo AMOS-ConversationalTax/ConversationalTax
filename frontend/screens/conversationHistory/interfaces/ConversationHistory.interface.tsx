@@ -1,4 +1,5 @@
 import { ConversationHistoryParametersInterface } from './ConversationHistoryParameters.interface';
+import { ConversationHistoryIntent } from './conversationHistoryIntent.interface';
 
 /**
  * This implements the ConversationHistory interface
@@ -35,11 +36,19 @@ export interface ConversationHistoryInterface {
     readonly answer: string;
 
     /**
-     * The display name of the detected intent
-     * @name ConversationHistoryInterface#intent
+     * The detected intent
+     * @name ConversationHistory#intent
+     * @type {ConversationHistoryIntent}
+     */
+    readonly intent: ConversationHistoryIntent;
+
+    /**
+     * The action computed by Dialogflow
+     * @name ConversationHistory#action
      * @type {string}
      */
-    readonly intent: string;
+    readonly action: string;
+
 
     /**
      * The detected parameters

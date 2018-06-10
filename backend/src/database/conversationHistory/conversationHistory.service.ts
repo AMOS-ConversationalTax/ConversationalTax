@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { ConversationHistory } from './interfaces/conversationHistory.interface';
 import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import { ConversationHistoryParameters } from './interfaces/conversationHistoryParameters.interface';
+import { ConversationHistoryIntent } from './interfaces/conversationHistoryIntent.interface';
 import DBConfig from '../dbconfig';
 
 /**
@@ -28,12 +29,13 @@ export class ConversationHistoryService {
      * @param {string} user_id - The id of the user owning the new conversationHistory entry
      * @param {string} query - The (recognized) query of the user in text form
      * @param {string} answer - The text answer of dialogflow
-     * @param {string} intent - The display name of the detected intent
+     * @param {ConversationHistoryIntent} intent - The detected intent
+     * @param {string} action - The action computed by Dialogflow
      * @param {Array<ConversationHistoryParameters>} parameters - The detected parameters
      * @param {Date} timestamp - The timestamp of the conversation history entry
      * @returns {Promise<string>} - A promise containing the _id of the new conversationHistory entry
      */
-    async create(user_id: string, query: string, answer: string, intent: string,
+    async create(user_id: string, query: string, answer: string, intent: ConversationHistoryIntent, action: string,
                  parameters: Array<ConversationHistoryParameters>, timestamp: Date): Promise<string> {
 
         // Get a new ObjectID
@@ -45,6 +47,7 @@ export class ConversationHistoryService {
                                                                                          'query': query,
                                                                                          'answer': answer,
                                                                                          'intent': intent,
+                                                                                         'action': action,
                                                                                          'parameters': parameters,
                                                                                          'timestamp': timestamp });
         await document.save();
