@@ -1,5 +1,6 @@
 import { WebSocketClient } from './WebSocketClient';
 import Config from '../config/config';
+import { Constants } from 'expo';
 import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
 import {NotificationMessage} from 'conv-tax-shared/typings/Notification';
 import {Subject} from 'rxjs';
@@ -26,7 +27,11 @@ export class NotificationService {
     }
 
     private subscribe() {
-        this.websocket.send({ 'event': NotificationsConfig.SUB_NOTI_EVENT });
+        this.websocket.send({
+            event: NotificationsConfig.SUB_NOTI_EVENT, data: {
+                u_id: Constants.deviceId,
+            } 
+        });
     }
 
     private handleNotificationMessage(data: NotificationMessage) {

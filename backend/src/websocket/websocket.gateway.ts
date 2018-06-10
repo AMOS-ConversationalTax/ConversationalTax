@@ -23,7 +23,7 @@ export class WebsocketGateway {
       this.notificationService.unsubscribeUser(id);
     });
 
-    return this.notificationService.subscribeUser(id).pipe(
+    return this.notificationService.subscribeUser(id, data.u_id).pipe(
       filter(notification => client.readyState === 1),
     );
   }

@@ -1,14 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { NotificationService } from './notification-service';
+import { GetNotificationsQuery } from './notifications.dto';
+import { NotificationsDBService } from '../database/notifications/notifications.service';
 
 @Controller('notifications')
 export class NotificationsController {
 
-    constructor(private notificationService: NotificationService) {
+    constructor(private notificationService: NotificationService, private readonly notificationDb: NotificationsDBService) {
+    }
+
+    @Get('emit-demo')
+    emitDemoNotifications(): void {
+        this.notificationService.emitNotification();
     }
 
     @Get()
-    root(): void {
-        this.notificationService.emitNotification();
+    getUsersNotifications(@Query() params: GetNotificationsQuery) {
+        return this.notificationDb.findNotificationByUser(params.u_id);
     }
 }
