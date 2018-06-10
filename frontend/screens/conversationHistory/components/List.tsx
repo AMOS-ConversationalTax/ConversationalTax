@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ListRenderItemInfo } from 'react-native';
 import { ConversationHistoryParametersInterface } from '../interfaces/ConversationHistoryParameters.interface';
 import { ConversationHistoryInterface } from '../interfaces/ConversationHistory.interface';
 import ListItem from './ListItem';
@@ -21,22 +21,23 @@ export default class List extends Component<IProps> {
   } 
 
   @autobind
-  private renderItem(item: ConversationHistoryInterface): ReactElement<any> | null {
-    return <ListItem 
-      query={item.query}
-      answer={item.answer}
-      intent={item.intent}
-      parameters={item.parameters}
-      timestamp={item.timestamp}
-    />
+  private renderItem(item: ListRenderItemInfo<ConversationHistoryInterface>): ReactElement<any> | null {
+    return (
+      <ListItem
+        query={item.item.query}
+        answer={item.item.answer}
+        intent={item.item.intent}
+        parameters={item.item.parameters}
+        timestamp={new Date(item.item.timestamp)}
+      />
+    )
   }
 
   public render() {
 
     // Only print a list if some entries are found
-    if(this.props.data.length > 0)
-    {
-      
+    if(this.props.data.length > 0) {
+
       return (
         <FlatList
           data={this.props.data}
@@ -44,7 +45,6 @@ export default class List extends Component<IProps> {
           keyExtractor={this.keyExtractor}
         />
       );
-      // return(this.renderItem(this.props.data[0]));
 
     }
 

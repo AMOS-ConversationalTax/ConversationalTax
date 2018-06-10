@@ -18,13 +18,35 @@ export default class ListItem extends Component<IProps> {
 
   public render() {
 
+    let parameters: string = '';
+
+    if (this.props.parameters.length === 0 ) {
+
+      parameters = 'Keine Parameter erkannt';
+
+    }
+
+    for (let i = 0; i < this.props.parameters.length; i++) {
+
+      if (i !== 0) {
+
+        parameters = parameters + '\n';
+
+      }
+
+      const parameter = this.props.parameters[i].name+' : '+this.props.parameters[i].value;
+
+      parameters = parameters + parameter;
+
+    }
+
     return (
       <View style={styles.listitem}>
         <Text style={styles.time}>
-          {this.props.timestamp}
+          {this.props.timestamp.toLocaleString('de-DE')}
         </Text>
         <Text style={styles.description}>
-          Gestellte Anfrage:
+          Gestellte bzw. verstandene Anfrage:
         </Text>
         <Text style={styles.value}>
           {this.props.query}
@@ -40,6 +62,12 @@ export default class ListItem extends Component<IProps> {
         </Text>
         <Text style={styles.value}>
           {this.props.intent}
+        </Text>
+        <Text style={styles.description}>
+          Erkannte Parameter:
+        </Text>
+        <Text style={styles.value}>
+          {parameters}
         </Text>
       </View>
     );

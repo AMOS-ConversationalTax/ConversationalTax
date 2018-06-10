@@ -6,21 +6,17 @@ import ListItem from './ListItem';
 import renderer from 'react-test-renderer';
 
 describe('ListItem', () => {
-  let mockObj: { navigate: jest.Mock<{}> }
 
   beforeEach(() => {
-    mockObj = {
-      navigate: jest.fn()
-    };
   });
 
   it('renders correctly', () => {
     renderer.create(
       <ListItem 
-        query=""
-        answer=""
-        intent=""
-        parameters={[{name: '', value: ''}]}
+        query="Test"
+        answer="Test"
+        intent="Test"
+        parameters={[]}
         timestamp={new Date()}
       />
     );
