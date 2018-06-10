@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { ConversationHistoryParameters } from './conversationHistoryParameters.interface';
 
 /**
  * This implements the ConversationHistory interface used by ConversationHistoryService
@@ -21,11 +22,32 @@ export interface ConversationHistory extends Document {
     readonly user_id: string;
 
     /**
-     * The ConversationHistory json entry
-     * @name ConversationHistory#json_entry
+     * The (recognized) query of the user in text form
+     * @name ConversationHistory#query
      * @type {string}
      */
-    readonly json_entry: string;
+    readonly query: string;
+
+    /**
+     * The text answer of dialogflow
+     * @name ConversationHistory#answer
+     * @type {string}
+     */
+    readonly answer: string;
+
+    /**
+     * The url/name of the detected intent
+     * @name ConversationHistory#intent
+     * @type {string}
+     */
+    readonly intent: string;
+
+    /**
+     * The detected parameters
+     * @name ConversationHistory#parameters
+     * @type {Array<ConversationHistoryParameters>}
+     */
+    readonly parameters: Array<ConversationHistoryParameters>;
 
     /**
      * The timestamp of the ConversationHistory

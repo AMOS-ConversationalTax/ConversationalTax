@@ -8,23 +8,24 @@ import { EmploymentContractService } from '../database/employmentContract/employ
 import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DialogHistoryService } from './dialog-history/dialog-history.service';
+import { DatabaseLangService } from '../connectors/database-lang.service';
 
 // Creates a mock of the classes and removes their implementation. Custom implementation is then added in beforeAll()
 jest.mock('./dialog-flow/dialog-flow.service', () => jest.fn(() => {}) );
 jest.mock('../database/user/user.service', () => jest.fn(() => { }));
 jest.mock('../database/employmentContract/employmentContract.service', () => jest.fn(() => { }));
-jest.mock('../database/conversationHistory/conversationHistory.service', () => jest.fn(() => { }));
 jest.mock('./explanation/explanation.service', () => jest.fn(() => { }));
 jest.mock('./dialog-history/dialog-history.service', () => jest.fn(() => { }));
+jest.mock('../connectors/database-lang.service', () => jest.fn(() => { }));
 
 describe('LangController', () => {
     let langController: LangController;
     let dialogFlowService: any;
     let userService: any;
     let employmentContractService: any;
-    let conversationHistoryService: any;
     let explanationService: any;
     let dialogHistoryService: any;
+    let databaseLangService: any;
 
     beforeAll(() => {
         dialogFlowService = {
@@ -40,13 +41,13 @@ describe('LangController', () => {
         employmentContractService = {
             create: jest.fn(),
         };
-        conversationHistoryService = {
-            create: jest.fn(),
-        };
         explanationService = {
         };
         dialogHistoryService = {
             storeHistory: jest.fn(),
+        };
+        databaseLangService = {
+            createConversationHistoryEntry: jest.fn(),
         };
     });
 
@@ -57,7 +58,7 @@ describe('LangController', () => {
             employmentContractService,
             explanationService,
             dialogHistoryService,
-            conversationHistoryService
+            databaseLangService,
         );
     });
 

@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { ConversationHistory } from './interfaces/conversationHistory.interface';
 import { conversationHistorySchema } from './schemas/conversationHistory.schema';
+import { ConversationHistoryParameters } from './interfaces/conversationHistoryParameters.interface';
 import DBConfig from '../dbconfig';
 
 /**
@@ -25,18 +26,15 @@ export class ConversationHistoryService {
     /**
      * Create an new conversationHistory entry in the datastore - does not check if the conversationHistory entry already exists
      * @param {string} user_id - The id of the user owning the new conversationHistory entry
-     * @param {string} json_entry - The conversation history entry formated as json
+     * @param {string} query - The (recognized) query of the user in text form
+     * @param {string} answer - The text answer of dialogflow
+     * @param {string} intent - The url/name of the detected intent
+     * @param {Array<ConversationHistoryParameters>} parameters - The detected parameters
      * @param {Date} timestamp - The timestamp of the conversation history entry
      * @returns {Promise<string>} - A promise containing the _id of the new conversationHistory entry
      */
-    async create(user_id: string, json_entry: string, timestamp: Date): Promise<string> {
-
-        // Evalute whether json_entry is valid json
-        try {
-            JSON.parse(json_entry);
-        } catch (e) {
-            throw new Error('Input json_entry can not be parsed by JSON.parse()');
-        }
+    async create(user_id: string, query: string, answer: string, intent: string,
+                 parameters: Array<ConversationHistoryParameters>, timestamp: Date): Promise<string> {
 
         // Get a new ObjectID
         const _id: string = mongoose.Types.ObjectId();
@@ -44,7 +42,10 @@ export class ConversationHistoryService {
         // No user with this id exists => create a new one
         const document: Model<ConversationHistory> = new this.conversationHistoryModel({ '_id': _id,
                                                                                          'user_id': user_id,
-                                                                                         'json_entry': json_entry,
+                                                                                         'query': query,
+                                                                                         'answer': answer,
+                                                                                         'intent': intent,
+                                                                                         'parameters': parameters,
                                                                                          'timestamp': timestamp });
         await document.save();
 

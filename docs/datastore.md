@@ -35,7 +35,7 @@ The composition of a EmploymentContracts document is:
 
 ### Reminders
 
-The compostion of a Reminders document is:
+The composition of a Reminders document is:
 
 | Field | Datatype | Description |
 | :------------- |:-------------:| -----:|
@@ -46,14 +46,25 @@ The compostion of a Reminders document is:
 
 ### ConversationHistory
 
-The compostion of a ConversationHistory document is:
+The composition of a ConversationHistory document is:
 
 | Field | Datatype | Description |
 | :------------- |:-------------:| -----:|
 | _id     | String | The unique identifier of a conversationHistory entry. |
 | user_id     | String | The unique identifier of user who owns the conversationHistory entry. |
-| json_entry   | String | A json entry with all of the information on the history entry  |
+| query   | String | The (recognized) query of the user in text form. |
+| answer   | String | The text answer of dialogflow. |
+| intent  | String | The url/name of the detected intent. |
+| parameters  | [ConversationHistoryParameters] | The detected parameters. |
 | timestamp    | Date | The timestamp of the conversationHistory entry.  |
+
+The composition of the ConversationHistoryParameters subdocument is:
+
+| Field | Datatype | Description |
+| :------------- |:-------------:| -----:|
+| _id     | String | The unique identifier of a ConversationHistoryParameters entry. |
+| name    | String | The name of the recognized parameter. |
+| value  | String | The value of the recoginzed parameter. |
 
 
 ## How to access the datastore through code

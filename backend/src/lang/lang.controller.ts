@@ -3,9 +3,11 @@ import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { UserService } from '../database/user/user.service';
 import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
+import { ConversationHistoryParameters } from '../database/conversationHistory/interfaces/conversationHistoryParameters.interface';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DialogHistoryService } from './dialog-history/dialog-history.service';
+import { DatabaseLangService } from '../connectors/database-lang.service';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -29,7 +31,7 @@ export class LangController {
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
     private dialogHistoryService: DialogHistoryService,
-    private conversationHistoryService: ConversationHistoryService,
+    private databaseLangService: DatabaseLangService,
   ) {}
 
   @Post('text')
@@ -39,7 +41,7 @@ export class LangController {
     const uid = params.u_id;
 
     // Add a new conversation history entry to the data store
-    this.conversationHistoryService.create(uid, JSON.stringify(dialogflowResponse[0]), new Date());
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent);
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
     return { text: responseText };
@@ -53,7 +55,7 @@ export class LangController {
     const uid = params.u_id;
 
     // Add a new conversation history entry to the data store
-    this.conversationHistoryService.create(uid, JSON.stringify(dialogflowResponse[0]), new Date());
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent);
 
     if (intent != null) {
 
