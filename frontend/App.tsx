@@ -16,19 +16,10 @@ import Notifications from './screens/notifications/Notifications';
 import Debug from './screens/debug/Debug';
 import { WebSocketClient } from './services/WebSocketClient';
 
-// Temporary fix to supress warnings
-// https://stackoverflow.com/questions/49789150/warning-ismounted-is-deprecated-in-plain-javascript-classes
-import { YellowBox } from 'react-native';
-import SpeechService from './services/SpeechService';
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
-
-const websocketClient = new WebSocketClient();
-websocketClient.subscribeToNotifications();
-
-const speech = new SpeechService();
-speech.speak('Hello Gabriel');
-
 export default DrawerNavigator({
+  Notifications: {
+    screen: Notifications,
+  },
   Start: {
     screen: Start,
   },
@@ -40,9 +31,6 @@ export default DrawerNavigator({
   },
   ConversationHistory:  {
     screen: ConversationHistory,
-  },
-  Notifications:  {
-    screen: Notifications,
   },
   Debug: {
     screen: Debug,

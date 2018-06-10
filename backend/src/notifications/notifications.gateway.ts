@@ -1,21 +1,30 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer, WsResponse, WsException } from '@nestjs/websockets';
 import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { NotificationParams } from './notifications.dto';
 import { UsePipes, ValidationPipe } from '@nestjs/common';
+import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
+import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
+import { NotificationService } from './notification-service';
 
 @WebSocketGateway(3001)
 export class NotificationsGateway {
+  private static counter = 0;
   @WebSocketServer() server;
 
-  @SubscribeMessage('notifications')
-  onEvent(client, data: NotificationParams): Observable<WsResponse<number>> {
+  constructor(private notificationService: NotificationService) {
+  }
 
-    //throw new WsException('Invalid credentials.');
-    const event = 'events';
-    const response = [1, 2, 3];
-    //console.log(data);
+  @SubscribeMessage(NotificationsConfig.SUB_NOTI_EVENT)
+  onEvent(client: any, data: NotificationParams): Observable<WsResponse<NotificationMessage>> {
+    const id = NotificationsGateway.counter++;
 
-    return from(response).pipe(map(res => ({ event, data: res })));
+    client._socket.on('close', () => {
+      this.notificationService.unsubscribeUser(id);
+    });
+
+    return this.notificationService.subscribeUser(id).pipe(
+      filter(notification => client.readyState === 1),
+    );
   }
 }
