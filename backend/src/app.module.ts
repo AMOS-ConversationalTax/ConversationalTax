@@ -8,6 +8,7 @@ import { AppController } from './app.controller';
 import { LangModule } from './lang/lang.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NotificationsModule } from './notifications/notifications.module';
+import { WebsocketModule } from './websocket/websocket.module';
 import Config from '../config/config';
 
 @Module({
@@ -18,6 +19,7 @@ import Config from '../config/config';
             LangModule,
             ConnectorsModule,
             NotificationsModule,
+            WebsocketModule,
             MongooseModule.forRoot(Config.MONGO_URL)],
   controllers: [AppController],
   providers: [],
