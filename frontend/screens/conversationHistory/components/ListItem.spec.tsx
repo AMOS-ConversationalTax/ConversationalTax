@@ -20,7 +20,7 @@ describe('ListItem', () => {
         query=""
         answer=""
         intent=""
-        parameters={[{name: "", value: ""}]}
+        parameters={[{name: '', value: ''}]}
         timestamp={new Date()}
       />
     );

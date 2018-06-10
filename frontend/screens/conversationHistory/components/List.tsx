@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { ConversationHistoryParametersInterface } from '../interfaces/ConversationHistoryParameters.interface';
-import { ConversationHistoryInterface } from '../interfaces/conversationHistory.interface';
+import { ConversationHistoryInterface } from '../interfaces/ConversationHistory.interface';
 import ListItem from './ListItem';
 
 interface IProps {
@@ -14,24 +14,52 @@ interface IProps {
  */
 export default class List extends Component<IProps> {
 
+  _keyExtractor = (item: ConversationHistoryInterface) => item._id;
+
+  _renderItem = (item: ConversationHistoryInterface) => (
+    <ListItem 
+      query={item.query}
+      answer={item.answer}
+      intent={item.intent}
+      parameters={item.parameters}
+      timestamp={item.timestamp}
+    />
+  );
+
   public render() {
 
-    let list: JSX.Element = <View></View>;
-
-    for(let i = 0; i < this.props.data.length; i++) {
-
-      list = <ListItem 
-                query={this.props.data[i].query}
-                answer={this.props.data[i].answer}
-                intent={this.props.data[i].intent}
-                parameters={this.props.data[i].parameters}
-                timestamp={this.props.data[i].timestamp}
-              />;
+    // Only print a list if some entries are found
+    if(this.props.data.length > 0)
+    {
+      /*
+      return (
+        <FlatList
+          data={this.props.data}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+        />
+      );
+      */
+      return(this._renderItem(this.props.data[0]));
 
     }
 
-    return list;
+    return (
+      <View>
+        <Text style={styles.notfound}>
+          Keine Einträge gefunden
+        </Text>
+      </View>
+    )
   }
 
 }
+
+const styles = StyleSheet.create({
+  notfound: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+});
 

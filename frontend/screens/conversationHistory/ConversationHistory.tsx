@@ -14,8 +14,7 @@ import globalStyles from '../../global_styles';
 import RestConnection from '../../services/RestConnection';
 import List from './components/List';
 import { ConversationHistoryParametersInterface } from './interfaces/ConversationHistoryParameters.interface';
-import { ConversationHistoryInterface } from './interfaces/conversationHistory.interface';
-
+import { ConversationHistoryInterface } from './interfaces/ConversationHistory.interface';
 
 interface IProps {
   navigation: any,
@@ -33,12 +32,40 @@ export default class ConversationHistory extends Component<IProps, IState> {
 
   private readonly restClient: RestConnection = new RestConnection();
 
-  public async render() {
+  /**
+   * Initializes an instance of ConversationHistory
+   */
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      data: [],
+    };
+  }
+
+  /**
+   * Handler that is called short before the component is mounted
+   */
+  async componentWillMount() {
+
+    let history: ConversationHistoryInterface[] = await this.getConversationHistory();
+
+    this.setState({
+      data: history,
+    });
+
+  }
+
+  /**
+   * Rendering function for the ConversationHistory
+   */
+  public render() {
+
     return (
       <View style={globalStyles.container}>
         <TopBar navigation={this.props.navigation} />
         <View style={globalStyles.content}>
-          <List data={await this.getConversationHistory()} />
+          <List data={this.state.data} />
         </View>
         <BottomBar />
       </View>
@@ -59,7 +86,7 @@ export default class ConversationHistory extends Component<IProps, IState> {
 
     } catch (error) {
       
-      throw new Error("Catched conversation history that does not fit into conversationHistory interface")
+      throw new Error('Catched conversation history that does not fit into conversationHistory interface');
 
     }
 

@@ -1,4 +1,4 @@
-import { ConversationHistoryParametersInterface } from './conversationHistoryParameters.interface';
+import { ConversationHistoryParametersInterface } from './ConversationHistoryParameters.interface';
 
 /**
  * This implements the ConversationHistory interface
