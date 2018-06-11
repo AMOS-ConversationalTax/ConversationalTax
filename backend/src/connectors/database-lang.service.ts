@@ -20,6 +20,9 @@ export class DatabaseLangService {
      * @param {DetectIntentResponse[]} dialogflowResponse
      * The response of dialogflow
      *
+     * @param {String} answer
+     * The answer for the user
+     *
      * @param {Intent} intent
      * The detected intent
      *
@@ -27,7 +30,7 @@ export class DatabaseLangService {
      * A Promise containting the success of the creation
      *
      */
-    public async createConversationHistoryEntry( uid: string, dialogflowResponse: DetectIntentResponse[],
+    public async createConversationHistoryEntry( uid: string, dialogflowResponse: DetectIntentResponse[], answer: string,
                                                  intent: Intent, action: string ): Promise<boolean> {
 
         // Extract the parameters out of the dialogflowResponse
@@ -65,13 +68,29 @@ export class DatabaseLangService {
         // Add a new conversation history entry to the data store
         this.conversationHistoryService.create(uid,
                                             dialogflowResponse[0].queryResult.queryText,
-                                            dialogflowResponse[0].queryResult.fulfillmentText,
+                                            answer,
                                             {'name': intent.name, 'displayName': intent.displayName},
                                             action,
                                             extractedParameters,
                                             new Date());
 
         return true;
+
+    }
+
+    /**
+     * Get the conversation history of a user excluding some intent names
+     *
+     * @param {string} user_id - The unique id of the user
+     *
+     * @param {Array<string>} intent_names - The intents that are not allowed to be included
+     *
+     * @returns {Promise<Array<ConversationHistory>>} - A promise containing the conversationHistory entries sorted by their timestamp
+     *
+     */
+    public async getConversationHistoryOfUserWithoutIntents(user_id: string, intent_names: Array<string>): Promise<Array<ConversationHistory>> {
+
+        return await this.conversationHistoryService.getConversationHistoryOfUserWithoutIntents(user_id, intent_names);
 
     }
 
