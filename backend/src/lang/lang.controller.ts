@@ -69,14 +69,8 @@ export class LangController {
 
       if (response !== undefined) {
 
-        if (response.hasOwnProperty('text')) {
-
-          /* tslint:disable:no-string-literal */
-          // Add a new conversation history entry to the data store
-          this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, response['text'], intent, actionName);
-          /* tslint:enable:no-string-literal */
-
-        }
+        // Add a new conversation history entry to the data store
+        this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, response.text, intent, actionName);
 
         return response;
 
@@ -121,7 +115,7 @@ export class LangController {
 
   // TODO move to new architecture as soon as it has been finished.
   // TODO intent name should be moved into a const (as part of the above task)
-  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse[]): Promise<object | undefined> {
+  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse[]): Promise<ReturnText | undefined> {
     if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
 
       if (!await this.userService.exists(uid)) {
