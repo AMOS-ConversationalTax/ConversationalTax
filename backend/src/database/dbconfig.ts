@@ -29,6 +29,13 @@ namespace DBConfig {
      */
     export const REMINDER_MODEL_PROVIDER: string = 'Reminder';
 
+    /**
+     * The main provider of the conversationHistory model (= name of the reminder "table")
+     * @name DBConfig#CONVERSATIONHISTORY_MODEL_PROVIDER
+     * @type {string}
+     */
+    export const CONVERSATIONHISTORY_MODEL_PROVIDER: string = 'ConversationHistory';
+
 }
 
 export default DBConfig;

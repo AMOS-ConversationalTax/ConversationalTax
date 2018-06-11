@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from '../database/user/user.module';
+import { ConversationHistoryModule } from '../database/conversationHistory/conversationHistory.module';
 import { ReminderModule } from '../database/reminder/reminder.module';
 import { EmploymentContractModule } from '../database/employmentContract/employmentContract.module';
 import { LangController } from './lang.controller';
@@ -9,7 +10,7 @@ import { ExplanationService } from './explanation/explanation.service';
 import { DialogHistoryService } from './dialog-history/dialog-history.service';
 
 @Module({
-    imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule],
+    imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule, ConversationHistoryModule],
     controllers: [LangController],
     providers: [DialogFlowService, ExplanationService, DialogHistoryService],
 })

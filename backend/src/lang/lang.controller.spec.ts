@@ -5,8 +5,10 @@ import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.ser
 import { AudioIntentParams, TextIntentBody, TextIntentParams } from './lang.dto';
 import { UserService } from '../database/user/user.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
+import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DialogHistoryService } from './dialog-history/dialog-history.service';
+import { DatabaseLangService } from '../connectors/database-lang.service';
 
 // Creates a mock of the classes and removes their implementation. Custom implementation is then added in beforeAll()
 jest.mock('./dialog-flow/dialog-flow.service', () => jest.fn(() => {}) );
@@ -14,6 +16,7 @@ jest.mock('../database/user/user.service', () => jest.fn(() => { }));
 jest.mock('../database/employmentContract/employmentContract.service', () => jest.fn(() => { }));
 jest.mock('./explanation/explanation.service', () => jest.fn(() => { }));
 jest.mock('./dialog-history/dialog-history.service', () => jest.fn(() => { }));
+jest.mock('../connectors/database-lang.service', () => jest.fn(() => { }));
 
 describe('LangController', () => {
     let langController: LangController;
@@ -22,6 +25,7 @@ describe('LangController', () => {
     let employmentContractService: any;
     let explanationService: any;
     let dialogHistoryService: any;
+    let databaseLangService: any;
 
     beforeAll(() => {
         dialogFlowService = {
@@ -42,6 +46,9 @@ describe('LangController', () => {
         dialogHistoryService = {
             storeHistory: jest.fn(),
         };
+        databaseLangService = {
+            createConversationHistoryEntry: jest.fn(),
+        };
     });
 
     beforeEach(() => {
@@ -51,6 +58,7 @@ describe('LangController', () => {
             employmentContractService,
             explanationService,
             dialogHistoryService,
+            databaseLangService,
         );
     });
 
