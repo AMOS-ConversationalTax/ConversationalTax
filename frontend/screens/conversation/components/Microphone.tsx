@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     TouchableWithoutFeedback,
-    TouchableHighlight
+    TouchableHighlight,
+    Text,
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import RestConnection from '../../../services/RestConnection';
@@ -56,19 +57,23 @@ export default class Microphone extends Component<IProps> {
         let recordingButtonStyle = styles.circleBorderAlternative;
         let recordingButtonDisabled = true;
         let recordingIcon = 'md-mic-off';
+        let infoText = 'Recorder lädt';
 
         if (this.state.currentState == RecordingState.waitingToRecord) {
             recordingButtonStyle = styles.circleBorderWaiting;
             recordingButtonDisabled = false;
             recordingIcon = 'md-mic';
+            infoText = 'Mikrofon gedrückt halten für neue Anfrage';
         } else if (this.state.currentState == RecordingState.recordingActive) {
             recordingButtonStyle = styles.circleBorderActive;
             recordingButtonDisabled = false;
             recordingIcon = 'md-mic';
+            infoText = 'Aufnahme läuft';
         } else if (this.state.currentState == RecordingState.processingActive) {
             recordingButtonStyle = styles.circleBorderProcessing;
             recordingButtonDisabled = true;
             recordingIcon = 'ios-cloud-upload';
+            infoText = 'Aufnahme wird verarbeitet';
         } 
 
         return (
@@ -84,6 +89,9 @@ export default class Microphone extends Component<IProps> {
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
+                <Text style={styles.infoText}>
+                    {infoText}
+                </Text>
             </View>
         );
     }
@@ -186,5 +194,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#ccc',
+    },
+    infoText: {
+        fontSize: 20,
+        textAlign: 'center',
+        marginTop: 30,
+        margin: 10,
     },
 });
