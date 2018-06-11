@@ -44,10 +44,11 @@ export class LangController {
       actionName = 'undefined';
     }
 
-    // Add a new conversation history entry to the data store
-    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent, actionName);
-
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+
+    // Add a new conversation history entry to the data store
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
+
     return { text: responseText };
   }
 
@@ -62,19 +63,32 @@ export class LangController {
       actionName = 'undefined';
     }
 
-    // Add a new conversation history entry to the data store
-    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, intent, actionName);
-
     if (intent != null) {
 
       const response = await this.handleIntent(uid, intent, dialogflowResponse);
+
       if (response !== undefined) {
+
+        if (response.hasOwnProperty('text')) {
+
+          /* tslint:disable:no-string-literal */
+          // Add a new conversation history entry to the data store
+          this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, response['text'], intent, actionName);
+          /* tslint:enable:no-string-literal */
+
+        }
+
         return response;
+
       }
 
     }
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+
+    // Add a new conversation history entry to the data store
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
+
     return { text: responseText };
   }
 
@@ -198,6 +212,8 @@ export class LangController {
         return { text };
 
       }
+
+      return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
 
     }
     return undefined;

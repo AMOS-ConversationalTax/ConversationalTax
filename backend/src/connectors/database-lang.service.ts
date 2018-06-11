@@ -20,6 +20,9 @@ export class DatabaseLangService {
      * @param {DetectIntentResponse[]} dialogflowResponse
      * The response of dialogflow
      *
+     * @param {String} answer
+     * The answer for the user
+     *
      * @param {Intent} intent
      * The detected intent
      *
@@ -27,10 +30,8 @@ export class DatabaseLangService {
      * A Promise containting the success of the creation
      *
      */
-    public async createConversationHistoryEntry( uid: string, dialogflowResponse: DetectIntentResponse[],
+    public async createConversationHistoryEntry( uid: string, dialogflowResponse: DetectIntentResponse[], answer: string,
                                                  intent: Intent, action: string ): Promise<boolean> {
-
-        let answer = 'Keine Antwort durch Dialogflow';
 
         // Extract the parameters out of the dialogflowResponse
         const parameters: any = dialogflowResponse[0].queryResult.parameters;
@@ -38,12 +39,6 @@ export class DatabaseLangService {
 
         // Validate whether parameters include some fields
         if (parameters !== null && parameters.hasOwnProperty('fields')) {
-
-            if (dialogflowResponse[0].queryResult.hasOwnProperty('fulfillmentText') && dialogflowResponse[0].queryResult.fulfillmentText !== '') {
-
-                answer = dialogflowResponse[0].queryResult.fulfillmentText;
-
-            }
 
             // Iterate through all keys
             for (const key in parameters.fields) {
