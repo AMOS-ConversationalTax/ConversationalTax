@@ -7,7 +7,7 @@ import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 
 @Module({
-    imports: [DatabaseModule, MongooseModule.forFeature([{ name: DBConfig.USER_MODEL_PROVIDER, schema: userSchema }])],
+    imports: [DatabaseModule],
     controllers: [],
     providers: [
         UserService,
