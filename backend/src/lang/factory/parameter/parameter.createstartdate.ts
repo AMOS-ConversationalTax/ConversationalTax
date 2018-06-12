@@ -22,7 +22,7 @@ export class CreateStartDateParameterHandler extends ParameterHandler{
             }
 
             this.startDate = ParameterHelper.extractData(parameterData.parameter, pathDate);
-            
+
             const id = this.employmentContractService.create(parameterData.user);
 
             id.then( (idData) => {
