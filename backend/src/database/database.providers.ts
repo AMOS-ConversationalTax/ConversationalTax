@@ -13,7 +13,7 @@ export const databaseProviders = [
             if (process.env.NODE_ENV === 'test') {
 
                 const mockgoose = new Mockgoose(mongoose);
-                mockgoose.helper.setDbVersion('3.4.3');
+                mockgoose.helper.setDbVersion('3.6');
 
                 mockgoose.prepareStorage()
                     .then(async () => {
