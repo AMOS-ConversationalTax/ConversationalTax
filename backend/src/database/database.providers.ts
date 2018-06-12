@@ -17,18 +17,14 @@ export const databaseProviders = [
 
                 mockgoose.prepareStorage()
                     .then(async () => {
-                        await mongoose.connect('mongodb://example.com/TestingDB', {
-                            useMongoClient: true,
-                        });
+                        await mongoose.connect('mongodb://example.com/TestingDB');
                 });
 
             } else {
 
                 try {
 
-                    return await mongoose.connect(Config.MONGO_URL, {
-                        useMongoClient: true,
-                    });
+                    return await mongoose.connect(Config.MONGO_URL);
 
                 } catch {
 

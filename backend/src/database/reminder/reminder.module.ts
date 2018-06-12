@@ -7,7 +7,7 @@ import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
 
 @Module({
-    imports: [DatabaseModule],
+    imports: [DatabaseModule, MongooseModule.forFeature([{ name: DBConfig.REMINDER_MODEL_PROVIDER, schema: reminderSchema }])],
     controllers: [],
     providers: [
         ReminderService,
