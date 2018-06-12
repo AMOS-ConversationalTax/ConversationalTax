@@ -25,6 +25,7 @@ export default class Debug extends Component<IProps> {
   };
 
   public render() {
+    const buildDate = Config.BUILD_DATE.includes('WillBeReplacedAutomatically') ? 'Unkown' : Config.BUILD_DATE;
     return (
       <View style={globalStyles.container}>
         <TopBar navigation={this.props.navigation} />
@@ -32,16 +33,21 @@ export default class Debug extends Component<IProps> {
           <Text style={styles.welcome}>
             Backend IP: {Config.SERVER_URL}
           </Text >
-          <Button title="Check if Backend is running" onPress={this.queryApi} />
           <Text style={styles.welcome}>
-            Response:
+            Build date: {buildDate}
           </Text >
-          <Text >
-            Status-Code: {this.state.resStatus}
-          </Text >
-          <Text >
-            {this.state.resText}
-          </Text >
+          <View style={styles.topMargin}>
+            <Button title="Check if Backend is running" onPress={this.queryApi} />
+            <Text style={styles.welcome}>
+              Response:
+            </Text >
+            <Text >
+              Status-Code: {this.state.resStatus}
+            </Text >
+            <Text >
+              {this.state.resText}
+            </Text >
+          </View>
         </View>
         <BottomBar />
       </View>
@@ -67,5 +73,8 @@ const styles = StyleSheet.create({
   },
   picker: {
     width: 300,
+  },
+  topMargin: {
+    marginTop: 50,
   }
 });

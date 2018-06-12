@@ -51,30 +51,16 @@ To be totally honest with you: All branches should feature a green build status.
 
 This part is done by using https://semaphoreci.com/, too. One container is built for the Master branch of the GitHub project (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax/) and one for the Develop branch (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax-dev/).
 
-The code for the Master branch is:
+The code for both branches is:
 
 ```
 nvm install 8
-npm i -g npm@latest
+npm i -g npm@latest exp
 cd backend
-sed -i -e 's/localhost/mongo/g' config/config.tsx
 npm ci
 docker build -t amosconversationaltax/conversational-tax .
 docker push amosconversationaltax/conversational-tax
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh master"
-```
-
-The code for the Develop branch is:
-
-```
-nvm install 8
-npm i -g npm@latest
-cd backend
-sed -i -e 's/localhost/mongo/g' config/config.tsx
-npm ci
-docker build -t amosconversationaltax/conversational-tax-dev .
-docker push amosconversationaltax/conversational-tax-dev
-ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh develop"
 ```
 
 ### Building and Deploying the Frontend
@@ -84,9 +70,9 @@ Similar to the backend build, we use SemaphoreCI's tools for the frontend CD. Th
 ```
 cd ../frontend
 npm ci
-npm i -g exp
 exp login -u $USERNAME -p $PASSWORD
-sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.tsx
+sed -i -e s/WillBeReplacedAutomatically/$(date +%d.%m.%Y)/ config/config.ts
+sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.ts
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
 npm run publish
@@ -95,7 +81,7 @@ npm run publish
 
 ### Deploy on CD-Server
 
-We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server.
+We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server. Also we will not post our config files here. But it is necessary to mention that `/home/docker/amos_files/config` includes the files `config.js` and `config.js.map` (which can be created by executing `npm i` and `npm run test` after creating the initial `config.ts`). The initial `config.ts` can be found at `/home/docker/amos_files/config.ts`.
 
 #### Docker-Compose files and starting script
 
@@ -116,7 +102,8 @@ services:
         links:
             - mongo
         volumes:
-            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
+            - /home/docker/amos_files/config:/usr/src/app/dist/config
+            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
     mongo:
         restart: always
         image: mongo
@@ -124,7 +111,7 @@ services:
         expose:
             - 27017
         volumes:
-            - ~/amos_data/conversational-tax-mongo:/data/db
+            - /home/docker/amos_data/conversational-tax-mongo:/data/db
 ```
 
 And this one for the develop branch (/home/docker/amos_scripts/develop/docker-compose.yml):
@@ -144,7 +131,8 @@ services:
         links:
             - mongo
         volumes:
-            - ~/amos_files/dialogflowKey.json:/usr/src/app/dialogflowKey.json
+            - /home/docker/amos_files/config:/usr/src/app/dist/config
+            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
     mongo:
         restart: always
         image: mongo
@@ -152,7 +140,7 @@ services:
         expose:
             - 27017
         volumes:
-            - ~/amos_data/conversational-tax-dev-mongo:/data/db
+            - /home/docker/amos_data/conversational-tax-dev-mongo:/data/db
 ```
 
 Another key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):

@@ -1,4 +1,4 @@
-import { DialogFlowService } from './../dialog-flow.service';
+import { DialogFlowService } from './../dialog-flow/dialog-flow.service';
 import { EmploymentContractService } from './../../database/employmentContract/employmentContract.service';
 import { Injectable } from '@nestjs/common';
 import { ParameterHandler } from './../factory/parameter/parameter.abstract';

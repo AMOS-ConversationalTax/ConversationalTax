@@ -9,6 +9,7 @@ At the moment we use three document-types to store data in MongoDB:
 - Users
 - EmploymentContracts
 - Reminders
+- ConversationHistory
 
 ### Users
 
@@ -34,7 +35,7 @@ The composition of a EmploymentContracts document is:
 
 ### Reminders
 
-The compostion of a Reminders document is:
+The composition of a Reminders document is:
 
 | Field | Datatype | Description |
 | :------------- |:-------------:| -----:|
@@ -42,6 +43,37 @@ The compostion of a Reminders document is:
 | user_id     | String | The unique identifier of user who owns the reminder. |
 | description    | String | A description for the reminder  |
 | date    | Date | The date the user should be reminded  |
+
+### ConversationHistory
+
+The composition of a ConversationHistory document is:
+
+| Field | Datatype | Description |
+| :------------- |:-------------:| -----:|
+| _id     | String | The unique identifier of a conversationHistory entry. |
+| user_id     | String | The unique identifier of user who owns the conversationHistory entry. |
+| query   | String | The (recognized) query of the user in text form. |
+| answer   | String | The text answer of dialogflow. |
+| intent  | ConversationHistoryIntent | The detected intent. |
+| action   | String | The action computed by Dialogflow |
+| parameters  | [ConversationHistoryParameters] | The detected parameters. |
+| timestamp    | Date | The timestamp of the conversationHistory entry.  |
+
+The composition of the ConversationHistoryParameters subdocument is:
+
+| Field | Datatype | Description |
+| :------------- |:-------------:| -----:|
+| _id     | String | The unique identifier of a ConversationHistoryParameters entry. |
+| name    | String | The name of the recognized parameter. |
+| value  | String | The value of the recoginzed parameter. |
+
+The composition of the ConversationHistoryIntent subdocument is:
+
+| Field | Datatype | Description |
+| :------------- |:-------------:| -----:|
+| _id     | String | The unique identifier of a ConversationHistoryIntent entry. |
+| name    | String | The name of the intent |
+| displayName  | String | The displayName of the intent |
 
 
 ## How to access the datastore through code
@@ -53,6 +85,7 @@ In contrast to the previous interation of MongoDB in our project, the database c
 | Users    | `backend/src/database/user/user.service.ts` | 
 | EmploymentContracts   | `backend/src/database/employmentContract/employmentContract.service.ts` | 
 | Reminders  | `backend/src/database/reminder/reminder.service.ts` | 
+| ConversationHistory  | `backend/src/database/conversationHistory/conversationHistory.service.ts` | 
 
 To access the datastore import the suiting service and create an instance of it. After that you can create new database entries, modify existing ones and delete entries. For a full list of functions and their meaning take a look at the corresponding JsDoc. Let's include a short example of creating a new reminder, reading all reminders for a specific user at a specific date and delete a reminder:
 

@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { EmploymentContract } from './interfaces/employmentContract.interface';
 import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
