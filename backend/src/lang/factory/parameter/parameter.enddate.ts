@@ -4,7 +4,7 @@ import { ParameterHelper } from './parameter.parser';
 
 export class EndDateParameterHandler extends ParameterHandler{
 
-    private name: string;
+    private contractName: string;
     private date: Date;
 
     constructor(private employmentContractService: EmploymentContractService){
@@ -14,13 +14,17 @@ export class EndDateParameterHandler extends ParameterHandler{
     public handle(parameterData: IParameterData) {
         if (parameterData.allParameterSet) {
             const pathDate = this.getParameterPath('EndDate');
-            const pathName = this.getCustomParameterPath('ContractName', 'ContractName');
+            let pathName = this.getCustomParameterPath('ContractName', 'ContractName');
+            this.contractName = ParameterHelper.extractData(parameterData.parameter, pathName);
+            if (this.contractName === null) {
+                pathName = this.getParameterPath('ContractName');
+                this.contractName = ParameterHelper.extractData(parameterData.parameter, pathName);
+            }
 
-            this.name = ParameterHelper.extractData(parameterData.parameter, pathName);
             this.date = ParameterHelper.extractData(parameterData.parameter, pathDate);
 
             const employmentContract =
-                this.employmentContractService.findEmploymentContractsOfUserByName(parameterData.user, this.name);
+                this.employmentContractService.findEmploymentContractsOfUserByName(parameterData.user, this.contractName);
 
             employmentContract.then( (data) => {
                 this.employmentContractService.editEndDateExact(data[0]._id, this.date);

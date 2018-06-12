@@ -14,11 +14,15 @@ export class CreateStartDateParameterHandler extends ParameterHandler{
     public handle(parameterData: IParameterData) {
         if (parameterData.allParameterSet) {
             const pathDate = this.getParameterPath('StartDate');
-            const pathName = this.getCustomParameterPath('ContractName', 'ContractName');
+            let pathName = this.getCustomParameterPath('ContractName', 'ContractName');
+            this.contractName = ParameterHelper.extractData(parameterData.parameter, pathName);
+            if (this.contractName === null) {
+                pathName = this.getParameterPath('ContractName');
+                this.contractName = ParameterHelper.extractData(parameterData.parameter, pathName);
+            }
 
             this.startDate = ParameterHelper.extractData(parameterData.parameter, pathDate);
-            this.contractName = ParameterHelper.extractData(parameterData.parameter, pathName);
-
+            
             const id = this.employmentContractService.create(parameterData.user);
 
             id.then( (idData) => {
