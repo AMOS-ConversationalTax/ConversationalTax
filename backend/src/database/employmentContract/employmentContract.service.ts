@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { EmploymentContract } from './interfaces/employmentContract.interface';
 import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
@@ -13,13 +14,10 @@ import DBConfig from '../dbconfig';
 export class EmploymentContractService {
 
     /**
-     * The model of the employmentContract table
-     * Implements the connection to this table, too
-     * Corresponds to db.employmentContract in MongoDB
-     * @name EmploymentContractService#employmentContractModel
-     * @type {Model<User>}
+     * Constructor - is used for DI of the Model
+     * @param employmentContractModel The model of the employmentContract table (corresponds to db.employmentContract in MongoDB)
      */
-    private employmentContractModel: Model<EmploymentContract> = mongoose.model(DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER, employmentContractSchema);
+    constructor(@InjectModel(DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER) private readonly employmentContractModel: Model<EmploymentContract>) {}
 
     /**
      * Create a new empty employmentContract in the datastore  - does not check if the employmentContract already exists
