@@ -1,4 +1,6 @@
 /// <reference types="jest" />
+
+import { EmployeeService } from './services/employee.service';
 import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.service';
@@ -15,6 +17,7 @@ jest.mock('../database/user/user.service', () => jest.fn(() => { }));
 jest.mock('../database/employmentContract/employmentContract.service', () => jest.fn(() => { }));
 jest.mock('./explanation/explanation.service', () => jest.fn(() => { }));
 jest.mock('../connectors/database-lang.service', () => jest.fn(() => { }));
+jest.mock('./services/employee.service', () => jest.fn(() => { }));
 
 describe('LangController', () => {
     let langController: LangController;
@@ -23,6 +26,7 @@ describe('LangController', () => {
     let employmentContractService: any;
     let explanationService: any;
     let databaseLangService: any;
+    let employeeService: any;
 
     beforeAll(() => {
         dialogFlowService = {
@@ -43,6 +47,9 @@ describe('LangController', () => {
         databaseLangService = {
             createConversationHistoryEntry: jest.fn(),
         };
+        employeeService = {
+            processEmployeeContract: jest.fn(),
+        };
     });
 
     beforeEach(() => {
@@ -52,6 +59,7 @@ describe('LangController', () => {
             employmentContractService,
             explanationService,
             databaseLangService,
+            employeeService,
         );
     });
 
@@ -80,7 +88,7 @@ describe('LangController', () => {
             const mockParams: AudioIntentParams = { platform: 'ios', u_id: 'This434234_is4234_a2234_U43_ID44' };
             const mockFile = { buffer: new Buffer('') };
             dialogFlowService.extractResponseIntent.mockImplementationOnce(
-                () => ({ name: 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5' })
+                () => ({ name: 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5' }),
             );
             await langController.uploadFile(mockFile, mockParams);
             expect(employmentContractService.create).toHaveBeenCalledTimes(1);

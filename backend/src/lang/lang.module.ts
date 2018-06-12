@@ -7,10 +7,11 @@ import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { ConnectorsModule } from '../connectors/connectors.module';
 import { ExplanationService } from './explanation/explanation.service';
+import { EmployeeService } from './services/employee.service';
 
 @Module({
     imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule, ConversationHistoryModule],
     controllers: [LangController],
-    providers: [DialogFlowService, ExplanationService],
+    providers: [DialogFlowService, ExplanationService, EmployeeService],
 })
 export class LangModule { }

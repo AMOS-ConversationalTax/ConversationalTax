@@ -8,6 +8,7 @@ import { EmploymentContractService } from '../database/employmentContract/employ
 import { ExplanationService } from './explanation/explanation.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
 import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
+import { EmployeeService } from './services/employee.service';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -32,6 +33,7 @@ export class LangController {
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
     private databaseLangService: DatabaseLangService,
+    private employeeService: EmployeeService,
   ) {}
 
   @Post('text')
@@ -209,6 +211,10 @@ export class LangController {
 
       return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
 
+    } else {
+      const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+      this.employeeService.processEmployeeContract(dialogflowResponse[0], uid);
+      return { text: responseText };
     }
     return undefined;
   }
