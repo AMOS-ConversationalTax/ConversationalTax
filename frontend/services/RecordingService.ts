@@ -13,7 +13,7 @@ const RECORDING_OPTIONS_CUSTOM: Audio.RecordingOptions = {
         extension: '.pcm',
         outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_LINEARPCM,
         audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
-        sampleRate: 44100,
+        sampleRate: 16000,
         numberOfChannels: 1,
         bitRate: 128000,
         linearPCMBitDepth: 16,
@@ -112,6 +112,14 @@ export default class RecordingService {
 
         // End the recording
         await this.recordingObject.stopAndUnloadAsync();
+
+        await Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+            playsInSilentModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        });
 
         // We need the filepath to work with the recording
         const filepath = this.recordingObject.getURI();

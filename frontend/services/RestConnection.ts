@@ -76,7 +76,7 @@ export default class RestConnection implements IConnection {
             console.error('Could not identify current platform');
             return;
         }
-        let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}`; 
+        let apiUrl = `${Config.SERVER_URL}/lang/audio_upload?platform=${platform}&u_id=${Expo.Constants.deviceId}`; 
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
 
@@ -101,5 +101,27 @@ export default class RestConnection implements IConnection {
         } catch (e) {
             console.error(`Could not upload audio recording. ${e}`);
         }
+    }
+
+    /**
+     * Get the current conversation history of the user
+     * @returns {Promise<any>} - The json containing the users current conversation history
+     */
+    public async getConversationHistory(): Promise<any> {
+
+        const url = `${Config.SERVER_URL}/database/conversationHistory/conversationHistory?u_id=${Expo.Constants.deviceId}`;
+
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.get(url)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('reading failed');
+            });
+        });
+
+        return promise;
+
     }
 }

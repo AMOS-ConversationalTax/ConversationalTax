@@ -100,3 +100,10 @@ interface Parameter {
     prompts?: [string],
     isList?: boolean
 }
+
+// Additions
+
+interface SessionEntity {
+    value: string,
+    synonyms: string[],
+}
