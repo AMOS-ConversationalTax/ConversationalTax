@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
-  Text,
   View,
-  Button,
-  StatusBar
 } from 'react-native';
 import TopBar from '../../shared/TopBar';
 import BottomBar from '../../shared/BottomBar';
@@ -25,10 +21,12 @@ export default class Notifications extends Component<IProps> {
   }
 
   componentWillMount() {
-    this.setState({ notifications: NotificationService.Instance.notifications });
+    const deepClone = JSON.parse(JSON.stringify(NotificationService.Instance.notifications));
+    this.setState({ notifications: deepClone });
 
     this.notificationSubscription = NotificationService.Instance.newNotification.subscribe(() => {
-      this.setState({ notifications: [...NotificationService.Instance.notifications] });
+      const deepClone = JSON.parse(JSON.stringify(NotificationService.Instance.notifications));
+      this.setState({ notifications: deepClone });
       NotificationService.Instance.markAsRead();
     })
   }

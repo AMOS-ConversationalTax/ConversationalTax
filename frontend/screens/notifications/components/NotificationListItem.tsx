@@ -13,6 +13,10 @@ export default class NotificationListItem extends Component<IProps> {
     if (this.props.firstItem) {
       viewStyles.push(styles.firstItem);
     }
+    if (!this.props.notification.read) {
+      viewStyles.push(styles.unread);
+    }
+
     return (
       <View style={viewStyles}>
         <Text style={[styles.text, styles.headline]}>{this.props.notification.title}</Text>
@@ -39,5 +43,8 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontWeight: 'bold'
+  },
+  unread: {
+    backgroundColor: '#ccc',
   }
 });

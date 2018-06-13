@@ -12,9 +12,8 @@ import { Vibration } from 'react-native';
  */
 export class NotificationService {
     public notifications: NotificationMessage[] = [];
-    public newNotificationCount = 0;
     public newNotification: Subject<void> = new Subject();
-    public notificationCountReset: Subject<void> = new Subject();
+    public notificationCount: Subject<number> = new Subject();
 
     private static _instance: NotificationService;
     private websocket: WebSocketClient;
@@ -37,9 +36,10 @@ export class NotificationService {
         this.restClient = new RestConnection();
         const oldNotifications = await this.restClient.getNotifications();
         oldNotifications.forEach(notification => {
-            this.notifications.push({ title: notification.title, text: notification.description});
+            this.notifications.push({ title: notification.title, text: notification.description, read: notification.read });
         })
         this.newNotification.next();
+        this.notificationCount.next(this.countUnread());
     }
 
     private subscribe() {
@@ -51,16 +51,22 @@ export class NotificationService {
     }
 
     private handleNotificationMessage(data: NotificationMessage) {
-        this.notifications.push(data);
-        this.newNotificationCount++;
+        this.notifications.unshift(data);
+        this.notificationCount.next(this.countUnread());
         this.newNotification.next();
-
         Vibration.vibrate(500, false);
     }
 
     public markAsRead() {
-        this.newNotificationCount = 0;
-        this.notificationCountReset.next();
+        this.restClient.markNotificationsAsRead();
+        this.notifications.forEach((notification) => {
+            notification.read = true;
+        })
+        this.notificationCount.next(0);
+    }
+
+    public countUnread() {
+        return this.notifications.filter(notification => !notification.read).length;
     }
 
     public static get Instance() {

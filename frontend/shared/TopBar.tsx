@@ -9,7 +9,7 @@ import autobind from 'autobind-decorator'
 import { Ionicons, Entypo } from '@expo/vector-icons';
 import { NotificationService } from '../services/NotificationService';
 import { Subscription } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { filter, delay } from 'rxjs/operators';
 
 interface IProps {
   navigation: any
@@ -23,17 +23,17 @@ export default class TopBar extends Component<IProps> {
   }
   
   componentWillMount() {
-    this.setState({ notificationCount: NotificationService.Instance.newNotificationCount });
+    this.setState({ notificationCount: NotificationService.Instance.countUnread() });
 
-    const newNotiSubscription = NotificationService.Instance.newNotification.subscribe(() => {
-      this.setState({ notificationCount: this.state.notificationCount + 1});
-    });
-    this.notificationSubscription.push(newNotiSubscription);
+    let subscription = NotificationService.Instance.notificationCount.pipe(filter(count => count !== 0)).subscribe(unreadNotifications => {
+      this.setState({ notificationCount: unreadNotifications });
+    })
+    this.notificationSubscription.push(subscription);
 
-    const notiCountRestSubscription = NotificationService.Instance.notificationCountReset.pipe(delay(1000)).subscribe(() => {
+    subscription = NotificationService.Instance.notificationCount.pipe(filter(count => count === 0), delay(1000)).subscribe(() => {
       this.setState({ notificationCount: 0 });
-    });
-    this.notificationSubscription.push(notiCountRestSubscription);
+    })
+    this.notificationSubscription.push(subscription);
   }
 
   componentWillUnmount() {

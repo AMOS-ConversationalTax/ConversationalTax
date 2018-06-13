@@ -132,7 +132,21 @@ export default class RestConnection implements IConnection {
                     resolve(response.data);
                 })
                 .catch((error) => {
-                    reject('reading failed');
+                    reject('Couldn\'t get the old Notifications');
+                });
+        });
+        return promise;
+    }
+
+    public markNotificationsAsRead(): Promise<void> {
+        const url = `${Config.SERVER_URL}/notifications/markAsRead?u_id=${Expo.Constants.deviceId}`;
+        const promise = new Promise<void>((resolve, reject) => {
+            axios.get(url, DEFAULT_OPTIONS)
+                .then((response) => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject('Couldn\'t mark the Notifications as read');
                 });
         });
         return promise;

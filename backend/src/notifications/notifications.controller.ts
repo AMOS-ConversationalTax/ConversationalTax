@@ -18,4 +18,9 @@ export class NotificationsController {
     getUsersNotifications(@Query() params: GetNotificationsQuery) {
         return this.notificationDb.findNotificationByUser(params.u_id);
     }
+
+    @Get('markAsRead')
+    markAsRead(@Query() params: GetNotificationsQuery) {
+        return this.notificationDb.markAsRead(params.u_id);
+    }
 }

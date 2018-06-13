@@ -9,6 +9,7 @@ import { NotificationsDBService } from '../database/notifications/notifications.
 const DEMO_NOTI: NotificationMessage = {
         title: 'Title',
         text: 'Beschreibungstext',
+        read: false,
 };
 
 @Injectable()

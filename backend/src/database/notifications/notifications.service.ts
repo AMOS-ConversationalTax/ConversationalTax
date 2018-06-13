@@ -34,7 +34,7 @@ export class NotificationsDBService {
         const _id: string = mongoose.Types.ObjectId();
 
         // Create the notification
-        const document: Model<Notification> = new this.notificationModel({_id, user_id, title, description });
+        const document: Model<Notification> = new this.notificationModel({ _id, user_id, title, description, read: false });
         await document.save();
 
         return _id;
@@ -47,7 +47,7 @@ export class NotificationsDBService {
      */
     async findNotification(_id: string): Promise<Array<Notification>> {
 
-        return await this.notificationModel.find({ '_id': _id }).exec();
+        return this.notificationModel.find({ '_id': _id }).exec();
 
     }
 
@@ -58,7 +58,7 @@ export class NotificationsDBService {
      */
     async findNotificationByUser(user_id: string): Promise<Array<Notification>> {
 
-        return await this.notificationModel.find({ 'user_id': user_id }).exec();
+        return this.notificationModel.find({ 'user_id': user_id }).exec();
 
     }
 
@@ -68,7 +68,7 @@ export class NotificationsDBService {
      */
     async findAll(): Promise<Array<Notification>> {
 
-        return await this.notificationModel.find().exec();
+        return this.notificationModel.find().exec();
 
     }
 
@@ -95,7 +95,10 @@ export class NotificationsDBService {
             return false;
 
         }
+    }
 
+    async markAsRead(user_id: string) {
+        return this.notificationModel.updateMany({ user_id }, {read: true});
     }
 
 }
