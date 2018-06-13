@@ -13,12 +13,14 @@ import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 import * as request from 'superagent';
 import Config from '../../config/config';
+import RestConnection from './../../services/RestConnection';
 
 interface IProps {
   navigation: any
 }
 
 export default class Debug extends Component<IProps> {
+  private restClient = new RestConnection();
   state = {
     resText: '',
     resStatus: '',
@@ -48,6 +50,9 @@ export default class Debug extends Component<IProps> {
               {this.state.resText}
             </Text >
           </View>
+          <View style={styles.topMargin}>
+            <Button title="Emit a Notification to all connected users" onPress={this.emitNoti} />
+          </View>
         </View>
         <BottomBar />
       </View>
@@ -62,6 +67,11 @@ export default class Debug extends Component<IProps> {
       .then((res:request.Response) => {
         this.setState({ resText: res.text, resStatus: res.status });
       });
+  }
+
+  @autobind
+  private emitNoti() {
+    this.restClient.emitDebugNotificationToAllUsers();
   }
 
 }

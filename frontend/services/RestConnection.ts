@@ -151,4 +151,18 @@ export default class RestConnection implements IConnection {
         });
         return promise;
     }
+
+    public emitDebugNotificationToAllUsers(): Promise<void> {
+        const url = `${Config.SERVER_URL}/notifications/emit-demo`;
+        const promise = new Promise<void>((resolve, reject) => {
+            axios.get(url, DEFAULT_OPTIONS)
+                .then((response) => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject('Couldn\'t emit a debug Notification');
+                });
+        });
+        return promise;
+    }
 }
