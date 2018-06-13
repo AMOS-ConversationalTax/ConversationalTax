@@ -14,23 +14,23 @@ import Conversation from './screens/conversation/Conversation';
 import ConversationHistory from './screens/conversationHistory/ConversationHistory';
 import Notifications from './screens/notifications/Notifications';
 import Debug from './screens/debug/Debug';
-import { WebSocketClient } from './services/WebSocketClient';
 
 export default DrawerNavigator({
-  Notifications: {
-    screen: Notifications,
-  },
+
   Start: {
     screen: Start,
   },
-  Home: {
+  /*Home: {
     screen: Home,
-  },
+  },*/
   Conversation:  {
     screen: Conversation,
   },
   ConversationHistory:  {
     screen: ConversationHistory,
+  },
+  Notifications: {
+    screen: Notifications,
   },
   Debug: {
     screen: Debug,

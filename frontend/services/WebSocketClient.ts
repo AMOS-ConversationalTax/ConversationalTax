@@ -7,12 +7,13 @@ export class WebSocketClient {
         this.connect();
     }
 
+    /**
+     * Initalizes and connects the websocket 
+     */
     private connect() {
-        console.log('connect');
         this.websocket = new WebSocket(this.uri);
 
         this.websocket.addEventListener('close', () => {
-            console.log('close');
             setTimeout(() => {
                 this.connect();
             }, 5000);
@@ -35,17 +36,25 @@ export class WebSocketClient {
         });
 
         this.websocket.addEventListener('open', () => {
-            console.log('opened');
             this.openHandler.forEach((handler) => {
                 handler();
             });
         });
     }
 
+    /**
+     * You may register callbacks when the connection is established
+     * @param callback Your callback function
+     */
     public registerOpenedHandler(callback: () => any): void {
         this.openHandler.push(callback);
     }
 
+    /**
+     * You may register callbacks when a message is retrieved
+     * @param event The name of the event you want to handle
+     * @param callback The callback function
+     */
     public registerMessageHandler(event: string, callback: (data: object) => any): void {
         if (!this.messageHandler.has(event)) {
             this.messageHandler.set(event, []);
@@ -53,6 +62,10 @@ export class WebSocketClient {
         this.messageHandler.get(event)!.push(callback);
     }
 
+    /**
+     * Sends a message through the websocket
+     * @param msg Your message
+     */
     public send(msg: string | object): void {
         if (typeof msg === 'string') {
             this.websocket.send(msg);

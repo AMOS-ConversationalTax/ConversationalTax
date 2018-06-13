@@ -4,6 +4,7 @@ import { Constants } from 'expo';
 import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
 import {NotificationMessage} from 'conv-tax-shared/typings/Notification';
 import {Subject} from 'rxjs';
+import RestConnection from './RestConnection';
 
 /**
  * Singleton NotificationService
@@ -14,9 +15,14 @@ export class NotificationService {
 
     private static _instance: NotificationService;
     private websocket: WebSocketClient;
+    private restClient: RestConnection;
 
     private constructor() {
-        console.log('init');
+        this.init();
+    }
+    
+    private async init() {
+        // WebSocket
         this.websocket = new WebSocketClient(Config.WEBSOCKET_URL);
         this.websocket.registerOpenedHandler(() => {
             this.subscribe();
@@ -24,6 +30,14 @@ export class NotificationService {
         this.websocket.registerMessageHandler(NotificationsConfig.NOTI_EVENT, (data: object) => {
             this.handleNotificationMessage(data as NotificationMessage);
         });
+        // RestClient
+        this.restClient = new RestConnection();
+        const oldNotifications = await this.restClient.getNotifications();
+        console.log(oldNotifications);
+        oldNotifications.forEach(notification => {
+            this.notifications.push({ title: notification.title, text: notification.description});
+        })
+        this.newNotification.next();
     }
 
     private subscribe() {

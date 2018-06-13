@@ -122,6 +122,19 @@ export default class RestConnection implements IConnection {
         });
 
         return promise;
+    }
 
+    public getNotifications(): Promise<NotificationResponse[]> {
+        const url = `${Config.SERVER_URL}/notifications?u_id=${Expo.Constants.deviceId}`;
+        const promise = new Promise<NotificationResponse[]>((resolve, reject) => {
+            axios.get(url)
+                .then((response) => {
+                    resolve(response.data);
+                })
+                .catch((error) => {
+                    reject('reading failed');
+                });
+        });
+        return promise;
     }
 }

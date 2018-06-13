@@ -71,8 +71,10 @@ export class NotificationService {
      * For debug purposes. Sends a demo notification to all users.
      */
     public emitNotification() {
-        this.userSubscriptions.forEach((notificationStream) => {
-            notificationStream.next(this.packNotification(DEMO_NOTI));
+        this.userIdToId.forEach((websocketIds, userId) => {
+            if (websocketIds.length > 0) {
+                this.addNotification(userId, DEMO_NOTI);
+            }
         });
     }
 
