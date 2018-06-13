@@ -1,11 +1,11 @@
-import { rejects } from 'assert';
 import axios from 'axios';
 import Config from '../config/config';
 import Expo from 'expo';
-import * as fs from 'fs';
+
+const DEFAULT_OPTIONS = { 'timeout': 10000 };
 
 export default class RestConnection implements IConnection {
-
+    
     public read(): Promise<string> {
         const url = Config.SERVER_URL;
         const promise = new Promise<string>((resolve, reject) => {
@@ -127,7 +127,7 @@ export default class RestConnection implements IConnection {
     public getNotifications(): Promise<NotificationResponse[]> {
         const url = `${Config.SERVER_URL}/notifications?u_id=${Expo.Constants.deviceId}`;
         const promise = new Promise<NotificationResponse[]>((resolve, reject) => {
-            axios.get(url)
+            axios.get(url, DEFAULT_OPTIONS)
                 .then((response) => {
                     resolve(response.data);
                 })

@@ -29,7 +29,12 @@ export default class Notifications extends Component<IProps> {
 
     this.notificationSubscription = NotificationService.Instance.newNotification.subscribe(() => {
       this.setState({ notifications: [...NotificationService.Instance.notifications] });
+      NotificationService.Instance.markAsRead();
     })
+  }
+
+  componentDidMount() {
+    NotificationService.Instance.markAsRead();
   }
 
   componentWillUnmount() {
