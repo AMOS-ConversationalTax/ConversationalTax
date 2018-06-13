@@ -9,6 +9,8 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "ts-jest": "^22.4.6",
     "typescript": "^2.9.1"
   }
 }

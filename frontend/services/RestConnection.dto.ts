@@ -28,4 +28,11 @@ export interface NotificationResponse {
      */
     readonly description: string;
 
+    /**
+     * Has the notification been read?
+     * @name Notification#read
+     * @type {boolean}
+     */
+    readonly read: boolean;
+
 }

@@ -9,6 +9,7 @@ To get the CI running we need a litte bit of code. For setup:
 ```
 nvm install 8
 npm i -g npm@latest
+cd shared && npm ci && cd .. || echo 'Skipping shared'
 ```
 
 For building and testing the frontend:

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Config from '../config/config';
 import Expo from 'expo';
+import { NotificationResponse} from './RestConnection.dto';
 
 const DEFAULT_OPTIONS = { 'timeout': 10000 };
 
