@@ -2,9 +2,12 @@ import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile,
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { UserService } from '../database/user/user.service';
+import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
+import { ConversationHistoryParameters } from '../database/conversationHistory/interfaces/conversationHistoryParameters.interface';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 import { ExplanationService } from './explanation/explanation.service';
-import { DialogHistoryService } from './dialog-history/dialog-history.service';
+import { DatabaseLangService } from '../connectors/database-lang.service';
+import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -18,6 +21,7 @@ const IOS_AUDIO_SETTINGS = {
 
 const INTENT_HELP = 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275';
 const INTENT_CONTEXT = 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700';
+const INTENT_DEFAULT = 'projects/test-c7ec0/agent/intents/41d8bfa1-b463-4d15-a1ea-9491f5ee1a76';
 
 @Controller('lang')
 export class LangController {
@@ -27,13 +31,24 @@ export class LangController {
     private userService: UserService,
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
-    private dialogHistoryService: DialogHistoryService,
+    private databaseLangService: DatabaseLangService,
   ) {}
 
   @Post('text')
   async textIntent(@Body() body: TextIntentBody, @Query() params: TextIntentParams) {
     const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput, params.u_id);
+    const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
+    const uid = params.u_id;
+    let actionName: string = this.dialogFlowService.extractResponseAction(dialogflowResponse[0]);
+    if (actionName === '') {
+      actionName = 'undefined';
+    }
+
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+
+    // Add a new conversation history entry to the data store
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
+
     return { text: responseText };
   }
 
@@ -43,21 +58,31 @@ export class LangController {
     const dialogflowResponse = await this.processAudiofile(file, params);
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
     const uid = params.u_id;
+    let actionName: string = this.dialogFlowService.extractResponseAction(dialogflowResponse[0]);
+    if (actionName === '') {
+      actionName = 'undefined';
+    }
 
     if (intent != null) {
 
-      // Store the response in order to provide help and context functionalitity.
-      if (intent.name !== INTENT_HELP && intent.name !== INTENT_CONTEXT) {
-        this.storeHistory(uid, dialogflowResponse[0]);
+      const response = await this.handleIntent(uid, intent, dialogflowResponse);
+
+      if (response !== undefined) {
+
+        // Add a new conversation history entry to the data store
+        this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, response.text, intent, actionName);
+
+        return response;
+
       }
 
-      const response = await this.handleIntent(uid, intent, dialogflowResponse);
-      if (response !== undefined) {
-        return response;
-      }
     }
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+
+    // Add a new conversation history entry to the data store
+    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
+
     return { text: responseText };
   }
 
@@ -90,7 +115,7 @@ export class LangController {
 
   // TODO move to new architecture as soon as it has been finished.
   // TODO intent name should be moved into a const (as part of the above task)
-  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse[]): Promise<object | undefined> {
+  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse[]): Promise<ReturnText | undefined> {
     if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
 
       if (!await this.userService.exists(uid)) {
@@ -150,32 +175,41 @@ export class LangController {
       }
 
     } else if (intent.name === INTENT_HELP) {
+
       // Return Help
-      const history = this.dialogHistoryService.getHistory(uid);
-      const previousResponse = history[0];
-      const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
-      return { text };
+      const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(uid,
+                                                                                                                           [INTENT_HELP,
+                                                                                                                            INTENT_CONTEXT,
+                                                                                                                            INTENT_DEFAULT]);
+
+      if (history.length > 0) {
+
+        const previousResponse = history[0];
+        const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
+        return { text };
+
+      }
+
+      return { text: 'Es gibt keine letzte Anfrage zu der ich dir eine Hilfestellung geben könnte' };
+
     } else if (intent.name === INTENT_CONTEXT) {
+
       // Return Context
-      const history = this.dialogHistoryService.getHistory(uid);
-      const previousResponse = history[0];
-      const text = this.explanationService.getContextExplanation(previousResponse.intent);
-      return { text };
+      const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(uid,
+                                                                                                                           [INTENT_HELP,
+                                                                                                                            INTENT_CONTEXT,
+                                                                                                                            INTENT_DEFAULT]);
+      if (history.length > 0) {
+
+        const previousResponse = history[0];
+        const text = this.explanationService.getContextExplanation(previousResponse.intent);
+        return { text };
+
+      }
+
+      return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
+
     }
     return undefined;
-  }
-
-  /**
-   * Stores the history in the DialogHistoryService
-   * @param u_id The user id of the request
-   * @param response The response from dialogflow
-   */
-  private storeHistory(u_id: string, response: DetectIntentResponse) {
-    const intent = this.dialogFlowService.extractResponseIntent(response);
-    let actionName: string | undefined = this.dialogFlowService.extractResponseAction(response);
-    if (actionName === '') {
-      actionName = undefined;
-    }
-    this.dialogHistoryService.storeHistory(u_id, intent, actionName);
   }
 }

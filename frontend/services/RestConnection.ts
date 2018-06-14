@@ -102,4 +102,26 @@ export default class RestConnection implements IConnection {
             console.error(`Could not upload audio recording. ${e}`);
         }
     }
+
+    /**
+     * Get the current conversation history of the user
+     * @returns {Promise<any>} - The json containing the users current conversation history
+     */
+    public async getConversationHistory(): Promise<any> {
+
+        const url = `${Config.SERVER_URL}/database/conversationHistory/conversationHistory?u_id=${Expo.Constants.deviceId}`;
+
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.get(url)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject('reading failed');
+            });
+        });
+
+        return promise;
+
+    }
 }
