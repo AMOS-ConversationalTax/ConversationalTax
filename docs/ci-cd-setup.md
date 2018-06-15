@@ -9,7 +9,6 @@ To get the CI running we need a litte bit of code. For setup:
 ```
 nvm install 8
 npm i -g npm@latest
-cd shared && npm ci && cd .. || echo 'Skipping shared'
 ```
 
 For building and testing the frontend:
@@ -72,8 +71,9 @@ Similar to the backend build, we use SemaphoreCI's tools for the frontend CD. Th
 cd ../frontend
 npm ci
 exp login -u $USERNAME -p $PASSWORD
-sed -i -e s/WillBeReplacedAutomatically/$(date +%d.%m.%Y)/ config/config.ts
-sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.ts
+sed -i -e s/WillBeReplacedAutomatically/$(date +%d.%m.%Y)/ ../shared/config/config.ts
+sed -i -e 's/localhost:3000/$URL:$PORT/g' ../shared/config/config.ts
+sed -i -e 's/localhost:3001/$URL:$PORT/g' ../shared/config/config.ts
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
 npm run publish
@@ -100,11 +100,11 @@ services:
         privileged: true
         ports:
             - 3000:3000
+            - 3001:3001
         links:
             - mongo
         volumes:
-            - /home/docker/amos_files/config:/usr/src/app/dist/config
-            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
+            - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
         image: mongo
@@ -129,11 +129,11 @@ services:
         privileged: true
         ports:
             - 3010:3000
+            - 3011:3001
         links:
             - mongo
         volumes:
-            - /home/docker/amos_files/config:/usr/src/app/dist/config
-            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
+            - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
         image: mongo
