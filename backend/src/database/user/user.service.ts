@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
 import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
@@ -13,13 +14,10 @@ import DBConfig from '../dbconfig';
 export class UserService {
 
     /**
-     * The model of the user table
-     * Implements the connection to this table, too
-     * Corresponds to db.user in MongoDB
-     * @name UserService#userModel
-     * @type {Model<User>}
+     * Constructor - is used for DI of the Model
+     * @param userModel The model of the user table (corresponds to db.user in MongoDB)
      */
-    private userModel: Model<User> = mongoose.model(DBConfig.USER_MODEL_PROVIDER, userSchema);
+    constructor(@InjectModel(DBConfig.USER_MODEL_PROVIDER) private readonly userModel: Model<User>) {}
 
     /**
      * Create a new user in the datastore - checks if the user already exists
