@@ -92,6 +92,32 @@ export class EmploymentContractService {
     }
 
     /**
+     * Remove startDate_exact of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     * @returns {Promise<boolean>} - A promise containing a boolean success value
+     */
+    async deleteStartDateExact(_id: string): Promise<boolean> {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'startDate_exact': 1 } });
+
+            return true;
+
+        } else {
+
+            // EmploymentContract does not exist
+            return false;
+
+        }
+
+    }
+
+    /**
      * Set or update the startDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} startDate_string - The (new) string startDate of the employmentContract
@@ -117,6 +143,32 @@ export class EmploymentContractService {
         }
 
     }
+
+    /**
+     * Remove startDate_string of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     * @returns {Promise<boolean>} - A promise containing a boolean success value
+     */
+    async deleteStartDateString(_id: string): Promise<boolean> {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'startDate_string': 1 } });
+
+            return true;
+
+        } else {
+
+            // EmploymentContract does not exist
+            return false;
+
+        }
+
+   }
 
     /**
      * Set or update the endDate_exact of a specific employmentContract
@@ -146,6 +198,32 @@ export class EmploymentContractService {
     }
 
     /**
+     * Remove endDate_exact of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     * @returns {Promise<boolean>} - A promise containing a boolean success value
+     */
+    async deleteEndDateExact(_id: string): Promise<boolean> {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'endDate_exact': 1 } });
+
+            return true;
+
+        } else {
+
+            // EmploymentContract does not exist
+            return false;
+
+        }
+
+   }
+
+    /**
      * Set or update the endDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} endDate_exact - The (new) string endDate of the employmentContract
@@ -171,6 +249,32 @@ export class EmploymentContractService {
         }
 
     }
+
+    /**
+     * Remove endDate_string of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     * @returns {Promise<boolean>} - A promise containing a boolean success value
+     */
+    async deleteEndDateString(_id: string): Promise<boolean> {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'endDate_string': 1 } });
+
+            return true;
+
+        } else {
+
+            // EmploymentContract does not exist
+            return false;
+
+        }
+
+   }
 
     /**
      * Find a specific employmentContract by his unique id

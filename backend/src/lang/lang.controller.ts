@@ -50,6 +50,7 @@ export class LangController {
          dialogflowResponse[0].hasOwnProperty('queryResult') &&
          dialogflowResponse[0].queryResult.hasOwnProperty('parameters') &&
          dialogflowResponse[0].queryResult.hasOwnProperty('queryText') &&
+         intent !== null &&
          intent.hasOwnProperty('name') &&
          intent.hasOwnProperty('displayName') ) {
 
@@ -88,6 +89,7 @@ export class LangController {
              dialogflowResponse[0].hasOwnProperty('queryResult') &&
              dialogflowResponse[0].queryResult.hasOwnProperty('parameters') &&
              dialogflowResponse[0].queryResult.hasOwnProperty('queryText') &&
+             intent !== null &&
              intent.hasOwnProperty('name') &&
              intent.hasOwnProperty('displayName') ) {
 
@@ -114,6 +116,7 @@ export class LangController {
          dialogflowResponse[0].hasOwnProperty('queryResult') &&
          dialogflowResponse[0].queryResult.hasOwnProperty('parameters') &&
          dialogflowResponse[0].queryResult.hasOwnProperty('queryText') &&
+         intent !== null &&
          intent.hasOwnProperty('name') &&
          intent.hasOwnProperty('displayName') ) {
 
@@ -174,19 +177,47 @@ export class LangController {
 
       try {
 
-        const response: any = dialogflowResponse[0].queryResult.parameters;
-        const startDate = response.fields.StartDate.stringValue;
-        const employmentContractId = response.fields.EmploymentContract.stringValue;
+        if (dialogflowResponse[0].queryResult.allRequiredParamsPresent) {
 
-        // If our parameters are not ready Dialogflow will ask for them
-        if (employmentContractId !== '' && startDate !== '') {
+          const response: any = dialogflowResponse[0].queryResult.parameters;
 
-          if (! await this.contractService.editStartDateExact(employmentContractId, startDate)) {
+          // EmploymentContract is always a stringValue
+          const employmentContractId: string = response.fields.EmploymentContract.stringValue;
 
-            throw new Error('Contract start date could not be changed');
+          // Start Date is always a structValue
+          const startDate: any = response.fields.StartDate.structValue;
+
+          // If a date was recognized as an exact date, startDate has the property 'StartDateAsDate'
+          if ( startDate.fields.hasOwnProperty('StartDateAsDate') ) {
+
+            // Although start date is recognized as a date, the value is present in stringValue
+            const startDateExact: any = startDate.fields.StartDateAsDate.stringValue;
+
+            if (! await this.contractService.editStartDateExact(employmentContractId, startDateExact)) {
+
+              throw new Error('Contract start date could not be changed');
+
+            }
+
+            // If set was successfull we want to remove a possibly existing startDateString
+            await this.contractService.deleteStartDateString(employmentContractId);
+
+          // If a date was not recognized as an exact date, startDate has the property 'StartDateAsDate'
+          } else if ( startDate.fields.hasOwnProperty('StartDateAsString') ) {
+
+            // The value of startDate is present in stringValue
+            const startDateString: any = startDate.fields.StartDateAsString.stringValue;
+
+            if (! await this.contractService.editStartDateString(employmentContractId, startDateString)) {
+
+              throw new Error('Contract start date could not be changed');
+
+            }
+
+            // If set was successfull we want to remove a possibly existing startDateExact
+            await this.contractService.deleteStartDateExact(employmentContractId);
 
           }
-
         }
 
       } catch (error) {

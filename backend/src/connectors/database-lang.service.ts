@@ -46,40 +46,12 @@ export class DatabaseLangService {
                                                  action: string ): Promise<string> {
 
         // Extract the parameters out of the dialogflowResponse
-        const extractedParameters = new Array<ConversationHistoryParameters>();
-
-        // Validate whether parameters include some fields
-        if (parameters !== null && parameters.hasOwnProperty('fields')) {
-
-            // Iterate through all keys
-            for (const key in parameters.fields) {
-
-                // Validate whether key is existing for real
-                if (parameters.fields.hasOwnProperty(key)) {
-
-                    // Validate whether the field has a type (kind)
-                    // Validate whether the field has property for this kind
-                    // Validate whether the value property is not empty
-                    /* tslint:disable:no-string-literal */
-                    if (parameters.fields[key].hasOwnProperty('kind') &&
-                        parameters.fields[key].hasOwnProperty(parameters.fields[key]['kind']) &&
-                        parameters.fields[key][parameters.fields[key]['kind']] !== '' ) {
-
-                        extractedParameters.push({name: key, value: parameters.fields[key][parameters.fields[key]['kind']]});
-
-                    }
-                    /* tslint:enable:no-string-literal */
-
-                }
-
-            }
-
-        }
+        const extractedParameters = this.extractParameters(parameters);
 
         // Test if user already exists
         if (!await this.userService.exists(uid)) {
 
-            this.userService.create(uid);
+            await this.userService.create(uid);
 
         }
 
@@ -107,6 +79,64 @@ export class DatabaseLangService {
     public async getConversationHistoryOfUserWithoutIntents(user_id: string, intent_names: Array<string>): Promise<Array<ConversationHistory>> {
 
         return await this.conversationHistoryService.getConversationHistoryOfUserWithoutIntents(user_id, intent_names);
+
+    }
+
+    private extractParameters(parameters: any): Array<ConversationHistoryParameters> {
+
+        // Extract the parameters out of the dialogflowResponse
+        const extractedParameters: Array<ConversationHistoryParameters> = new Array<ConversationHistoryParameters>();
+
+        // Validate whether parameters include some fields
+        if (parameters !== null && parameters.hasOwnProperty('fields')) {
+
+            // Iterate through all keys
+            for (const key in parameters.fields) {
+
+                // Validate whether key is existing for real
+                if (parameters.fields.hasOwnProperty(key)) {
+
+                    // Validate whether the field has a type (kind)
+                    /* tslint:disable:no-string-literal */
+                    if (parameters.fields[key].hasOwnProperty('kind')) {
+
+                        const kindOfField: string = parameters.fields[key]['kind'];
+
+                        if (parameters.fields[key].hasOwnProperty(kindOfField) &&
+                            parameters.fields[key][kindOfField] !== '') {
+
+                            if ( kindOfField === 'structValue') {
+
+                                // If structValue is the kind of the field there
+                                // Dialogflow uses a substructure that can be resolved by a recursive call
+                                const subStructure: Array<ConversationHistoryParameters> =
+                                                this.extractParameters(parameters.fields[key][kindOfField]);
+
+                                for (const subElement of subStructure) {
+
+                                    extractedParameters.push({name: subElement.name,
+                                                              value: subElement.value});
+
+                                }
+
+                            } else {
+
+                                extractedParameters.push({name: key,
+                                                          value: parameters.fields[key][kindOfField]});
+
+                            }
+                        }
+
+                    }
+                    /* tslint:enable:no-string-literal */
+
+                }
+
+            }
+
+        }
+
+        return extractedParameters;
 
     }
 

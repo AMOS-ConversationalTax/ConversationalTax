@@ -389,7 +389,7 @@ describe('DatabaseLangService', () => {
                                                                      { fields:
                                                                         { Date:
                                                                             { stringValue: '2018-06-16T12:00:00+02:00',
-                                                                            kind: 'stringValue' }, 
+                                                                              kind: 'stringValue' }, 
                                                                         },
                                                                      },
                                                                      'This is a eigth test',
@@ -455,7 +455,7 @@ describe('DatabaseLangService', () => {
                                                                      { fields:
                                                                         { Date:
                                                                             { stringValue: '2018-06-16T12:00:00+02:00',
-                                                                            kind: 'stringValue' }, 
+                                                                              kind: 'stringValue' }, 
                                                                         },
                                                                      },
                                                                      'This is a tenth test',
@@ -537,7 +537,7 @@ describe('DatabaseLangService', () => {
                                                                      { fields:
                                                                         { Date:
                                                                             { stringValue: '2018-06-16T12:00:00+02:00',
-                                                                            kind: 'stringValue' }, 
+                                                                              kind: 'stringValue' }, 
                                                                         },
                                                                      },
                                                                      'This is a twelfth test',
@@ -597,6 +597,69 @@ describe('DatabaseLangService', () => {
             // If receivedConversationHistory includes no suiting entry,
             // the length is of suitingConversationHistoryEntry2 is 0
             expect(suitingConversationHistoryEntry2.length).toBe(0);
+            
+        });
+        it('Create one conversationHistory entries with a nested parameter for user 5', async () => {
+
+            await databaseLangService.createConversationHistoryEntry('u5',
+                                                                     { fields:
+                                                                        { Date:
+                                                                            { structValue: { fields: 
+                                                                                                { DateAsDate: 
+                                                                                                    { stringValue:'2018-06-16T12:00:00+02:00',
+                                                                                                      kind: 'stringValue', },
+                                                                                            }, },
+                                                                              kind: 'structValue' }, 
+                                                                        },
+                                                                     },
+                                                                     'This is a thirteenth test',
+                                                                     'I recognized a thirteenth test',
+                                                                     'projects/test/agent/intents/thirteenthtest',
+                                                                     'ThirteenthTest',
+                                                                     'unknown');
+
+            
+            // Expect userService.exists to be called one times
+            expect(userService.exists).toHaveBeenCalledTimes(1);
+
+            // Expect userService.create to be called one time
+            expect(userService.create).toHaveBeenCalledTimes(1);
+            
+            // Expect user to include the new user
+            const searchedUser = user.filter(i => i._id === 'u5');
+            expect(searchedUser.length).toBe(1);
+
+            // Expect conversationHistoryService.create to be called two times
+            expect(conversationHistoryService.create).toHaveBeenCalledTimes(1);
+
+            const receivedConversationHistory: Array<ConversationHistory> = 
+                await databaseLangService.getConversationHistoryOfUserWithoutIntents('u5', []);
+
+            // Expect conversationHistoryService.getConversationHistoryOfUserWithoutIntents to be called one time
+            expect(conversationHistoryService.getConversationHistoryOfUserWithoutIntents).toHaveBeenCalledTimes(1);
+
+            // Expect the receivedConversationHistory length to be one as the thirteenth test is not longer included
+            expect(receivedConversationHistory.length).toBe(1);
+
+            // Expect conversationHistory to include a suiting entry for the thirteenth test
+            const suitingConversationHistoryEntry: Array<ConversationHistory> = 
+                receivedConversationHistory.filter(i => i.user_id === 'u5')
+                                           .filter(i => i.query === 'This is a thirteenth test')
+                                           .filter(i => i.answer === 'I recognized a thirteenth test')
+                                           .filter(i => i.intent.name === 'projects/test/agent/intents/thirteenthtest' &&
+                                                        i.intent.displayName === 'ThirteenthTest')
+                                           .filter(i => i.action === 'unknown');
+
+            // If receivedConversationHistory includes a suiting entry,
+            // the length is of suitingConversationHistoryEntry is 1
+            expect(suitingConversationHistoryEntry.length).toBe(1);
+            
+            // Until now we did not test the correct values of parameters (has to be one in this case)
+            expect(suitingConversationHistoryEntry[0].parameters.length).toBe(1);
+
+            // Expect to be the parameter to be filled with the correct values
+            expect(suitingConversationHistoryEntry[0].parameters[0].name).toBe('DateAsDate');
+            expect(suitingConversationHistoryEntry[0].parameters[0].value).toBe('2018-06-16T12:00:00+02:00');                                                         
             
         });
     });
