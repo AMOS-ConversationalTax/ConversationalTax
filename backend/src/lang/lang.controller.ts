@@ -46,8 +46,23 @@ export class LangController {
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
 
-    // Add a new conversation history entry to the data store
-    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
+    if ( dialogflowResponse.length > 0 &&
+         dialogflowResponse[0].hasOwnProperty('queryResult') &&
+         dialogflowResponse[0].queryResult.hasOwnProperty('parameters') &&
+         dialogflowResponse[0].queryResult.hasOwnProperty('queryText') &&
+         intent.hasOwnProperty('name') &&
+         intent.hasOwnProperty('displayName') ) {
+
+      // Add a new conversation history entry to the data store
+      this.databaseLangService.createConversationHistoryEntry(uid,
+                                                              dialogflowResponse[0].queryResult.parameters,
+                                                              dialogflowResponse[0].queryResult.queryText,
+                                                              responseText,
+                                                              intent.name,
+                                                              intent.displayName,
+                                                              actionName);
+
+    }
 
     return { text: responseText };
   }
@@ -69,8 +84,23 @@ export class LangController {
 
       if (response !== undefined) {
 
-        // Add a new conversation history entry to the data store
-        this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, response.text, intent, actionName);
+        if ( dialogflowResponse.length > 0 &&
+             dialogflowResponse[0].hasOwnProperty('queryResult') &&
+             dialogflowResponse[0].queryResult.hasOwnProperty('parameters') &&
+             dialogflowResponse[0].queryResult.hasOwnProperty('queryText') &&
+             intent.hasOwnProperty('name') &&
+             intent.hasOwnProperty('displayName') ) {
+
+          // Add a new conversation history entry to the data store
+          this.databaseLangService.createConversationHistoryEntry(uid,
+                                                                  dialogflowResponse[0].queryResult.parameters,
+                                                                  dialogflowResponse[0].queryResult.queryText,
+                                                                  response.text,
+                                                                  intent.name,
+                                                                  intent.displayName,
+                                                                  actionName);
+
+        }
 
         return response;
 
@@ -80,8 +110,23 @@ export class LangController {
 
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
 
-    // Add a new conversation history entry to the data store
-    this.databaseLangService.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
+    if ( dialogflowResponse.length > 0 &&
+         dialogflowResponse[0].hasOwnProperty('queryResult') &&
+         dialogflowResponse[0].queryResult.hasOwnProperty('parameters') &&
+         dialogflowResponse[0].queryResult.hasOwnProperty('queryText') &&
+         intent.hasOwnProperty('name') &&
+         intent.hasOwnProperty('displayName') ) {
+
+      // Add a new conversation history entry to the data store
+      this.databaseLangService.createConversationHistoryEntry(uid,
+                                                              dialogflowResponse[0].queryResult.parameters,
+                                                              dialogflowResponse[0].queryResult.queryText,
+                                                              responseText,
+                                                              intent.name,
+                                                              intent.displayName,
+                                                              actionName);
+
+    }
 
     return { text: responseText };
   }

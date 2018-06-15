@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
-import { ConversationHistory} from '../database/conversationHistory/interfaces/conversationHistory.interface';
+import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
 import { ConversationHistoryParameters} from '../database/conversationHistory/interfaces/conversationHistoryParameters.interface';
+import { UserService } from '../database/user/user.service';
 
 /**
  * A connector class for the database service and the lang service
@@ -9,7 +10,8 @@ import { ConversationHistoryParameters} from '../database/conversationHistory/in
 @Injectable()
 export class DatabaseLangService {
 
-    constructor( private conversationHistoryService: ConversationHistoryService ) {}
+    constructor( private conversationHistoryService: ConversationHistoryService,
+                 private userService: UserService ) {}
 
     /**
      * Updates the employment contract session entity
@@ -17,24 +19,33 @@ export class DatabaseLangService {
      * @param {string} uid
      * An id for identifing the user
      *
-     * @param {DetectIntentResponse[]} dialogflowResponse
-     * The response of dialogflow
+     * @param {any} parameters
+     * The parameters dialogflow recognized
      *
-     * @param {String} answer
+     * @param {string} query
+     * The query dialogflow understood
+     *
+     * @param {string} answer
      * The answer for the user
      *
-     * @param {Intent} intent
-     * The detected intent
+     * @param {string} intentName
+     * The detected intent uri
      *
-     * @returns {Promise<boolean>>}
-     * A Promise containting the success of the creation
+     * @param {string} intentDisplayName
+     * The display name of the detected intent
+     *
+     * @param {string} action
+     * The action dialogflow recognized
+     *
+     * @returns {Promise<string>>}
+     * A Promise containting the id of the conversation histroy entry
      *
      */
-    public async createConversationHistoryEntry( uid: string, dialogflowResponse: DetectIntentResponse[], answer: string,
-                                                 intent: Intent, action: string ): Promise<boolean> {
+    public async createConversationHistoryEntry( uid: string, parameters: any, query: string,
+                                                 answer: string, intentName: string, intentDisplayName: string,
+                                                 action: string ): Promise<string> {
 
         // Extract the parameters out of the dialogflowResponse
-        const parameters: any = dialogflowResponse[0].queryResult.parameters;
         const extractedParameters = new Array<ConversationHistoryParameters>();
 
         // Validate whether parameters include some fields
@@ -65,16 +76,21 @@ export class DatabaseLangService {
 
         }
 
+        // Test if user already exists
+        if (!await this.userService.exists(uid)) {
+
+            this.userService.create(uid);
+
+        }
+
         // Add a new conversation history entry to the data store
-        this.conversationHistoryService.create(uid,
-                                            dialogflowResponse[0].queryResult.queryText,
+        return this.conversationHistoryService.create(uid,
+                                            query,
                                             answer,
-                                            {'name': intent.name, 'displayName': intent.displayName},
+                                            {'name': intentName, 'displayName': intentDisplayName},
                                             action,
                                             extractedParameters,
                                             new Date());
-
-        return true;
 
     }
 

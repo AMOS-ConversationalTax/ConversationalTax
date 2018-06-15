@@ -64,6 +64,9 @@ describe('DatabaseDialogFlowService', () => {
             // Expect reportedSuccess to be true
             expect(reportedSuccess).toBe(true);
 
+            // Expect (employmentContractService.findEmploymentContractsOfUser to be called one time
+            expect(employmentContractService.findEmploymentContractsOfUser).toHaveBeenCalledTimes(1);
+
             // Expect dialogFlowService.createSessionEntityType to be called one time
             expect(dialogFlowService.createSessionEntityType).toHaveBeenCalledTimes(1);
 
@@ -93,6 +96,9 @@ describe('DatabaseDialogFlowService', () => {
             // Expect reportedSuccess to be true
             expect(reportedSuccess).toBe(true);
 
+            // Expect (employmentContractService.findEmploymentContractsOfUser to be called one time
+            expect(employmentContractService.findEmploymentContractsOfUser).toHaveBeenCalledTimes(1);
+
             // Expect dialogFlowService.createSessionEntityType to be called one time
             expect(dialogFlowService.createSessionEntityType).toHaveBeenCalledTimes(1);
 
@@ -120,6 +126,9 @@ describe('DatabaseDialogFlowService', () => {
 
             // Expect reportedSuccess to be true
             expect(reportedSuccess).toBe(true);
+
+            // Expect (employmentContractService.findEmploymentContractsOfUser to be called one time
+            expect(employmentContractService.findEmploymentContractsOfUser).toHaveBeenCalledTimes(1);
 
             // Expect dialogFlowService.createSessionEntityType to be called one time
             expect(dialogFlowService.createSessionEntityType).toHaveBeenCalledTimes(1);
@@ -157,6 +166,9 @@ describe('DatabaseDialogFlowService', () => {
             // Expect reportedSuccess to be true
             expect(reportedSuccess).toBe(true);
 
+            // Expect (employmentContractService.findEmploymentContractsOfUser to be called one time
+            expect(employmentContractService.findEmploymentContractsOfUser).toHaveBeenCalledTimes(1);
+
             // Expect dialogFlowService.createSessionEntityType to be called one time
             expect(dialogFlowService.createSessionEntityType).toHaveBeenCalledTimes(1);
 
@@ -185,6 +197,9 @@ describe('DatabaseDialogFlowService', () => {
 
             // Expect reportedSuccess to be true
             expect(reportedSuccess).toBe(false);
+
+            // Expect (employmentContractService.findEmploymentContractsOfUser to be called one time
+            expect(employmentContractService.findEmploymentContractsOfUser).toHaveBeenCalledTimes(1);
 
             // Expect dialogFlowService.createSessionEntityType to be called one time
             expect(dialogFlowService.createSessionEntityType).toHaveBeenCalledTimes(1);
