@@ -205,11 +205,7 @@ export class LangController {
             // Although start date is recognized as a date, the value is present in stringValue
             const startDateExact: any = startDate.fields.StartDateAsDate.stringValue;
 
-            if (! await this.contractService.editStartDateExact(employmentContractId, startDateExact)) {
-
-              throw new Error('Contract start date could not be changed');
-
-            }
+            await this.contractService.editStartDateExact(employmentContractId, startDateExact);
 
             // If set was successfull we want to remove a possibly existing startDateString
             await this.contractService.deleteStartDateString(employmentContractId);
@@ -220,11 +216,7 @@ export class LangController {
             // The value of startDate is present in stringValue
             const startDateString: any = startDate.fields.StartDateAsString.stringValue;
 
-            if (! await this.contractService.editStartDateString(employmentContractId, startDateString)) {
-
-              throw new Error('Contract start date could not be changed');
-
-            }
+            await this.contractService.editStartDateString(employmentContractId, startDateString);
 
             // If set was successfull we want to remove a possibly existing startDateExact
             await this.contractService.deleteStartDateExact(employmentContractId);
@@ -248,11 +240,7 @@ export class LangController {
         // If our parameters are not ready Dialogflow will ask for them
         if (employmentContractId !== '') {
 
-          if (! await this.contractService.editEndDateString(employmentContractId, 'unbefristet')) {
-
-            throw new Error('Contract end date could not be changed');
-
-          }
+          await this.contractService.editEndDateString(employmentContractId, 'unbefristet');
 
         }
 

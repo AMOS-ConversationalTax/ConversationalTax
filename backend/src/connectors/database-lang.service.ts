@@ -85,10 +85,10 @@ export class DatabaseLangService {
     private extractParameters(parameters: any): Array<ConversationHistoryParameters> {
 
         // Extract the parameters out of the dialogflowResponse
-        const extractedParameters: Array<ConversationHistoryParameters> = new Array<ConversationHistoryParameters>();
+        const extractedParameters: ConversationHistoryParameters[] = [];
 
         // Validate whether parameters include some fields
-        if (parameters !== null && parameters.hasOwnProperty('fields')) {
+        if (parameters !== undefined && parameters !== null && parameters.hasOwnProperty('fields')) {
 
             // Iterate through all keys
             for (const key in parameters.fields) {
