@@ -8,7 +8,9 @@ import { conversationHistorySchema } from './schemas/conversationHistory.schema'
 import DBConfig from '../dbconfig';
 
 @Module({
-    imports: [DatabaseModule, MongooseModule.forFeature([{ name: DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER, schema: conversationHistorySchema }])],
+    imports: [DatabaseModule,
+              MongooseModule.forFeature([{ name: DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER,
+                                           schema: conversationHistorySchema }])],
     controllers: [ConversationHistoryController],
     providers: [
         ConversationHistoryService,

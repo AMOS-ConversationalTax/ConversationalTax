@@ -7,7 +7,9 @@ import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
 
 @Module({
-    imports: [DatabaseModule, MongooseModule.forFeature([{ name: DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER, schema: employmentContractSchema }])],
+    imports: [DatabaseModule,
+              MongooseModule.forFeature([{ name: DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER,
+                                           schema: employmentContractSchema }])],
     controllers: [],
     providers: [
         EmploymentContractService,
