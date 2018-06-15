@@ -12,7 +12,7 @@ import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 import * as request from 'superagent';
-import Config from '../../config/config';
+import Config from 'conv-tax-shared/config/config';
 import RestConnection from './../../services/RestConnection';
 
 interface IProps {

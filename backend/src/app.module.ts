@@ -9,7 +9,7 @@ import { LangModule } from './lang/lang.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NotificationsModule } from './notifications/notifications.module';
 import { WebsocketModule } from './websocket/websocket.module';
-import Config from '../config/config';
+import Config from 'conv-tax-shared/config/config';
 
 @Module({
   imports: [EmploymentContractModule,

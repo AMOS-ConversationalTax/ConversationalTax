@@ -4,7 +4,7 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "postinstall": "node ./postinstall.js",
+    "preinstall": "cd ../shared && npm i",
     "start": "exp start",
     "android": "exp android",
     "ios": "exp ios",

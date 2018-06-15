@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Config from '../config/config';
+import Config from 'conv-tax-shared/config/config';
 import Expo from 'expo';
 import { NotificationResponse} from './RestConnection.dto';
 

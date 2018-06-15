@@ -1,5 +1,5 @@
 import { WebSocketClient } from './WebSocketClient';
-import Config from '../config/config';
+import Config from 'conv-tax-shared/config/config';
 import { Constants } from 'expo';
 import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
 import {NotificationMessage} from 'conv-tax-shared/typings/Notification';
