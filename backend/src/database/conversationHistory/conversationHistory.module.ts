@@ -3,7 +3,7 @@ import { ConversationHistoryService } from './conversationHistory.service';
 import { conversationHistoryProviders } from './conversationHistory.providers';
 import { ConversationHistoryController } from './conversationHistory.controller';
 import { DatabaseModule } from '../database.module';
-import { MongooseModule, getModelToken } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import DBConfig from '../dbconfig';
 

@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Subject, Observable, from } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 import { WsResponse } from '@nestjs/websockets';
 import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
-import { map } from 'rxjs/operators';
 import { NotificationsDBService } from '../database/notifications/notifications.service';
 
 const DEMO_NOTI: NotificationMessage = {

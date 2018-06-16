@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
 

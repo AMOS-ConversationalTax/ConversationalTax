@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   Button,
 } from 'react-native';
 import Logo from '../../shared/Logo';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 

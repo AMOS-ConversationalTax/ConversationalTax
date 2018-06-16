@@ -3,7 +3,6 @@ import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Reminder } from './interfaces/reminder.interface';
-import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
 
 /**

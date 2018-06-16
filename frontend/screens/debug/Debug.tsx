@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  Button,
-  Picker
+  Button
 } from 'react-native';
 import TopBar from '../../shared/TopBar';
 import BottomBar from '../../shared/BottomBar';

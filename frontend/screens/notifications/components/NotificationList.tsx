@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react'
-import { Text, StyleSheet, View, FlatList, ListRenderItem, ListRenderItemInfo } from 'react-native'
+import { Text, StyleSheet, View, FlatList, ListRenderItemInfo } from 'react-native'
 import globalStyles from '../../../global_styles';
 import autobind from 'autobind-decorator';
 import NotificationListItem from './NotificationListItem';

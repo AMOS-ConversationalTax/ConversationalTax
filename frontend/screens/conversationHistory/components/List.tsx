@@ -1,6 +1,5 @@
 import React, { Component, ReactElement } from 'react';
 import { View, Text, FlatList, StyleSheet, ListRenderItemInfo } from 'react-native';
-import { ConversationHistoryParametersInterface } from '../interfaces/ConversationHistoryParameters.interface';
 import { ConversationHistoryInterface } from '../interfaces/ConversationHistory.interface';
 import ListItem from './ListItem';
 import autobind from 'autobind-decorator';

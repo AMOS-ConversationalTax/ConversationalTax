@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserService } from './user.service';
 import { userProviders } from './user.providers';
 import { DatabaseModule } from '../database.module';
-import { MongooseModule, getModelToken } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 

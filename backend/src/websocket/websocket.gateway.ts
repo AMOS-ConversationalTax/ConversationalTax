@@ -1,8 +1,7 @@
-import { SubscribeMessage, WebSocketGateway, WebSocketServer, WsResponse, WsException } from '@nestjs/websockets';
-import { Observable, from } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { SubscribeMessage, WebSocketGateway, WebSocketServer, WsResponse } from '@nestjs/websockets';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { NotificationParams } from '../notifications/notifications.dto';
-import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
 import { NotificationService } from '../notifications/notification-service';

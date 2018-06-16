@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import DBConfig from '../../dbconfig';
 
 /**
  * The schema of the conversationHistoryParameters SubDocument

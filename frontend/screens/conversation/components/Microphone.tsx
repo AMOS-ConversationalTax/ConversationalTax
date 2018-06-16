@@ -4,7 +4,6 @@ import {
     View,
     StyleSheet,
     TouchableWithoutFeedback,
-    TouchableHighlight,
     Text,
 } from 'react-native';
 import autobind from 'autobind-decorator';
