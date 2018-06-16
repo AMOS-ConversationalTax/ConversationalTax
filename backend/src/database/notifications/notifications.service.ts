@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { Notification } from './interfaces/notifications.interface';
 import { NotificationsSchema } from './schemas/notifications.schema';
 import DBConfig from '../dbconfig';
@@ -13,13 +14,10 @@ import DBConfig from '../dbconfig';
 export class NotificationsDBService {
 
     /**
-     * The model of the notification table
-     * Implements the connection to this table, too
-     * Corresponds to db.notification in MongoDB
-     * @name NotificationService#notificationModel
-     * @type {Model<Notification>}
+     * Constructor - is used for DI of the Model
+     * @param conversationHistoryModel The model of the conversationHistory table (corresponds to db.conversationHistory in MongoDB)
      */
-    private notificationModel: Model<Notification> = mongoose.model(DBConfig.NOTIFICATIONS_MODEL_PROVIDER, NotificationsSchema);
+    constructor(@InjectModel(DBConfig.NOTIFICATIONS_MODEL_PROVIDER) private readonly notificationModel: Model<Notification>) { }
 
     /**
      * Create a new notification in the datastore - does not check if the notification already exists

@@ -10,7 +10,7 @@ import DBConfig from '../dbconfig';
 export const NotificationsProviders: any = [
     {
         provide: DBConfig.NOTIFICATIONS_MODEL_PROVIDER,
-        useFactory: (connection: Connection) => connection.model(DBConfig.NOTIFICATIONS_MODEL_PROVIDER, NotificationsSchema),
+        useFactory: (mongoose) => mongoose.connection.model(DBConfig.NOTIFICATIONS_MODEL_PROVIDER, NotificationsSchema),
         inject: [DBConfig.DB_PROVIDER],
     },
 ];

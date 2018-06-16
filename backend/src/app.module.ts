@@ -10,17 +10,21 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { NotificationsModule } from './notifications/notifications.module';
 import { WebsocketModule } from './websocket/websocket.module';
 import Config from 'conv-tax-shared/config/config';
+import { NotificationsDBModule } from 'database/notifications/notifications.module';
 
 @Module({
-  imports: [EmploymentContractModule,
-            UserModule,
-            ReminderModule,
-            ConversationHistoryModule,
-            LangModule,
-            ConnectorsModule,
-            NotificationsModule,
-            WebsocketModule,
-            MongooseModule.forRoot(Config.MONGO_URL)],
+  imports: [
+    EmploymentContractModule,
+    UserModule,
+    ReminderModule,
+    ConversationHistoryModule,
+    LangModule,
+    ConnectorsModule,
+    NotificationsDBModule,
+    NotificationsModule,
+    WebsocketModule,
+    MongooseModule.forRoot(Config.MONGO_URL),
+  ],
   controllers: [AppController],
   providers: [],
 })
