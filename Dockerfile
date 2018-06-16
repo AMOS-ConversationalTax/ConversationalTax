@@ -18,5 +18,6 @@ WORKDIR ./backend
 ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm ci
 
-EXPOSE 3000, 3001
+EXPOSE 3000
+EXPOSE 3001
 CMD [ "npm", "run", "start" ]
