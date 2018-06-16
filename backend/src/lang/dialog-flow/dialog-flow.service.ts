@@ -14,7 +14,6 @@ const LANG_CODE = 'de-DE';
 export class DialogFlowService {
     private sessionClient: any;
     private sessionEntityTypesClient: any;
-    private contextsClient: any;
 
     constructor( private databaseDialogFlowService: DatabaseDialogFlowService ) {
 
@@ -22,8 +21,6 @@ export class DialogFlowService {
 
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
             this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient({ credentials: Config.DIALOGFLOW_KEY });
-            this.contextsClient = new dialogflow.ContextsClient({ credentials: Config.DIALOGFLOW_KEY });
-
         }
 
     }

@@ -181,7 +181,7 @@ export class LangController {
         this.userService.create(uid);
 
       }
-      const contractId = this.contractService.create(uid);
+      await this.contractService.create(uid);
 
     } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
 

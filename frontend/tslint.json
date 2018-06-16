@@ -8,12 +8,15 @@
         "quotemark": [true, "single", "jsx-double"],
         "object-literal-sort-keys": false,
         "no-empty-interface": false,
-        "linebreak-style": false
+        "linebreak-style": false,
+        "no-unused-variable": true
     },
     "rulesDirectory": [],
     "linterOptions": {
         "exclude": [
-            "__tests__/**"
+            "__tests__/**",
+            "**/*.spec.tsx",
+            "**/*.spec.ts"
         ]
     }
 }
