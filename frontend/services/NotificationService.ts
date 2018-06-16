@@ -23,7 +23,10 @@ export class NotificationService {
         this.init();
     }
     
-    private async init() {
+    /**
+     * Establishes a websocket connection and fetches old notifications via the rest API.
+     */
+    private async init(): Promise<void> {
         // WebSocket
         this.websocket = new WebSocketClient(Config.WEBSOCKET_URL);
         this.websocket.registerOpenedHandler(() => {
@@ -42,7 +45,10 @@ export class NotificationService {
         this.notificationCount.next(this.countUnread());
     }
 
-    private subscribe() {
+    /**
+     * Send a subscribe-event via the websocket.
+     */
+    private subscribe(): void {
         this.websocket.send({
             event: NotificationsConfig.SUB_NOTI_EVENT, data: {
                 u_id: Constants.deviceId,
@@ -50,14 +56,21 @@ export class NotificationService {
         });
     }
 
-    private handleNotificationMessage(data: NotificationMessage) {
+    /**
+     * Handles incoming messages of the websocket
+     * @param data The new notification
+     */
+    private handleNotificationMessage(data: NotificationMessage): void {
         this.notifications.unshift(data);
         this.notificationCount.next(this.countUnread());
         this.newNotification.next();
         Vibration.vibrate(500, false);
     }
 
-    public markAsRead() {
+    /**
+     * Mark all notifications as read
+     */
+    public markAsRead(): void {
         this.restClient.markNotificationsAsRead();
         this.notifications.forEach((notification) => {
             notification.read = true;
@@ -65,11 +78,19 @@ export class NotificationService {
         this.notificationCount.next(0);
     }
 
-    public countUnread() {
+    /**
+     * Get the number of unread notifications
+     * @returns {number} Number of unread notifications
+     */
+    public countUnread(): number {
         return this.notifications.filter(notification => !notification.read).length;
     }
 
-    public static get Instance() {
+    /**
+     * Returns the singletons instance.
+     * @returns {NotificationService} The NotificationService instance
+     */
+    public static get Instance(): NotificationService {
         return this._instance || (this._instance = new this());
     }
 }

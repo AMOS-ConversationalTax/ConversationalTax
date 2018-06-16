@@ -9,12 +9,17 @@ import globalStyles from '../../global_styles';
 import NotificationList from './components/NotificationList';
 import { NotificationService } from '../../services/NotificationService';
 import { Subscription } from 'rxjs';
+import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 
 interface IProps {
-  navigation: any
+  navigation: any;
 }
 
-export default class Notifications extends Component<IProps> {
+interface IState {
+  notifications: NotificationMessage[];
+}
+
+export default class Notifications extends Component<IProps, IState> {
   private notificationSubscription: Subscription;
   state = {
     notifications: [],

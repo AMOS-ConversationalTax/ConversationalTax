@@ -10,7 +10,7 @@ export class WebSocketClient {
     /**
      * Initalizes and connects the websocket 
      */
-    private connect() {
+    private connect(): void {
         this.websocket = new WebSocket(this.uri);
 
         this.websocket.addEventListener('close', () => {

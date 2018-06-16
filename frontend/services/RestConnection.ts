@@ -125,6 +125,10 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
+    /**
+     * Gets old notifications of the user
+     * @returns {Promise<NotificationResponse[]>} Array of notifications
+     */
     public getNotifications(): Promise<NotificationResponse[]> {
         const url = `${Config.SERVER_URL}/notifications?u_id=${Expo.Constants.deviceId}`;
         const promise = new Promise<NotificationResponse[]>((resolve, reject) => {
@@ -139,6 +143,10 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
+    /**
+     * Tells the backend to mark all notifications as read
+     * @returns {Promise<void>} Returns as soon as the request has finished
+     */
     public markNotificationsAsRead(): Promise<void> {
         const url = `${Config.SERVER_URL}/notifications/markAsRead?u_id=${Expo.Constants.deviceId}`;
         const promise = new Promise<void>((resolve, reject) => {
@@ -153,6 +161,10 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
+    /**
+     * For debuggin purposes; Tells the backend to emit a demo notification
+     * @returns {Promise<void>} Returns as soon as the request has finished
+     */
     public emitDebugNotificationToAllUsers(): Promise<void> {
         const url = `${Config.SERVER_URL}/notifications/emit-demo`;
         const promise = new Promise<void>((resolve, reject) => {

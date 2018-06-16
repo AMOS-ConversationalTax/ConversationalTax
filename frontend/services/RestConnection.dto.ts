@@ -16,7 +16,7 @@ export interface NotificationResponse {
 
     /**
      * The title of the notification
-     * @name Notification#description
+     * @name Notification#title
      * @type {string}
      */
     readonly title: string;
