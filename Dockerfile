@@ -18,6 +18,9 @@ WORKDIR ./backend
 ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm ci
 
+# Remove automatically generated config.ts
+RUN rm /usr/src/app/shared/config/config.ts
+
 EXPOSE 3000
 EXPOSE 3001
 CMD [ "npm", "run", "start" ]
