@@ -81,7 +81,8 @@ export default class RestConnection implements IConnection {
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
 
-        let formData = new FormData();
+        // TS things the below append() call is invalid. However it works. Therefore, we trick TS here by setting the FormData to type any.
+        let formData = new FormData() as any;
         formData.append('file', {
             uri,
             name: `recording.${fileType}`,

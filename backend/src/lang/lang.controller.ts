@@ -2,8 +2,6 @@ import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile,
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { UserService } from '../database/user/user.service';
-import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
-import { ConversationHistoryParameters } from '../database/conversationHistory/interfaces/conversationHistoryParameters.interface';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
@@ -183,7 +181,7 @@ export class LangController {
         this.userService.create(uid);
 
       }
-      const contractId = this.contractService.create(uid);
+      await this.contractService.create(uid);
 
     } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
 

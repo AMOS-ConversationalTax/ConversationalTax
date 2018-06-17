@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
 

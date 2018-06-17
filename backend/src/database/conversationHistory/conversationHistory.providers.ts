@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import DBConfig from '../dbconfig';
 

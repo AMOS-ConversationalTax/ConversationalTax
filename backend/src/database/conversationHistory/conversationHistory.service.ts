@@ -3,7 +3,6 @@ import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ConversationHistory } from './interfaces/conversationHistory.interface';
-import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import { ConversationHistoryParameters } from './interfaces/conversationHistoryParameters.interface';
 import { ConversationHistoryIntent } from './interfaces/conversationHistoryIntent.interface';
 import DBConfig from '../dbconfig';

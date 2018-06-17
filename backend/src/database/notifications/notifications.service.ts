@@ -3,7 +3,6 @@ import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Notification } from './interfaces/notifications.interface';
-import { NotificationsSchema } from './schemas/notifications.schema';
 import DBConfig from '../dbconfig';
 
 /**

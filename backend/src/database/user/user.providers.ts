@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 

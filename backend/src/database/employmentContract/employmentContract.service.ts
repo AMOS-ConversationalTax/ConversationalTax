@@ -3,7 +3,6 @@ import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { EmploymentContract } from './interfaces/employmentContract.interface';
-import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
 
 /**

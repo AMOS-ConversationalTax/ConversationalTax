@@ -59,7 +59,8 @@
             "dir",
             "warn",
             "error"
-        ]
+        ],
+        "no-unused-variable": true
     },
     "rulesDirectory": []
 }

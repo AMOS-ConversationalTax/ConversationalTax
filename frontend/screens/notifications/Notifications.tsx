@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   View,
 } from 'react-native';
 import TopBar from '../../shared/TopBar';
@@ -54,11 +53,3 @@ export default class Notifications extends Component<IProps, IState> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});

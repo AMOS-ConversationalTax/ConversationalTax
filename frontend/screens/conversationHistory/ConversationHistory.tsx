@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
   View,
-  Button,
-  StatusBar,
-  FlatList,
 } from 'react-native';
 import TopBar from '../../shared/TopBar';
 import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import RestConnection from '../../services/RestConnection';
 import List from './components/List';
-import { ConversationHistoryParametersInterface } from './interfaces/ConversationHistoryParameters.interface';
 import { ConversationHistoryInterface } from './interfaces/ConversationHistory.interface';
 
 interface IProps {
@@ -83,11 +76,3 @@ export default class ConversationHistory extends Component<IProps, IState> {
   }
 
 }
-
-const styles = StyleSheet.create({
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
