@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface IProps {}
 
@@ -12,9 +13,9 @@ export default class BottomBar extends Component<IProps> {
     return (
       <View> 
         <View style={styles.topBar}>
-          <Text>Left</Text>
-          <Text>Center</Text>
-          <Text>Right</Text>
+          <Text/>
+          <Ionicons name="md-qr-scanner" size={30} color="#fff" />
+          <Text/>
         </View>
       </View>
 
@@ -24,9 +25,7 @@ export default class BottomBar extends Component<IProps> {
 
 const styles = StyleSheet.create({
   topBar: {
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
+    backgroundColor: 'rgba(0,0,0,0.2)',
     paddingLeft: 20,
     paddingRight: 20,
     height: 60,

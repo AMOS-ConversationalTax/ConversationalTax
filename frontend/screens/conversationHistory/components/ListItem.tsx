@@ -86,19 +86,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 5,
-    color: 'grey',
+    color: '#000',
   },
   value: {
     fontSize: 15,
     textAlign: 'center',
     margin: 5,
-    color: 'black',
+    color: '#fff',
   },
   description: {
     fontSize: 10,
     textAlign: 'center',
     margin: 5,
-    color: 'grey',
+    color: '#000',
   },
 });
 

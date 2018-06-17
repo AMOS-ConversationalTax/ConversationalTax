@@ -39,7 +39,7 @@ export class NotificationService {
         this.restClient = new RestConnection();
         const oldNotifications = await this.restClient.getNotifications();
         oldNotifications.forEach(notification => {
-            this.notifications.push({ title: notification.title, text: notification.description, read: notification.read });
+            this.notifications.unshift({ title: notification.title, text: notification.description, read: notification.read });
         })
         this.newNotification.next();
         this.notificationCount.next(this.countUnread());

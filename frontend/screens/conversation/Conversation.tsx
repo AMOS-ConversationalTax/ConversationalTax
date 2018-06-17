@@ -9,6 +9,7 @@ import Microphone from './components/Microphone';
 import RecordingService from '../../services/RecordingService';
 import RestConnection from '../../services/RestConnection';
 import SpeechService from './../../services/SpeechService';
+import Wrapper from '../../shared/Wrapper';
 
 interface IProps {
   navigation: any
@@ -21,8 +22,7 @@ export default class Conversation extends Component<IProps> {
 
   public render() {
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
+      <Wrapper navigation={this.props.navigation}>
         <View style={globalStyles.content}>
           <Microphone 
             recordingService={this.recordingService}
@@ -30,8 +30,7 @@ export default class Conversation extends Component<IProps> {
             speechService={this.speechService}
           />
         </View>
-        <BottomBar />
-      </View>
+      </Wrapper>
     );
   }
 }

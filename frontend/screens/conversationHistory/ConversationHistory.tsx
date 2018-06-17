@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {
   View,
 } from 'react-native';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import RestConnection from '../../services/RestConnection';
 import List from './components/List';
 import { ConversationHistoryInterface } from './interfaces/ConversationHistory.interface';
+import Wrapper from '../../shared/Wrapper';
 
 interface IProps {
   navigation: any,
@@ -55,13 +54,11 @@ export default class ConversationHistory extends Component<IProps, IState> {
   public render() {
 
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
+      <Wrapper navigation={this.props.navigation}>
         <View style={globalStyles.content}>
           <List data={this.state.data} />
         </View>
-        <BottomBar />
-      </View>
+      </Wrapper>
     );
   }
 

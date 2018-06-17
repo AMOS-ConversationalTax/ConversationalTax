@@ -10,6 +10,7 @@ import { Ionicons, Entypo } from '@expo/vector-icons';
 import { NotificationService } from '../services/NotificationService';
 import { Subscription } from 'rxjs';
 import { filter, delay } from 'rxjs/operators';
+import global_styles from '../global_styles';
 
 interface IProps {
   navigation: any
@@ -44,16 +45,23 @@ export default class TopBar extends Component<IProps> {
 
   public render() {
     const notificationCountElement = this.state.notificationCount > 0 ? this.showNotificationCount() : null;
+    let statusbarStyle;
+    statusbarStyle = {backgroundColor: 'rgba(0,0,0,0.2)'};
     return (
       <View style={styles.wrapper} >
-        <View style={{ height: 20 }} />
         <View style={styles.topBar}>
           <TouchableWithoutFeedback onPress={this.openNavi}>
-            <Entypo name="menu" size={35} color="#000" />
+            <View>
+              <Text style={global_styles.shadow}>
+                <Entypo name="menu" size={35} color="#fff" />
+              </Text>
+            </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback onPress={this.navigateToNotifications}>
             <View style={styles.notificationIconWrapper}>
-              <Ionicons name="md-notifications" size={30} color="#000" />
+              <Text style={[global_styles.shadow, {paddingRight: 20}]}>
+                <Ionicons name="md-notifications" size={30} color="#fff" />
+              </Text>
               {notificationCountElement}
             </View>
           </TouchableWithoutFeedback>
@@ -85,24 +93,22 @@ export default class TopBar extends Component<IProps> {
 const styles = StyleSheet.create({
   topBar: {
     paddingLeft: 20,
-    paddingRight: 20,
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   wrapper: {
-    backgroundColor: '#fff', 
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+
   },
   notificationIconWrapper: {
     position: 'relative',
+    //width: 50,
   },
   notificationTextWrapper: {
     position: 'absolute',
     bottom: 0,
-    right: -10,
+    right: 10,
     borderRadius: 10,
     width: 20,
     height: 20,

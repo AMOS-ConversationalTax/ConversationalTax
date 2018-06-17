@@ -5,13 +5,12 @@ import {
   View,
   Button
 } from 'react-native';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import autobind from 'autobind-decorator';
 import * as request from 'superagent';
 import Config from 'conv-tax-shared/config/config';
 import RestConnection from './../../services/RestConnection';
+import Wrapper from '../../shared/Wrapper';
 
 interface IProps {
   navigation: any
@@ -27,8 +26,7 @@ export default class Debug extends Component<IProps> {
   public render() {
     const buildDate = Config.BUILD_DATE.includes('WillBeReplacedAutomatically') ? 'Unkown' : Config.BUILD_DATE;
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
+      <Wrapper navigation={this.props.navigation}>
         <View style={globalStyles.content}>
           <Text style={styles.welcome}>
             Backend IP: {Config.SERVER_URL}
@@ -52,8 +50,7 @@ export default class Debug extends Component<IProps> {
             <Button title="Emit a Notification to all connected users" onPress={this.emitNoti} />
           </View>
         </View>
-        <BottomBar />
-      </View>
+      </Wrapper>
     );
   }
 
