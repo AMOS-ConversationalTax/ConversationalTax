@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Mockgoose } from 'mockgoose-fix';
-import Config from '../../config/config';
+import Config from 'conv-tax-shared/config/config';
 import DBConfig from './dbconfig';
 
 export const databaseProviders = [

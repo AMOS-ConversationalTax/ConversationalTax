@@ -49,19 +49,21 @@ To be totally honest with you: All branches should feature a green build status.
 
 ### Build the Docker containers
 
-This part is done by using https://semaphoreci.com/, too. One container is built for the Master branch of the GitHub project (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax/) and one for the Develop branch (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax-dev/).
+This part is done by using https://semaphoreci.com/, too. One container is built for the Master branch of the GitHub project (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax/), one for the Develop branch (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax-dev/) and one for manual tests (Pushed to https://hub.docker.com/r/amosconversationaltax/conversational-tax-test/).
 
-The code for both branches is:
+The code for the master branch is:
 
 ```
 nvm install 8
 npm i -g npm@latest exp
 cd backend
 npm ci
-docker build -t amosconversationaltax/conversational-tax .
+docker build -t amosconversationaltax/conversational-tax ../.
 docker push amosconversationaltax/conversational-tax
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh master"
 ```
+
+It is simple to mention that `amosconversationaltax/conversational-tax` has to be replaced with `amosconversationaltax/conversational-tax-dev` for develop and `amosconversationaltax/conversational-tax-test` for the manual test deployment.
 
 ### Building and Deploying the Frontend
 
@@ -71,8 +73,9 @@ Similar to the backend build, we use SemaphoreCI's tools for the frontend CD. Th
 cd ../frontend
 npm ci
 exp login -u $USERNAME -p $PASSWORD
-sed -i -e s/WillBeReplacedAutomatically/$(date +%d.%m.%Y)/ config/config.ts
-sed -i -e 's/localhost:3000/$URL:$PORT/g' config/config.ts
+sed -i -e s/WillBeReplacedAutomatically/$(date +%d.%m.%Y)/ ../shared/config/config.ts
+sed -i -e 's/localhost:3000/$URL:$PORT/g' ../shared/config/config.ts
+sed -i -e 's/localhost:3001/$URL:$PORT/g' ../shared/config/config.ts
 sed -i -e 's/conversational-tax/conversational-tax-$BRANCH/g' app.json
 sed -i -e 's/Conversational Tax/Conversational Tax ($BRANCH)/g' app.json
 npm run publish
@@ -81,7 +84,7 @@ npm run publish
 
 ### Deploy on CD-Server
 
-We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server. Also we will not post our config files here. But it is necessary to mention that `/home/docker/amos_files/config` includes the files `config.js` and `config.js.map` (which can be created by executing `npm i` and `npm run test` after creating the initial `config.ts`). The initial `config.ts` can be found at `/home/docker/amos_files/config.ts`.
+We use an Debain Wheezy Rootserver with Docker installed for deployment of both containers. The IP of the Server is anonymous in the previous code snippets to protect integrity of the server. Also we will not post our config files here. 
 
 #### Docker-Compose files and starting script
 
@@ -99,11 +102,11 @@ services:
         privileged: true
         ports:
             - 3000:3000
+            - 3001:3001
         links:
             - mongo
         volumes:
-            - /home/docker/amos_files/config:/usr/src/app/dist/config
-            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
+            - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
         image: mongo
@@ -128,11 +131,11 @@ services:
         privileged: true
         ports:
             - 3010:3000
+            - 3011:3001
         links:
             - mongo
         volumes:
-            - /home/docker/amos_files/config:/usr/src/app/dist/config
-            - /home/docker/amos_files/config.ts:/usr/src/app/config/config.ts
+            - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
         image: mongo
@@ -141,6 +144,35 @@ services:
             - 27017
         volumes:
             - /home/docker/amos_data/conversational-tax-dev-mongo:/data/db
+```
+
+And this one for the manual tests:
+
+```
+version: '2'
+services:
+    conversational-tax-test:
+        restart: always
+        image: amosconversationaltax/conversational-tax-test
+        container_name: conversational-tax-test
+        depends_on:
+            - mongo
+        privileged: true
+        ports:
+            - 3020:3000
+            - 3021:3001
+        links:
+            - mongo
+        volumes:
+            - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
+    mongo:
+        restart: always
+        image: mongo
+        container_name: conversational-tax-test-mongo
+        expose:
+            - 27017
+        volumes:
+            - /home/docker/amos_data/conversational-tax-test-mongo:/data/db
 ```
 
 Another key part of the deployment is the starting script for the containers (/home/docker/amos_scripts/run_docker.sh):
@@ -159,12 +191,25 @@ if [ $1 == "master" ]; then
   echo "Entered /home/docker/amos_scripts/master successfully"
   echo " "
 
-else
+elif [ $1 == "develop" ]; then
 
   cd /home/docker/amos_scripts/develop
   echo " "
   echo "Entered /home/docker/amos_scripts/develop successfully"
   echo " "
+
+elif [ $1 == "test" ]; then
+
+  cd /home/docker/amos_scripts/test
+  echo " "
+  echo "Entered /home/docker/amos_scripts/test successfully"
+  echo " "
+
+else
+
+  echo "USAGE: ./run_docker.sh [branch]"
+  echo "Use (master, develop, test) for branch"
+  exit 1
 
 fi
 

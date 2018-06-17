@@ -15,25 +15,21 @@ import ConversationHistory from './screens/conversationHistory/ConversationHisto
 import Notifications from './screens/notifications/Notifications';
 import Debug from './screens/debug/Debug';
 
-// Temporary fix to supress warnings
-// https://stackoverflow.com/questions/49789150/warning-ismounted-is-deprecated-in-plain-javascript-classes
-import { YellowBox } from 'react-native';
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
-
 export default DrawerNavigator({
+
   Start: {
     screen: Start,
   },
-  Home: {
+  /*Home: {
     screen: Home,
-  },
+  },*/
   Conversation:  {
     screen: Conversation,
   },
   ConversationHistory:  {
     screen: ConversationHistory,
   },
-  Notifications:  {
+  Notifications: {
     screen: Notifications,
   },
   Debug: {

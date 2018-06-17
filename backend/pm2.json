@@ -1,5 +1,0 @@
-{
-    "name": "conv-tax",
-    "script": "dist/src/main.js",
-    "instances": "1"
-}

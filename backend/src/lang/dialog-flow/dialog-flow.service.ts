@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
-import Config from './../../../config/config';
+import Config from 'conv-tax-shared/config/config';
 import { DatabaseDialogFlowService } from '../../connectors/database-dialogflow.service';
 import * as grpc from 'grpc';
 
