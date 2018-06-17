@@ -29,7 +29,9 @@ npm run test
 npm run lint
 ```
 
-Both, the backend and frontend tests, run in parallel. All branches are tested by https://semaphoreci.com/ automaticly after a new commit. A passing test is prerequisite for merging a branch into Master or Develop. The Master branch and the Develop branch have some cool badges, too:
+Since the 17.06.2018 we test the basic ability of the backend to run in the CD environment. As it is usefull to know how the CD works, before knowing how the CD tests are working, these tests are described in the last section of the documentation.
+
+All of them, the backend, the frontend tests and the cd tests, run in parallel. All branches are tested by https://semaphoreci.com/ automaticly after a new commit. A passing test is prerequisite for merging a branch into Master or Develop. The Master branch and the Develop branch have some cool badges, too:
 
 ### Master Branch
 
@@ -57,7 +59,6 @@ The code for the master branch is:
 nvm install 8
 npm i -g npm@latest exp
 cd backend
-npm ci
 docker build -t amosconversationaltax/conversational-tax ../.
 docker push amosconversationaltax/conversational-tax
 ssh -i /home/runner/.ssh/custom_id_rsa -p 236 -o "StrictHostKeyChecking=no" amos@[anonymous] "sudo /home/docker/amos_scripts/run_docker.sh master"
@@ -237,4 +238,55 @@ The Linux user "amos" does not have any sudo rights (Docker container have to be
 
 ```
 amos    ALL=(ALL) NOPASSWD: /home/docker/amos_scripts/run_docker.sh
+```
+
+## CD tests
+
+As mentioned in the CI section, we run some simple tests to proof the basic ability of the backend to run in the CD environment in the CI. As the other two CI tests, the setup of this test works with the following setup code:
+
+```
+nvm install 8
+npm i -g npm@latest
+```
+
+The actual test looks like this:
+
+```
+cd backend
+docker build -t conversational-tax-test ../.
+cd /home/runner/
+docker-compose up -d
+wget --spider http://localhost:3000
+docker logs conversational-tax-test
+```
+
+The most significant line in this test is `wget --spider http://localhost:3000`, as this tests if the backend is reachable. If this line fails there is a bug in the code, that prevents the code from running in an Docker container. `docker logs conversational-tax-dev` simply shows the log of the docker container. This is useful to identify possible problems in case the container does not work as expected.
+
+It is also to mention that we have two files integrated in /home/runner/. One of them is the `config.ts` and one of them is the `docker-compose.yml`:
+
+```
+version: '2'
+services:
+    conversational-tax-test:
+        restart: always
+        image: conversational-tax-test
+        container_name: conversational-tax-test
+        depends_on:
+            - mongo
+        privileged: true
+        ports:
+            - 3000:3000
+            - 3001:3001
+        links:
+            - mongo
+        volumes:
+            - /home/runner/config.ts:/usr/src/app/shared/config/config.ts
+    mongo:
+        restart: always
+        image: mongo
+        container_name: conversational-tax-test-mongo
+        expose:
+            - 27017
+        volumes:
+            - /home/runner/conversational-tax-test-mongo:/data/db
 ```
