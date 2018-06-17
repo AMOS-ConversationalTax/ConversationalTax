@@ -260,7 +260,7 @@ wget --spider http://localhost:3000
 docker logs conversational-tax-test
 ```
 
-The most significant line in this test is `wget --spider http://localhost:3000`, as this tests if the backend is reachable. If this line fails there is a bug in the code, that prevents the code from running in an Docker container. `docker logs conversational-tax-dev` dient in diesem Fall dazu die passende Fehlermeldung auszugeben um eine Identifikation des Problems zu erleichtern.
+The most significant line in this test is `wget --spider http://localhost:3000`, as this tests if the backend is reachable. If this line fails there is a bug in the code, that prevents the code from running in an Docker container. `docker logs conversational-tax-dev` simply shows the log of the docker container. This is useful to identify possible problems in case the container does not work as expected.
 
 It is also to mention that we have two files integrated in /home/runner/. One of them is the `config.ts` and one of them is the `docker-compose.yml`:
 
