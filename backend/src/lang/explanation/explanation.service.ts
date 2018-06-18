@@ -18,7 +18,7 @@ export class ExplanationService {
     public getContextExplanation(previousIntent: ConversationHistoryIntent): string {
         const intentInfo = this.getIntentInformation(previousIntent);
         if (intentInfo === undefined) {
-            return FALLBACK_HELPTEXT;
+            return FALLBACK_CONTEXT_EXPLANATION;
         }
         return intentInfo.contextText;
     }

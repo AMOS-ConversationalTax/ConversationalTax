@@ -54,9 +54,7 @@ export class DatabaseDialogFlowService {
         }
 
         // Set session entities at dialogflow
-        dialogFlowService.createSessionEntityType( 'EmploymentContract', sessionEntities, u_id );
-
-        return true;
+        return dialogFlowService.createSessionEntityType( 'EmploymentContract', sessionEntities, u_id );
 
     }
 

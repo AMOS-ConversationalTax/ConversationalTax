@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-  Image,
   View,
   Text,
-  StatusBar,
   StyleSheet
 } from 'react-native';
 

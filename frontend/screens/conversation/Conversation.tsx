@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  StatusBar
+  View
 } from 'react-native';
 import TopBar from '../../shared/TopBar';
 import BottomBar from '../../shared/BottomBar';
@@ -40,6 +35,3 @@ export default class Conversation extends Component<IProps> {
     );
   }
 }
-
-const styles = StyleSheet.create({
-});

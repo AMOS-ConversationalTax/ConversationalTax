@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Put, Body, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ConversationHistoryService } from './conversationHistory.service';
 import { GetConversationHistoryParams } from './conversationHistory.dto';
 

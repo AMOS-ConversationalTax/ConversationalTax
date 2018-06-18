@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { ConversationHistory } from './interfaces/conversationHistory.interface';
-import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import { ConversationHistoryParameters } from './interfaces/conversationHistoryParameters.interface';
 import { ConversationHistoryIntent } from './interfaces/conversationHistoryIntent.interface';
 import DBConfig from '../dbconfig';
@@ -15,14 +15,10 @@ import DBConfig from '../dbconfig';
 export class ConversationHistoryService {
 
     /**
-     * The model of the conversationHistory table
-     * Implements the connection to this table, too
-     * Corresponds to db.conversationHistory in MongoDB
-     * @name ConversationHistoryService#conversationHistoryModel
-     * @type {Model<ConversationHistory>}
+     * Constructor - is used for DI of the Model
+     * @param conversationHistoryModel The model of the conversationHistory table (corresponds to db.conversationHistory in MongoDB)
      */
-    private conversationHistoryModel: Model<ConversationHistory> = mongoose.model(  DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER,
-                                                                                    conversationHistorySchema);
+    constructor(@InjectModel(DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER) private readonly conversationHistoryModel: Model<ConversationHistory>) {}
 
     /**
      * Create an new conversationHistory entry in the datastore - does not check if the conversationHistory entry already exists

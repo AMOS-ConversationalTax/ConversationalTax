@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 
@@ -10,7 +9,7 @@ import DBConfig from '../dbconfig';
 export const userProviders: any = [
     {
         provide: DBConfig.USER_MODEL_PROVIDER,
-        useFactory: (connection: Connection) => connection.model(DBConfig.USER_MODEL_PROVIDER, userSchema),
+        useFactory: (mongoose) => mongoose.connection.model(DBConfig.USER_MODEL_PROVIDER, userSchema),
         inject: [DBConfig.DB_PROVIDER],
     },
 ];

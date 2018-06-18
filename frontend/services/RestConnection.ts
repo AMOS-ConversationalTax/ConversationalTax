@@ -1,11 +1,12 @@
-import { rejects } from 'assert';
 import axios from 'axios';
-import Config from '../config/config';
+import Config from 'conv-tax-shared/config/config';
 import Expo from 'expo';
-import * as fs from 'fs';
+import { NotificationResponse} from './RestConnection.dto';
+
+const DEFAULT_OPTIONS = { 'timeout': 10000 };
 
 export default class RestConnection implements IConnection {
-
+    
     public read(): Promise<string> {
         const url = Config.SERVER_URL;
         const promise = new Promise<string>((resolve, reject) => {
@@ -80,7 +81,8 @@ export default class RestConnection implements IConnection {
         let uriParts = uri.split('.');
         let fileType = uriParts[uriParts.length - 1];
 
-        let formData = new FormData();
+        // TS things the below append() call is invalid. However it works. Therefore, we trick TS here by setting the FormData to type any.
+        let formData = new FormData() as any;
         formData.append('file', {
             uri,
             name: `recording.${fileType}`,
@@ -122,6 +124,59 @@ export default class RestConnection implements IConnection {
         });
 
         return promise;
+    }
 
+    /**
+     * Gets old notifications of the user
+     * @returns {Promise<NotificationResponse[]>} Array of notifications
+     */
+    public getNotifications(): Promise<NotificationResponse[]> {
+        const url = `${Config.SERVER_URL}/notifications?u_id=${Expo.Constants.deviceId}`;
+        const promise = new Promise<NotificationResponse[]>((resolve, reject) => {
+            axios.get(url, DEFAULT_OPTIONS)
+                .then((response) => {
+                    resolve(response.data);
+                })
+                .catch((error) => {
+                    reject('Couldn\'t get the old Notifications');
+                });
+        });
+        return promise;
+    }
+
+    /**
+     * Tells the backend to mark all notifications as read
+     * @returns {Promise<void>} Returns as soon as the request has finished
+     */
+    public markNotificationsAsRead(): Promise<void> {
+        const url = `${Config.SERVER_URL}/notifications/markAsRead?u_id=${Expo.Constants.deviceId}`;
+        const promise = new Promise<void>((resolve, reject) => {
+            axios.get(url, DEFAULT_OPTIONS)
+                .then((response) => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject('Couldn\'t mark the Notifications as read');
+                });
+        });
+        return promise;
+    }
+
+    /**
+     * For debuggin purposes; Tells the backend to emit a demo notification
+     * @returns {Promise<void>} Returns as soon as the request has finished
+     */
+    public emitDebugNotificationToAllUsers(): Promise<void> {
+        const url = `${Config.SERVER_URL}/notifications/emit-demo`;
+        const promise = new Promise<void>((resolve, reject) => {
+            axios.get(url, DEFAULT_OPTIONS)
+                .then((response) => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject('Couldn\'t emit a debug Notification');
+                });
+        });
+        return promise;
     }
 }
