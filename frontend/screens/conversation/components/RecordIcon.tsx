@@ -12,7 +12,6 @@ interface IProps {
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 export default class Circle extends Component<IProps> {
-    private animation: any = null;
     private timer: NodeJS.Timer;
     state = {
         progress: new Animated.Value(0),

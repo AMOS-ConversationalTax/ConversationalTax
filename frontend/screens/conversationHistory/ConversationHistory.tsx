@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import {
-  View,
-} from 'react-native';
-import globalStyles from '../../global_styles';
 import RestConnection from '../../services/RestConnection';
 import List from './components/List';
 import { ConversationHistoryInterface } from './interfaces/ConversationHistory.interface';

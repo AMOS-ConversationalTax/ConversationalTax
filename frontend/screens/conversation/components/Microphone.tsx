@@ -5,7 +5,6 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     Text,
-    Dimensions,
 } from 'react-native';
 import autobind from 'autobind-decorator';
 import RestConnection from '../../../services/RestConnection';

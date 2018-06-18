@@ -11,7 +11,6 @@ import { NotificationService } from '../services/NotificationService';
 import { Subscription } from 'rxjs';
 import { filter, delay } from 'rxjs/operators';
 import global_styles from '../global_styles';
-import { Constants } from 'expo';
 import { NavigationService } from '../services/NavigationService';
 
 interface IProps {
@@ -45,10 +44,7 @@ export default class TopBar extends Component<IProps> {
   }
 
   public render() {
-
     const notificationCountElement = this.state.notificationCount > 0 ? this.showNotificationCount() : null;
-    let statusbarStyle;
-    statusbarStyle = {backgroundColor: 'rgba(0,0,0,0.2)'};
     return (
       <View>
         

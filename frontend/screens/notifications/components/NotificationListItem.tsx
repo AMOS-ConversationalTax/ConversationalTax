@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
-import global_styles from '../../../global_styles';
 
 interface IProps {
   notification: NotificationMessage;

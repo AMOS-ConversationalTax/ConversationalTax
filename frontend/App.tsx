@@ -16,7 +16,7 @@ import ConversationHistory from './screens/conversationHistory/ConversationHisto
 import Notifications from './screens/notifications/Notifications';
 import Debug from './screens/debug/Debug';
 import Scanner from './screens/scanner/Scanner';
-import { createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation';
 import globalStyles, { BackgroundColors } from './global_styles';
 import { View, StatusBar } from 'react-native';
 import CustomDrawerContentComponent from './shared/DrawerNavigationContent';
