@@ -10,12 +10,12 @@ import { Vibration } from 'react-native';
 /**
  * Singleton NotificationService
  */
-export class NotificationService {
+export class NotificationServiceInstance {
     public notifications: NotificationMessage[] = [];
     public newNotification: Subject<void> = new Subject();
     public notificationCount: Subject<number> = new Subject();
 
-    private static _instance: NotificationService;
+    private static _instance: NotificationServiceInstance;
     private websocket: WebSocketClient;
     private restClient: RestConnection;
 
@@ -88,9 +88,11 @@ export class NotificationService {
 
     /**
      * Returns the singletons instance.
-     * @returns {NotificationService} The NotificationService instance
+     * @returns {NotificationServiceInstance} The NotificationServiceInstance instance
      */
-    public static get Instance(): NotificationService {
+    public static get Instance(): NotificationServiceInstance {
         return this._instance || (this._instance = new this());
     }
 }
+
+export const NotificationService = NotificationServiceInstance.Instance

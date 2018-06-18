@@ -20,18 +20,18 @@ export default class Notifications extends Component<IProps, IState> {
   }
 
   componentWillMount() {
-    const deepClone = JSON.parse(JSON.stringify(NotificationService.Instance.notifications));
+    const deepClone = JSON.parse(JSON.stringify(NotificationService.notifications));
     this.setState({ notifications: deepClone });
 
-    this.notificationSubscription = NotificationService.Instance.newNotification.subscribe(() => {
-      const deepClone = JSON.parse(JSON.stringify(NotificationService.Instance.notifications));
+    this.notificationSubscription = NotificationService.newNotification.subscribe(() => {
+      const deepClone = JSON.parse(JSON.stringify(NotificationService.notifications));
       this.setState({ notifications: deepClone });
-      NotificationService.Instance.markAsRead();
+      NotificationService.markAsRead();
     })
   }
 
   componentDidMount() {
-    NotificationService.Instance.markAsRead();
+    NotificationService.markAsRead();
   }
 
   componentWillUnmount() {

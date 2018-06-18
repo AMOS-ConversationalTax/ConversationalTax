@@ -25,14 +25,14 @@ export default class TopBar extends Component<IProps> {
   }
   
   componentWillMount() {
-    this.setState({ notificationCount: NotificationService.Instance.countUnread() });
+    this.setState({ notificationCount: NotificationService.countUnread() });
 
-    let subscription = NotificationService.Instance.notificationCount.pipe(filter(count => count !== 0)).subscribe(unreadNotifications => {
+    let subscription = NotificationService.notificationCount.pipe(filter(count => count !== 0)).subscribe(unreadNotifications => {
       this.setState({ notificationCount: unreadNotifications });
     })
     this.notificationSubscription.push(subscription);
 
-    subscription = NotificationService.Instance.notificationCount.pipe(filter(count => count === 0), delay(1000)).subscribe(() => {
+    subscription = NotificationService.notificationCount.pipe(filter(count => count === 0), delay(1000)).subscribe(() => {
       this.setState({ notificationCount: 0 });
     })
     this.notificationSubscription.push(subscription);
