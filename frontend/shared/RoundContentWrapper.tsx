@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import autobind from 'autobind-decorator';
+import { NavigationService } from '../services/NavigationService';
 
 interface IProps {
     title: string;
-    navigation: any;
 }
 
 export default class RoundContentWrapper extends Component<IProps> {
@@ -27,8 +27,8 @@ export default class RoundContentWrapper extends Component<IProps> {
 
     @autobind
     private navigateToNotifications() {
-        this.props.navigation.goBack();
-        console.log(this.props.navigation.getChildNavigation());
+        console.log('Test');
+        NavigationService.goBack();
     }
 }
 

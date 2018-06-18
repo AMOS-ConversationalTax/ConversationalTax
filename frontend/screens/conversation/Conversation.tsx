@@ -10,7 +10,6 @@ import SpeechService from './../../services/SpeechService';
 import Wrapper from '../../shared/Wrapper';
 
 interface IProps {
-  navigation: any
 }
 
 export default class Conversation extends Component<IProps> {
@@ -20,7 +19,7 @@ export default class Conversation extends Component<IProps> {
 
   public render() {
     return (
-      <Wrapper navigation={this.props.navigation}>
+      <Wrapper>
         <View style={globalStyles.content}>
           <Microphone 
             recordingService={this.recordingService}

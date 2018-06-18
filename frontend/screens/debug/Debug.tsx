@@ -13,7 +13,6 @@ import RestConnection from './../../services/RestConnection';
 import Wrapper from '../../shared/Wrapper';
 
 interface IProps {
-  navigation: any
 }
 
 export default class Debug extends Component<IProps> {
@@ -26,7 +25,7 @@ export default class Debug extends Component<IProps> {
   public render() {
     const buildDate = Config.BUILD_DATE.includes('WillBeReplacedAutomatically') ? 'Unkown' : Config.BUILD_DATE;
     return (
-      <Wrapper navigation={this.props.navigation}>
+      <Wrapper>
         <View style={globalStyles.content}>
           <Text style={styles.welcome}>
             Backend IP: {Config.SERVER_URL}

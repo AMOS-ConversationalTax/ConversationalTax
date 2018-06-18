@@ -7,32 +7,16 @@ import { StatusBar, View } from 'react-native';
 
 interface IProps {
     showBars?: boolean,
-    navigation: any
 }
 
 export default class Wrapper extends Component<IProps> {
     public render() {
-        let topBar = null;
-        let bottomBar = null;
-        if (this.props.showBars !== false) {
-            topBar = <TopBar navigation={this.props.navigation} />;
-            bottomBar = <BottomBar navigation={this.props.navigation} />;
-        }
-        let statusbarStyles: any = { height: 24 };
-        if (Constants.platform.ios !== undefined) {
-            statusbarStyles = { height: 20, backgroundColor: 'rgba(0,0,0,0.2)' };
-        }
         return (
-            <LinearGradient 
-                colors={BackgroundColors} 
-                style={globalStyles.gardient}
-            >
-                <StatusBar barStyle="light-content"/>
-                <View style={statusbarStyles} />
-                {topBar}
+            <View style={globalStyles.gardient}>
+                <TopBar/>
                 {this.props.children}
-                {bottomBar}
-            </LinearGradient>
+                <BottomBar/>
+            </View>
         );
     }
 }

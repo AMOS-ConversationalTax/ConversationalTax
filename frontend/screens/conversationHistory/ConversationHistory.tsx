@@ -10,7 +10,6 @@ import Wrapper from '../../shared/Wrapper';
 import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
 interface IProps {
-  navigation: any,
 }
 
 interface IState {
@@ -55,8 +54,8 @@ export default class ConversationHistory extends Component<IProps, IState> {
   public render() {
 
     return (
-      <Wrapper navigation={this.props.navigation}>
-        <RoundContentWrapper title="Verlauf" navigation={this.props.navigation}>
+      <Wrapper>
+        <RoundContentWrapper title="Verlauf">
           <List data={this.state.data} />
         </RoundContentWrapper>
       </Wrapper>

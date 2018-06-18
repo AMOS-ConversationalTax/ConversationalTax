@@ -7,7 +7,6 @@ import Wrapper from '../../shared/Wrapper';
 import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
 interface IProps {
-  navigation: any;
 }
 
 interface IState {
@@ -41,8 +40,8 @@ export default class Notifications extends Component<IProps, IState> {
 
   public render() {
     return (
-      <Wrapper navigation={this.props.navigation}>
-        <RoundContentWrapper title="Benachrichtigungen" navigation={this.props.navigation}>
+      <Wrapper>
+        <RoundContentWrapper title="Benachrichtigungen">
           <NotificationList notifications={this.state.notifications}/>
         </RoundContentWrapper>
       </Wrapper>

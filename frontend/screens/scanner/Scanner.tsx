@@ -4,7 +4,6 @@ import Wrapper from '../../shared/Wrapper';
 import globalStyles from '../../global_styles';
 
 interface IProps {
-    navigation: any;
 }
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -16,7 +15,7 @@ export default class Scanner extends Component<IProps> {
         const height = 667 * screenScaling * scaling;
         const width = 375 * screenScaling * scaling;
         return (
-            <Wrapper navigation={this.props.navigation}>
+            <Wrapper>
                 <View style={[globalStyles.content, { justifyContent: 'center'}]}>
                     <Image style={{ width, height }} source={require('../../assets/scanner.png')}/>
                 </View>

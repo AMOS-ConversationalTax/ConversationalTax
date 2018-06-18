@@ -15,7 +15,7 @@ export default class Home extends Component<IProps> {
 
   public render() {
     return (
-      <Wrapper navigation={this.props.navigation}>
+      <Wrapper>
         <View style={globalStyles.content}>
           <Text style={styles.welcome}>
             Home

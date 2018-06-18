@@ -7,9 +7,9 @@ import {
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import autobind from 'autobind-decorator';
 import global_styles from '../global_styles';
+import { NavigationService } from '../services/NavigationService';
 
 interface IProps {
-  navigation: any
 }
 
 export default class BottomBar extends Component<IProps> {
@@ -40,17 +40,17 @@ export default class BottomBar extends Component<IProps> {
   
   @autobind
   private navigateToScanner() {
-    this.props.navigation.navigate('Scanner');
+    NavigationService.navigate('Scanner');
   }
   
   @autobind
   private navigateToConversation() {
-    this.props.navigation.navigate('Conversation');
+    NavigationService.navigate('Conversation');
   }
   
   @autobind
   private navigateToHistory() {
-    this.props.navigation.navigate('ConversationHistory');
+    NavigationService.navigate('ConversationHistory');
   }
 }
 

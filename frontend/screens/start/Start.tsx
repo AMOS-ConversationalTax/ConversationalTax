@@ -2,53 +2,43 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  Button,
   View,
   TouchableOpacity,
 } from 'react-native';
 import Logo from '../../shared/Logo';
 import autobind from 'autobind-decorator';
-import Wrapper from '../../shared/Wrapper';
-import { Constants } from 'expo';
 import global_styles from '../../global_styles';
+import { NavigationService } from '../../services/NavigationService';
 
 interface IProps {
-  navigation: any
 }
 
 export default class Start extends Component<IProps> {
 
   public render() {
-    let buttonColor = '#EA9361';
-    if (Constants.platform.ios !== undefined) {
-      buttonColor = '#fff';
-    }
     return (
-      <Wrapper showBars={false} navigation={this.props.navigation}>
-        <View style={styles.container}>
-          <View style={styles.logoContainer}>
-            <Text style={[styles.convText, global_styles.shadow]}>conversational</Text>
-            <Text style={[styles.taxText, global_styles.shadow]}>Tax</Text>
-          </View>
-          <Logo style={styles.logo} scaling={0.9}/>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={this.goHome}>
-              <View style={styles.textContainer}>
-                <Text style={[global_styles.shadow, styles.text]}>
-                  Los geht's
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Text style={[styles.convText, global_styles.shadow]}>conversational</Text>
+          <Text style={[styles.taxText, global_styles.shadow]}>Tax</Text>
         </View>
-      </Wrapper>
+        <Logo style={styles.logo} scaling={0.9}/>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={this.goHome}>
+            <View style={styles.textContainer}>
+              <Text style={[global_styles.shadow, styles.text]}>
+                Los geht's
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 
   @autobind
   private goHome() {
-    this.props.navigation.navigate('Conversation');
+    NavigationService.navigate('Conversation');
   }
 
 }

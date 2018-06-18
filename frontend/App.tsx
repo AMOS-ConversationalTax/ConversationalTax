@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { Asset, AppLoading, Font } from 'expo';
+import { Asset, AppLoading, Font, LinearGradient, Constants } from 'expo';
 import autobind from 'autobind-decorator';
 import Start from './screens/start/Start';
 import { Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,28 +16,24 @@ import ConversationHistory from './screens/conversationHistory/ConversationHisto
 import Notifications from './screens/notifications/Notifications';
 import Debug from './screens/debug/Debug';
 import Scanner from './screens/scanner/Scanner';
-import { createDrawerNavigator } from 'react-navigation';
-import Loader from './screens/conversation/components/Loader';
+import { createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
+import globalStyles, { BackgroundColors } from './global_styles';
+import { View, StatusBar } from 'react-native';
+import CustomDrawerContentComponent from './shared/DrawerNavigationContent';
+import { NavigationService } from './services/NavigationService';
+import Credits from './screens/credits/Credits';
 
+// Add screens that should be routable. 
 const DrawerNavigation = createDrawerNavigator({
-  Start: {
-    screen: Start,
-  },
-  Conversation: {
-    screen: Conversation,
-  },
-  Scanner: {
-    screen: Scanner,
-  },
-  ConversationHistory: {
-    screen: ConversationHistory,
-  },
-  Notifications: {
-    screen: Notifications,
-  },
-  Debug: {
-    screen: Debug,
-  }
+    Start,
+    Conversation,
+    Notifications,
+    ConversationHistory,
+    Scanner,
+    Debug,
+    Credits,
+  }, {
+    contentComponent: CustomDrawerContentComponent
 });
 
 /**
@@ -59,7 +55,23 @@ export default class App extends React.Component {
       );
     }
 
-    return <DrawerNavigation/>;
+    let statusbarStyles: any = { height: 24 };
+    if (Constants.platform.ios !== undefined) {
+      statusbarStyles = { height: 20, backgroundColor: 'rgba(0,0,0,0.2)' };
+    }
+
+    return (
+    <LinearGradient
+      colors={BackgroundColors}
+      style={globalStyles.gardient}
+    >
+      <StatusBar barStyle="light-content" />
+      <View style={statusbarStyles} />
+      <DrawerNavigation
+          ref={(navigatorRef: any) => {NavigationService.setTopLevelNavigator(navigatorRef)}}
+      />
+    </LinearGradient>
+  );
   }
 
   @autobind
