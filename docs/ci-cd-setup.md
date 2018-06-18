@@ -256,8 +256,9 @@ cd backend
 docker build -t conversational-tax-test ../.
 cd /home/runner/
 docker-compose up -d
-wget --spider http://localhost:3000
+sleep 20s
 docker logs conversational-tax-test
+wget --spider http://localhost:3000
 ```
 
 The most significant line in this test is `wget --spider http://localhost:3000`, as this tests if the backend is reachable. If this line fails there is a bug in the code, that prevents the code from running in an Docker container. `docker logs conversational-tax-dev` simply shows the log of the docker container. This is useful to identify possible problems in case the container does not work as expected.
