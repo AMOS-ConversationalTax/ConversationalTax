@@ -8,8 +8,6 @@ import { DatabaseLangService } from '../connectors/database-lang.service';
 import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
 import { EmployeeService } from './services/employee.service';
 
-const USER_NAME = 'dummyBoy';
-
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
   sampleRate: 16000,
@@ -81,8 +79,7 @@ export class LangController {
     const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
 
     await this.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
-    this.employeeService.processEmployeeContract(dialogflowResponse[0], USER_NAME);
-
+    this.employeeService.processEmployeeContract(dialogflowResponse[0], uid);
     return { text: responseText };
   }
 
@@ -288,6 +285,10 @@ export class LangController {
 
       return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
 
+    } else {
+      const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
+      this.employeeService.processEmployeeContract(dialogflowResponse[0], uid);
+      return { text: responseText };
     }
 
     return undefined;
