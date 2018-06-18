@@ -4,6 +4,7 @@ import { NotificationService } from '../../services/NotificationService';
 import { Subscription } from 'rxjs';
 import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 import Wrapper from '../../shared/Wrapper';
+import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
 interface IProps {
   navigation: any;
@@ -41,7 +42,9 @@ export default class Notifications extends Component<IProps, IState> {
   public render() {
     return (
       <Wrapper navigation={this.props.navigation}>
-        <NotificationList notifications={this.state.notifications}/>
+        <RoundContentWrapper title="Benachrichtigungen" navigation={this.props.navigation}>
+          <NotificationList notifications={this.state.notifications}/>
+        </RoundContentWrapper>
       </Wrapper>
     );
   }

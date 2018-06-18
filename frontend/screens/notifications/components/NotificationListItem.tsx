@@ -20,8 +20,8 @@ export default class NotificationListItem extends Component<IProps> {
 
     return (
       <View style={viewStyles}>
-        <Text style={[styles.text, styles.headline, global_styles.shadowLight]}>{this.props.notification.title}</Text>
-        <Text style={[styles.text, global_styles.shadowLight]}>{this.props.notification.text}</Text>
+        <Text style={[styles.text, styles.headline]}>{this.props.notification.title}</Text>
+        <Text style={[styles.text]}>{this.props.notification.text}</Text>
       </View>
     )
   }
@@ -33,20 +33,20 @@ const styles = StyleSheet.create({
     padding: 20,
     alignSelf: 'stretch',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.25)',
+    borderBottomColor: 'rgba(0,0,0,0.25)',
   },
   firstItem: {
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255,255,255,0.25)',
+    //borderTopWidth: 1,
+    //borderTopColor: 'rgba(0,0,0,0.25)',
   },
   text: {
     fontSize: 18,
-    color: '#fff'
+    color: '#333'
   },
   headline: {
     fontWeight: 'bold'
   },
   unread: {
-    backgroundColor: 'rgba(0,0,0,0.075)',
+    backgroundColor: '#FFE7CB',
   }
 });

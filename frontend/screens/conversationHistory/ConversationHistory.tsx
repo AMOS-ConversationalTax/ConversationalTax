@@ -7,6 +7,7 @@ import RestConnection from '../../services/RestConnection';
 import List from './components/List';
 import { ConversationHistoryInterface } from './interfaces/ConversationHistory.interface';
 import Wrapper from '../../shared/Wrapper';
+import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
 interface IProps {
   navigation: any,
@@ -55,9 +56,9 @@ export default class ConversationHistory extends Component<IProps, IState> {
 
     return (
       <Wrapper navigation={this.props.navigation}>
-        <View style={globalStyles.content}>
+        <RoundContentWrapper title="Verlauf" navigation={this.props.navigation}>
           <List data={this.state.data} />
-        </View>
+        </RoundContentWrapper>
       </Wrapper>
     );
   }

@@ -3,7 +3,7 @@ import { LinearGradient, Constants } from 'expo';
 import globalStyles, { BackgroundColors } from '../global_styles';
 import TopBar from './TopBar';
 import BottomBar from './BottomBar';
-import { RegisteredStyle, ViewStyle, StatusBar, View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 
 interface IProps {
     showBars?: boolean,
@@ -16,7 +16,7 @@ export default class Wrapper extends Component<IProps> {
         let bottomBar = null;
         if (this.props.showBars !== false) {
             topBar = <TopBar navigation={this.props.navigation} />;
-            bottomBar = <BottomBar />;
+            bottomBar = <BottomBar navigation={this.props.navigation} />;
         }
         let statusbarStyles: any = { height: 24 };
         if (Constants.platform.ios !== undefined) {

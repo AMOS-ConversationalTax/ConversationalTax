@@ -19,7 +19,7 @@ export default class Circle extends Component<IProps> {
     };
 
     componentDidMount() {
-        this.interval();
+        this.timer = setTimeout(() => { this.interval() }, 500);
     }
 
     componentWillMount() {
@@ -73,28 +73,29 @@ export default class Circle extends Component<IProps> {
                         
                     </View>
                 </View>
-                
             </View>
         );
     }
 
 }
 
+const circleSacling = 0.9;
+const circleContainerSacling = 0.6;
 const styles = StyleSheet.create({
     animationContainer: {
         position: 'relative',
         left: -3,
         top: 2,
-        height: DEVICE_WIDTH,
-        width: DEVICE_WIDTH,
+        height: circleSacling * DEVICE_WIDTH,
+        width: circleSacling * DEVICE_WIDTH,
     },
     container: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        height: 3 / 4 * DEVICE_WIDTH,
-        width: 3 / 4 * DEVICE_WIDTH,
+        height: circleContainerSacling * DEVICE_WIDTH,
+        width: circleContainerSacling * DEVICE_WIDTH,
     },
     absolutePos: {
         position: 'absolute',

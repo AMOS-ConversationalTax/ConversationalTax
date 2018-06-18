@@ -4,6 +4,7 @@ import {
   Text,
   Button,
   View,
+  TouchableOpacity,
 } from 'react-native';
 import Logo from '../../shared/Logo';
 import autobind from 'autobind-decorator';
@@ -25,17 +26,19 @@ export default class Start extends Component<IProps> {
     return (
       <Wrapper showBars={false} navigation={this.props.navigation}>
         <View style={styles.container}>
-          <View style={styles.textContainer}>
+          <View style={styles.logoContainer}>
             <Text style={[styles.convText, global_styles.shadow]}>conversational</Text>
             <Text style={[styles.taxText, global_styles.shadow]}>Tax</Text>
           </View>
           <Logo style={styles.logo} scaling={0.9}/>
           <View style={styles.buttonContainer}>
-            <Button
-              onPress={this.goHome}
-              title="Los geht's"
-              color={buttonColor}
-            />
+            <TouchableOpacity onPress={this.goHome}>
+              <View style={styles.textContainer}>
+                <Text style={[global_styles.shadow, styles.text]}>
+                  Los geht's
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
 
         </View>
@@ -58,13 +61,26 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 70,
   },
-  textContainer: {
+  logoContainer: {
     position: 'absolute',
     top: 50,
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  textContainer: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    borderRadius: 5,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+    
   },
   convText: {
     fontSize: 35,

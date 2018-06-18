@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native';
 import autobind from 'autobind-decorator'
 import { Ionicons, Entypo } from '@expo/vector-icons';
@@ -50,21 +50,21 @@ export default class TopBar extends Component<IProps> {
     return (
       <View style={styles.wrapper} >
         <View style={styles.topBar}>
-          <TouchableWithoutFeedback onPress={this.openNavi}>
-            <View>
+          <TouchableOpacity onPress={this.openNavi}>
+            <View style={global_styles.touchableIcon}>
               <Text style={global_styles.shadow}>
                 <Entypo name="menu" size={35} color="#fff" />
               </Text>
             </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this.navigateToNotifications}>
-            <View style={styles.notificationIconWrapper}>
-              <Text style={[global_styles.shadow, {paddingRight: 20}]}>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.navigateToNotifications}>
+            <View style={[styles.notificationIconWrapper, global_styles.touchableIcon]}>
+              <Text style={[global_styles.shadow]}>
                 <Ionicons name="md-notifications" size={30} color="#fff" />
               </Text>
               {notificationCountElement}
             </View>
-          </TouchableWithoutFeedback>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -80,7 +80,7 @@ export default class TopBar extends Component<IProps> {
 
   @autobind
   private openNavi() {
-    this.props.navigation.navigate('DrawerOpen');
+    this.props.navigation.openDrawer();
   }
 
   @autobind
@@ -92,7 +92,7 @@ export default class TopBar extends Component<IProps> {
 
 const styles = StyleSheet.create({
   topBar: {
-    paddingLeft: 20,
+    paddingLeft: 0,
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -103,11 +103,10 @@ const styles = StyleSheet.create({
   },
   notificationIconWrapper: {
     position: 'relative',
-    //width: 50,
   },
   notificationTextWrapper: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     right: 10,
     borderRadius: 10,
     width: 20,

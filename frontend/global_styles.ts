@@ -11,6 +11,12 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'stretch',
     },
+    touchableIcon: {
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
     content: {
         flex: 1,
         alignItems: 'center',
