@@ -5,6 +5,7 @@ import { UserService } from '../database/user/user.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DialogHistoryService } from './dialog-history/dialog-history.service';
+import { ListAllContractsService } from './listAllContracts/listAllContracts.service';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -18,6 +19,7 @@ const IOS_AUDIO_SETTINGS = {
 
 const INTENT_HELP = 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275';
 const INTENT_CONTEXT = 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700';
+const INTENT_LISTALLCONTRACTS = 'projects/test-c7ec0/agent/intents/92883a98-404c-4e9f-b385-a5a9108a4764';
 
 @Controller('lang')
 export class LangController {
@@ -28,6 +30,7 @@ export class LangController {
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
     private dialogHistoryService: DialogHistoryService,
+    private listAllContractsService: ListAllContractsService,
   ) {}
 
   @Post('text')
@@ -160,6 +163,14 @@ export class LangController {
       const history = this.dialogHistoryService.getHistory(uid);
       const previousResponse = history[0];
       const text = this.explanationService.getContextExplanation(previousResponse.intent);
+      return { text };
+    } else if (intent.name === INTENT_LISTALLCONTRACTS) {
+      // Get the list of all contracts
+      const contracts = this.listAllContractsService.getAllContracts(uid);
+      // Get the Answer from Dialogflow
+      const answer = 'Das sind deine Arbeitsverträge. ';
+      // Combine the answer with the list as strings and return it
+      const text = answer + contracts.toString();
       return { text };
     }
     return undefined;
