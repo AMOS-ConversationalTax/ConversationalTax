@@ -5,15 +5,16 @@ import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.ser
 import { AudioIntentParams, TextIntentBody, TextIntentParams } from './lang.dto';
 import { UserService } from '../database/user/user.service';
 import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
+import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
 import { ExplanationService } from './explanation/explanation.service';
-import { DialogHistoryService } from './dialog-history/dialog-history.service';
+import { DatabaseLangService } from '../connectors/database-lang.service';
 
 // Creates a mock of the classes and removes their implementation. Custom implementation is then added in beforeAll()
 jest.mock('./dialog-flow/dialog-flow.service', () => jest.fn(() => {}) );
 jest.mock('../database/user/user.service', () => jest.fn(() => { }));
 jest.mock('../database/employmentContract/employmentContract.service', () => jest.fn(() => { }));
 jest.mock('./explanation/explanation.service', () => jest.fn(() => { }));
-jest.mock('./dialog-history/dialog-history.service', () => jest.fn(() => { }));
+jest.mock('../connectors/database-lang.service', () => jest.fn(() => { }));
 
 describe('LangController', () => {
     let langController: LangController;
@@ -21,12 +22,12 @@ describe('LangController', () => {
     let userService: any;
     let employmentContractService: any;
     let explanationService: any;
-    let dialogHistoryService: any;
+    let databaseLangService: any;
 
     beforeAll(() => {
         dialogFlowService = {
-            detectTextIntent: jest.fn().mockImplementation(() => [{}]),
-            detectAudioIntent: jest.fn().mockImplementation(() => [{}]),
+            detectTextIntent: jest.fn().mockImplementation(() => [{ queryResult: { queryText: 'abcde'}}]),
+            detectAudioIntent: jest.fn().mockImplementation(() => [{ queryResult: { queryText: 'abcde' } }]),
             extractResponseText: jest.fn().mockImplementation(() => ''),
             extractResponseIntent: jest.fn().mockImplementation(() => ({name: ''})),
             extractResponseAction: jest.fn().mockImplementation(() => ''),
@@ -39,8 +40,8 @@ describe('LangController', () => {
         };
         explanationService = {
         };
-        dialogHistoryService = {
-            storeHistory: jest.fn(),
+        databaseLangService = {
+            createConversationHistoryEntry: jest.fn(),
         };
     });
 
@@ -50,7 +51,7 @@ describe('LangController', () => {
             userService,
             employmentContractService,
             explanationService,
-            dialogHistoryService,
+            databaseLangService,
         );
     });
 
@@ -68,9 +69,6 @@ describe('LangController', () => {
         it('should forward the request to the dialogFlowService', async () => {
             const mockParams: AudioIntentParams = { platform: 'ios', u_id: 'This434234_is4234_a2234_U43_ID44' };
             const mockFile = {buffer: new Buffer('')};
-            dialogFlowService.detectAudioIntent.mockImplementationOnce((file, params) => {
-                return [{}];
-            });
             await langController.uploadFile(mockFile, mockParams);
             expect(dialogFlowService.detectAudioIntent).toHaveBeenCalledTimes(1);
         });

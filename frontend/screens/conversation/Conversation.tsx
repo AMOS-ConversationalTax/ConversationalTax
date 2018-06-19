@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  StatusBar
+  View
 } from 'react-native';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import Microphone from './components/Microphone';
 import RecordingService from '../../services/RecordingService';
 import RestConnection from '../../services/RestConnection';
 import SpeechService from './../../services/SpeechService';
+import Wrapper from '../../shared/Wrapper';
 
 interface IProps {
-  navigation: any
 }
 
 export default class Conversation extends Component<IProps> {
@@ -26,8 +19,7 @@ export default class Conversation extends Component<IProps> {
 
   public render() {
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
+      <Wrapper>
         <View style={globalStyles.content}>
           <Microphone 
             recordingService={this.recordingService}
@@ -35,11 +27,7 @@ export default class Conversation extends Component<IProps> {
             speechService={this.speechService}
           />
         </View>
-        <BottomBar />
-      </View>
+      </Wrapper>
     );
   }
 }
-
-const styles = StyleSheet.create({
-});

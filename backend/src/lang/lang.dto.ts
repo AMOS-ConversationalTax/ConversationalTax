@@ -1,4 +1,4 @@
-import { IsString, Length, IsInt, Min, Max, Matches } from 'class-validator';
+import { IsString, Length, Matches } from 'class-validator';
 
 export class TextIntentBody {
     @IsString()

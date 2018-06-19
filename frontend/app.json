@@ -3,7 +3,7 @@
     "name": "Conversational Tax",
     "slug": "conversational-tax",
     "privacy": "public",
-    "sdkVersion": "27.0.0",
+    "sdkVersion": "28.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#fff",
@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F8A441"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

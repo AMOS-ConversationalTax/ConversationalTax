@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
-import Config from './../../../config/config';
-import { DatabaseDialogFlowService } from '../..//connectors/database-dialogflow.service';
+import Config from 'conv-tax-shared/config/config';
+import { DatabaseDialogFlowService } from '../../connectors/database-dialogflow.service';
 import * as grpc from 'grpc';
 
 const PROJECT_ID = 'test-c7ec0';
@@ -14,7 +14,6 @@ const LANG_CODE = 'de-DE';
 export class DialogFlowService {
     private sessionClient: any;
     private sessionEntityTypesClient: any;
-    private contextsClient: any;
 
     constructor( private databaseDialogFlowService: DatabaseDialogFlowService ) {
 
@@ -22,8 +21,6 @@ export class DialogFlowService {
 
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
             this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient({ credentials: Config.DIALOGFLOW_KEY });
-            this.contextsClient = new dialogflow.ContextsClient({ credentials: Config.DIALOGFLOW_KEY });
-
         }
 
     }
@@ -127,9 +124,7 @@ export class DialogFlowService {
      * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
-
         return detectIntent.queryResult.fulfillmentText;
-
     }
 
     /**
@@ -297,6 +292,9 @@ export class DialogFlowService {
      *
      */
     public extractResponseAction(detectIntent: DetectIntentResponse): string {
+        if (detectIntent.queryResult.action === '') {
+            return 'undefined';
+        }
         return detectIntent.queryResult.action;
     }
 

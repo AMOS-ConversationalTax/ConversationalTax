@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { EmploymentContract } from './interfaces/employmentContract.interface';
-import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
 
 /**
@@ -13,13 +13,10 @@ import DBConfig from '../dbconfig';
 export class EmploymentContractService {
 
     /**
-     * The model of the employmentContract table
-     * Implements the connection to this table, too
-     * Corresponds to db.employmentContract in MongoDB
-     * @name EmploymentContractService#employmentContractModel
-     * @type {Model<User>}
+     * Constructor - is used for DI of the Model
+     * @param employmentContractModel The model of the employmentContract table (corresponds to db.employmentContract in MongoDB)
      */
-    private employmentContractModel: Model<EmploymentContract> = mongoose.model(DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER, employmentContractSchema);
+    constructor(@InjectModel(DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER) private readonly employmentContractModel: Model<EmploymentContract>) {}
 
     /**
      * Create a new empty employmentContract in the datastore  - does not check if the employmentContract already exists
@@ -43,9 +40,8 @@ export class EmploymentContractService {
      * Set or update the name of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} name - The (new) name of the employmentContract
-     * @returns {Promise<boolean>} - A promise containing a boolean success value
      */
-    async editName(_id: string, name: string): Promise<boolean> {
+    async editName(_id: string, name: string) {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
@@ -55,12 +51,9 @@ export class EmploymentContractService {
             // Edit the employmentContract
             await this.employmentContractModel.update({ '_id': _id }, { $set: { 'name': name } });
 
-            return true;
-
         } else {
 
-            // EmploymentContract does not exist
-            return false;
+            throw new Error('EmploymentContract does not exists');
 
         }
 
@@ -70,9 +63,8 @@ export class EmploymentContractService {
      * Set or update the startDate_exact of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} startDate_exact - The (new) exact startDate of the employmentContract
-     * @returns {Promise<boolean>} - A promise containing a boolean success value
      */
-    async editStartDateExact(_id: string, startDate_exact: Date): Promise<boolean> {
+    async editStartDateExact(_id: string, startDate_exact: Date) {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
@@ -82,12 +74,31 @@ export class EmploymentContractService {
             // Edit the employmentContract
             await this.employmentContractModel.update({ '_id': _id }, { $set: { 'startDate_exact': startDate_exact } });
 
-            return true;
+        } else {
+
+            throw new Error('EmploymentContract does not exists');
+
+        }
+
+    }
+
+    /**
+     * Remove startDate_exact of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     */
+    async deleteStartDateExact(_id: string) {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'startDate_exact': 1 } });
 
         } else {
 
-            // EmploymentContract does not exist
-            return false;
+            throw new Error('EmploymentContract does not exists');
 
         }
 
@@ -97,9 +108,8 @@ export class EmploymentContractService {
      * Set or update the startDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} startDate_string - The (new) string startDate of the employmentContract
-     * @returns {Promise<boolean>} - A promise containing a boolean success value
      */
-    async editStartDateString(_id: string, startDate_string: string): Promise<boolean> {
+    async editStartDateString(_id: string, startDate_string: string) {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
@@ -109,24 +119,42 @@ export class EmploymentContractService {
             // Edit the employmentContract
             await this.employmentContractModel.update({ '_id': _id }, { $set: { 'startDate_string': startDate_string } });
 
-            return true;
-
         } else {
 
-            // EmploymentContract does not exist
-            return false;
+            throw new Error('EmploymentContract does not exists');
 
         }
 
     }
 
     /**
+     * Remove startDate_string of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     */
+    async deleteStartDateString(_id: string) {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'startDate_string': 1 } });
+
+        } else {
+
+            throw new Error('EmploymentContract does not exists');
+
+        }
+
+   }
+
+    /**
      * Set or update the endDate_exact of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} endDate_exact - The (new) exact endDate of the employmentContract
-     * @returns {Promise<boolean>} - A promise containing a boolean success value
      */
-    async editEndDateExact(_id: string, endDate_exact: Date): Promise<boolean> {
+    async editEndDateExact(_id: string, endDate_exact: Date) {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
@@ -136,24 +164,42 @@ export class EmploymentContractService {
             // Edit the employmentContract
             await this.employmentContractModel.update({ '_id': _id }, { $set: { 'endDate_exact': endDate_exact } });
 
-            return true;
-
         } else {
 
-            // EmploymentContract does not exist
-            return false;
+            throw new Error('EmploymentContract does not exists');
 
         }
 
     }
 
     /**
+     * Remove endDate_exact of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     */
+    async deleteEndDateExact(_id: string) {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'endDate_exact': 1 } });
+
+        } else {
+
+            throw new Error('EmploymentContract does not exists');
+
+        }
+
+   }
+
+    /**
      * Set or update the endDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
      * @param {string} endDate_exact - The (new) string endDate of the employmentContract
-     * @returns {Promise<boolean>} - A promise containing a boolean success value
      */
-    async editEndDateString(_id: string, endDate_string: string): Promise<boolean> {
+    async editEndDateString(_id: string, endDate_string: string) {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
@@ -163,16 +209,35 @@ export class EmploymentContractService {
             // Edit the employmentContract
             await this.employmentContractModel.update({ '_id': _id }, { $set: { 'endDate_string': endDate_string } });
 
-            return true;
-
         } else {
 
-            // EmploymentContract does not exist
-            return false;
+            throw new Error('EmploymentContract does not exists');
 
         }
 
     }
+
+    /**
+     * Remove endDate_string of a specific employmentContract
+     * @param {string} _id - The id of the employmentContract
+     */
+    async deleteEndDateString(_id: string) {
+
+        // Test whether employmentContract with _id is existing
+        const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
+
+        if ( existingEmploymentContract.length === 1 ) {
+
+            // Edit the employmentContract
+            await this.employmentContractModel.update({ '_id': _id }, { $unset: { 'endDate_string': 1 } });
+
+        } else {
+
+            throw new Error('EmploymentContract does not exists');
+
+        }
+
+   }
 
     /**
      * Find a specific employmentContract by his unique id
@@ -220,9 +285,8 @@ export class EmploymentContractService {
     /**
      * Delete a specific employmentContract
      * @param {string} _id - The id of the employmentContract
-     * @returns {Promise<boolean>} - A promise containing a boolean success value
      */
-    async deleteEmploymentContract(_id: string): Promise<boolean> {
+    async deleteEmploymentContract(_id: string) {
 
         // Test whether employmentContract with _id is existing
         const existingEmploymentContract: Array<EmploymentContract> = await this.employmentContractModel.find({ '_id': _id });
@@ -232,12 +296,9 @@ export class EmploymentContractService {
             // Edit the employmentContract
             await this.employmentContractModel.remove({ '_id': _id });
 
-            return true;
-
         } else {
 
-            // EmploymentContract does not exist
-            return false;
+            throw new Error('EmploymentContract does not exists');
 
         }
 

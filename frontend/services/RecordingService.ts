@@ -113,6 +113,14 @@ export default class RecordingService {
         // End the recording
         await this.recordingObject.stopAndUnloadAsync();
 
+        await Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+            playsInSilentModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+        });
+
         // We need the filepath to work with the recording
         const filepath = this.recordingObject.getURI();
 

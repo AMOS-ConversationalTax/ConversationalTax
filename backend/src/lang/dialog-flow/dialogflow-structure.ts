@@ -44,7 +44,27 @@ export const DialogFlowStructure: IntentInformation[] = [
             },
             {
                 name: 'ContractName',
-                helpText: 'Damit ich zuordnen kann um welchen Arbeitsvertrag es sich handelt, musst du diesen bennen.',
+                helpText: 'Damit ich zuordnen kann um welchen Arbeitsvertrag es sich handelt, musst du diesen benennen.',
+            },
+        ],
+    },
+    {
+        displayName: 'Arbeitsvertrag - Startdatum',
+        name: 'projects/test-c7ec0/agent/intents/b9e66fee-8758-4cf1-a532-62e462b4c4ee',
+        contextText: 'Wir waren gerade dabei das Startdatum eines Arbeitsvertrags zuändern.',
+        helpText: 'Falls dein Arbeitsvertrag ein Startdatum hat, benötige ich dieses für die Einkommensteuererklärung.',
+        actions: [
+            {
+                name: 'Default',
+                helpText: 'TODO',
+            },
+            {
+                name: 'Startdatum',
+                helpText: 'Um das Startdatum zuändern, musst du uns mitteilen, wann der Vertrag ausläuft.',
+            },
+            {
+                name: 'EmploymentContract',
+                helpText: 'Damit ich zuordnen kann um welchen Arbeitsvertrag es sich handelt, musst du diesen benennen.',
             },
         ],
     },
