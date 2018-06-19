@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import {
-  View,
-} from 'react-native';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
-import globalStyles from '../../global_styles';
 import NotificationList from './components/NotificationList';
 import { NotificationService } from '../../services/NotificationService';
 import { Subscription } from 'rxjs';
 import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
+import Wrapper from '../../shared/Wrapper';
+import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
 interface IProps {
-  navigation: any;
 }
 
 interface IState {
@@ -25,18 +20,18 @@ export default class Notifications extends Component<IProps, IState> {
   }
 
   componentWillMount() {
-    const deepClone = JSON.parse(JSON.stringify(NotificationService.Instance.notifications));
+    const deepClone = JSON.parse(JSON.stringify(NotificationService.notifications));
     this.setState({ notifications: deepClone });
 
-    this.notificationSubscription = NotificationService.Instance.newNotification.subscribe(() => {
-      const deepClone = JSON.parse(JSON.stringify(NotificationService.Instance.notifications));
+    this.notificationSubscription = NotificationService.newNotification.subscribe(() => {
+      const deepClone = JSON.parse(JSON.stringify(NotificationService.notifications));
       this.setState({ notifications: deepClone });
-      NotificationService.Instance.markAsRead();
+      NotificationService.markAsRead();
     })
   }
 
   componentDidMount() {
-    NotificationService.Instance.markAsRead();
+    NotificationService.markAsRead();
   }
 
   componentWillUnmount() {
@@ -45,11 +40,11 @@ export default class Notifications extends Component<IProps, IState> {
 
   public render() {
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
-        <NotificationList notifications={this.state.notifications}/>
-        <BottomBar />
-      </View>
+      <Wrapper>
+        <RoundContentWrapper title="Benachrichtigungen">
+          <NotificationList notifications={this.state.notifications}/>
+        </RoundContentWrapper>
+      </Wrapper>
     );
   }
 }

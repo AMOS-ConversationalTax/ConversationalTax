@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     margin: 5,
-    color: 'black',
+    color: '#333',
   },
   description: {
     fontSize: 10,
