@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons';
 import { NavigationService } from '../services/NavigationService';
-
+import {NavigatableRoutes} from 'conv-tax-shared/config/navigation.config';
 
 const routes = new Map<string, string>([
-    ['Start', 'Conversation'],
-    ['Benachrichtigungen', 'Notifications'],
-    ['Scanner', 'Scanner'],
-    ['Verlauf', 'ConversationHistory'],
+    ['Start', NavigatableRoutes.Conversation],
+    ['Benachrichtigungen', NavigatableRoutes.Notifications],
+    ['Scanner', NavigatableRoutes.Scanner],
+    ['Verlauf', NavigatableRoutes.History],
 ]);
 
 const bottomRoutes = new Map<string, string>([

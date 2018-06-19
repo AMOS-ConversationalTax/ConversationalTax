@@ -35,50 +35,39 @@ export class LangController {
   @Post('text')
   async textIntent(@Body() body: TextIntentBody, @Query() params: TextIntentParams) {
     const dialogflowResponse = await this.dialogFlowService.detectTextIntent(body.textInput, params.u_id);
-    const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
-    const uid = params.u_id;
-    let actionName: string = this.dialogFlowService.extractResponseAction(dialogflowResponse[0]);
-    if (actionName === '') {
-      actionName = 'undefined';
-    }
-
-    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
-
-    await this.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
-
-    return { text: responseText };
+    return this.handleResponse(dialogflowResponse[0], params);
   }
 
   @Post('audio_upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file, @Query() params: AudioIntentParams) {
     const dialogflowResponse = await this.processAudiofile(file, params);
-    const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse[0]);
-    const uid = params.u_id;
-    let actionName: string = this.dialogFlowService.extractResponseAction(dialogflowResponse[0]);
-    if (actionName === '') {
-      actionName = 'undefined';
+    return this.handleResponse(dialogflowResponse[0], params);
+  }
+
+  private async handleResponse(
+    dialogflowResponse: DetectIntentResponse,
+    params: TextIntentParams | AudioIntentParams,
+  ): Promise<ReturnText> {
+
+    if (dialogflowResponse.queryResult.queryText === '') {
+      return { text: '' };
     }
 
-    if (intent != null) {
+    const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse);
+    const actionName = this.dialogFlowService.extractResponseAction(dialogflowResponse);
 
-      const response = await this.handleIntent(uid, intent, dialogflowResponse);
-
+    if (intent !== null && intent !== undefined) {
+      const response = await this.handleIntent(params.u_id, intent, dialogflowResponse);
       if (response !== undefined) {
-
-        await this.createConversationHistoryEntry(uid, dialogflowResponse, response.text, intent, actionName);
-
+        await this.createConversationHistoryEntry(params.u_id, dialogflowResponse, response.text, intent, actionName);
         return response;
-
       }
-
     }
 
-    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse[0]);
-
-    await this.createConversationHistoryEntry(uid, dialogflowResponse, responseText, intent, actionName);
-
-    return { text: responseText };
+    const text = this.dialogFlowService.extractResponseText(dialogflowResponse);
+    await this.createConversationHistoryEntry(params.u_id, dialogflowResponse, text, intent, actionName);
+    return { text };
   }
 
   /**
@@ -118,7 +107,7 @@ export class LangController {
    * @param actionName The recognized action
    */
   private async createConversationHistoryEntry(uid: string,
-                                               dialogflowResponse: DetectIntentResponse[],
+                                               dialogflowResponse: DetectIntentResponse,
                                                responseText: string,
                                                intent: Intent,
                                                actionName: string) {
@@ -128,17 +117,17 @@ export class LangController {
     let intentName: string = 'Not specified';
     let intentDisplayName: string = 'Not specified';
 
-    if ( dialogflowResponse.length > 0 && dialogflowResponse[0].hasOwnProperty('queryResult') ) {
+    if ( dialogflowResponse.hasOwnProperty('queryResult') ) {
 
-      if ( dialogflowResponse[0].queryResult.hasOwnProperty('parameters') ) {
+      if ( dialogflowResponse.queryResult.hasOwnProperty('parameters') ) {
 
-        parameters = dialogflowResponse[0].queryResult.parameters;
+        parameters = dialogflowResponse.queryResult.parameters;
 
       }
 
-      if ( dialogflowResponse[0].queryResult.hasOwnProperty('queryText') ) {
+      if ( dialogflowResponse.queryResult.hasOwnProperty('queryText') ) {
 
-        queryText = dialogflowResponse[0].queryResult.queryText;
+        queryText = dialogflowResponse.queryResult.queryText;
 
       }
 
@@ -173,7 +162,7 @@ export class LangController {
 
   // TODO move to new architecture as soon as it has been finished.
   // TODO intent name should be moved into a const (as part of the above task)
-  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse[]): Promise<ReturnText | undefined> {
+  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse): Promise<ReturnText | undefined> {
     if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
 
       if (!await this.userService.exists(uid)) {
@@ -187,9 +176,9 @@ export class LangController {
 
       try {
 
-        if (dialogflowResponse[0].queryResult.allRequiredParamsPresent) {
+        if (dialogflowResponse.queryResult.allRequiredParamsPresent) {
 
-          const response: any = dialogflowResponse[0].queryResult.parameters;
+          const response: any = dialogflowResponse.queryResult.parameters;
 
           // EmploymentContract is always a stringValue
           const employmentContractId: string = response.fields.EmploymentContract.stringValue;
@@ -232,7 +221,7 @@ export class LangController {
 
       try {
 
-        const response: any = dialogflowResponse[0].queryResult.parameters;
+        const response: any = dialogflowResponse.queryResult.parameters;
         const employmentContractId = response.fields.EmploymentContract.stringValue;
 
         // If our parameters are not ready Dialogflow will ask for them

@@ -15,7 +15,7 @@ export default class RoundContentWrapper extends Component<IProps> {
                 <View style={styles.title}>
                     <TouchableOpacity onPress={this.navigateBack}>
                         <View style={[styles.icon]}>
-                            <Ionicons name="ios-arrow-back" size={25} color="#000" />
+                            <Ionicons name="ios-arrow-back" size={25} color="#FF6C1A" />
                         </View>
                     </TouchableOpacity>
                     <Text style={styles.titleText}>{this.props.title}</Text>

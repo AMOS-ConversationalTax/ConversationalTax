@@ -1,5 +1,11 @@
 import { NavigationActions, DrawerActions } from 'react-navigation';
 
+interface NavigationRoute {
+    key: string,
+    params: any,
+    routeName: string,
+}
+
 /**
  * Singleton NavigationService
  */
@@ -61,6 +67,35 @@ class NavigationServiceInstance {
         this._navigator.dispatch(
             DrawerActions.openDrawer()
         );  
+    }
+
+    /**
+     * Get a parameter of the current route
+     * @param key The key for the parameter
+     * @returns {any | undefined} Returns undefined on a error or the element on success.
+     */
+    public getParam(key: string): any | undefined {
+        const route = this.getCurrRouteObj();
+        if (route.params === undefined) {
+            return undefined;
+        }
+        const value = route.params[key];
+        if (value === undefined) {
+            return undefined;
+        }  
+        return value;
+    }
+
+    /**
+     * Extracts the route object from the frameworks state object.
+     * @returns {NavigationRoute} The active route object
+     */
+    private getCurrRouteObj(): NavigationRoute {
+        const routes: NavigationRoute[] = this._navigator.state.nav.routes;
+        const currRouteName = this.activeRoute();
+        return routes.find((route) => 
+            route.routeName === currRouteName
+        )!;
     }
 
     /**

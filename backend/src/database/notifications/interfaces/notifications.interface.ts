@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { NavigatableRoutes } from 'conv-tax-shared/config/navigation.config';
 
 /**
  * This implements the Notification interface used by NotificationService
@@ -40,4 +41,18 @@ export interface Notification extends Document {
      * @type {boolean}
      */
     readonly read: boolean;
+
+    /**
+     * This property defines to which screen the frontend should navigate on a click
+     * @name Notification#navigateTo
+     * @type {NavigatableRoutes}
+     */
+    readonly navigateTo: NavigatableRoutes;
+
+    /**
+     * The text to send to dialogFlow on a click
+     * @name Notification#description
+     * @type {string}
+     */
+    readonly textForDialogflow: string;
 }
