@@ -9,9 +9,13 @@ interface IProps {
     recording: boolean,
 }
 
+interface IState {
+    progress: Animated.Value,
+}
+
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
-export default class Circle extends Component<IProps> {
+export default class Circle extends Component<IProps, IState> {
     private timer: NodeJS.Timer;
     state = {
         progress: new Animated.Value(0),
@@ -32,7 +36,10 @@ export default class Circle extends Component<IProps> {
         }
     }
 
-    private interval() {
+    /**
+     * Starts one run of the animation. Will call itself after a short timeout in order to achieve a loop.
+     */
+    private interval(): void {
         this.state.progress.setValue(0.25);
         let timeout = this.props.recording? 1300 : 3000;
         let duration = this.props.recording? 1300 : 2000;
@@ -40,6 +47,10 @@ export default class Circle extends Component<IProps> {
         this.timer = setTimeout(() => { this.interval() }, timeout);
     }
 
+    /**
+     * Performs the actual animation
+     * @param duration Speed/duration of the animation
+     */
     private recordingAnimation(duration: number) {
         Animated.timing(this.state.progress, {
             toValue: 1,
@@ -56,9 +67,7 @@ export default class Circle extends Component<IProps> {
             <View style={styles.container}>
                 <View style={styles.absolutePos}>
                     <Lottie
-                        //ref={(animation: any) => { this.animation = animation; }}
                         source={require('../../../assets/circle.json')}
-                        //loop={false}
                         style={styles.animationContainer}
                         progress={this.state.progress}
                     />

@@ -13,7 +13,7 @@ export default class RoundContentWrapper extends Component<IProps> {
         return (
             <View style={styles.wrapper}>
                 <View style={styles.title}>
-                    <TouchableOpacity onPress={this.navigateToNotifications}>
+                    <TouchableOpacity onPress={this.navigateBack}>
                         <View style={[styles.icon]}>
                             <Ionicons name="ios-arrow-back" size={25} color="#000" />
                         </View>
@@ -26,8 +26,7 @@ export default class RoundContentWrapper extends Component<IProps> {
     }
 
     @autobind
-    private navigateToNotifications() {
-        console.log('Test');
+    private navigateBack() {
         NavigationService.goBack();
     }
 }
