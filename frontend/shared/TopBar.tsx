@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { filter, delay } from 'rxjs/operators';
 import global_styles from '../global_styles';
 import { NavigationService } from '../services/NavigationService';
+import NotificationIcon from './NotificationIcon';
 
 interface IProps {
 }
@@ -51,16 +52,16 @@ export default class TopBar extends Component<IProps> {
         <View style={styles.topBar}>
           <TouchableOpacity onPress={this.openNavi}>
             <View style={global_styles.touchableIcon}>
-              <Text style={global_styles.shadow}>
+              <Text>
                 <Entypo name="menu" size={35} color="#fff" />
               </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.navigateToNotifications}>
             <View style={[styles.notificationIconWrapper, global_styles.touchableIcon]}>
-              <Text style={[global_styles.shadow]}>
-                <Ionicons name="md-notifications" size={30} color="#fff" />
-              </Text>
+              <View style={{position: 'absolute', top: -5, right: 20}}>
+                <NotificationIcon/>
+              </View>
               {notificationCountElement}
             </View>
           </TouchableOpacity>
@@ -105,16 +106,13 @@ const styles = StyleSheet.create({
   },
   notificationTextWrapper: {
     position: 'absolute',
-    bottom: 10,
-    right: 10,
-    borderRadius: 10,
-    width: 20,
-    height: 20,
+    top: -3.5,
+    right: 26,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
   notificationText: {
     color: '#fff',
+    fontSize: 10,
   }
 });
