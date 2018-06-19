@@ -6,6 +6,7 @@ import {NotificationMessage} from 'conv-tax-shared/typings/Notification';
 import {Subject} from 'rxjs';
 import RestConnection from './RestConnection';
 import { Vibration } from 'react-native';
+import { PushNotificationService } from './PushNotificationService';
 
 /**
  * Singleton NotificationService
@@ -65,6 +66,7 @@ export class NotificationServiceInstance {
         this.notificationCount.next(this.countUnread());
         this.newNotification.next();
         Vibration.vibrate(500, false);
+        PushNotificationService.presentLocalNotification(data.title, data.description);
     }
 
     /**
