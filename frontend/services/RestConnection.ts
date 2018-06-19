@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Config from 'conv-tax-shared/config/config';
 import Expo from 'expo';
-import { NotificationResponse} from './RestConnection.dto';
+import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 
 const DEFAULT_OPTIONS = { 'timeout': 10000 };
 
@@ -106,11 +106,30 @@ export default class RestConnection implements IConnection {
     }
 
     /**
+     * Uploads a text to the backend
+     * @param {string} text The text that should be sent.
+     */
+    async uploadTextAsync(text: string): Promise<any> {
+        const url = `${Config.SERVER_URL}/lang/text?u_id=${Expo.Constants.deviceId}`; 
+
+        const promise = new Promise<string>((resolve, reject) => {
+            axios.post(url, { textInput: text })
+                .then((response) => {
+                    resolve(response.data);
+                })
+                .catch((error) => {
+                    reject('Text upload failed' + error);
+                });
+        });
+
+        return promise;
+    }
+
+    /**
      * Get the current conversation history of the user
      * @returns {Promise<any>} - The json containing the users current conversation history
      */
     public async getConversationHistory(): Promise<any> {
-
         const url = `${Config.SERVER_URL}/database/conversationHistory/conversationHistory?u_id=${Expo.Constants.deviceId}`;
 
         const promise = new Promise<string>((resolve, reject) => {
@@ -128,11 +147,11 @@ export default class RestConnection implements IConnection {
 
     /**
      * Gets old notifications of the user
-     * @returns {Promise<NotificationResponse[]>} Array of notifications
+     * @returns {Promise<NotificationMessage[]>} Array of notifications
      */
-    public getNotifications(): Promise<NotificationResponse[]> {
+    public getNotifications(): Promise<NotificationMessage[]> {
         const url = `${Config.SERVER_URL}/notifications?u_id=${Expo.Constants.deviceId}`;
-        const promise = new Promise<NotificationResponse[]>((resolve, reject) => {
+        const promise = new Promise<NotificationMessage[]>((resolve, reject) => {
             axios.get(url, DEFAULT_OPTIONS)
                 .then((response) => {
                     resolve(response.data);

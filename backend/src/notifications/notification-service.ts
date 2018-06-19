@@ -4,12 +4,26 @@ import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 import { WsResponse } from '@nestjs/websockets';
 import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
 import { NotificationsDBService } from '../database/notifications/notifications.service';
+import { NavigatableRoutes } from 'conv-tax-shared/config/navigation.config';
 
-const DEMO_NOTI: NotificationMessage = {
-        title: 'Title',
-        text: 'Beschreibungstext',
-        read: false,
-};
+const DEMO_NOTI: NotificationMessage[] = [
+{
+    title: 'Arbeitsvertrag XYZ',
+    description: 'Lade jetzt den Scan deines Arbeitsvertrags hoch.',
+    read: false,
+    navigateTo: NavigatableRoutes.Scanner,
+},
+{
+    title: 'Context-Demo',
+    description: 'Fahre mit Context X fort.',
+    read: false,
+    textForDialogflow: 'Worüber haben wir gerade gesprochen?',
+},
+{
+    title: 'Benachrichtigung',
+    description: 'Erfolg! (Oder soetwas!)',
+    read: false,
+}];
 
 @Injectable()
 export class NotificationService {
@@ -26,7 +40,7 @@ export class NotificationService {
      * @param notification The notification for the user.
      */
     public addNotification(userId: string, notification: NotificationMessage) {
-        this.notificationDb.create(userId, notification.title, notification.text);
+        this.notificationDb.create(userId, notification.title, notification.description, notification.navigateTo, notification.textForDialogflow);
         const websocketClientIds = this.userIdToId.get(userId);
         websocketClientIds.forEach(id => {
             const notificationStream = this.userSubscriptions.get(id);
@@ -71,9 +85,10 @@ export class NotificationService {
      * For debug purposes. Sends a demo notification to all users.
      */
     public emitNotification() {
+        const demo = DEMO_NOTI[Math.round(Math.random() * 2)];
         this.userIdToId.forEach((websocketIds, userId) => {
             if (websocketIds.length > 0) {
-                this.addNotification(userId, DEMO_NOTI);
+                this.addNotification(userId, demo);
             }
         });
     }

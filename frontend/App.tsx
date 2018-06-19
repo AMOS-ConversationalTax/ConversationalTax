@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { Asset, AppLoading, Font, LinearGradient, Constants } from 'expo';
+import { Asset, AppLoading, Font, LinearGradient, Constants, Audio } from 'expo';
 import autobind from 'autobind-decorator';
 import Start from './screens/start/Start';
 import { Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -22,6 +22,15 @@ import { View, StatusBar } from 'react-native';
 import CustomDrawerContentComponent from './shared/DrawerNavigationContent';
 import { NavigationService } from './services/NavigationService';
 import Credits from './screens/credits/Credits';
+
+//Set up Audio
+Audio.setAudioModeAsync({
+  allowsRecordingIOS: false,
+  interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+  playsInSilentModeIOS: true,
+  shouldDuckAndroid: true,
+  interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+});
 
 // Add screens that should be routable. 
 const DrawerNavigation = createDrawerNavigator({

@@ -13,11 +13,16 @@ import SpeechService from '../../../services/SpeechService';
 import global_styles from '../../../global_styles';
 import Loader from './Loader';
 import RecordIcon from './RecordIcon';
+import { NavigationService } from '../../../services/NavigationService';
 
 interface IProps {
     recordingService: RecordingService,
     restClient: RestConnection,
     speechService: SpeechService,
+}
+
+interface IState {
+    currentState: RecordingState,
 }
 
 enum RecordingState {
@@ -32,8 +37,7 @@ enum RecordingState {
  * This class implements the Microphone button and its functionality
  * @class Microphone
  */
-export default class Microphone extends Component<IProps> {
-
+export default class Microphone extends Component<IProps, IState> {
     /**
      * Save the initial states
      */
@@ -44,12 +48,22 @@ export default class Microphone extends Component<IProps> {
     /**
      * Ask for permission as soon as the component will be mounted. 
      */
-    componentWillMount() {
-        this.props.recordingService.askForPermissions().then(haveRecordingPermissions => {
-            if (haveRecordingPermissions) {
-                this.setState({ currentState: RecordingState.waitingToRecord });
-            }
-        })
+    async componentDidMount() {
+        const haveRecordingPermissions = await this.props.recordingService.askForPermissions();
+        if (!haveRecordingPermissions) {
+            return;
+        }
+        
+        //If you got navigated via a notification. Send the text to the backend
+        const initialText = NavigationService.getParam('text');
+        if (typeof initialText === 'string') {
+            this.setState({ currentState: RecordingState.processingActive });
+            const responseText = await this.props.restClient.uploadTextAsync(initialText);
+            this.props.speechService.speak(responseText.text);
+            this.setState({ currentState: RecordingState.waitingToRecord });
+        } else {
+            this.setState({ currentState: RecordingState.waitingToRecord });
+        }
     }
 
     /**
