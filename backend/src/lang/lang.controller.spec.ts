@@ -1,6 +1,5 @@
 /// <reference types="jest" />
 
-import { EmployeeService } from './services/employee.service';
 import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { DatabaseDialogFlowService } from '../connectors/database-dialogflow.service';
@@ -10,6 +9,7 @@ import { EmploymentContractService } from '../database/employmentContract/employ
 import { ConversationHistoryService } from '../database/conversationHistory/conversationHistory.service';
 import { ExplanationService } from './explanation/explanation.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
+import { IntentStrategy } from './intents/strategy/strategy.intent';
 
 // Creates a mock of the classes and removes their implementation. Custom implementation is then added in beforeAll()
 jest.mock('./dialog-flow/dialog-flow.service', () => jest.fn(() => {}) );
@@ -17,7 +17,7 @@ jest.mock('../database/user/user.service', () => jest.fn(() => { }));
 jest.mock('../database/employmentContract/employmentContract.service', () => jest.fn(() => { }));
 jest.mock('./explanation/explanation.service', () => jest.fn(() => { }));
 jest.mock('../connectors/database-lang.service', () => jest.fn(() => { }));
-jest.mock('./services/employee.service', () => jest.fn(() => { }));
+jest.mock('/intents/strategy/strategy.intent', () => jest.fn(() => { }));
 
 describe('LangController', () => {
     let langController: LangController;
@@ -26,7 +26,7 @@ describe('LangController', () => {
     let employmentContractService: any;
     let explanationService: any;
     let databaseLangService: any;
-    let employeeService: any;
+    let intentStrategy: any;
 
     beforeAll(() => {
         dialogFlowService = {
@@ -47,8 +47,8 @@ describe('LangController', () => {
         databaseLangService = {
             createConversationHistoryEntry: jest.fn(),
         };
-        employeeService = {
-            processEmployeeContract: jest.fn(),
+        intentStrategy = {
+            createIntentHandler: jest.fn(),
         };
     });
 
@@ -59,7 +59,7 @@ describe('LangController', () => {
             employmentContractService,
             explanationService,
             databaseLangService,
-            employeeService,
+            intentStrategy,
         );
     });
 
