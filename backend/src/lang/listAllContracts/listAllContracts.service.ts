@@ -8,7 +8,7 @@ import { EmploymentContract } from '../../database/employmentContract/interfaces
 @Injectable()
 export class ListAllContractsService {
 
-    private employmentContractService: EmploymentContractService;
+    constructor (private employmentContractService: EmploymentContractService){}
 
     async getAllContracts(userID: string): Promise<EmploymentContract[]> {
         const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);

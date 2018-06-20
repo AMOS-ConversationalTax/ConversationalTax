@@ -276,7 +276,7 @@ export class LangController {
       return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
     } else if (intent.name === INTENT_LISTALLCONTRACTS) {
       // Get the list of all contracts
-      const contracts = this.listAllContractsService.getAllContracts(uid);
+      const contracts = await this.listAllContractsService.getAllContracts(uid);
       // Get the Answer from Dialogflow
       const answer = 'Das sind deine Arbeitsverträge. ';
       // Combine the answer with the list as strings and return it
