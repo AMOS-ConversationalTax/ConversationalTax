@@ -6,3 +6,5 @@ namespace IntentConfig {
      */
     export const INTENT_PREFIX: string = 'projects/test-c7ec0/agent/intents/';
 }
+
+export default IntentConfig;

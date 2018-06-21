@@ -30,8 +30,8 @@ describe('LangController', () => {
 
     beforeAll(() => {
         dialogFlowService = {
-            detectTextIntent: jest.fn().mockImplementation(() => [{}]),
-            detectAudioIntent: jest.fn().mockImplementation(() => [{}]),
+            detectTextIntent: jest.fn().mockImplementation(() => [{ queryResult: { queryText: 'abcde'}}]),
+            detectAudioIntent: jest.fn().mockImplementation(() => [{ queryResult: { queryText: 'abcde' } }]),
             extractResponseText: jest.fn().mockImplementation(() => ''),
             extractResponseIntent: jest.fn().mockImplementation(() => ({name: ''})),
             extractResponseAction: jest.fn().mockImplementation(() => ''),
@@ -77,9 +77,6 @@ describe('LangController', () => {
         it('should forward the request to the dialogFlowService', async () => {
             const mockParams: AudioIntentParams = { platform: 'ios', u_id: 'This434234_is4234_a2234_U43_ID44' };
             const mockFile = {buffer: new Buffer('')};
-            dialogFlowService.detectAudioIntent.mockImplementationOnce((file, params) => {
-                return [{}];
-            });
             await langController.uploadFile(mockFile, mockParams);
             expect(dialogFlowService.detectAudioIntent).toHaveBeenCalledTimes(1);
         });

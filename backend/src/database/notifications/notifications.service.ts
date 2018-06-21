@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Notification } from './interfaces/notifications.interface';
 import DBConfig from '../dbconfig';
+import { NavigatableRoutes } from 'conv-tax-shared/config/navigation.config';
 
 /**
  * This class implements the connection to the notification table in the datastore
@@ -25,13 +26,15 @@ export class NotificationsDBService {
      * @param {string} description - The description of the notification
      * @returns {Promise<string>} - A promise containing the unique _id of the notification
      */
-    async create(user_id: string, title: string, description: string): Promise<string> {
+    async create(user_id: string, title: string, description: string, navigateTo?: NavigatableRoutes, textForDialogflow?: string): Promise<string> {
 
         // Get a new ObjectID
         const _id: string = mongoose.Types.ObjectId();
 
         // Create the notification
-        const document: Model<Notification> = new this.notificationModel({ _id, user_id, title, description, read: false });
+        const document: Model<Notification> = new this.notificationModel(
+            { _id, user_id, title, description, read: false, navigateTo, textForDialogflow },
+        );
         await document.save();
 
         return _id;

@@ -12,7 +12,7 @@ export class EndDateIntentHandler extends IntentHandler{
         super();
     }
 
-    public handle(intentData: IIntentData) {
+    public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
         if (intentData.allParameterSet) {
 
             this.contractName = this.extractData(intentData.parameter, 'ContractName', 'ContractName');
@@ -25,5 +25,7 @@ export class EndDateIntentHandler extends IntentHandler{
                 this.employmentContractService.editEndDateExact(data[0]._id, this.date);
             });
         }
+
+        return undefined;
     }
 }

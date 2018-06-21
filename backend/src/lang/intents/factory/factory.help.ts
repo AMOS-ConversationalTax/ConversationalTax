@@ -2,6 +2,7 @@ import { IntentHandler } from './../handlers/handler.abstract';
 import { HelpIntentHandler } from '../handlers/handler.help';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
+import  IntentConfig  from './../IntentConfig';
 
 @Injectable()
 export class HelpFactory implements IIntentFactory {

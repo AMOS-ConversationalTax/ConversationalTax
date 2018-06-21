@@ -13,7 +13,7 @@ export class AddStartDateIntentHandler extends IntentHandler{
         super();
     }
 
-    public async handle(intentData: IIntentData) {
+    public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
         try {
             if (intentData.allParameterSet) {
 

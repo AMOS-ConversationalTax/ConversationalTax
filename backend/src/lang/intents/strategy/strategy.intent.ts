@@ -23,12 +23,7 @@ export class IntentStrategy implements IIntentStrategy {
     }
 
     public createIntentHandler(action: string): IntentHandler{
-        let intentFactory: IIntentFactory;
-        this.intentFactories.forEach( (factory) => {
-            if (factory.appliesTo(action)) {
-                intentFactory = factory;
-            }
-        });
+        const intentFactory = this.intentFactories.find((factory) => factory.appliesTo(action));
 
         if (intentFactory === null) {
             // TODO

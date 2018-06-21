@@ -2,6 +2,7 @@ import { IntentHandler } from './../handlers/handler.abstract';
 import { CreateContractIntentHandler } from '../handlers/handler.createcontract';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
+import  IntentConfig  from './../IntentConfig';
 
 @Injectable()
 export class CreateContractFactory implements IIntentFactory {

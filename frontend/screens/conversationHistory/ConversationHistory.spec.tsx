@@ -6,17 +6,10 @@ import ConversationHistory from './ConversationHistory';
 import renderer from 'react-test-renderer';
 
 describe('ConversationHistory', () => {
-  let mockObj: { navigate: jest.Mock<{}> }
-
-  beforeEach(() => {
-    mockObj = {
-      navigate: jest.fn()
-    };
-  });
 
   it('renders correctly', () => {
     renderer.create(
-      <ConversationHistory navigation={mockObj} />
+      <ConversationHistory />
     );
   });
 });

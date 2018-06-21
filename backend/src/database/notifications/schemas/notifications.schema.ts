@@ -28,4 +28,12 @@ export const NotificationsSchema: mongoose.Schema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
+    navigateTo: {
+        type: String,
+        required: false,
+    },
+    textForDialogflow: {
+        type: String,
+        required: false,
+    },
 });

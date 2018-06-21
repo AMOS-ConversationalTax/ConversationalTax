@@ -6,16 +6,17 @@ import {NotificationMessage} from 'conv-tax-shared/typings/Notification';
 import {Subject} from 'rxjs';
 import RestConnection from './RestConnection';
 import { Vibration } from 'react-native';
+import { PushNotificationService } from './PushNotificationService';
 
 /**
  * Singleton NotificationService
  */
-export class NotificationService {
+export class NotificationServiceInstance {
     public notifications: NotificationMessage[] = [];
     public newNotification: Subject<void> = new Subject();
     public notificationCount: Subject<number> = new Subject();
 
-    private static _instance: NotificationService;
+    private static _instance: NotificationServiceInstance;
     private websocket: WebSocketClient;
     private restClient: RestConnection;
 
@@ -39,7 +40,7 @@ export class NotificationService {
         this.restClient = new RestConnection();
         const oldNotifications = await this.restClient.getNotifications();
         oldNotifications.forEach(notification => {
-            this.notifications.push({ title: notification.title, text: notification.description, read: notification.read });
+            this.notifications.unshift(notification);
         })
         this.newNotification.next();
         this.notificationCount.next(this.countUnread());
@@ -65,6 +66,7 @@ export class NotificationService {
         this.notificationCount.next(this.countUnread());
         this.newNotification.next();
         Vibration.vibrate(500, false);
+        PushNotificationService.presentLocalNotification(data.title, data.description);
     }
 
     /**
@@ -88,9 +90,11 @@ export class NotificationService {
 
     /**
      * Returns the singletons instance.
-     * @returns {NotificationService} The NotificationService instance
+     * @returns {NotificationServiceInstance} The NotificationServiceInstance instance
      */
-    public static get Instance(): NotificationService {
+    public static get Instance(): NotificationServiceInstance {
         return this._instance || (this._instance = new this());
     }
 }
+
+export const NotificationService = NotificationServiceInstance.Instance

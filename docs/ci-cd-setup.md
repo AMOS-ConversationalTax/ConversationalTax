@@ -37,13 +37,13 @@ All of them, the backend, the frontend tests and the cd tests, run in parallel. 
 
 Build status for the Master branch should be green all the time: 
 
-[![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
+[![Build Status](https://semaphoreci.com/api/v1/amosconversationaltax/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/amosconversationaltax/conversationaltax-3)
 
 ### Develop Branch
 
 Build status for the Develop branch should be green all the time, too:
 
-[![Build Status](https://semaphoreci.com/api/v1/dominik-probst/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/dominik-probst/conversationaltax-3)
+[![Build Status](https://semaphoreci.com/api/v1/amosconversationaltax/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/amosconversationaltax/conversationaltax-3)
 
 To be totally honest with you: All branches should feature a green build status. **All the time!**
 
@@ -256,8 +256,9 @@ cd backend
 docker build -t conversational-tax-test ../.
 cd /home/runner/
 docker-compose up -d
-wget --spider http://localhost:3000
+sleep 20s
 docker logs conversational-tax-test
+wget --spider http://localhost:3000
 ```
 
 The most significant line in this test is `wget --spider http://localhost:3000`, as this tests if the backend is reachable. If this line fails there is a bug in the code, that prevents the code from running in an Docker container. `docker logs conversational-tax-dev` simply shows the log of the docker container. This is useful to identify possible problems in case the container does not work as expected.

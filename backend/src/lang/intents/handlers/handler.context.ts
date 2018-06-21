@@ -11,7 +11,7 @@ export class ContextIntentHandler extends IntentHandler{
         super();
     }
 
-    public async handle(intentData: IIntentData) {
+    public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
         // Return Context
         const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(intentData.user,
                                                                                                                             intentData.intentList);

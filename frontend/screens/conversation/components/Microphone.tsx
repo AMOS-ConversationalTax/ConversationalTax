@@ -10,6 +10,10 @@ import autobind from 'autobind-decorator';
 import RestConnection from '../../../services/RestConnection';
 import RecordingService from '../../../services/RecordingService';
 import SpeechService from '../../../services/SpeechService';
+import global_styles from '../../../global_styles';
+import Loader from './Loader';
+import RecordIcon from './RecordIcon';
+import { NavigationService } from '../../../services/NavigationService';
 
 interface IProps {
     recordingService: RecordingService,
@@ -17,9 +21,14 @@ interface IProps {
     speechService: SpeechService,
 }
 
+interface IState {
+    currentState: RecordingState,
+}
+
 enum RecordingState {
     hasNoPermission,
     waitingToRecord,
+    preparingToRecord,
     recordingActive,
     processingActive,
 }
@@ -28,8 +37,7 @@ enum RecordingState {
  * This class implements the Microphone button and its functionality
  * @class Microphone
  */
-export default class Microphone extends Component<IProps> {
-
+export default class Microphone extends Component<IProps, IState> {
     /**
      * Save the initial states
      */
@@ -40,12 +48,22 @@ export default class Microphone extends Component<IProps> {
     /**
      * Ask for permission as soon as the component will be mounted. 
      */
-    componentWillMount() {
-        this.props.recordingService.askForPermissions().then(haveRecordingPermissions => {
-            if (haveRecordingPermissions) {
-                this.setState({ currentState: RecordingState.waitingToRecord });
-            }
-        })
+    async componentDidMount() {
+        const haveRecordingPermissions = await this.props.recordingService.askForPermissions();
+        if (!haveRecordingPermissions) {
+            return;
+        }
+        
+        //If you got navigated via a notification. Send the text to the backend
+        const initialText = NavigationService.getParam('text');
+        if (typeof initialText === 'string') {
+            this.setState({ currentState: RecordingState.processingActive });
+            const responseText = await this.props.restClient.uploadTextAsync(initialText);
+            this.props.speechService.speak(responseText.text);
+            this.setState({ currentState: RecordingState.waitingToRecord });
+        } else {
+            this.setState({ currentState: RecordingState.waitingToRecord });
+        }
     }
 
     /**
@@ -53,26 +71,22 @@ export default class Microphone extends Component<IProps> {
      */
     public render() {
         // In case we don't have the recording permission
-        let recordingButtonStyle = styles.circleBorderAlternative;
         let recordingButtonDisabled = true;
-        let recordingIcon = 'md-mic-off';
+        let recordingIcon = <Ionicons name={'md-mic-off'} size={75} color="#000" />;
         let infoText = 'Recorder lädt';
 
         if (this.state.currentState == RecordingState.waitingToRecord) {
-            recordingButtonStyle = styles.circleBorderWaiting;
             recordingButtonDisabled = false;
-            recordingIcon = 'md-mic';
-            infoText = 'Mikrofon gedrückt halten für neue Anfrage';
-        } else if (this.state.currentState == RecordingState.recordingActive) {
-            recordingButtonStyle = styles.circleBorderActive;
+            recordingIcon = <RecordIcon recording={false}/>;
+            infoText = 'Mikrofon gedrückt halten\n für neue Anfrage';
+        } else if (this.state.currentState == RecordingState.recordingActive || this.state.currentState == RecordingState.preparingToRecord ) {
             recordingButtonDisabled = false;
-            recordingIcon = 'md-mic';
+            recordingIcon = <RecordIcon recording={true}/>;
             infoText = 'Aufnahme läuft';
         } else if (this.state.currentState == RecordingState.processingActive) {
-            recordingButtonStyle = styles.circleBorderProcessing;
             recordingButtonDisabled = true;
-            recordingIcon = 'ios-cloud-upload';
-            infoText = 'Aufnahme wird verarbeitet';
+            recordingIcon = <Loader />;
+            infoText = 'Anfrage wird verarbeitet';
         } 
 
         return (
@@ -82,13 +96,11 @@ export default class Microphone extends Component<IProps> {
                     onPressOut={this.onPressOut}
                     disabled={recordingButtonDisabled}
                 >
-                    <View style={recordingButtonStyle}>
-                        <View style={styles.circle}>
-                            <Ionicons name={recordingIcon} size={75} color="#000" />
-                        </View>
+                    <View>
+                        {recordingIcon}
                     </View>
                 </TouchableWithoutFeedback>
-                <Text style={styles.infoText}>
+                <Text style={[styles.infoText, global_styles.shadowLight]}>
                     {infoText}
                 </Text>
             </View>
@@ -100,8 +112,9 @@ export default class Microphone extends Component<IProps> {
      */
     @autobind
     private async onPressIn() {
-        await this.props.recordingService.startRecording();
         // Set the button on not waiting for record
+        this.setState({ currentState: RecordingState.preparingToRecord });
+        await this.props.recordingService.startRecording();
         this.setState({ currentState: RecordingState.recordingActive });
     }
 
@@ -147,57 +160,16 @@ const styles = StyleSheet.create({
     view: {
         alignItems: 'center',
         justifyContent: 'center',
+        marginBottom: 50,
         flex: 1
     },
-    circle: {
-        borderRadius: 75,
-        width: 150,
-        height: 150,
-        paddingTop: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ddd',
-    },
-    circleBorderWaiting: {
-        borderRadius: 78,
-        width: 156,
-        height: 156,
-        paddingTop: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ccc',
-    },
-    circleBorderActive: {
-        borderRadius: 78,
-        width: 156,
-        height: 156,
-        paddingTop: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#cde6ff',
-    },
-    circleBorderProcessing: {
-        borderRadius: 78,
-        width: 156,
-        height: 156,
-        paddingTop: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#cde6ff',
-    },
-    circleBorderAlternative: {
-        borderRadius: 78,
-        width: 156,
-        height: 156,
-        paddingTop: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ccc',
-    },
     infoText: {
-        fontSize: 20,
+        position: 'absolute',
+        bottom: 0,
+        fontSize: 18,
         textAlign: 'center',
-        marginTop: 30,
-        margin: 10,
+        marginLeft: 50,
+        marginRight: 50,
+        color: '#fff'
     },
 });

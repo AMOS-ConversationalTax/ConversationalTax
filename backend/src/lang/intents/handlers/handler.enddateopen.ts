@@ -11,7 +11,7 @@ export class EndDateOpenIntentHandler extends IntentHandler{
         super();
     }
 
-    public async handle(intentData: IIntentData) {
+    public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
         try {
             this.contractName = this.extractData(intentData.parameter, 'EmploymentContract', 'EmploymentContract');
 

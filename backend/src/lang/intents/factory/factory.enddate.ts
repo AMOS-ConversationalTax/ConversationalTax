@@ -2,6 +2,8 @@ import { IntentHandler } from './../handlers/handler.abstract';
 import { EndDateIntentHandler } from '../handlers/handler.enddate';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
+import  IntentConfig  from './../IntentConfig';
+
 
 @Injectable()
 export class EndDateFactory implements IIntentFactory {

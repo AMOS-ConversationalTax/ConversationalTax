@@ -2,6 +2,8 @@ import { IntentHandler } from './../handlers/handler.abstract';
 import { ContextIntentHandler } from '../handlers/handler.context';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
+import  IntentConfig  from './../IntentConfig';
+
 
 @Injectable()
 export class ContextFactory implements IIntentFactory {

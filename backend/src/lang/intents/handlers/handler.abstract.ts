@@ -4,7 +4,7 @@ export abstract class IntentHandler{
     protected STRINGVALUE = 'stringValue';
     protected STRUCTVALUE = 'structValue';
 
-    public async abstract handle(intentData: IIntentData);
+    public async abstract handle(intentData: IIntentData): Promise<ReturnText | undefined>;
 
     private getParameterPath(parameterName: string): Array<string>{
         return [this.FIELDS, parameterName, this.STRINGVALUE];

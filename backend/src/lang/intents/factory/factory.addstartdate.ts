@@ -2,6 +2,7 @@ import { IntentHandler } from './../handlers/handler.abstract';
 import { AddStartDateIntentHandler } from '../handlers/handler.addstartdate';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
+import  IntentConfig  from './../IntentConfig';
 
 @Injectable()
 export class AddStartDateFactory implements IIntentFactory {

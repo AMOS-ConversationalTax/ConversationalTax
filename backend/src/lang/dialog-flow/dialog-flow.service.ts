@@ -124,9 +124,7 @@ export class DialogFlowService {
      * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
-
         return detectIntent.queryResult.fulfillmentText;
-
     }
 
     /**
@@ -294,6 +292,9 @@ export class DialogFlowService {
      *
      */
     public extractResponseAction(detectIntent: DetectIntentResponse): string {
+        if (detectIntent.queryResult.action === '') {
+            return 'undefined';
+        }
         return detectIntent.queryResult.action;
     }
 

@@ -10,7 +10,7 @@ export class CreateContractIntentHandler extends IntentHandler{
         super();
     }
 
-    public async handle(intentData: IIntentData) {
+    public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
         if (!await this.userService.exists(intentData.user)) {
             this.userService.create(intentData.user);
           }
