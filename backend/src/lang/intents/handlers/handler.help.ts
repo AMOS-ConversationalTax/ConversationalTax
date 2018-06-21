@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IntentHandler } from './handler.abstract';
 import { DatabaseLangService } from 'connectors/database-lang.service';
 import { ConversationHistory } from 'database/conversationHistory/interfaces/conversationHistory.interface';
-import { ExplanationService } from '../../explanation/explanation.service';
+import { ExplanationService, IGNORE_INTENTS } from '../../explanation/explanation.service';
 
 @Injectable()
 export class HelpIntentHandler extends IntentHandler{
@@ -11,10 +11,14 @@ export class HelpIntentHandler extends IntentHandler{
         super();
     }
 
+    /**
+     * Proccesses a given DialogFlow Reponse
+     * @param intentData Parts of the DialogFlow response
+     * @returns {Promise<ReturnText | undefined>} The text for the user or undefined.
+     */
     public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
-         // Return Help
-        const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(intentData.user,
-                                                                                                                              intentData.intentList);
+        const history: ConversationHistory[] = await this.databaseLangService
+            .getConversationHistoryOfUserWithoutIntents(intentData.user, IGNORE_INTENTS);
 
         if (history.length > 0) {
             const previousResponse = history[0];

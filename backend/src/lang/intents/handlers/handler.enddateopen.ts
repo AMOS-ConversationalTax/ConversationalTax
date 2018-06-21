@@ -5,19 +5,22 @@ import { IntentHandler } from './handler.abstract';
 @Injectable()
 export class EndDateOpenIntentHandler extends IntentHandler{
 
-    private contractName: string;
-
     constructor(private employmentContractService: EmploymentContractService){
         super();
     }
 
+    /**
+     * Proccesses a given DialogFlow Reponse
+     * @param intentData Parts of the DialogFlow response
+     * @returns {Promise<ReturnText | undefined>} The text for the user or undefined.
+     */
     public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
         try {
-            this.contractName = this.extractData(intentData.parameter, 'EmploymentContract', 'EmploymentContract');
+            const contractName = this.extractData(intentData.parameter, 'EmploymentContract', 'EmploymentContract');
 
             // If our parameters are not ready Dialogflow will ask for them
-            if (this.contractName !== '') {
-                await this.employmentContractService.editEndDateString(this.contractName, 'unbefristet');
+            if (contractName !== '') {
+                await this.employmentContractService.editEndDateString(contractName, 'unbefristet');
             }
             return undefined;
           } catch (error) {

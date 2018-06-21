@@ -1,11 +1,7 @@
 import { Controller, Post, Body, UseInterceptors, FileInterceptor, UploadedFile, Query, BadRequestException } from '@nestjs/common';
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
-import { UserService } from '../database/user/user.service';
-import { EmploymentContractService } from '../database/employmentContract/employmentContract.service';
-import { ExplanationService } from './explanation/explanation.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
-import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
 import { IntentStrategy } from './intents/strategy/strategy.intent';
 
 const ANDROID_AUDIO_SETTINGS = {
@@ -18,18 +14,11 @@ const IOS_AUDIO_SETTINGS = {
   sampleRate: 16000,
 };
 
-const INTENT_HELP = 'projects/test-c7ec0/agent/intents/e695c10c-0a85-4ede-a899-67f264ff5275';
-const INTENT_CONTEXT = 'projects/test-c7ec0/agent/intents/39611549-cad9-4152-9130-22ed7879e700';
-const INTENT_DEFAULT = 'projects/test-c7ec0/agent/intents/41d8bfa1-b463-4d15-a1ea-9491f5ee1a76';
-
 @Controller('lang')
 export class LangController {
 
   constructor(
     private dialogFlowService: DialogFlowService,
-    private userService: UserService,
-    private contractService: EmploymentContractService,
-    private explanationService: ExplanationService,
     private databaseLangService: DatabaseLangService,
     private intentStrategy: IntentStrategy,
   ) {}
@@ -43,16 +32,20 @@ export class LangController {
   @Post('audio_upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file, @Query() params: AudioIntentParams) {
-    console.log('****lang.controller: File received ******');
     const dialogflowResponse = await this.processAudiofile(file, params);
     return this.handleResponse(dialogflowResponse[0], params);
   }
 
+  /**
+   * Handles the processing of the DialogFlow's response.
+   * @param dialogflowResponse The response from DialogFlow
+   * @param params The query params
+   */
   private async handleResponse(
-    dialogflowResponse: DetectIntentResponse,
-    params: TextIntentParams | AudioIntentParams,
+    dialogflowResponse: DetectIntentResponse, params: TextIntentParams | AudioIntentParams,
   ): Promise<ReturnText> {
 
+    // e.g. empty Audio File
     if (dialogflowResponse.queryResult.queryText === '') {
       return { text: '' };
     }
@@ -60,17 +53,16 @@ export class LangController {
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse);
     const actionName = this.dialogFlowService.extractResponseAction(dialogflowResponse);
 
-    if (intent !== null && intent !== undefined) {
-      const response = await this.handleIntent(params.u_id, intent, dialogflowResponse);
-      if (response !== undefined) {
-        await this.createConversationHistoryEntry(params.u_id, dialogflowResponse, response.text, intent, actionName);
-        return response;
-      }
+    const intentHandler = this.intentStrategy.createIntentHandler(intent.name);
+    const intentData = this.createIntentData(dialogflowResponse, params);
+
+    let response = await intentHandler.handle(intentData);
+    if (response === undefined) {
+      response = {text: this.dialogFlowService.extractResponseText(dialogflowResponse)};
     }
 
-    const text = this.dialogFlowService.extractResponseText(dialogflowResponse);
-    await this.createConversationHistoryEntry(params.u_id, dialogflowResponse, text, intent, actionName);
-    return { text };
+    await this.createConversationHistoryEntry(params.u_id, dialogflowResponse, response.text, intent, actionName);
+    return response;
   }
 
   /**
@@ -101,6 +93,20 @@ export class LangController {
   }
 
   /**
+   * Adapter function. Converts DialogFlows response to the IntentHandler's IIntentData
+   * @param dialogflowResponse The response from DialogFlow
+   * @param params The query params
+   */
+  private createIntentData(dialogflowResponse: DetectIntentResponse, params: TextIntentParams | AudioIntentParams): IIntentData {
+    const responseParam = this.dialogFlowService.extractParameter(dialogflowResponse);
+    const allParamSet = this.dialogFlowService.extractReqParameterPresent(dialogflowResponse);
+
+    return {
+      parameter: responseParam, allParameterSet: allParamSet, user: params.u_id,
+    };
+  }
+
+  /**
    * Create a new conversation history entry (helper funtion)
    * @param uid The id of the user
    * @param dialogflowResponse The response object of dialogflow
@@ -109,12 +115,9 @@ export class LangController {
    * @param intent The recognized intent
    * @param actionName The recognized action
    */
-  private async createConversationHistoryEntry(uid: string,
-                                               dialogflowResponse: DetectIntentResponse,
-                                               responseText: string,
-                                               intent: Intent,
-                                               actionName: string) {
-
+  private async createConversationHistoryEntry(
+    uid: string, dialogflowResponse: DetectIntentResponse, responseText: string, intent: Intent, actionName: string,
+  ) {
     let parameters: any = { fields: {} };
     let queryText: string = 'Not specified';
     let intentName: string = 'Not specified';
@@ -123,59 +126,28 @@ export class LangController {
     if ( dialogflowResponse.hasOwnProperty('queryResult') ) {
 
       if ( dialogflowResponse.queryResult.hasOwnProperty('parameters') ) {
-
         parameters = dialogflowResponse.queryResult.parameters;
-
       }
 
       if ( dialogflowResponse.queryResult.hasOwnProperty('queryText') ) {
-
         queryText = dialogflowResponse.queryResult.queryText;
-
       }
 
     }
 
-    if ( intent !== null ) {
+    if ( intent.hasOwnProperty('name') ) {
+      intentName = intent.name;
+    }
 
-      if ( intent.hasOwnProperty('name') ) {
-
-        intentName = intent.name;
-
-      }
-
-      if ( intent.hasOwnProperty('displayName') ) {
-
-        intentDisplayName = intent.displayName;
-
-      }
-
+    if ( intent.hasOwnProperty('displayName') ) {
+      intentDisplayName = intent.displayName;
     }
 
     // Add a new conversation history entry to the data store
-    await this.databaseLangService.createConversationHistoryEntry(uid,
-                                                                  parameters,
-                                                                  queryText,
-                                                                  responseText,
-                                                                  intentName,
-                                                                  intentDisplayName,
-                                                                  actionName);
+    await this.databaseLangService.createConversationHistoryEntry(
+      uid, parameters, queryText, responseText, intentName, intentDisplayName, actionName,
+    );
 
-  }
-
-  // TODO move to new architecture as soon as it has been finished.
-  // TODO intent name should be moved into a const (as part of the above task)
-  private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse): Promise<ReturnText | undefined> {
-    const intentHandler = this.intentStrategy.createIntentHandler(intent.name);
-    if (intentHandler !== null) {
-        const responseParam = this.dialogFlowService.extractParameter(dialogflowResponse);
-        const allParamSet = this.dialogFlowService.extractReqParameterPresent(dialogflowResponse);
-
-        const intentData: IIntentData = {parameter: responseParam, allParameterSet: allParamSet, user: uid, intentList: [ INTENT_HELP,
-                                                                                                                          INTENT_CONTEXT,
-                                                                                                                          INTENT_DEFAULT]};
-        return intentHandler.handle(intentData);
-    }
   }
 
 }

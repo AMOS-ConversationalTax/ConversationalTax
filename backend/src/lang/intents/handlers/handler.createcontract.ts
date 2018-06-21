@@ -10,10 +10,15 @@ export class CreateContractIntentHandler extends IntentHandler{
         super();
     }
 
-    public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
+    /**
+     * Proccesses a given DialogFlow Reponse
+     * @param intentData Parts of the DialogFlow response
+     * @returns {Promise<undefined>}
+     */
+    public async handle(intentData: IIntentData): Promise<undefined> {
         if (!await this.userService.exists(intentData.user)) {
             this.userService.create(intentData.user);
-          }
+        }
         await this.employmentContractService.create(intentData.user);
         return undefined;
     }
