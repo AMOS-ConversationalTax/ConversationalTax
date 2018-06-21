@@ -7,9 +7,10 @@ import { LangController } from './lang.controller';
 import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { ConnectorsModule } from '../connectors/connectors.module';
 import { ExplanationService } from './explanation/explanation.service';
+import { StrategyModule } from './intents/strategy/strategy.module';
 
 @Module({
-    imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule, ConversationHistoryModule],
+    imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule, ConversationHistoryModule, StrategyModule],
     controllers: [LangController],
     providers: [DialogFlowService, ExplanationService],
 })

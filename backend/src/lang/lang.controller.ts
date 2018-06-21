@@ -6,6 +6,7 @@ import { EmploymentContractService } from '../database/employmentContract/employ
 import { ExplanationService } from './explanation/explanation.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
 import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
+import { IntentStrategy } from './intents/strategy/strategy.intent';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -30,6 +31,7 @@ export class LangController {
     private contractService: EmploymentContractService,
     private explanationService: ExplanationService,
     private databaseLangService: DatabaseLangService,
+    private intentStrategy: IntentStrategy,
   ) {}
 
   @Post('text')
@@ -41,6 +43,7 @@ export class LangController {
   @Post('audio_upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file, @Query() params: AudioIntentParams) {
+    console.log('****lang.controller: File received ******');
     const dialogflowResponse = await this.processAudiofile(file, params);
     return this.handleResponse(dialogflowResponse[0], params);
   }
@@ -163,119 +166,16 @@ export class LangController {
   // TODO move to new architecture as soon as it has been finished.
   // TODO intent name should be moved into a const (as part of the above task)
   private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse): Promise<ReturnText | undefined> {
-    if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
+    const intentHandler = this.intentStrategy.createIntentHandler(intent.name);
+    if (intentHandler !== null) {
+        const responseParam = this.dialogFlowService.extractParameter(dialogflowResponse);
+        const allParamSet = this.dialogFlowService.extractReqParameterPresent(dialogflowResponse);
 
-      if (!await this.userService.exists(uid)) {
-
-        this.userService.create(uid);
-
-      }
-      await this.contractService.create(uid);
-
-    } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
-
-      try {
-
-        if (dialogflowResponse.queryResult.allRequiredParamsPresent) {
-
-          const response: any = dialogflowResponse.queryResult.parameters;
-
-          // EmploymentContract is always a stringValue
-          const employmentContractId: string = response.fields.EmploymentContract.stringValue;
-
-          // Start Date is always a structValue
-          const startDate: any = response.fields.StartDate.structValue;
-
-          // If a date was recognized as an exact date, startDate has the property 'StartDateAsDate'
-          if ( startDate.fields.hasOwnProperty('StartDateAsDate') ) {
-
-            // Although start date is recognized as a date, the value is present in stringValue
-            const startDateExact: any = startDate.fields.StartDateAsDate.stringValue;
-
-            await this.contractService.editStartDateExact(employmentContractId, startDateExact);
-
-            // If set was successfull we want to remove a possibly existing startDateString
-            await this.contractService.deleteStartDateString(employmentContractId);
-
-          // If a date was not recognized as an exact date, startDate has the property 'StartDateAsDate'
-          } else if ( startDate.fields.hasOwnProperty('StartDateAsString') ) {
-
-            // The value of startDate is present in stringValue
-            const startDateString: any = startDate.fields.StartDateAsString.stringValue;
-
-            await this.contractService.editStartDateString(employmentContractId, startDateString);
-
-            // If set was successfull we want to remove a possibly existing startDateExact
-            await this.contractService.deleteStartDateExact(employmentContractId);
-
-          }
-        }
-
-      } catch (error) {
-
-        return { text: 'Beim Ändern des Startdatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
-
-      }
-
-    } else if (intent.name === 'projects/test-c7ec0/agent/intents/d1523cf3-bb4d-47cb-8fc4-bec3d669628e') {
-
-      try {
-
-        const response: any = dialogflowResponse.queryResult.parameters;
-        const employmentContractId = response.fields.EmploymentContract.stringValue;
-
-        // If our parameters are not ready Dialogflow will ask for them
-        if (employmentContractId !== '') {
-
-          await this.contractService.editEndDateString(employmentContractId, 'unbefristet');
-
-        }
-
-      } catch (error) {
-
-        return { text: 'Beim Ändern des Enddatums ist ein Fehler aufgetreten. Bitte versuche es erneut' };
-
-      }
-
-    } else if (intent.name === INTENT_HELP) {
-
-      // Return Help
-      const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(uid,
-                                                                                                                           [INTENT_HELP,
-                                                                                                                            INTENT_CONTEXT,
-                                                                                                                            INTENT_DEFAULT]);
-
-      if (history.length > 0) {
-
-        const previousResponse = history[0];
-        const text = this.explanationService.getHelpText(previousResponse.intent, previousResponse.action);
-        return { text };
-
-      }
-
-      return { text: 'Es gibt keine letzte Anfrage zu der ich dir eine Hilfestellung geben könnte' };
-
-    } else if (intent.name === INTENT_CONTEXT) {
-
-      // Return Context
-      const history: Array<ConversationHistory> = await this.databaseLangService.getConversationHistoryOfUserWithoutIntents(uid,
-                                                                                                                           [INTENT_HELP,
-                                                                                                                            INTENT_CONTEXT,
-                                                                                                                            INTENT_DEFAULT]);
-      if (history.length > 0) {
-
-        const previousResponse = history[0];
-        const text = this.explanationService.getContextExplanation(previousResponse.intent);
-        return { text };
-
-      }
-
-      return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
-
+        const intentData: IIntentData = {parameter: responseParam, allParameterSet: allParamSet, user: uid, intentList: [ INTENT_HELP,
+                                                                                                                          INTENT_CONTEXT,
+                                                                                                                          INTENT_DEFAULT]};
+        return intentHandler.handle(intentData);
     }
-
-    return undefined;
-
   }
 
 }
