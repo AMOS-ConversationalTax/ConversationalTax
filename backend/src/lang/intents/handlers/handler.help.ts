@@ -4,6 +4,9 @@ import { DatabaseLangService } from 'connectors/database-lang.service';
 import { ConversationHistory } from 'database/conversationHistory/interfaces/conversationHistory.interface';
 import { ExplanationService, IGNORE_INTENTS } from '../../explanation/explanation.service';
 
+/**
+ * Class to handle a specific Intent
+ */
 @Injectable()
 export class HelpIntentHandler extends IntentHandler{
 
@@ -13,7 +16,7 @@ export class HelpIntentHandler extends IntentHandler{
 
     /**
      * Proccesses a given DialogFlow Reponse
-     * @param intentData Parts of the DialogFlow response
+     * @param {IIntentData} intentData Parts of the DialogFlow response
      * @returns {Promise<ReturnText | undefined>} The text for the user or undefined.
      */
     public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {

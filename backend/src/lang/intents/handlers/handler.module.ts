@@ -10,6 +10,9 @@ import { ExplanationService } from '../../explanation/explanation.service';
 import { ContextIntentHandler } from './handler.context';
 import { CreateContractIntentHandler } from './handler.createcontract';
 
+/**
+ * Exports and bundles the IntentHandlers
+ */
 @Module({
     imports: [EmploymentContractModule, UserModule, ConnectorsModule],
     providers: [EndDateIntentHandler, EndDateOpenIntentHandler, AddStartDateIntentHandler,

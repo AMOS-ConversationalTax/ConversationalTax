@@ -8,6 +8,9 @@ import { HelpFactory } from '../factory/factory.help';
 import { CreateContractFactory } from '../factory/factory.createcontract';
 import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 
+/**
+ * Class to get the right handler for an intent
+ */
 @Injectable()
 export class IntentStrategy {
     private readonly intentFactories: IIntentFactory[];
@@ -23,7 +26,8 @@ export class IntentStrategy {
 
     /**
      * Gets the first IntentHandler that matches the intent
-     * @param intentID The intent's ID
+     * @param {string} intentID The intent's ID
+     * @returns {IntentHandler} The appropriate handler
      */
     public createIntentHandler(intentID: string): IntentHandler{
         const intentFactory = this.intentFactories.filter((factory) => factory.appliesTo(intentID));

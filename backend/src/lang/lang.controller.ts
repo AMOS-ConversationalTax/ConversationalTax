@@ -32,10 +32,8 @@ export class LangController {
   /**
    * The constructor of the LangController
    * @param {DialogFlowService} dialogFlowService An instance of the DialogFlowService - injected by DI
-   * @param {UserService} userService An instance of the UserService - injected by DI
-   * @param {EmploymentContractService} contractService An instance of the EmploymentContractService - injected by DI
-   * @param {ExplanationService} explanationService An instance of the ExplanationService - injected by DI
    * @param {DatabaseLangService} databaseLangService An instance of the DatabaseLangService - injected by DI
+   * @param {IntentStrategy} intentStrategy An instance of the IntentStrategy - injected by DI
    */
   constructor(
     private dialogFlowService: DialogFlowService,
@@ -127,8 +125,9 @@ export class LangController {
 
   /**
    * Adapter function. Converts DialogFlows response to the IntentHandler's IIntentData
-   * @param dialogflowResponse The response from DialogFlow
-   * @param params The query params
+   * @param {DetectIntentResponse} dialogflowResponse The response from DialogFlow
+   * @param {TextIntentParams | AudioIntentParams} params The query params
+   * @returns {IIntentData} IntentData
    */
   private createIntentData(dialogflowResponse: DetectIntentResponse, params: TextIntentParams | AudioIntentParams): IIntentData {
     const responseParam = this.dialogFlowService.extractParameter(dialogflowResponse);

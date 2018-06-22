@@ -2,6 +2,9 @@ import { EmploymentContractService } from './../../../database/employmentContrac
 import { Injectable } from '@nestjs/common';
 import { IntentHandler } from './handler.abstract';
 
+/**
+ * Class to handle a specific Intent
+ */
 @Injectable()
 export class AddStartDateIntentHandler extends IntentHandler{
 
@@ -11,7 +14,7 @@ export class AddStartDateIntentHandler extends IntentHandler{
 
     /**
      * Proccesses a given DialogFlow Reponse
-     * @param intentData Parts of the DialogFlow response
+     * @param {IIntentData} intentData Parts of the DialogFlow response
      * @returns {Promise<ReturnText | undefined>} The text for the user or undefined.
      */
     public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {

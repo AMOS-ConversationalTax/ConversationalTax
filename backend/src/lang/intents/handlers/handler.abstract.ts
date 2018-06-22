@@ -1,3 +1,9 @@
+/* tslint:disable:completed-docs */
+// TODO Alex has to add the JSDoc
+
+/**
+ * Class to handle a specific Intent
+ */
 export abstract class IntentHandler{
 
     protected FIELDS = 'fields';
@@ -6,7 +12,7 @@ export abstract class IntentHandler{
 
     /**
      * Proccesses a given DialogFlow Reponse
-     * @param intentData Parts of the DialogFlow response
+     * @param {IIntentData} intentData Parts of the DialogFlow response
      * @returns {Promise<ReturnText | undefined>} The text for the user or undefined.
      */
     public async abstract handle(intentData: IIntentData): Promise<ReturnText | undefined>;

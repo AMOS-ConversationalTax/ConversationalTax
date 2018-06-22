@@ -4,6 +4,9 @@ import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
 import IntentConfig from './../IntentConfig';
 
+/**
+ * A Factory to handle a specific intent
+ */
 @Injectable()
 export class EndDateOpenFactory implements IIntentFactory {
 
@@ -20,8 +23,8 @@ export class EndDateOpenFactory implements IIntentFactory {
 
     /**
      * Whether this IntentFactory applies to the intent
-     * @param intentID The intent's ID
-     * @returns {boolean}
+     * @param {string} intentID The intent's ID
+     * @returns {boolean} Returns whether this factory applies
      */
     appliesTo(intentID: string): boolean {
         return (intentID === IntentConfig.INTENT_PREFIX + 'd1523cf3-bb4d-47cb-8fc4-bec3d669628e');

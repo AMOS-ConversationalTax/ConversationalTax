@@ -278,7 +278,8 @@ export class DialogFlowService {
 
     /**
      * Extracts the answer of DialogFlow to read it out to the user.
-     * @param detectIntent Response from DialogFlow
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
+     * @returns {boolean} Whether all params are set
      */
     public extractReqParameterPresent(detectIntent: DetectIntentResponse): boolean {
         return detectIntent.queryResult.allRequiredParamsPresent;
@@ -296,7 +297,7 @@ export class DialogFlowService {
     /**
      * Extract the action of the DialogFlow response
      * @param {DetectIntentResponse} detectIntent - Response from DialogFlow
-     * @return {string} - Returns the action extracted from the DialogFlow answer
+     * @returns {string} - Returns the action extracted from the DialogFlow answer
      */
     public extractAction(detectIntent: DetectIntentResponse): string {
         return detectIntent.queryResult.action;

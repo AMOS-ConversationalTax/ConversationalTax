@@ -7,6 +7,9 @@ import { CreateContractFactory } from '../factory/factory.createcontract';
 import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 import { HandlerModule } from '../handlers/handler.module';
 
+/**
+ * Exports and bundles the IntentFactory
+ */
 @Module({
     imports: [HandlerModule],
     providers: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory],
