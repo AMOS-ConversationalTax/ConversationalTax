@@ -9,20 +9,17 @@ import { EmploymentContract } from '../database/employmentContract/interfaces/em
 @Injectable()
 export class DatabaseDialogFlowService {
 
+    /**
+     * The constructor for the DatabaseDialogFlowService
+     * @param employmentContractService An EmploymentContractService - injected by DI
+     */
     constructor( private employmentContractService: EmploymentContractService ) {}
 
     /**
      * Updates the employment contract session entity
-     *
-     * @param {string} u_id
-     * An id for identifing the user
-     *
-     * @param {DialogFlowService} dialogFlowService
-     * A reference to a dialogFlowService object to avoid circlic dependencies
-     *
-     * @returns {Promise<boolean>>}
-     * A Promise containting the success of the update
-     *
+     * @param {string} u_id An id for identifing the user
+     * @param {DialogFlowService} dialogFlowService A reference to a dialogFlowService object to avoid circlic dependencies
+     * @returns {Promise<boolean>>} A Promise containting the success of the update
      */
     public async updateEmploymentContractSessionEntity(u_id: string, dialogFlowService: DialogFlowService): Promise<boolean> {
 

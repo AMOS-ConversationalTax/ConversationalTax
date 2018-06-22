@@ -97,6 +97,10 @@ export class NotificationsDBService {
         }
     }
 
+    /**
+     * Mark the notifications of an user as marked
+     * @param {string} user_id The id of the user
+     */
     async markAsRead(user_id: string) {
         return this.notificationModel.updateMany({ user_id }, {read: true});
     }

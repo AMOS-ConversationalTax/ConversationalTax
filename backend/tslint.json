@@ -60,7 +60,19 @@
             "warn",
             "error"
         ],
-        "no-unused-variable": true
+        "no-unused-variable": true,
+        "completed-docs": [
+            true,
+            {
+                "enums": true,
+                "classes": true,
+                "functions": true,
+                "methods": true,
+                "properties": true,
+                "types":true,
+                "interfaces":true
+            }
+        ]
     },
     "rulesDirectory": []
 }

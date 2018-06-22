@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
 
+/**
+ * The class that exports the reminder module
+ */
 @Module({
     imports: [DatabaseModule,
               MongooseModule.forFeature([{ name: DBConfig.REMINDER_MODEL_PROVIDER,
