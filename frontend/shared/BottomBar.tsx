@@ -9,10 +9,22 @@ import autobind from 'autobind-decorator';
 import global_styles from '../global_styles';
 import { NavigationService } from '../services/NavigationService';
 
+/**
+ * The property interface used in the class BottomBar
+ * @interface IProps
+ */
 interface IProps {
 }
 
+/**
+ * Implements the BottomBar used in multiple views
+ */
 export default class BottomBar extends Component<IProps> {
+
+  /**
+   * The rendering function for the bottom bar
+   * @returns {JSX.Element} The markup element that is displayed
+   */
   public render() {
     return (
       <View> 

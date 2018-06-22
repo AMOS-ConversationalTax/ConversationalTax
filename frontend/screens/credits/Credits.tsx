@@ -3,8 +3,16 @@ import { Text, StyleSheet, ScrollView } from 'react-native'
 import Wrapper from '../../shared/Wrapper';
 import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
+/**
+ * Implements the credits view
+ */
 export default class Credits extends Component {
-    render() {
+
+    /**
+     * Rendering function for the credits view
+     * @returns {JSX.Element} The markup element that is displayed
+     */
+    render(): JSX.Element {
         return (
             <Wrapper>
                 <RoundContentWrapper title="Credits">
@@ -54,6 +62,10 @@ export default class Credits extends Component {
     }
 }
 
+/**
+ * The styles that are used by the class Credits
+ * @type {any}
+ */
 const styles = StyleSheet.create({
     outerView: {
         //justifyContent: 'center'

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ConversationHistoryParametersInterface } from '../interfaces/ConversationHistoryParameters.interface';
 
+/**
+ * The property interface used in the class ListItem
+ * @interface IProps
+ */
 interface IProps {
   query: string,
   answer: string,
@@ -16,6 +20,10 @@ interface IProps {
  */
 export default class ListItem extends Component<IProps> {
 
+  /**
+   * The rendering function for a single ListItem
+   * @returns {JSX.Element} The markup element that is displayed
+   */
   public render() {
 
     let parameters: string = '';
@@ -75,6 +83,10 @@ export default class ListItem extends Component<IProps> {
 
 }
 
+/**
+ * The styles that are used by the class ListItem
+ * @type {any}
+ */
 const styles = StyleSheet.create({
   listitem: {
     margin: 10,
