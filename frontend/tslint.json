@@ -14,14 +14,9 @@
         "completed-docs": [
             true,
             {
-                "enums": true,
                 "classes": true,
                 "functions": true,
-                "methods": true,
-                "properties": true,
-                "types":true,
-                "interfaces":true,
-                "variables":true
+                "methods": true
             }
         ],
         "jsdoc-format": true,
