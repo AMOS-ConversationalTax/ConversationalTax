@@ -37,4 +37,8 @@ export default StyleSheet.create({
     }
 });
 
-export const BackgroundColors = ['#FEC325', '#E35908'];
+/**
+ * The color of the background
+ * @type {string[]}
+ */
+export const BackgroundColors: string[] = ['#FEC325', '#E35908'];

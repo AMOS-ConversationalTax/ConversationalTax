@@ -4,8 +4,17 @@ import Config from 'conv-tax-shared/config/config';
 import { DatabaseDialogFlowService } from '../../connectors/database-dialogflow.service';
 import * as grpc from 'grpc';
 
-const PROJECT_ID = 'test-c7ec0';
-const LANG_CODE = 'de-DE';
+/**
+ * The id of the project at dialogflow
+ * @type {string}
+ */
+const PROJECT_ID: string = 'test-c7ec0';
+
+/**
+ * The language code we use for our project at dialogflow
+ * @type {string}
+ */
+const LANG_CODE: string = 'de-DE';
 
 /**
  * A wrapper class around the dialogflow sdk.

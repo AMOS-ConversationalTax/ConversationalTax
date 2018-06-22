@@ -71,7 +71,8 @@
                 "methods": true,
                 "properties": true,
                 "types":true,
-                "interfaces":true
+                "interfaces":true,
+                "variables":true
             }
         ],
         "jsdoc-format": true,

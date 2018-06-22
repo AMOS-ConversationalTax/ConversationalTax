@@ -3,7 +3,11 @@ import { Mockgoose } from 'mockgoose-fix';
 import Config from 'conv-tax-shared/config/config';
 import DBConfig from './dbconfig';
 
-export const databaseProviders = [
+/**
+ * The main database providers
+ * @type {any}
+ */
+export const databaseProviders: any = [
     {
         provide: DBConfig.DB_PROVIDER,
         useFactory: async () => {
