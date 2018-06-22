@@ -16,7 +16,7 @@ export class ConversationHistoryService {
 
     /**
      * Constructor - is used for DI of the Model
-     * @param conversationHistoryModel The model of the conversationHistory table (corresponds to db.conversationHistory in MongoDB)
+     * @param {Model<ConversationHistory>} conversationHistoryModel The model of the conversationHistory table
      */
     constructor(@InjectModel(DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER) private readonly conversationHistoryModel: Model<ConversationHistory>) {}
 

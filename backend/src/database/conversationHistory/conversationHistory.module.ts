@@ -7,6 +7,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import DBConfig from '../dbconfig';
 
+/**
+ * Class that exports the conversationHistory module
+ */
 @Module({
     imports: [DatabaseModule,
               MongooseModule.forFeature([{ name: DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER,

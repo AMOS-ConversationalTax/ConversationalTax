@@ -14,7 +14,7 @@ export class EmploymentContractService {
 
     /**
      * Constructor - is used for DI of the Model
-     * @param employmentContractModel The model of the employmentContract table (corresponds to db.employmentContract in MongoDB)
+     * @param {Model<EmploymentContract>} employmentContractModel The model of the employmentContract table
      */
     constructor(@InjectModel(DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER) private readonly employmentContractModel: Model<EmploymentContract>) {}
 
@@ -192,12 +192,12 @@ export class EmploymentContractService {
 
         }
 
-   }
+    }
 
     /**
      * Set or update the endDate_string of a specific employmentContract
      * @param {string} _id - The id of the employmentContract
-     * @param {string} endDate_exact - The (new) string endDate of the employmentContract
+     * @param {string} endDate_string - The (new) string endDate of the employmentContract
      */
     async editEndDateString(_id: string, endDate_string: string) {
 
@@ -262,8 +262,9 @@ export class EmploymentContractService {
     }
 
     /**
-     * Find employmentContracts of a specific user
+     * Find employmentContracts of a specific user by name of the employment contract
      * @param {string} user_id - The unique id of the user
+     * @param {string} name - The name of the employment contract
      * @returns {Promise<Array<EmploymentContract>>} - A promise containing the employmentContract(s)
      */
     async findEmploymentContractsOfUserByName(user_id: string, name: string): Promise<Array<EmploymentContract>> {

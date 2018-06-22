@@ -13,16 +13,34 @@ import { filter, delay } from 'rxjs/operators';
 import global_styles from '../global_styles';
 import { NavigationService } from '../services/NavigationService';
 
+/**
+ * The property interface used in the class TopBar
+ * @interface IProps
+ */
 interface IProps {
 }
 
+/**
+ * Implements the top bar used at many screens
+ */
 export default class TopBar extends Component<IProps> {
+
+  /**
+   * The notifaction subscription(s)
+   * @type {Subscription[]}
+   */
   private notificationSubscription: Subscription[] = [];
 
-  state = {
+  /**
+   * The current state of the TopBar
+   */
+  state: any = {
     notificationCount: 0,
   }
   
+  /**
+   * A handler for the componentWillMount event
+   */
   componentWillMount() {
     this.setState({ notificationCount: NotificationService.countUnread() });
 
@@ -37,13 +55,20 @@ export default class TopBar extends Component<IProps> {
     this.notificationSubscription.push(subscription);
   }
 
+  /**
+   * A handler for the componentWillUnmount event
+   */
   componentWillUnmount() {
     this.notificationSubscription.forEach(subscription => {
       subscription.unsubscribe();
     });
   }
 
-  public render() {
+  /**
+   * The rendering function for the TopBar
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     const notificationCountElement = this.state.notificationCount > 0 ? this.showNotificationCount() : null;
     return (
       <View>
@@ -69,7 +94,11 @@ export default class TopBar extends Component<IProps> {
     );
   }
 
-  private showNotificationCount() {
+  /**
+   * A private method to update the notification count in the top right corner
+   * @returns {JSX.Element} The markup element that is displayed as notification count
+   */
+  private showNotificationCount(): JSX.Element {
     return (
       <View style={styles.notificationTextWrapper}>
         <Text style={styles.notificationText}>{this.state.notificationCount}</Text>
@@ -77,11 +106,17 @@ export default class TopBar extends Component<IProps> {
     );
   }
 
+  /**
+   * A method to open the navigation drawer
+   */
   @autobind
   private openNavi() {
     NavigationService.openDrawer();
   }
 
+  /**
+   * A "link" handler to open the notifications view
+   */
   @autobind
   private navigateToNotifications() {
     NavigationService.navigate('Notifications');
@@ -89,7 +124,11 @@ export default class TopBar extends Component<IProps> {
 
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the class TopBar
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
   topBar: {
     paddingLeft: 0,
     height: 60,

@@ -7,15 +7,23 @@ import { NavigatableRoutes } from 'conv-tax-shared/config/navigation.config';
  * Singleton Wrapper for (local) Push Notifications
  */
 export class PushNotificationServiceInstance {
+
+    /**
+     * A instance of the PushNotificationServiceInstance
+     * @type {PushNotificationServiceInstance}
+     */
     private static _instance: PushNotificationServiceInstance;
 
+    /**
+     * A constructor for the PushNotificationServiceInstance 
+     */
     constructor() {
         Notifications.addListener(this.handleNotificationSelect);
     }
 
     /**
      * Handles 'incoming' notification. For example if an user clicks on a notification
-     * @param notification The incoming notification object
+     * @param {Notifications.Notification} notification The incoming notification object
      */
     @autobind
     private handleNotificationSelect(notification: Notifications.Notification): void {
@@ -26,8 +34,8 @@ export class PushNotificationServiceInstance {
 
     /**
      * Presents a local push notification
-     * @param title Title of the notification
-     * @param body Text of the notification
+     * @param {string} title Title of the notification
+     * @param {string} body Text of the notification
      */
     public presentLocalNotification(title: string, body: string): void {
         const pushNotification: Notifications.LocalNotification = {title, body};
@@ -43,4 +51,8 @@ export class PushNotificationServiceInstance {
     }
 }
 
-export const PushNotificationService = PushNotificationServiceInstance.Instance
+/**
+ * A main instance of the PushNotificationService
+ * @type {PushNotificationServiceInstance}
+ */
+export const PushNotificationService: PushNotificationServiceInstance = PushNotificationServiceInstance.Instance

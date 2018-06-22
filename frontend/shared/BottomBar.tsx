@@ -9,11 +9,23 @@ import autobind from 'autobind-decorator';
 import global_styles from '../global_styles';
 import { NavigationService } from '../services/NavigationService';
 
+/**
+ * The property interface used in the class BottomBar
+ * @interface IProps
+ */
 interface IProps {
 }
 
+/**
+ * Implements the BottomBar used in multiple views
+ */
 export default class BottomBar extends Component<IProps> {
-  public render() {
+
+  /**
+   * The rendering function for the bottom bar
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     return (
       <View> 
         <View style={styles.topBar}>
@@ -38,23 +50,36 @@ export default class BottomBar extends Component<IProps> {
     );
   }
   
+  /**
+   * Change view to/navigate to Scanner
+   */
   @autobind
   private navigateToScanner() {
     NavigationService.navigate('Scanner');
   }
   
+  /**
+   * Change view to/navigate to Conversation
+   */
   @autobind
   private navigateToConversation() {
     NavigationService.navigate('Conversation');
   }
   
+  /**
+   * Change view to/navigate to ConversationHistory
+   */
   @autobind
   private navigateToHistory() {
     NavigationService.navigate('ConversationHistory');
   }
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the class BootomBar
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
   topBar: {
     backgroundColor: 'rgba(0,0,0,0.2)',
     paddingLeft: 10,

@@ -15,7 +15,7 @@ export class NotificationsDBService {
 
     /**
      * Constructor - is used for DI of the Model
-     * @param conversationHistoryModel The model of the conversationHistory table (corresponds to db.conversationHistory in MongoDB)
+     * @param {Model<Notification>} notificationModel The model of the notification table
      */
     constructor(@InjectModel(DBConfig.NOTIFICATIONS_MODEL_PROVIDER) private readonly notificationModel: Model<Notification>) { }
 
@@ -24,6 +24,8 @@ export class NotificationsDBService {
      * @param {string} user_id - The id of the user the notification corresponds with
      * @param {string} title - The title of the notification
      * @param {string} description - The description of the notification
+     * @param {NavigatableRoutes} navigateTo - A route to navigate to after clicking on the notification
+     * @param {string} textForDialogflow - A text that should be send to dialogflow after clicking on the notification
      * @returns {Promise<string>} - A promise containing the unique _id of the notification
      */
     async create(user_id: string, title: string, description: string, navigateTo?: NavigatableRoutes, textForDialogflow?: string): Promise<string> {
@@ -97,7 +99,12 @@ export class NotificationsDBService {
         }
     }
 
-    async markAsRead(user_id: string) {
+    /**
+     * Mark the notifications of an user as marked
+     * @param {string} user_id The id of the user
+     * @returns {any} A promise containing the success of the query
+     */
+    async markAsRead(user_id: string): Promise<any> {
         return this.notificationModel.updateMany({ user_id }, {read: true});
     }
 

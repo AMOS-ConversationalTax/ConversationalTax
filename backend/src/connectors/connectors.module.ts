@@ -5,6 +5,9 @@ import { EmploymentContractModule } from '../database/employmentContract/employm
 import { UserModule } from '../database/user/user.module';
 import { ConversationHistoryModule } from '../database/conversationHistory/conversationHistory.module';
 
+/**
+ * Class that exports the connectors module
+ */
 @Module({
     imports: [EmploymentContractModule, ConversationHistoryModule, UserModule],
     providers: [DatabaseDialogFlowService, DatabaseLangService],
