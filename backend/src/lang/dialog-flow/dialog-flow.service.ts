@@ -27,7 +27,7 @@ export class DialogFlowService {
 
     /**
      * The constructor of the DialogFlowService
-     * @param databaseDialogFlowService A instance of the databaseDialogFlowService - injected by DI
+     * @param {DatabaseDialogFlowService} databaseDialogFlowService A instance of the databaseDialogFlowService - injected by DI
      */
     constructor( private databaseDialogFlowService: DatabaseDialogFlowService ) {
 
@@ -118,7 +118,7 @@ export class DialogFlowService {
 
     /**
      * Extracts the answer of DialogFlow to read it out to the user
-     * @param detectIntent Response from DialogFlow
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
      * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {

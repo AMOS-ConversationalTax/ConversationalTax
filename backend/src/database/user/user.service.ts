@@ -13,7 +13,7 @@ export class UserService {
 
     /**
      * Constructor - is used for DI of the Model
-     * @param userModel The model of the user table (corresponds to db.user in MongoDB)
+     * @param {Model<User>} userModel The model of the user table
      */
     constructor(@InjectModel(DBConfig.USER_MODEL_PROVIDER) private readonly userModel: Model<User>) {}
 
@@ -46,7 +46,7 @@ export class UserService {
 
     /**
      * Check whether the given user already exists.
-     * @param _id The unique id of the user
+     * @param {string} _id The unique id of the user
      * @returns {Promise<boolean>} - A promise whether the user exists
      */
     public async exists(_id: string): Promise<boolean> {

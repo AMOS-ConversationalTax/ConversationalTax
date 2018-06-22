@@ -115,7 +115,7 @@ export class NotificationService {
 
     /**
      * Packs a notification the be delivered via the websocket
-     * @param notification the notification
+     * @param {NotificationMessage} notification the notification
      * @returns {WsResponse<NotificationMessage>} The websocket response
      */
     private packNotification(notification: NotificationMessage): WsResponse<NotificationMessage> {

@@ -14,7 +14,7 @@ export class ReminderService {
 
     /**
      * Constructor - is used for DI of the Model
-     * @param reminderModel The model of the reminder table (corresponds to db.reminder in MongoDB)
+     * @param {Model<Reminder>} reminderModel The model of the reminder table
      */
     constructor(@InjectModel(DBConfig.REMINDER_MODEL_PROVIDER) private readonly reminderModel: Model<Reminder>) {}
 

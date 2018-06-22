@@ -28,18 +28,20 @@ export class NotificationsController {
     /**
      * A function to get all notifications of an user
      * @param {GetNotificationsQuery} params The params of the query containing the uid of the user
+     * @returns {Promise<any>} A promise containing the notifications of an user
      */
     @Get()
-    getUsersNotifications(@Query() params: GetNotificationsQuery) {
+    getUsersNotifications(@Query() params: GetNotificationsQuery): Promise<any> {
         return this.notificationDb.findNotificationByUser(params.u_id);
     }
 
     /**
      * A function to mark the notifications of an user as read
      * @param {GetNotificationsQuery} params The params of the query containing the uid of the user
+     * @returns {Promise<any>} A promise containing a success value
      */
     @Get('markAsRead')
-    markAsRead(@Query() params: GetNotificationsQuery) {
+    markAsRead(@Query() params: GetNotificationsQuery): Promise<any> {
         return this.notificationDb.markAsRead(params.u_id);
     }
 }

@@ -12,7 +12,7 @@ const FALLBACK_CONTEXT_EXPLANATION = 'Wir haben gerade über kein spezifisches T
 export class ExplanationService {
     /**
      * Gets a context explanation for the user.
-     * @param {ConversationHistoryIntent} intent The Intent of which you want to get the context explanation
+     * @param {ConversationHistoryIntent} previousIntent The Intent of which you want to get the context explanation
      * @returns {string} A specific context explanation for the user.
      */
     public getContextExplanation(previousIntent: ConversationHistoryIntent): string {

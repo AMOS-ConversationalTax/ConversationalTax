@@ -17,11 +17,11 @@ export class ConversationHistoryController {
 
     /**
      * Get a conversation history of an user
-     * @param {GetConversationHistoryParams} params The GET parameters of the query - hs to contain u_id
-     * @returns The conversation history of an user
+     * @param {GetConversationHistoryParams} params The GET parameters of the query - has to contain u_id
+     * @returns {Promise<any>} The conversation history of an user
      */
     @Get('conversationHistory')
-    async getConversationHistory(@Query() params: GetConversationHistoryParams) {
+    async getConversationHistory(@Query() params: GetConversationHistoryParams): Promise<any> {
 
         return this.conversationHistoryService.findConversationHistoryOfUser(params.u_id);
 

@@ -12,8 +12,8 @@ export class DatabaseLangService {
 
     /**
      * The constructor for DatabaseLangService
-     * @param conversationHistoryService A ConversationHistoryService - injected by DI
-     * @param userService A UserService - injected by DI
+     * @param {ConversationHistoryService} conversationHistoryService A ConversationHistoryService - injected by DI
+     * @param {UserService} userService A UserService - injected by DI
      */
     constructor( private conversationHistoryService: ConversationHistoryService,
                  private userService: UserService ) {}
@@ -27,7 +27,7 @@ export class DatabaseLangService {
      * @param {string} intentName The detected intent uri
      * @param {string} intentDisplayName The display name of the detected intent
      * @param {string} action The action dialogflow recognized
-     * @returns {Promise<string>>} A Promise containting the id of the conversation histroy entry
+     * @returns {Promise<string>} The conversation history of an user
      */
     public async createConversationHistoryEntry( uid: string, parameters: any, query: string,
                                                  answer: string, intentName: string, intentDisplayName: string,
