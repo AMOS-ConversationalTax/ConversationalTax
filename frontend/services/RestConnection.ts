@@ -3,10 +3,21 @@ import Config from 'conv-tax-shared/config/config';
 import Expo from 'expo';
 import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 
-const DEFAULT_OPTIONS = { 'timeout': 10000 };
+/**
+ * A array containing some default options
+ * @type {any}
+ */
+const DEFAULT_OPTIONS: any = { 'timeout': 10000 };
 
+/**
+ * Implements a default REST connection
+ */
 export default class RestConnection implements IConnection {
     
+    /**
+     * Default read operation to REST api
+     * @returns {Promise<string>} The output of the read operation
+     */
     public read(): Promise<string> {
         const url = Config.SERVER_URL;
         const promise = new Promise<string>((resolve, reject) => {
@@ -21,6 +32,11 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
+    /**
+     * Default create operation to the REST api
+     * @param {{}} data The data to be created by the REST endpoint
+     * @returns {Promise<string>} The output of the create operation 
+     */
     public create(data: {}): Promise<string> {
         const url = Config.SERVER_URL;
         const promise = new Promise<string>((resolve, reject) => {
@@ -35,6 +51,11 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
+    /**
+     * Default update operation to the REST api
+     * @param {string} data The data to be updated by the REST endpoint
+     * @returns {Promise<string>} The output of the update operation
+     */
     public update(data: string): Promise<string> {
         const url = Config.SERVER_URL;
         const promise = new Promise<string>((resolve, reject) => {
@@ -49,6 +70,10 @@ export default class RestConnection implements IConnection {
         return promise;
     }
 
+    /**
+     * Default delete operation to the REST api
+     * @returns {Promise<string>} The output of the delete operation
+     */
     public delete(): Promise<string> {
         const url = Config.SERVER_URL;
         const promise = new Promise<string>((resolve, reject) => {
@@ -66,8 +91,9 @@ export default class RestConnection implements IConnection {
     /**
      * Uploads an audio file to the backend
      * @param {string} uri - The (Expo.io) filepath of the file to be uploaded 
+     * @returns {Promise<any>} The answer of the backend
      */
-    async uploadAudioAsync(uri: string) {
+    async uploadAudioAsync(uri: string): Promise<any> {
         let platform: 'ios' | 'android';
         if (Expo.Constants.platform.android !== undefined) {
             platform = 'android';
@@ -108,6 +134,7 @@ export default class RestConnection implements IConnection {
     /**
      * Uploads a text to the backend
      * @param {string} text The text that should be sent.
+     * @returns {Promise<any>} The answer of the backend
      */
     async uploadTextAsync(text: string): Promise<any> {
         const url = `${Config.SERVER_URL}/lang/text?u_id=${Expo.Constants.deviceId}`; 

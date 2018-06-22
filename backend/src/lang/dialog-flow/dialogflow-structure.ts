@@ -1,16 +1,59 @@
+/**
+ * An interface wrapping informations and context/help texts for an action
+ */
 export interface ActionInformation {
+    /**
+     * The name of the action
+     * @type{string}
+     */
     name: string;
+
+    /**
+     * The helpText for a action
+     * @type{string}
+     */
     helpText: string;
 }
 
+/**
+ * An interface wrapping informations and context/help texts for an intent
+ */
 export interface IntentInformation {
+    /**
+     * The display name of the intent
+     * @type {string}
+     */
     displayName: string;
+
+    /**
+     * The name (=uri) of the intent
+     * @type {string}
+     */
     name: string;
+
+    /**
+     * The context text for the intent
+     * @type {string}
+     */
     contextText: string;
+
+    /**
+     * The help text for the intent
+     * @type {string}
+     */
     helpText: string;
+
+    /**
+     * The actions for the intent
+     * @type {ActionInformation[]}
+     */
     actions: ActionInformation[];
 }
 
+/**
+ * A array containing the basic informations about a bunch of intent (there should be an entry for every used intent)
+ * @type {IntentInformation[]}
+ */
 export const DialogFlowStructure: IntentInformation[] = [
     {
         displayName: 'Arbeitsvertrag',

@@ -1,8 +1,30 @@
+/**
+ * The WebSocket client for receiving notifications
+ */
 export class WebSocketClient {
+
+    /**
+     * The main websocket
+     * @type {WebSocket}
+     */
     private websocket: WebSocket;
-    private messageHandler = new Map<string, ((data: object) => any)[]>();
+
+    /**
+     * A handler for the messages
+     * @type {Map<string, ((data: object) => any)[]>}
+     */
+    private messageHandler: Map<string, ((data: object) => any)[]> = new Map<string, ((data: object) => any)[]>();
+
+    /**
+     * A handler for opeing the websocket
+     * @type {(() => any)[]}
+     */
     private openHandler: (() => any)[] = [];
 
+    /**
+     * The constructor for the WebSocketClient
+     * @param {string} uri The uri to connect to 
+     */
     constructor(private uri: string) {
         this.connect();
     }
@@ -44,7 +66,7 @@ export class WebSocketClient {
 
     /**
      * You may register callbacks when the connection is established
-     * @param callback Your callback function
+     * @param {any} callback Your callback function
      */
     public registerOpenedHandler(callback: () => any): void {
         this.openHandler.push(callback);
@@ -52,8 +74,8 @@ export class WebSocketClient {
 
     /**
      * You may register callbacks when a message is retrieved
-     * @param event The name of the event you want to handle
-     * @param callback The callback function
+     * @param {string} event The name of the event you want to handle
+     * @param {any} callback The callback function
      */
     public registerMessageHandler(event: string, callback: (data: object) => any): void {
         if (!this.messageHandler.has(event)) {
@@ -64,7 +86,7 @@ export class WebSocketClient {
 
     /**
      * Sends a message through the websocket
-     * @param msg Your message
+     * @param {string | object} msg Your message
      */
     public send(msg: string | object): void {
         if (typeof msg === 'string') {

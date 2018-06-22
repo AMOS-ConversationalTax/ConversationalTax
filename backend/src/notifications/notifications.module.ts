@@ -4,6 +4,9 @@ import { NotificationsDBModule } from '../database/notifications/notifications.m
 import { NotificationService } from './notification-service';
 import { UserModule } from '../database/user/user.module';
 
+/**
+ * The class that exports the NotificationsModule
+ */
 @Module({
     imports: [NotificationsDBModule, UserModule],
     controllers: [NotificationsController],

@@ -12,6 +12,9 @@ import { WebsocketModule } from './websocket/websocket.module';
 import Config from 'conv-tax-shared/config/config';
 import { NotificationsDBModule } from 'database/notifications/notifications.module';
 
+/**
+ * Class that exports the main module of the backend
+ */
 @Module({
   imports: [
     EmploymentContractModule,

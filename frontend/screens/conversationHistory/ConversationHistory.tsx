@@ -5,9 +5,17 @@ import { ConversationHistoryInterface } from './interfaces/ConversationHistory.i
 import Wrapper from '../../shared/Wrapper';
 import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
+/**
+ * The property interface used in the class ConversationHistory
+ * @interface IProps
+ */
 interface IProps {
 }
 
+/**
+ * The state interface used in the class ConversationHistory
+ * @interface IState
+ */
 interface IState {
   data: ConversationHistoryInterface[],
 }
@@ -18,10 +26,15 @@ interface IState {
  */
 export default class ConversationHistory extends Component<IProps, IState> {
 
+  /**
+   * A instance of RestConnection
+   * @type {RestConnection}
+   */
   private readonly restClient: RestConnection = new RestConnection();
 
   /**
    * Initializes an instance of ConversationHistory
+   * @param {IProps} props The properties of the ConversationHistory
    */
   constructor(props: IProps) {
     super(props);
@@ -46,8 +59,9 @@ export default class ConversationHistory extends Component<IProps, IState> {
 
   /**
    * Rendering function for the ConversationHistory
+   * @returns {JSX.Element} The markup element that is displayed
    */
-  public render() {
+  public render(): JSX.Element {
 
     return (
       <Wrapper>
@@ -60,7 +74,7 @@ export default class ConversationHistory extends Component<IProps, IState> {
 
   /**
    * Get the current conversation history of the user
-   * @returns {Promise<Array<ConversationHistoryInterface>>} - A promise containing the conversation history json as string
+   * @returns {Promise<Array<ConversationHistoryInterface>>} A promise containing the conversation history json as string
    */
   private async getConversationHistory(): Promise<Array<ConversationHistoryInterface>> {
 

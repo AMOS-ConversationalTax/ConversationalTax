@@ -12,14 +12,46 @@ import { PushNotificationService } from './PushNotificationService';
  * Singleton NotificationService
  */
 export class NotificationServiceInstance {
+
+    /**
+     * A list of open notifications
+     * @type {NotificationMessage[]}
+     */
     public notifications: NotificationMessage[] = [];
+
+    /**
+     * A place for new notifications
+     * @type {Subject<void>}
+     */
     public newNotification: Subject<void> = new Subject();
+
+    /**
+     * The current count of notifications
+     * @type {Subject<number>}
+     */
     public notificationCount: Subject<number> = new Subject();
 
+    /**
+     * A instance of the NotificationService
+     * @type {NotificationServiceInstance}
+     */
     private static _instance: NotificationServiceInstance;
+
+    /**
+     * A connection to the websocket
+     * @type {WebSocketClient}
+     */
     private websocket: WebSocketClient;
+
+    /**
+     * A instance of the RestConnection
+     * @type {RestConnection}
+     */
     private restClient: RestConnection;
 
+    /**
+     * The constructor for the NotificationService
+     */
     private constructor() {
         this.init();
     }
@@ -59,7 +91,7 @@ export class NotificationServiceInstance {
 
     /**
      * Handles incoming messages of the websocket
-     * @param data The new notification
+     * @param {NotificationMessage} data The new notification
      */
     private handleNotificationMessage(data: NotificationMessage): void {
         this.notifications.unshift(data);
@@ -97,4 +129,8 @@ export class NotificationServiceInstance {
     }
 }
 
-export const NotificationService = NotificationServiceInstance.Instance
+/**
+ * A instance of the NotificationService
+ * @type {NotificationServiceInstance}
+ */
+export const NotificationService: NotificationServiceInstance = NotificationServiceInstance.Instance

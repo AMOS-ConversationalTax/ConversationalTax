@@ -6,19 +6,42 @@ import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 import Wrapper from '../../shared/Wrapper';
 import RoundContentWrapper from '../../shared/RoundContentWrapper';
 
+/**
+ * The property interface used in the class Notifications
+ * @interface IProps
+ */
 interface IProps {
 }
 
+/**
+ * The state interface used in the class Notifications
+ * @interface IState
+ */
 interface IState {
   notifications: NotificationMessage[];
 }
 
+/**
+ * Implements the notification view
+ */
 export default class Notifications extends Component<IProps, IState> {
+
+  /**
+   * The subscription to the notification websocket
+   * @type {Subscription}
+   */
   private notificationSubscription: Subscription;
-  state = {
+
+  /**
+   * The state of the notifications
+   */
+  state: any = {
     notifications: [],
   }
 
+  /**
+   * Handler for the componentWillMount event
+   */
   componentWillMount() {
     const deepClone = JSON.parse(JSON.stringify(NotificationService.notifications));
     this.setState({ notifications: deepClone });
@@ -30,15 +53,25 @@ export default class Notifications extends Component<IProps, IState> {
     })
   }
 
+  /**
+   * Handler for the componentDidMount event
+   */
   componentDidMount() {
     NotificationService.markAsRead();
   }
 
+  /**
+   * Handler for the ComponentWillUnmount event
+   */
   componentWillUnmount() {
     this.notificationSubscription.unsubscribe();
   }
 
-  public render() {
+  /**
+   * Rendering function for the Notification view
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     return (
       <Wrapper>
         <RoundContentWrapper title="Benachrichtigungen">

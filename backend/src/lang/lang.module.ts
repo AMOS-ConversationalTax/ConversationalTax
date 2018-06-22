@@ -9,6 +9,9 @@ import { ConnectorsModule } from '../connectors/connectors.module';
 import { ExplanationService } from './explanation/explanation.service';
 import { StrategyModule } from './intents/strategy/strategy.module';
 
+/**
+ * The class that exports the lang module
+ */
 @Module({
     imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule, ConversationHistoryModule, StrategyModule],
     controllers: [LangController],

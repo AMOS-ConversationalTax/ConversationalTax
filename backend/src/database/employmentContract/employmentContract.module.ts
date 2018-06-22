@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { employmentContractSchema } from './schemas/employmentContract.schema';
 import DBConfig from '../dbconfig';
 
+/**
+ * The class that exports the employmentContract module
+ */
 @Module({
     imports: [DatabaseModule,
               MongooseModule.forFeature([{ name: DBConfig.EMPLOYMENTCONTRACT_MODEL_PROVIDER,

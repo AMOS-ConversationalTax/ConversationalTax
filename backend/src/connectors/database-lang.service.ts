@@ -10,36 +10,24 @@ import { UserService } from '../database/user/user.service';
 @Injectable()
 export class DatabaseLangService {
 
+    /**
+     * The constructor for DatabaseLangService
+     * @param {ConversationHistoryService} conversationHistoryService A ConversationHistoryService - injected by DI
+     * @param {UserService} userService A UserService - injected by DI
+     */
     constructor( private conversationHistoryService: ConversationHistoryService,
                  private userService: UserService ) {}
 
     /**
      * Updates the employment contract session entity
-     *
-     * @param {string} uid
-     * An id for identifing the user
-     *
-     * @param {any} parameters
-     * The parameters dialogflow recognized
-     *
-     * @param {string} query
-     * The query dialogflow understood
-     *
-     * @param {string} answer
-     * The answer for the user
-     *
-     * @param {string} intentName
-     * The detected intent uri
-     *
-     * @param {string} intentDisplayName
-     * The display name of the detected intent
-     *
-     * @param {string} action
-     * The action dialogflow recognized
-     *
-     * @returns {Promise<string>>}
-     * A Promise containting the id of the conversation histroy entry
-     *
+     * @param {string} uid An id for identifing the user
+     * @param {any} parameters The parameters dialogflow recognized
+     * @param {string} query The query dialogflow understood
+     * @param {string} answer The answer for the user
+     * @param {string} intentName The detected intent uri
+     * @param {string} intentDisplayName The display name of the detected intent
+     * @param {string} action The action dialogflow recognized
+     * @returns {Promise<string>} The conversation history of an user
      */
     public async createConversationHistoryEntry( uid: string, parameters: any, query: string,
                                                  answer: string, intentName: string, intentDisplayName: string,
@@ -68,13 +56,9 @@ export class DatabaseLangService {
 
     /**
      * Get the conversation history of a user excluding some intent names
-     *
-     * @param {string} user_id - The unique id of the user
-     *
-     * @param {Array<string>} intent_names - The intents that are not allowed to be included
-     *
-     * @returns {Promise<Array<ConversationHistory>>} - A promise containing the conversationHistory entries sorted by their timestamp
-     *
+     * @param {string} user_id The unique id of the user
+     * @param {Array<string>} intent_names The intents that are not allowed to be included
+     * @returns {Promise<Array<ConversationHistory>>} A promise containing the conversationHistory entries sorted by their timestamp
      */
     public async getConversationHistoryOfUserWithoutIntents(user_id: string, intent_names: Array<string>): Promise<Array<ConversationHistory>> {
 
@@ -82,6 +66,11 @@ export class DatabaseLangService {
 
     }
 
+    /**
+     * This function extracts the name und displayName of any parameter contained in parameters
+     * @param {any} parameters The parameters contained in the Dialogflow response
+     * @returns {Array<ConversationHistoryParameters>} An array containing the extracted parameters
+     */
     private extractParameters(parameters: any): Array<ConversationHistoryParameters> {
 
         // Extract the parameters out of the dialogflowResponse

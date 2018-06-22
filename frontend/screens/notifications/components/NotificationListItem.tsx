@@ -6,14 +6,25 @@ import autobind from 'autobind-decorator';
 import { NavigationService } from './../../../services/NavigationService';
 import { NavigatableRoutes } from 'conv-tax-shared/config/navigation.config';
 
+/**
+ * The property interface used in the class NotificationListItem
+ * @interface IProps
+ */
 interface IProps {
   notification: NotificationMessage;
   firstItem: boolean;
 }
 
+/**
+ * The class that represents a single item in the NotificationList
+ */
 export default class NotificationListItem extends Component<IProps> {
   
-  public render() {
+  /**
+   * Rendering function for a single list item
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     let viewStyles = [styles.container];
     if (!this.props.notification.read) {
       viewStyles.push(styles.unread);
@@ -30,6 +41,10 @@ export default class NotificationListItem extends Component<IProps> {
     )
   }
 
+  /**
+   * Renders the subelement arrow used in render()
+   * @returns {JSX.Element | null} The markup element that is displayed
+   */
   private renderActionArrow(): JSX.Element | null {
     if (this.props.notification.navigateTo === undefined && this.props.notification.textForDialogflow === undefined) {
       return null;
@@ -43,6 +58,9 @@ export default class NotificationListItem extends Component<IProps> {
     );
   }
 
+  /**
+   * Handler for a click on a notification
+   */
   @autobind
   private handleClick(): void {
     if (this.props.notification.navigateTo !== undefined) {
@@ -57,7 +75,11 @@ export default class NotificationListItem extends Component<IProps> {
   }
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the class NotificationListItem
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',

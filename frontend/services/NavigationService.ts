@@ -1,5 +1,9 @@
 import { NavigationActions, DrawerActions } from 'react-navigation';
 
+/**
+ * An interface for the navigation route
+ * @interface NavigationRoute
+ */
 interface NavigationRoute {
     key: string,
     params: any,
@@ -10,13 +14,28 @@ interface NavigationRoute {
  * Singleton NavigationService
  */
 class NavigationServiceInstance {
+
+    /**
+     * A static instance of NavigationServiceInstance
+     * @type {NavigationServiceInstance}
+     */
     private static _instance: NavigationServiceInstance;
+
+    /**
+     * A navigator
+     * @type {any}
+     */
     private _navigator: any;
+
+    /**
+     * A stack to save the route
+     * @type {string[]}
+     */
     private routeStack: string[] = [];
 
     /**
-     * Initlizes this service
-     * @param navigatorRef the Ref to the root navigator
+     * Initializes this service
+     * @param {any} navigatorRef the Ref to the root navigator
      */
     public setTopLevelNavigator(navigatorRef: any): void {
         this._navigator = navigatorRef;
@@ -24,8 +43,8 @@ class NavigationServiceInstance {
 
     /**
      * Navigates to another route
-     * @param routeName name as specified in App.tsx
-     * @param params optional params
+     * @param {string} routeName name as specified in App.tsx
+     * @param {any} params optional params
      */
     public navigate(routeName: string, params?: any): void {
         this.routeStack.push(routeName);
@@ -71,7 +90,7 @@ class NavigationServiceInstance {
 
     /**
      * Get a parameter of the current route
-     * @param key The key for the parameter
+     * @param {string} key The key for the parameter
      * @returns {any | undefined} Returns undefined on a error or the element on success.
      */
     public getParam(key: string): any | undefined {
@@ -107,4 +126,8 @@ class NavigationServiceInstance {
     }
 }
 
-export const NavigationService = NavigationServiceInstance.Instance
+/**
+ * A instance of the navigation service
+ * @type {NavigationServiceInstance}
+ */
+export const NavigationService: NavigationServiceInstance = NavigationServiceInstance.Instance
