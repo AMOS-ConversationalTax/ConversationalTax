@@ -4,20 +4,36 @@ import { FontAwesome } from '@expo/vector-icons';
 import { NavigationService } from '../services/NavigationService';
 import {NavigatableRoutes} from 'conv-tax-shared/config/navigation.config';
 
-const routes = new Map<string, string>([
+/**
+ * Defines the routes in center of the drawer
+ * @type {Map<string, string>}
+ */
+const routes: Map<string, string> = new Map<string, string>([
     ['Start', NavigatableRoutes.Conversation],
     ['Benachrichtigungen', NavigatableRoutes.Notifications],
     ['Scanner', NavigatableRoutes.Scanner],
     ['Verlauf', NavigatableRoutes.History],
 ]);
 
-const bottomRoutes = new Map<string, string>([
+/**
+ * Defines the bottom routes 
+ * @type {Map<string, string>}
+ */
+const bottomRoutes: Map<string, string> = new Map<string, string>([
     ['Entwickler-Werkzeuge', 'Debug'],
     ['Credits', 'Credits'],
 ]);
 
+/**
+ * Implements a custom drawer
+ */
 export default class CustomDrawerContentComponent extends Component {
-    public render() {
+
+    /**
+     * The rendering function for the custom drawer
+     * @returns {JSX.Element} The markup element that is displayed
+     */
+    public render(): JSX.Element {
         return (
             <View style={styles.container}>   
                 <View style={styles.profile}>
@@ -36,7 +52,7 @@ export default class CustomDrawerContentComponent extends Component {
 
     /**
      * Renders the Map of routes
-     * @param routes The mao of routes
+     * @param {Map<string, string>} routes The mao of routes
      * @returns {JSX.Element[]} An array of elements to display
      */
     private renderItems(routes: Map<string, string>): JSX.Element[] {
@@ -57,8 +73,8 @@ export default class CustomDrawerContentComponent extends Component {
 
     /**
      * Generates a function, which will navigate the user to the correct page
-     * @param navigateTo Route to navigate to.
-     * @returns {() => void} A function which returns void and navigates the user.
+     * @param {string} navigateTo Route to navigate to.
+     * @returns {any} A function which returns void and navigates the user.
      */
     private genCallback(navigateTo: string): () => void {
         return () => {
@@ -66,8 +82,12 @@ export default class CustomDrawerContentComponent extends Component {
         };
     }
 }
-    
-const styles = StyleSheet.create({
+
+/**
+ * The styles that are used by the class BootomBar
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
     container: {
         position: 'relative',
         flex: 1,

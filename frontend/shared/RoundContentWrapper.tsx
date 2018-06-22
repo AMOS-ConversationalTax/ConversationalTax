@@ -4,11 +4,23 @@ import { Ionicons } from '@expo/vector-icons';
 import autobind from 'autobind-decorator';
 import { NavigationService } from '../services/NavigationService';
 
+/**
+ * The property interface used in the class RoundContentWrapper
+ * @interface IProps
+ */
 interface IProps {
     title: string;
 }
 
+/**
+ * A round wrapper to display content in a more beautiful way (e.g. the conversation history)
+ */
 export default class RoundContentWrapper extends Component<IProps> {
+
+    /**
+     * The rendering function for the roundContentWrapper
+     * @returns {JSX.Element} The markup element that is displayed
+     */
     render() {
         return (
             <View style={styles.wrapper}>
@@ -25,13 +37,20 @@ export default class RoundContentWrapper extends Component<IProps> {
         )
     }
 
+    /**
+     * Close the roundContentWrapper and navigate back to the last seen screen
+     */
     @autobind
     private navigateBack() {
         NavigationService.goBack();
     }
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the class RoundContentWrapper
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
     wrapper: {
         backgroundColor: 'rgba(255,255,255,0.9)',
         margin: 15,
