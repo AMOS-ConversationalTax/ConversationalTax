@@ -3,12 +3,14 @@ import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { AudioIntentParams, TextIntentParams, TextIntentBody } from './lang.dto';
 import { DatabaseLangService } from '../connectors/database-lang.service';
 import { IntentStrategy } from './intents/strategy/strategy.intent';
+import IntentConfig from './intents/IntentConfig';
+import { DIALOGFLOW_INTENT_IDS } from './dialog-flow/dialogflow-structure';
 
 /**
  * The settings of recorded android files
  * @type {any}
  */
-const ANDROID_AUDIO_SETTINGS: any = {
+const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
   sampleRate: 16000,
 };
@@ -17,10 +19,19 @@ const ANDROID_AUDIO_SETTINGS: any = {
  * The settings of recorded ios files
  * @type {any}
  */
-const IOS_AUDIO_SETTINGS: any = {
+const IOS_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_LINEAR_16',
   sampleRate: 16000,
 };
+
+/**
+ * The intent, that may contain negations.
+ */
+const MISSUNDERSTANDING_IGNORE_INTENTS = [
+  IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Fallback,
+  IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Help,
+  IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Context,
+];
 
 /**
  * A controller to interact with the language understanding and analysis module
@@ -83,6 +94,12 @@ export class LangController {
 
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse);
     const actionName = this.dialogFlowService.extractResponseAction(dialogflowResponse);
+
+    // Missunderstanding prevention
+    if (this.containsNegation(dialogflowResponse) && MISSUNDERSTANDING_IGNORE_INTENTS.indexOf(intent.name) === -1 && actionName !== '') {
+      const text = 'Ich bin mir unsicher ob ich dich richtig verstanden habe. Kannst du das wiederholen?';
+      return {text};
+    }
 
     const intentHandler = this.intentStrategy.createIntentHandler(intent.name);
     const intentData = this.createIntentData(dialogflowResponse, params);
@@ -180,6 +197,15 @@ export class LangController {
       uid, parameters, queryText, responseText, intentName, intentDisplayName, actionName,
     );
 
+  }
+
+  /**
+   * Whether the user's request contains a negation
+   * @param {DetectIntentResponse} dialogflowResponse The response from DialogFlow
+   * @returns {boolean} True if the user's request contains a negation
+   */
+  private containsNegation(dialogflowResponse: DetectIntentResponse): boolean {
+    return dialogflowResponse.queryResult.queryText.includes(' nicht ');
   }
 
 }
