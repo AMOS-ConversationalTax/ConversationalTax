@@ -36,6 +36,13 @@ namespace DBConfig {
      */
     export const CONVERSATIONHISTORY_MODEL_PROVIDER: string = 'ConversationHistory';
 
+    /**
+     * The main provider of the notification model (= name of the notification "table")
+     * @name DBConfig#NOTIFICATIONS_MODEL_PROVIDER
+     * @type {string}
+     */
+    export const NOTIFICATIONS_MODEL_PROVIDER: string = 'Notifications';
+
 }
 
 export default DBConfig;

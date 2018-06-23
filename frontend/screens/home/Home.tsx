@@ -1,38 +1,48 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
-  Button,
 } from 'react-native';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
+import Wrapper from '../../shared/Wrapper';
 
+/**
+ * The property interface used in the class Home
+ * @interface IProps
+ */
 interface IProps {
   navigation: any
 }
 
+/**
+ * Implements the home view
+ */
 export default class Home extends Component<IProps> {
 
-  public render() {
+  /**
+   * Rendering function for the home view
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
+      <Wrapper>
         <View style={globalStyles.content}>
           <Text style={styles.welcome}>
             Home
           </Text>
         </View>
-        <BottomBar />
-      </View>
+      </Wrapper>
     );
   }
 
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the class Home
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',

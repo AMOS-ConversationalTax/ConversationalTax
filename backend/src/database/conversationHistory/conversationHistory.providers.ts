@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { conversationHistorySchema } from './schemas/conversationHistory.schema';
 import DBConfig from '../dbconfig';
 
@@ -10,7 +9,7 @@ import DBConfig from '../dbconfig';
 export const conversationHistoryProviders: any = [
     {
         provide: DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER,
-        useFactory: (connection: Connection) => connection.model(DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER, conversationHistorySchema),
+        useFactory: (mongoose) => mongoose.connection.model(DBConfig.CONVERSATIONHISTORY_MODEL_PROVIDER, conversationHistorySchema),
         inject: [DBConfig.DB_PROVIDER],
     },
 ];

@@ -57,3 +57,5 @@ buck-out/
 
 #Expo
 .expo
+
+config/config.ts

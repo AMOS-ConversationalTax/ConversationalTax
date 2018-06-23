@@ -1,19 +1,41 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint-react"
+        "tslint-react",
+        "tslint-eslint-rules"
     ],
     "jsRules": {},
     "rules": {
         "quotemark": [true, "single", "jsx-double"],
         "object-literal-sort-keys": false,
         "no-empty-interface": false,
-        "linebreak-style": false
+        "linebreak-style": false,
+        "no-unused-variable": true,
+        "completed-docs": [
+            true,
+            {
+                "classes": true,
+                "functions": true,
+                "methods": true
+            }
+        ],
+        "jsdoc-format": true,
+        "valid-jsdoc": [
+            true,
+            {
+                "requireReturn": false,
+                "prefer": {
+                    "return": "returns"
+                }
+            }
+        ]
     },
     "rulesDirectory": [],
     "linterOptions": {
         "exclude": [
-            "__tests__/**"
+            "__tests__/**",
+            "**/*.spec.tsx",
+            "**/*.spec.ts"
         ]
     }
 }

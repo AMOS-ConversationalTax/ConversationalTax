@@ -1,33 +1,51 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  StatusBar
+  View
 } from 'react-native';
-import TopBar from '../../shared/TopBar';
-import BottomBar from '../../shared/BottomBar';
 import globalStyles from '../../global_styles';
 import Microphone from './components/Microphone';
 import RecordingService from '../../services/RecordingService';
 import RestConnection from '../../services/RestConnection';
 import SpeechService from './../../services/SpeechService';
+import Wrapper from '../../shared/Wrapper';
 
+/**
+ * The property interface used in the class Conversation
+ * @interface IProps
+ */
 interface IProps {
-  navigation: any
 }
 
+/**
+ * Implements the conversation view of the app
+ */
 export default class Conversation extends Component<IProps> {
-  private readonly recordingService = new RecordingService();
-  private readonly restClient = new RestConnection();
-  private readonly speechService = new SpeechService();
 
-  public render() {
+  /**
+   * A instance of the recordingService
+   * @type {RecordingService}
+   */
+  private readonly recordingService: RecordingService = new RecordingService();
+
+  /**
+   * A instance of the RestClient
+   * @type {RestClient}
+   */
+  private readonly restClient: RestConnection = new RestConnection();
+
+  /**
+   * A instance of the SpeechService
+   * @type {SpeechService}
+   */
+  private readonly speechService: SpeechService = new SpeechService();
+
+  /**
+   * The rendering function for the conversation view
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     return (
-      <View style={globalStyles.container}>
-        <TopBar navigation={this.props.navigation} />
+      <Wrapper>
         <View style={globalStyles.content}>
           <Microphone 
             recordingService={this.recordingService}
@@ -35,11 +53,7 @@ export default class Conversation extends Component<IProps> {
             speechService={this.speechService}
           />
         </View>
-        <BottomBar />
-      </View>
+      </Wrapper>
     );
   }
 }
-
-const styles = StyleSheet.create({
-});

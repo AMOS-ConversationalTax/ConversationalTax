@@ -1,8 +1,7 @@
 import { Model } from 'mongoose';
-import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
-import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 
 /**
@@ -13,13 +12,10 @@ import DBConfig from '../dbconfig';
 export class UserService {
 
     /**
-     * The model of the user table
-     * Implements the connection to this table, too
-     * Corresponds to db.user in MongoDB
-     * @name UserService#userModel
-     * @type {Model<User>}
+     * Constructor - is used for DI of the Model
+     * @param {Model<User>} userModel The model of the user table
      */
-    private userModel: Model<User> = mongoose.model(DBConfig.USER_MODEL_PROVIDER, userSchema);
+    constructor(@InjectModel(DBConfig.USER_MODEL_PROVIDER) private readonly userModel: Model<User>) {}
 
     /**
      * Create a new user in the datastore - checks if the user already exists
@@ -50,7 +46,7 @@ export class UserService {
 
     /**
      * Check whether the given user already exists.
-     * @param _id The unique id of the user
+     * @param {string} _id The unique id of the user
      * @returns {Promise<boolean>} - A promise whether the user exists
      */
     public async exists(_id: string): Promise<boolean> {

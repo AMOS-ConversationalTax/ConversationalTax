@@ -2,8 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { DialogFlowStructure, IntentInformation, ActionInformation } from '../dialog-flow/dialogflow-structure';
 import { ConversationHistoryIntent } from '../../database/conversationHistory/interfaces/conversationHistoryIntent.interface';
 
-const FALLBACK_HELPTEXT = 'Zur letzten Antwort kann ich dir leider keine Erklärung anbieten.';
-const FALLBACK_CONTEXT_EXPLANATION = 'Wir haben gerade über kein spezifisches Thema geredet.';
+/**
+ * A default helptext to use in case of fallback
+ * @type {string}
+ */
+const FALLBACK_HELPTEXT: string = 'Zur letzten Antwort kann ich dir leider keine Erklärung anbieten.';
+
+/**
+ * A default explanation text to use in case of fallback
+ * @type {string}
+ */
+const FALLBACK_CONTEXT_EXPLANATION: string = 'Wir haben gerade über kein spezifisches Thema geredet.';
 
 /**
  * Provides helptexts and information about the current context.
@@ -12,13 +21,13 @@ const FALLBACK_CONTEXT_EXPLANATION = 'Wir haben gerade über kein spezifisches T
 export class ExplanationService {
     /**
      * Gets a context explanation for the user.
-     * @param {ConversationHistoryIntent} intent The Intent of which you want to get the context explanation
+     * @param {ConversationHistoryIntent} previousIntent The Intent of which you want to get the context explanation
      * @returns {string} A specific context explanation for the user.
      */
     public getContextExplanation(previousIntent: ConversationHistoryIntent): string {
         const intentInfo = this.getIntentInformation(previousIntent);
         if (intentInfo === undefined) {
-            return FALLBACK_HELPTEXT;
+            return FALLBACK_CONTEXT_EXPLANATION;
         }
         return intentInfo.contextText;
     }

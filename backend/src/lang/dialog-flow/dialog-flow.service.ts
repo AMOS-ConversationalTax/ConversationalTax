@@ -1,33 +1,57 @@
 import { Injectable } from '@nestjs/common';
 import * as dialogflow from 'dialogflow';
-import Config from './../../../config/config';
+import Config from 'conv-tax-shared/config/config';
 import { DatabaseDialogFlowService } from '../../connectors/database-dialogflow.service';
 import * as grpc from 'grpc';
 
-const PROJECT_ID = 'test-c7ec0';
-const LANG_CODE = 'de-DE';
+/**
+ * The id of the project at dialogflow
+ * @type {string}
+ */
+const PROJECT_ID: string = 'test-c7ec0';
+
+/**
+ * The language code we use for our project at dialogflow
+ * @type {string}
+ */
+const LANG_CODE: string = 'de-DE';
 
 /**
  * A wrapper class around the dialogflow sdk.
  */
 @Injectable()
 export class DialogFlowService {
-    private sessionClient: any;
-    private sessionEntityTypesClient: any;
-    private contextsClient: any;
 
+    /**
+     * The session client that manages a single session with dialogflow
+     * @type {any}
+     */
+    private sessionClient: any;
+
+    /**
+     * The session client that manages a single session with dialogflows entity types rest api
+     * @type {any}
+     */
+    private sessionEntityTypesClient: any;
+
+    /**
+     * The constructor of the DialogFlowService
+     * @param {DatabaseDialogFlowService} databaseDialogFlowService A instance of the databaseDialogFlowService - injected by DI
+     */
     constructor( private databaseDialogFlowService: DatabaseDialogFlowService ) {
 
         if (this.hasValidConfig()) {
 
             this.sessionClient = new dialogflow.SessionsClient({ credentials: Config.DIALOGFLOW_KEY });
             this.sessionEntityTypesClient = new dialogflow.SessionEntityTypesClient({ credentials: Config.DIALOGFLOW_KEY });
-            this.contextsClient = new dialogflow.ContextsClient({ credentials: Config.DIALOGFLOW_KEY });
-
         }
 
     }
 
+    /**
+     * Check whether the dialogFlow has a valid config
+     * @returns {boolean} A boolean that is true for a valid config and false for no valid config
+     */
     private hasValidConfig(): boolean {
         const validConfig = Config.DIALOGFLOW_KEY.private_key.length > 0;
         if (!validConfig) {
@@ -45,16 +69,9 @@ export class DialogFlowService {
 
     /**
      * Sends a request to detect the intent to DialogFlow
-     *
-     * @param {string} inputText
-     * The user input as a text
-     *
-     * @param {string} u_id
-     * An id for identifing the user and his session
-     *
-     * @returns {Promise<DetectIntentResponse>}
-     * The answer of DialogFlow's API as a Promise
-     *
+     * @param {string} inputText The user input as a text
+     * @param {string} u_id An id for identifing the user and his session
+     * @returns {Promise<DetectIntentResponse>} The answer of DialogFlow's API as a Promise
      */
     public async detectTextIntent(inputText: string, u_id: string): Promise<DetectIntentResponse[]> {
 
@@ -79,22 +96,11 @@ export class DialogFlowService {
 
     /**
      * Sends a request to detect the intent to DialogFlow
-     *
-     * @param {string} encoding
-     * The encoding of the audio. See DialogFlow docs
-     *
-     * @param {number} sampleRate
-     * SampleRate of the audio
-     *
-     * @param {string} inputAudio
-     * The user input as an base64 audio string
-     *
-     * @param {string} u_id
-     * An id for identifing the user and his session
-     *
-     * @returns {Promise<DetectIntentResponse>}
-     * The answer of DialogFlow's API as a Promise
-     *
+     * @param {string} encoding The encoding of the audio. See DialogFlow docs
+     * @param {number} sampleRate SampleRate of the audio
+     * @param {string} inputAudio The user input as an base64 audio string
+     * @param {string} u_id An id for identifing the user and his session
+     * @returns {Promise<DetectIntentResponse>} The answer of DialogFlow's API as a Promise
      */
     public async detectAudioIntent(encoding: string, sampleRate: number, inputAudio: string, u_id: string): Promise<DetectIntentResponse[]> {
 
@@ -120,33 +126,20 @@ export class DialogFlowService {
     }
 
     /**
-     * Extracts the answer of DialogFlow to read it out to the user.
-     *
-     * @param detectIntent Response from DialogFlow
-     *
+     * Extracts the answer of DialogFlow to read it out to the user
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
      * @returns {string} The text from DialogFlow
      */
     public extractResponseText(detectIntent: DetectIntentResponse): string {
-
         return detectIntent.queryResult.fulfillmentText;
-
     }
 
     /**
      * Creates a session entity type
-     *
-     * @param {string} name
-     * The name of the session entity type
-     *
-     * @param {SessionEntity[]} sessionEntities
-     * The session entities. See DialogFlow docs
-     *
-     * @param {string} u_id
-     * An id for identifing the user and his session
-     *
-     * @returns {boolean}
-     * A Boolean symbolizing the success of the update
-     *
+     * @param {string} name The name of the session entity type
+     * @param {SessionEntity[]} sessionEntities The session entities. See DialogFlow docs
+     * @param {string} u_id An id for identifing the user and his session
+     * @returns {boolean} A Boolean symbolizing the success of the update
      */
     public createSessionEntityType(name: string, sessionEntities: SessionEntity[], u_id: string): boolean {
 
@@ -184,16 +177,9 @@ export class DialogFlowService {
 
     /**
      * Delete a session entity type
-     *
-     * @param {string} name
-     * The name of the session entity type
-     *
-     * @param {string} u_id
-     * An id for identifing the user and his session
-     *
-     * @returns {boolean}
-     * A Boolean symbolizing the success of the update
-     *
+     * @param {string} name The name of the session entity type
+     * @param {string} u_id An id for identifing the user and his session
+     * @returns {boolean} A Boolean symbolizing the success of the update
      */
     public deleteSessionEntityType(name: string, u_id: string): boolean {
 
@@ -223,16 +209,9 @@ export class DialogFlowService {
 
     /**
      * Log function for debugging reasons - print a session entity type
-     *
-     * @param {string} name
-     * The name of the session entity type
-     *
-     * @param {string} u_id
-     * An id for identifing the user and his session
-     *
-     * @returns {boolean}
-     * A Boolean symbolizing the success of the update
-     *
+     * @param {string} name The name of the session entity type
+     * @param {string} u_id An id for identifing the user and his session
+     * @returns {boolean} A Boolean symbolizing the success of the update
      */
     public logSessionEntityType(name: string, u_id: string): boolean {
 
@@ -278,11 +257,8 @@ export class DialogFlowService {
 
     /**
      * Extracts the Intent of DialogFlow response.
-     *
      * @param {DetectIntentResponse} detectIntent Response from DialogFlow
-     *
      * @returns {Intent} The Intent Object of the response
-     *
      */
     public extractResponseIntent(detectIntent: DetectIntentResponse): Intent {
         return detectIntent.queryResult.intent;
@@ -290,13 +266,13 @@ export class DialogFlowService {
 
     /**
      * Extracts the Action of DialogFlow response.
-     *
      * @param {DetectIntentResponse} detectIntent Response from DialogFlow
-     *
      * @returns {string} The action name of the response
-     *
      */
     public extractResponseAction(detectIntent: DetectIntentResponse): string {
+        if (detectIntent.queryResult.action === '') {
+            return 'undefined';
+        }
         return detectIntent.queryResult.action;
     }
 

@@ -25,34 +25,34 @@ export interface EmploymentContract extends Document {
      * @name EmploymentContract#name
      * @type {string}
      */
-    readonly name: string;
+    readonly name?: string;
 
     /**
      * The start date of the EmploymentContract if an exact date is known
      * @name EmploymentContract#startDate_exact
      * @type {Date}
      */
-    readonly startDate_exact: Date;
+    readonly startDate_exact?: Date;
 
     /**
      * The start date of the EmploymentContract if no exact date is known
      * @name EmploymentContract#startDate_string
      * @type {String}
      */
-    readonly startDate_string: string;
+    readonly startDate_string?: string;
 
     /**
      * The end date of the EmploymentContract if an exact date is known
      * @name EmploymentContract#endDate_exact
      * @type {Date}
      */
-    readonly endDate_exact: Date;
+    readonly endDate_exact?: Date;
 
     /**
      * The end date of the EmploymentContract if no exact date is known
      * @name EmploymentContract#endDate_string
      * @type {String}
      */
-    readonly endDate_string: string;
+    readonly endDate_string?: string;
 
 }

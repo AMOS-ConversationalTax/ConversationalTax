@@ -8,6 +8,9 @@ import { DialogFlowService } from './dialog-flow/dialog-flow.service';
 import { ConnectorsModule } from '../connectors/connectors.module';
 import { ExplanationService } from './explanation/explanation.service';
 
+/**
+ * The class that exports the lang module
+ */
 @Module({
     imports: [UserModule, ReminderModule, EmploymentContractModule, ConnectorsModule, ConversationHistoryModule],
     controllers: [LangController],

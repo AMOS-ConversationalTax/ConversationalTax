@@ -7,33 +7,10 @@ import Start from './Start';
 import renderer from 'react-test-renderer';
 
 describe('Start', () => {
-  let mockObj: { navigate: jest.Mock<{}> }
-
-  beforeEach(() => {
-    mockObj = {
-      navigate: jest.fn()
-    };
-  });
 
   it('renders correctly', () => {
     renderer.create(
-      <Start navigation={mockObj} />
+      <Start />
     );
-  });
-
-
-  it('navigates to Home on Button press', () => {
-    const testRenderer = renderer.create(
-      <Start navigation={mockObj} />
-    );
-
-    const testInstance = testRenderer.root;
-    const touchables = testInstance.findAllByType(Button);
-    touchables.forEach(touchable => {
-      touchable.props.onPress();
-    });
-
-    expect(mockObj.navigate).toHaveBeenCalledTimes(1);
-    expect(mockObj.navigate).toHaveBeenCalledWith('Conversation');
   });
 });

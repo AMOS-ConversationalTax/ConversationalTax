@@ -1,8 +1,8 @@
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import { Reminder } from './interfaces/reminder.interface';
-import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
 
 /**
@@ -13,13 +13,10 @@ import DBConfig from '../dbconfig';
 export class ReminderService {
 
     /**
-     * The model of the reminder table
-     * Implements the connection to this table, too
-     * Corresponds to db.reminder in MongoDB
-     * @name ReminderService#reminderModel
-     * @type {Model<Reminder>}
+     * Constructor - is used for DI of the Model
+     * @param {Model<Reminder>} reminderModel The model of the reminder table
      */
-    private reminderModel: Model<Reminder> = mongoose.model(DBConfig.REMINDER_MODEL_PROVIDER, reminderSchema);
+    constructor(@InjectModel(DBConfig.REMINDER_MODEL_PROVIDER) private readonly reminderModel: Model<Reminder>) {}
 
     /**
      * Create a new reminder in the datastore - does not check if the reminder already exists

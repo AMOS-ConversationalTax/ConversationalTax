@@ -1,4 +1,3 @@
-import { Connection } from 'mongoose';
 import { reminderSchema } from './schemas/reminder.schema';
 import DBConfig from '../dbconfig';
 
@@ -10,7 +9,7 @@ import DBConfig from '../dbconfig';
 export const reminderProviders: any = [
     {
         provide: DBConfig.REMINDER_MODEL_PROVIDER,
-        useFactory: (connection: Connection) => connection.model(DBConfig.REMINDER_MODEL_PROVIDER, reminderSchema),
+        useFactory: (mongoose) => mongoose.connection.model(DBConfig.REMINDER_MODEL_PROVIDER, reminderSchema),
         inject: [DBConfig.DB_PROVIDER],
     },
 ];
