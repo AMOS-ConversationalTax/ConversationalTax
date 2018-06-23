@@ -89,7 +89,7 @@ export class LangController {
 
     // e.g. empty Audio File
     if (dialogflowResponse.queryResult.queryText === '') {
-      return { text: '' };
+      return { text: 'Ich konnte dich leider nicht verstehen.' };
     }
 
     const intent = this.dialogFlowService.extractResponseIntent(dialogflowResponse);

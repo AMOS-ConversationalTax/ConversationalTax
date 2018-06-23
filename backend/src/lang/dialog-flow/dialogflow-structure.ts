@@ -1,4 +1,4 @@
-import IntentConfig from "../intents/IntentConfig";
+import IntentConfig from '../intents/IntentConfig';
 
 /**
  * An interface wrapping informations and context/help texts for an action
@@ -56,12 +56,7 @@ export enum DIALOGFLOW_INTENT_IDS {
     Fallback = '41d8bfa1-b463-4d15-a1ea-9491f5ee1a76', // Default Fallback Intent
     Help = 'e695c10c-0a85-4ede-a899-67f264ff5275', // Hilfe? - Fallback
     Context = '39611549-cad9-4152-9130-22ed7879e700', // Kontext? - Fallback
-
-    // TODO There should only be one CreateContract:
-    Contract_Create = 'ae4cd4c7-67ea-41e3-b064-79b0a75505c5', // Arbeitsvertrag
-    Contract_CreateWithStartdate = 'b0159b15-0635-4d2e-a673-88cc10c03422', // Arbeitsvertrag mit Startdatum erstellen
-    Contract = '0e232798-7c81-4731-9a47-078b3c91d6aa', // Vertragsabschluss
-
+    Contract_Create = 'b0159b15-0635-4d2e-a673-88cc10c03422', // Arbeitsvertrag mit Startdatum erstellen
     Contract_ListAll = '92883a98-404c-4e9f-b385-a5a9108a4764', // Arbeitsvertrag - Alle auflisten
     Contract_Enddate = '9694cec4-f8e8-478b-b9cc-fa1879b7a202', // Arbeitsvertrag - Enddatum
     Contract_EnddateUnlimited = 'd1523cf3-bb4d-47cb-8fc4-bec3d669628e', // Arbeitsvertrag - Enddatum unbefristet
