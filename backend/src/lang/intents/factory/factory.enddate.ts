@@ -3,6 +3,7 @@ import { EndDateIntentHandler } from '../handlers/handler.enddate';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
 import IntentConfig from './../IntentConfig';
+import { DIALOGFLOW_INTENT_IDS } from '../../dialog-flow/dialogflow-structure';
 
 /**
  * A Factory to handle a specific intent
@@ -27,6 +28,6 @@ export class EndDateFactory implements IIntentFactory {
      * @returns {boolean} Returns whether this factory applies
      */
     appliesTo(intentID: string): boolean {
-        return (intentID === IntentConfig.INTENT_PREFIX + '9694cec4-f8e8-478b-b9cc-fa1879b7a202');
+        return (intentID === IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_Enddate);
     }
 }

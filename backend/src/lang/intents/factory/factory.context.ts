@@ -3,6 +3,7 @@ import { ContextIntentHandler } from '../handlers/handler.context';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
 import IntentConfig from './../IntentConfig';
+import { DIALOGFLOW_INTENT_IDS } from '../../dialog-flow/dialogflow-structure';
 
 /**
  * A Factory to handle a specific intent
@@ -27,6 +28,6 @@ export class ContextFactory implements IIntentFactory {
      * @returns {boolean} Returns whether this factory applies
      */
     appliesTo(intentID: string): boolean {
-        return (intentID === IntentConfig.INTENT_PREFIX + '39611549-cad9-4152-9130-22ed7879e700');
+        return (intentID === IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Context);
     }
 }
