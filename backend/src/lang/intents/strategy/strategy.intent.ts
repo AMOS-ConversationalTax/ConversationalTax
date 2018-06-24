@@ -33,8 +33,12 @@ export class IntentStrategy {
         const intentFactory = this.intentFactories.filter((factory) => factory.appliesTo(intentID));
 
         if (intentFactory.length === 0) {
+            // tslint:disable-next-line:no-console
+            console.error('For this Intent no handler has been defined.');
             throw new InternalServerErrorException('For this Intent no handler has been defined.');
         } else if (intentFactory.length > 1) {
+            // tslint:disable-next-line:no-console
+            console.error('More than one IntentHandler is defined for this intent');
             throw new InternalServerErrorException('More than one IntentHandler is defined for this intent');
         }
 
