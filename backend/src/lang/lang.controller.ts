@@ -96,7 +96,7 @@ export class LangController {
     const actionName = this.dialogFlowService.extractResponseAction(dialogflowResponse);
 
     // Missunderstanding prevention
-    if (this.containsNegation(dialogflowResponse) && MISSUNDERSTANDING_IGNORE_INTENTS.indexOf(intent.name) === -1 && actionName !== '') {
+    if (this.containsNegation(dialogflowResponse) && MISSUNDERSTANDING_IGNORE_INTENTS.indexOf(intent.name) === -1) {
       const text = 'Ich bin mir unsicher ob ich dich richtig verstanden habe. Kannst du das wiederholen?';
       return {text};
     }
@@ -205,7 +205,9 @@ export class LangController {
    * @returns {boolean} True if the user's request contains a negation
    */
   private containsNegation(dialogflowResponse: DetectIntentResponse): boolean {
-    return dialogflowResponse.queryResult.queryText.includes(' nicht ');
+    // in case negation is in the first or last place:
+    const queryText = ' ' + dialogflowResponse.queryResult.queryText + ' ';
+    return queryText.includes(' nicht ');
   }
 
 }
