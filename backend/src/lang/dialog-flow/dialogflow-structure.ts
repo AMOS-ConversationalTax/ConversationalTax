@@ -62,6 +62,7 @@ export enum DIALOGFLOW_INTENT_IDS {
     Contract_EnddateUnlimited = 'd1523cf3-bb4d-47cb-8fc4-bec3d669628e', // Arbeitsvertrag - Enddatum unbefristet
     Contract_Rename = '5ca04ab8-3856-4c1b-afd9-78052f35d929', // Arbeitsvertrag - Namensänderung
     Contract_Startdate = '99d07e41-0833-4e50-991e-5f49ba4e9bc4', // Arbeitsvertrag - Startdatum
+    Abort = '5b00bb21-abc9-46b5-843f-39896d940cca', // Abbruch
 }
 
 /**
