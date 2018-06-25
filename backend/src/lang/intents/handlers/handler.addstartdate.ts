@@ -21,9 +21,12 @@ export class AddStartDateIntentHandler extends IntentHandler{
         try {
             if (intentData.allParameterSet) {
 
-                const contractName = this.extractData(intentData.parameter, 'EmploymentContract', 'EmploymentContract');
+                // Extract the parameters
+                const parameter: any = intentData.parameter;
+                const contractName: string = parameter.fields.EmploymentContract.stringValue;
+
                 // Start Date is always a structValue
-                const date = this.extractData(intentData.parameter, 'StartDate', 'StartDate');
+                const date = parameter.fields.StartDate.structValue;
 
                 // If a date was recognized as an exact date, startDate has the property 'StartDateAsDate'
                 if ( date.fields.hasOwnProperty('StartDateAsDate') ) {
@@ -46,6 +49,7 @@ export class AddStartDateIntentHandler extends IntentHandler{
 
                     // If set was successfull we want to remove a possibly existing startDateExact
                     await this.employmentContractService.deleteStartDateExact(contractName);
+
                 }
 
                 return undefined;

@@ -5,6 +5,7 @@ import { ContextFactory } from '../factory/factory.context';
 import { HelpFactory } from '../factory/factory.help';
 import { CreateContractFactory } from '../factory/factory.createcontract';
 import { EndDateOpenFactory } from '../factory/factory.enddateopen';
+import { AbortFactory } from '../factory/factory.abort';
 import { HandlerModule } from '../handlers/handler.module';
 
 /**
@@ -12,7 +13,7 @@ import { HandlerModule } from '../handlers/handler.module';
  */
 @Module({
     imports: [HandlerModule],
-    providers: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory],
-    exports: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory],
+    providers: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory, AbortFactory],
+    exports: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory, AbortFactory],
 })
 export class FactoryModule { }
