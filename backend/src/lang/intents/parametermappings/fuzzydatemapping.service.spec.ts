@@ -16,7 +16,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -25,7 +25,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 1, 1),
+                    'date': new Date(2018,0,1,0,0,0,0),
                     'name': 'Januar'
                 });
 
@@ -36,7 +36,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -45,7 +45,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 2, 1),
+                    'date': new Date(2018,1,1,0,0,0,0),
                     'name': 'Februar'
                 });
 
@@ -56,7 +56,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -65,7 +65,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 3, 1),
+                    'date': new Date(2018,2,1,0,0,0,0),
                     'name': 'März'
                 });
 
@@ -76,7 +76,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -85,7 +85,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 4, 1),
+                    'date': new Date(2018,3,1,0,0,0,0),
                     'name': 'April'
                 });
 
@@ -96,7 +96,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -105,7 +105,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 5, 1),
+                    'date': new Date(2018,4,1,0,0,0,0),
                     'name': 'Mai'
                 });
 
@@ -116,7 +116,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -125,7 +125,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 6, 1),
+                    'date': new Date(2018,5,1,0,0,0,0),
                     'name': 'Juni'
                 });
 
@@ -136,7 +136,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -145,7 +145,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 7, 1),
+                    'date': new Date(2018,6,1,0,0,0,0),
                     'name': 'Juli'
                 });
 
@@ -156,7 +156,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -165,7 +165,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 8, 1),
+                    'date': new Date(2018,7,1,0,0,0,0),
                     'name': 'August'
                 });
 
@@ -176,7 +176,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -185,7 +185,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 9, 1),
+                    'date': new Date(2018,8,1,0,0,0,0),
                     'name': 'September'
                 });
 
@@ -196,7 +196,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -205,7 +205,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 10, 1),
+                    'date': new Date(2018,9,1,0,0,0,0),
                     'name': 'Oktober'
                 });
 
@@ -216,7 +216,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -225,7 +225,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 11, 1),
+                    'date': new Date(2018,10,1,0,0,0,0),
                     'name': 'November'
                 });
 
@@ -236,7 +236,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -245,7 +245,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 12, 1),
+                    'date': new Date(2018,11,1,0,0,0,0),
                     'name': 'Dezember'
                 });
 
@@ -259,7 +259,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -271,7 +271,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 1, 1),
+                    'date': new Date(2018,0,1,0,0,0,0),
                     'name': 'Anfang Januar'
                 });
 
@@ -282,7 +282,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -294,7 +294,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 2, 1),
+                    'date': new Date(2018,1,1,0,0,0,0),
                     'name': 'Anfang Februar'
                 });
 
@@ -305,7 +305,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -317,7 +317,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 3, 1),
+                    'date': new Date(2018,2,1,0,0,0,0),
                     'name': 'Anfang März'
                 });
 
@@ -328,7 +328,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -340,7 +340,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 4, 1),
+                    'date': new Date(2018,3,1,0,0,0,0),
                     'name': 'Anfang April'
                 });
 
@@ -351,7 +351,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -363,7 +363,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 5, 1),
+                    'date': new Date(2018,4,1,0,0,0,0),
                     'name': 'Anfang Mai'
                 });
 
@@ -374,7 +374,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -386,7 +386,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 6, 1),
+                    'date': new Date(2018,5,1,0,0,0,0),
                     'name': 'Anfang Juni'
                 });
 
@@ -397,7 +397,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -409,7 +409,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 7, 1),
+                    'date': new Date(2018,6,1,0,0,0,0),
                     'name': 'Anfang Juli'
                 });
 
@@ -420,7 +420,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -432,7 +432,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 8, 1),
+                    'date': new Date(2018,7,1,0,0,0,0),
                     'name': 'Anfang August'
                 });
 
@@ -443,7 +443,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -455,7 +455,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 9, 1),
+                    'date': new Date(2018,8,1,0,0,0,0),
                     'name': 'Anfang September'
                 });
 
@@ -466,7 +466,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -478,7 +478,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 10, 1),
+                    'date': new Date(2018,9,1,0,0,0,0),
                     'name': 'Anfang Oktober'
                 });
 
@@ -489,7 +489,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -501,7 +501,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 11, 1),
+                    'date': new Date(2018,10,1,0,0,0,0),
                     'name': 'Anfang November'
                 });
 
@@ -512,7 +512,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -524,7 +524,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 12, 1),
+                    'date': new Date(2018,11,1,0,0,0,0),
                     'name': 'Anfang Dezember'
                 });
 
@@ -538,7 +538,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -550,7 +550,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 1, 15),
+                    'date': new Date(2018,0,15,0,0,0,0),
                     'name': 'Mitte Januar'
                 });
 
@@ -561,7 +561,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -573,7 +573,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 2, 14),
+                    'date': new Date(2018,1,14,0,0,0,0),
                     'name': 'Mitte Februar'
                 });
 
@@ -584,7 +584,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -596,7 +596,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 3, 15),
+                    'date': new Date(2018,2,15,0,0,0,0),
                     'name': 'Mitte März'
                 });
 
@@ -607,7 +607,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -619,7 +619,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 4, 15),
+                    'date': new Date(2018,3,15,0,0,0,0),
                     'name': 'Mitte April'
                 });
 
@@ -630,7 +630,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -642,7 +642,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 5, 15),
+                    'date': new Date(2018,4,15,0,0,0,0),
                     'name': 'Mitte Mai'
                 });
 
@@ -653,7 +653,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -665,7 +665,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 6, 15),
+                    'date': new Date(2018,5,15,0,0,0,0),
                     'name': 'Mitte Juni'
                 });
 
@@ -676,7 +676,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -688,7 +688,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 7, 15),
+                    'date': new Date(2018,6,15,0,0,0,0),
                     'name': 'Mitte Juli'
                 });
 
@@ -699,7 +699,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -711,7 +711,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 8, 15),
+                    'date': new Date(2018,7,15,0,0,0,0),
                     'name': 'Mitte August'
                 });
 
@@ -722,7 +722,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -734,7 +734,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 9, 15),
+                    'date': new Date(2018,8,15,0,0,0,0),
                     'name': 'Mitte September'
                 });
 
@@ -745,7 +745,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -757,7 +757,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 10, 15),
+                    'date': new Date(2018,9,15,0,0,0,0),
                     'name': 'Mitte Oktober'
                 });
 
@@ -768,7 +768,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -780,7 +780,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 11, 15),
+                    'date': new Date(2018,10,15,0,0,0,0),
                     'name': 'Mitte November'
                 });
 
@@ -791,7 +791,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -803,7 +803,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 12, 15),
+                    'date': new Date(2018,11,15,0,0,0,0),
                     'name': 'Mitte Dezember'
                 });
 
@@ -817,7 +817,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -829,7 +829,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 1, 31),
+                    'date': new Date(2018,0,31,0,0,0,0),
                     'name': 'Ende Januar'
                 });
 
@@ -840,7 +840,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -852,7 +852,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 2, 28),
+                    'date': new Date(2018,1,28,0,0,0,0),
                     'name': 'Ende Februar'
                 });
 
@@ -863,7 +863,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -875,7 +875,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 3, 31),
+                    'date': new Date(2018,2,31,0,0,0,0),
                     'name': 'Ende März'
                 });
 
@@ -886,7 +886,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -898,7 +898,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 4, 30),
+                    'date': new Date(2018,3,30,0,0,0,0),
                     'name': 'Ende April'
                 });
 
@@ -909,7 +909,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -921,7 +921,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 5, 31),
+                    'date': new Date(2018,4,31,0,0,0,0),
                     'name': 'Ende Mai'
                 });
 
@@ -932,7 +932,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -944,7 +944,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 6, 30),
+                    'date': new Date(2018,5,30,0,0,0,0),
                     'name': 'Ende Juni'
                 });
 
@@ -955,7 +955,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -967,7 +967,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 7, 31),
+                    'date': new Date(2018,6,31,0,0,0,0),
                     'name': 'Ende Juli'
                 });
 
@@ -978,7 +978,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -990,7 +990,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 8, 31),
+                    'date': new Date(2018,7,31,0,0,0,0),
                     'name': 'Ende August'
                 });
 
@@ -1001,7 +1001,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1013,7 +1013,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 9, 30),
+                    'date': new Date(2018,8,30,0,0,0,0),
                     'name': 'Ende September'
                 });
 
@@ -1024,7 +1024,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1036,7 +1036,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 10, 31),
+                    'date': new Date(2018,9,31,0,0,0,0),
                     'name': 'Ende Oktober'
                 });
 
@@ -1047,7 +1047,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1059,7 +1059,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 11, 30),
+                    'date': new Date(2018,10,30,0,0,0,0),
                     'name': 'Ende November'
                 });
 
@@ -1070,7 +1070,7 @@ describe('FuzzyDateMappingService', () => {
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the 'currentDate' to 01.01.2018
-                new Date(2018,1,1),
+                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1082,11 +1082,120 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 12, 31),
+                    'date': new Date(2018,11,31,0,0,0,0),
                     'name': 'Ende Dezember'
                 });
 
         });
     });
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - Without a FuzzyDateModifier', () => {
+
+        it('FuzzyDateSeason = Frühjahr', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Frühjahr',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,2,21,0,0,0,0),
+                    'name': 'Frühjahr'
+                });
+
+        });
+
+    });
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Anfang', () => {
+
+        it('FuzzyDateSeason = Frühjahr', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Frühjahr',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,2,21,0,0,0,0),
+                    'name': 'Anfang Frühjahr'
+                });
+
+        });
+
+    });
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Mitte', () => {
+
+        it('FuzzyDateSeason = Frühjahr', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Frühjahr',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,5,0,0,0,0),
+                    'name': 'Mitte Frühjahr'
+                });
+    
+        });
+
+    });
+  
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Ende', () => {
+
+        it('FuzzyDateSeason = Frühjahr', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Frühjahr',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018, 5, 21, 0, 0, 0),
+                    'name': 'Ende Frühjahr'
+                });
+    
+        });
+
+    }); 
 
 });
