@@ -1090,7 +1090,6 @@ describe('FuzzyDateMappingService', () => {
     });
 
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - Without a FuzzyDateModifier', () => {
-
         it('FuzzyDateSeason = Frühjahr', async () => {
 
             // We use a hard coded 'currentDate' to ensure the possibility
@@ -1111,11 +1110,89 @@ describe('FuzzyDateMappingService', () => {
                 });
 
         });
+        it('FuzzyDateSeason = Sommer', async () => {
 
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Sommer',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,5,21,0,0,0,0),
+                    'name': 'Sommer'
+                });
+
+        });
+        it('FuzzyDateSeason = Herbst', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Herbst',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,8,23,0,0,0,0),
+                    'name': 'Herbst'
+                });
+
+        });
+        it('FuzzyDateSeason = Winter', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Winter',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,21,0,0,0,0),
+                    'name': 'Winter'
+                });
+
+        });
+        it('FuzzyDateSeason = Hochsommer', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Hochsommer',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,6,1,0,0,0,0),
+                    'name': 'Hochsommer'
+                });
+
+        });
     });
 
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Anfang', () => {
-
         it('FuzzyDateSeason = Frühjahr', async () => {
 
             // We use a hard coded 'currentDate' to ensure the possibility
@@ -1139,11 +1216,101 @@ describe('FuzzyDateMappingService', () => {
                 });
 
         });
+        it('FuzzyDateSeason = Sommer', async () => {
 
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Sommer',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,5,21,0,0,0,0),
+                    'name': 'Anfang Sommer'
+                });
+
+        });
+        it('FuzzyDateSeason = Herbst', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Herbst',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,8,23,0,0,0,0),
+                    'name': 'Anfang Herbst'
+                });
+
+        });
+        it('FuzzyDateSeason = Winter', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Winter',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,21,0,0,0,0),
+                    'name': 'Anfang Winter'
+                });
+
+        });
+        it('FuzzyDateSeason = Hochsommer', async () => {
+
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Hochsommer',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,6,1,0,0,0,0),
+                    'name': 'Anfang Hochsommer'
+                });
+
+        });
     });
 
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Mitte', () => {
-
         it('FuzzyDateSeason = Frühjahr', async () => {
     
             // We use a hard coded 'currentDate' to ensure the possibility
@@ -1167,11 +1334,101 @@ describe('FuzzyDateMappingService', () => {
                 });
     
         });
-
+        it('FuzzyDateSeason = Sommer', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Sommer',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,7,6,0,0,0,0),
+                    'name': 'Mitte Sommer'
+                });
+    
+        });
+        it('FuzzyDateSeason = Herbst', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Herbst',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,10,5,0,0,0,0),
+                    'name': 'Mitte Herbst'
+                });
+    
+        });
+        it('FuzzyDateSeason = Winter', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Winter',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2019,1,3,0,0,0,0),
+                    'name': 'Mitte Winter'
+                });
+    
+        });
+        it('FuzzyDateSeason = Hochsommer', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Hochsommer',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,6,23,0,0,0,0),
+                    'name': 'Mitte Hochsommer'
+                });
+    
+        });
     });
   
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Ende', () => {
-
         it('FuzzyDateSeason = Frühjahr', async () => {
     
             // We use a hard coded 'currentDate' to ensure the possibility
@@ -1190,12 +1447,102 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018, 5, 21, 0, 0, 0),
+                    'date': new Date(2018,5,20,0,0,0),
                     'name': 'Ende Frühjahr'
                 });
     
         });
-
+        it('FuzzyDateSeason = Sommer', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Sommer',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,8,22,0,0,0),
+                    'name': 'Ende Sommer'
+                });
+    
+        });
+        it('FuzzyDateSeason = Herbst', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Herbst',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,20,0,0,0),
+                    'name': 'Ende Herbst'
+                });
+    
+        });
+        it('FuzzyDateSeason = Winter', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Winter',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2019,2,20,0,0,0),
+                    'name': 'Ende Winter'
+                });
+    
+        });
+        it('FuzzyDateSeason = Hochsommer', async () => {
+    
+            // We use a hard coded 'currentDate' to ensure the possibility
+            // of repetition of tests
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the 'currentDate' to 01.01.2018
+                new Date(2018,0,1,0,0,0,0),
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateSeason: 
+                        { stringValue: 'Hochsommer',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,7,15,0,0,0),
+                    'name': 'Ende Hochsommer'
+                });
+    
+        });
     }); 
-
 });

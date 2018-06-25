@@ -188,7 +188,7 @@ export class FuzzyDateMappingService {
         if ( fuzzyDateSeason === 'Frühjahr' ) {
 
             const beginDate = new Date(year, 2, 21);
-            const endDate = new Date(year, 5, 21);
+            const endDate = new Date(year, 5, 20);
 
             // If there is no modifier we take the beginning of the fuzzy date
             if ( fuzzyDateModifier === undefined || fuzzyDateModifier === 'Anfang' ) {
@@ -199,13 +199,147 @@ export class FuzzyDateMappingService {
             } else if ( fuzzyDateModifier === 'Mitte' ) {
 
                 // As the days each month has may vary, we have to compute this one
-                const oneDay: number = 1000 * 60 * 60 * 24;
                 const dateDiff: number = endDate.getTime() - beginDate.getTime();
-                const dateDiffInDays: number = Math.floor(dateDiff / oneDay);
-                const halfDateDiffInDays: number = Math.floor(dateDiffInDays / 2);
 
-                // Set the middleDate to the beginDate plus the rounded half of the dateDiff
-                const middleDate: Date = new Date(beginDate.getTime() + halfDateDiffInDays * oneDay - (1000 * 60 * 60));
+                // Set the middleDate to the beginDate plus the dateDiff
+                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+
+                // This middleDateExact is not always at change of day => Use only its year, month and day
+                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+
+                return {name: nameOfFuzzyDate,
+                        date: middleDate};
+
+            // fuzzyDateModifier === 'Ende' - is used as collecting class, too
+            } else {
+
+                return {name: nameOfFuzzyDate,
+                        date: endDate};
+
+            }
+
+        } else if ( fuzzyDateSeason === 'Sommer' ) {
+
+            const beginDate = new Date(year, 5, 21);
+            const endDate = new Date(year, 8, 22);
+
+            // If there is no modifier we take the beginning of the fuzzy date
+            if ( fuzzyDateModifier === undefined || fuzzyDateModifier === 'Anfang' ) {
+
+                return {name: nameOfFuzzyDate,
+                        date: beginDate};
+
+            } else if ( fuzzyDateModifier === 'Mitte' ) {
+
+                // As the days each month has may vary, we have to compute this one
+                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+
+                // Set the middleDate to the beginDate plus the dateDiff
+                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+
+                // This middleDateExact is not always at change of day => Use only its year, month and day
+                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+
+                return {name: nameOfFuzzyDate,
+                        date: middleDate};
+
+            // fuzzyDateModifier === 'Ende' - is used as collecting class, too
+            } else {
+
+                return {name: nameOfFuzzyDate,
+                        date: endDate};
+
+            }
+
+        } else if ( fuzzyDateSeason === 'Herbst' ) {
+
+            const beginDate = new Date(year, 8, 23);
+            const endDate = new Date(year, 11, 20);
+
+            // If there is no modifier we take the beginning of the fuzzy date
+            if ( fuzzyDateModifier === undefined || fuzzyDateModifier === 'Anfang' ) {
+
+                return {name: nameOfFuzzyDate,
+                        date: beginDate};
+
+            } else if ( fuzzyDateModifier === 'Mitte' ) {
+
+                // As the days each month has may vary, we have to compute this one
+                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+
+                // Set the middleDate to the beginDate plus the dateDiff
+                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+
+                // This middleDateExact is not always at change of day => Use only its year, month and day
+                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+
+                return {name: nameOfFuzzyDate,
+                        date: middleDate};
+
+            // fuzzyDateModifier === 'Ende' - is used as collecting class, too
+            } else {
+
+                return {name: nameOfFuzzyDate,
+                        date: endDate};
+
+            }
+
+        }  else if ( fuzzyDateSeason === 'Winter' ) {
+
+            const beginDate = new Date(year, 11, 21);
+            const endDate = new Date(year + 1, 2, 20);
+
+            // If there is no modifier we take the beginning of the fuzzy date
+            if ( fuzzyDateModifier === undefined || fuzzyDateModifier === 'Anfang' ) {
+
+                return {name: nameOfFuzzyDate,
+                        date: beginDate};
+
+            } else if ( fuzzyDateModifier === 'Mitte' ) {
+
+                // As the days each month has may vary, we have to compute this one
+                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+
+                // Set the middleDate to the beginDate plus the dateDiff
+                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+
+                // This middleDateExact is not always at change of day => Use only its year, month and day
+                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+
+                return {name: nameOfFuzzyDate,
+                        date: middleDate};
+
+            // fuzzyDateModifier === 'Ende' - is used as collecting class, too
+            } else {
+
+                return {name: nameOfFuzzyDate,
+                        date: endDate};
+
+            }
+
+        } else if ( fuzzyDateSeason === 'Hochsommer' ) {
+
+            // See https://www.wetter.com/wetterlexikon/hochsommer_aid_570f4f31cebfc0060e8b46de.html
+            // for this one
+            const beginDate = new Date(year, 6, 1);
+            const endDate = new Date(year, 7, 15);
+
+            // If there is no modifier we take the beginning of the fuzzy date
+            if ( fuzzyDateModifier === undefined || fuzzyDateModifier === 'Anfang' ) {
+
+                return {name: nameOfFuzzyDate,
+                        date: beginDate};
+
+            } else if ( fuzzyDateModifier === 'Mitte' ) {
+
+                // As the days each month has may vary, we have to compute this one
+                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+
+                // Set the middleDate to the beginDate plus the dateDiff
+                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+
+                // This middleDateExact is not always at change of day => Use only its year, month and day
+                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
 
                 return {name: nameOfFuzzyDate,
                         date: middleDate};
@@ -219,6 +353,10 @@ export class FuzzyDateMappingService {
             }
 
         }
+
+        // Fallback: Return current Date
+        return {name: nameOfFuzzyDate,
+                date: currentDate};
 
     }
 
