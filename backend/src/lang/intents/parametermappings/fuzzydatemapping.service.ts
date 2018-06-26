@@ -24,11 +24,28 @@ export class FuzzyDateMappingService {
 
     /**
      * Get a string and a computed date out of a fuzzy date parameter
-     * @param {Date} currentDate The current date
+     * If no fuzzyDateYear is given, the events are computed for the current year
      * @param {any} fuzzyDate The fuzzy date parameter
      * @returns {FuzzyDateReturn} The suiting name / date pair
      */
-    public mapFuzzyDate(currentDate: Date, fuzzyDate: any): FuzzyDateReturn {
+    public mapFuzzyDate(fuzzyDate: any): FuzzyDateReturn {
+
+        // Check whether fuzzyDate is constructed correctly
+        if ( ! ( fuzzyDate !== undefined && fuzzyDate.hasOwnProperty('fields') ) ) {
+
+            throw new Error('Recognized a non valid fuzzyDate in mapFuzzyDate()');
+
+        }
+
+        // Get the current year
+        let year: number = (new Date()).getFullYear();
+
+        // Is a fuzzyDateYear given
+        if ( fuzzyDate.fields.hasOwnProperty('FuzzyDateYear') ) {
+
+            year = Number(fuzzyDate.fields.FuzzyDateYear.stringValue);
+
+        }
 
         // There FuzzyDates based on months
         if ( fuzzyDate.fields.hasOwnProperty('FuzzyDateMonth') ) {
@@ -36,13 +53,13 @@ export class FuzzyDateMappingService {
             // If there is a modifier like 'Anfang', 'Mitte' or 'Ende' we want to use that
             if ( fuzzyDate.fields.hasOwnProperty('FuzzyDateModifier') ) {
 
-                return this.mapFuzzyDateMonth(currentDate,
+                return this.mapFuzzyDateMonth(year,
                                               fuzzyDate.fields.FuzzyDateMonth.stringValue,
                                               fuzzyDate.fields.FuzzyDateModifier.stringValue);
 
             } else {
 
-                return this.mapFuzzyDateMonth(currentDate,
+                return this.mapFuzzyDateMonth(year,
                                               fuzzyDate.fields.FuzzyDateMonth.stringValue);
 
             }
@@ -52,13 +69,13 @@ export class FuzzyDateMappingService {
             // If there is a modifier like 'Anfang', 'Mitte' or 'Ende' we want to use that
             if ( fuzzyDate.fields.hasOwnProperty('FuzzyDateModifier') ) {
 
-                return this.mapFuzzyDateSeason(currentDate,
+                return this.mapFuzzyDateSeason(year,
                                                fuzzyDate.fields.FuzzyDateSeason.stringValue,
                                                fuzzyDate.fields.FuzzyDateModifier.stringValue);
 
             } else {
 
-                return this.mapFuzzyDateSeason(currentDate,
+                return this.mapFuzzyDateSeason(year,
                                                fuzzyDate.fields.FuzzyDateSeason.stringValue);
 
             }
@@ -71,12 +88,12 @@ export class FuzzyDateMappingService {
 
     /**
      * Map a fuzzyDateMonth
-     * @param {Date} currentDate The current date
+     * @param {Date} year The year the month is part of
      * @param {string} fuzzyDateMonth The basic month
      * @param {string} fuzzyDateModifier An optional modifier for the fuzzy date
      * @returns {FuzzyDateReturn} The suiting name / date pair
      */
-    private mapFuzzyDateMonth(currentDate: Date, fuzzyDateMonth: string, fuzzyDateModifier?: string): FuzzyDateReturn {
+    private mapFuzzyDateMonth(year: number, fuzzyDateMonth: string, fuzzyDateModifier?: string): FuzzyDateReturn {
 
         // Set the name of the fuzzy date
         let nameOfFuzzyDate: string = fuzzyDateMonth;
@@ -86,10 +103,6 @@ export class FuzzyDateMappingService {
             nameOfFuzzyDate = fuzzyDateModifier + ' ' + fuzzyDateMonth;
 
         }
-
-        // Set the year of the date
-        const year: number = (currentDate).getFullYear();
-
         // Set the month - default is January
         let month: number = 0;
 
@@ -163,12 +176,12 @@ export class FuzzyDateMappingService {
 
     /**
      * Map a fuzzyDateSeason
-     * @param {Date} currentDate The current date
+     * @param {Date} year The year the season starts (!!!) in
      * @param {string} fuzzyDateSeason The fuzzy date season
      * @param {string} fuzzyDateModifier An optional modifier for the fuzzy date
      * @returns {FuzzyDateReturn} The suiting name / date pair
      */
-    private mapFuzzyDateSeason(currentDate: Date, fuzzyDateSeason: string, fuzzyDateModifier?: string): FuzzyDateReturn {
+    private mapFuzzyDateSeason(year: number, fuzzyDateSeason: string, fuzzyDateModifier?: string): FuzzyDateReturn {
 
         // Set the name of the fuzzy date
         let nameOfFuzzyDate: string = fuzzyDateSeason;
@@ -178,9 +191,6 @@ export class FuzzyDateMappingService {
             nameOfFuzzyDate = fuzzyDateModifier + ' ' + fuzzyDateSeason;
 
         }
-
-        // Set the year of the date
-        const year: number = (currentDate).getFullYear();
 
         // Set the date and return the mapped fuzzy date
         // We take the meterological seasons as defined here:
@@ -356,7 +366,7 @@ export class FuzzyDateMappingService {
 
         // Fallback: Return current Date
         return {name: nameOfFuzzyDate,
-                date: currentDate};
+                date: new Date()};
 
     }
 

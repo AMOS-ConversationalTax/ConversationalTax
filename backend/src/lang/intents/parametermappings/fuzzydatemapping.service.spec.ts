@@ -15,12 +15,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Januar',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -35,12 +36,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Februar',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -55,12 +57,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'März',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -75,12 +78,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'April',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -95,12 +99,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Mai',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -115,12 +120,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Juni',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -135,12 +141,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Juli',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -155,12 +162,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'August',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -175,12 +183,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'September',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -195,12 +204,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Oktober',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -215,12 +225,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'November',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -235,12 +246,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Dezember',
+                          kind: 'stringValue' }, 
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -258,8 +270,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -267,6 +277,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -281,8 +294,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -290,6 +301,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -304,8 +318,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -313,6 +325,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -327,8 +342,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -336,6 +349,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -350,8 +366,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -359,6 +373,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -373,8 +390,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -382,6 +397,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -396,15 +414,16 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Juli',
                           kind: 'stringValue' },
-                    FuzzyDateModifier: 
+                      FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -419,8 +438,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -428,6 +445,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -442,8 +462,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -451,6 +469,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -465,8 +486,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -474,6 +493,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -488,8 +510,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -497,6 +517,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -511,8 +534,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -520,6 +541,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -537,8 +561,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -546,6 +568,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -560,8 +585,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -569,6 +592,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -583,8 +609,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -592,6 +616,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -606,8 +633,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -615,6 +640,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -629,8 +657,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -638,6 +664,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -652,8 +681,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -661,6 +688,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -675,15 +705,16 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Juli',
                           kind: 'stringValue' },
-                    FuzzyDateModifier: 
+                      FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -698,8 +729,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -707,6 +736,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -721,8 +753,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -730,6 +760,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -744,8 +777,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -753,6 +784,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -767,8 +801,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -776,6 +808,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -790,8 +825,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -799,6 +832,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -816,8 +852,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -825,6 +859,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -839,8 +876,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -848,6 +883,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -862,8 +900,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -871,6 +907,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -885,8 +924,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -894,6 +931,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -908,8 +948,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -917,6 +955,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -931,8 +972,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -940,6 +979,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -954,15 +996,16 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
                         { stringValue: 'Juli',
                           kind: 'stringValue' },
-                    FuzzyDateModifier: 
+                      FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -977,8 +1020,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -986,6 +1027,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1000,8 +1044,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1009,6 +1051,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1023,8 +1068,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1032,6 +1075,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1046,8 +1092,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1055,6 +1099,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1069,8 +1116,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateMonth: 
@@ -1078,6 +1123,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1095,12 +1143,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
                         { stringValue: 'Frühjahr',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1115,12 +1164,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
                         { stringValue: 'Sommer',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1135,12 +1185,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
                         { stringValue: 'Herbst',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1155,12 +1206,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
                         { stringValue: 'Winter',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1175,12 +1227,13 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
                         { stringValue: 'Hochsommer',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1198,8 +1251,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1207,6 +1258,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1221,8 +1275,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1230,6 +1282,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1244,8 +1299,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1253,6 +1306,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1267,8 +1323,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1276,6 +1330,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1290,8 +1347,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1299,6 +1354,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Anfang',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1316,8 +1374,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1325,6 +1381,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1339,8 +1398,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1348,6 +1405,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1362,8 +1422,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1371,6 +1429,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1385,8 +1446,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1394,6 +1453,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1408,8 +1470,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1417,6 +1477,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Mitte',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1434,8 +1497,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1443,6 +1504,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1457,8 +1521,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1466,6 +1528,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1480,8 +1545,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1489,6 +1552,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1503,8 +1569,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1512,6 +1576,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 
@@ -1526,8 +1593,6 @@ describe('FuzzyDateMappingService', () => {
             // We use a hard coded 'currentDate' to ensure the possibility
             // of repetition of tests
             expect(fuzzyDateMappingService.mapFuzzyDate(
-                // Set the 'currentDate' to 01.01.2018
-                new Date(2018,0,1,0,0,0,0),
                 // Set the input FuzzyDate struct 
                 { fields:
                     { FuzzyDateSeason: 
@@ -1535,6 +1600,9 @@ describe('FuzzyDateMappingService', () => {
                           kind: 'stringValue' },
                       FuzzyDateModifier: 
                         { stringValue: 'Ende',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
                           kind: 'stringValue' }
                     }
                 // Compare it with the expected output 

@@ -45,8 +45,7 @@ export class AddStartDateIntentHandler extends IntentHandler{
 
                     // Use fuzzyDateMapping
                     const fuzzyDate: FuzzyDateReturn =
-                            this.fuzzyDateMappingService.mapFuzzyDate(new Date(),
-                                                                      date.fields.StartDateAsFuzzyDate.structValue);
+                            this.fuzzyDateMappingService.mapFuzzyDate(date.fields.StartDateAsFuzzyDate.structValue);
 
                     await this.employmentContractService.editStartDateExact(contractName, fuzzyDate.date);
                     await this.employmentContractService.editStartDateString(contractName, fuzzyDate.name);
