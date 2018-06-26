@@ -32,7 +32,7 @@ export class FuzzyDateMappingService {
     public mapFuzzyDate(fuzzyDate: any, date?: Date): FuzzyDateReturn {
 
         // Check whether fuzzyDate is constructed correctly
-        if ( ! ( fuzzyDate !== undefined && fuzzyDate.hasOwnProperty('fields') ) ) {
+        if ( fuzzyDate === undefined || fuzzyDate.fields === undefined ) {
 
             throw new Error('Recognized a non valid fuzzyDate in mapFuzzyDate()');
 
@@ -136,44 +136,25 @@ export class FuzzyDateMappingService {
             nameOfFuzzyDate = fuzzyDateModifier + ' ' + fuzzyDateMonth;
 
         }
-        // Set the month - default is January
-        let month: number = 0;
 
-        switch ( fuzzyDateMonth ) {
-            case 'Februar':
-                month = 1;
-                break;
-            case 'März':
-                month = 2;
-                break;
-            case 'April':
-                month = 3;
-                break;
-            case 'Mai':
-                month = 4;
-                break;
-            case 'Juni':
-                month = 5;
-                break;
-            case 'Juli':
-                month = 6;
-                break;
-            case 'August':
-                month = 7;
-                break;
-            case 'September':
-                month = 8;
-                break;
-            case 'Oktober':
-                month = 9;
-                break;
-            case 'November':
-                month = 10;
-                break;
-            case 'Dezember':
-                month = 11;
-                break;
-        }
+        // Map months to their JS Date numbers
+        const monthToNum = new Map<string, number>([
+            ['Januar', 0],
+            ['Februar', 1],
+            ['März', 2],
+            ['April', 3],
+            ['Mai', 4],
+            ['Juni', 5],
+            ['Juli', 6],
+            ['August', 7],
+            ['September', 8],
+            ['Oktober', 9],
+            ['November', 10],
+            ['Dezember', 11],
+        ]);
+
+        // Set the month
+        const month: number = monthToNum.get( fuzzyDateMonth );
 
         // Set the day of the date - if no modifier is set we use the 1st
         // This is true for the modifier 'Anfang', too - So we will not check for it
@@ -412,80 +393,34 @@ export class FuzzyDateMappingService {
         // Set the name of the fuzzy date
         const nameOfFuzzyDate: string = fuzzyDatePublicHolidays;
 
-        // Set the default fallback date to the today
-        let holidayDate: Date = new Date();
+        // Define the suiting Map
+        const publicHolidayToDate = new Map<string, Date>([
+            ['Neujahr', new Date(year, 0, 1)],
+            ['Heilige Drei Könige', new Date(year, 0, 6)],
+            ['Karfreitag', this.getDateRelativeToEasterSunday(year, -2)],
+            ['Ostersonntag', this.getDateRelativeToEasterSunday(year, 0)],
+            ['Ostermontag', this.getDateRelativeToEasterSunday(year, 1)],
+            ['Ostern', this.getDateRelativeToEasterSunday(year, 0)],
+            ['Tag der Arbeit', new Date(year, 4, 1)],
+            ['Christi Himmelfahrt', this.getDateRelativeToEasterSunday(year, 39)],
+            ['Pfingstsonntag', this.getDateRelativeToEasterSunday(year, 49)],
+            ['Pfingstmontag', this.getDateRelativeToEasterSunday(year, 50)],
+            ['Pfingsten', this.getDateRelativeToEasterSunday(year, 49)],
+            ['Fronleichnam', this.getDateRelativeToEasterSunday(year, 60)],
+            ['Maria Himmelfahrt', new Date(year, 7, 15)],
+            ['Tag der Deutschen Einheit', new Date(year, 9, 3)],
+            ['Reformationstag', new Date(year, 9, 31)],
+            ['Allerheiligen', new Date(year, 10, 1)],
+            ['Buß und Bettag', new Date(year, 10, 21)],
+            ['Weihnachten', new Date(year, 11, 25)],
+            ['1. Weihnachtsfeiertag', new Date(year, 11, 25)],
+            ['2. Weihnachtsfeiertag', new Date(year, 11, 26)],
+            ['Silvester', new Date(year, 11, 31)],
+            ['Heiligabend', new Date(year, 11, 24)],
+        ]);
 
-        // Switch through the different public holidays
-        switch ( fuzzyDatePublicHolidays ) {
-            case 'Neujahr':
-                holidayDate = new Date(year, 0, 1);
-                break;
-            case 'Heilige Drei Könige':
-                holidayDate = new Date(year, 0, 6);
-                break;
-            case 'Karfreitag':
-                holidayDate = this.getDateRelativeToEasterSunday(year, -2);
-                break;
-            case 'Ostersonntag':
-                holidayDate = this.getDateRelativeToEasterSunday(year, 0);
-                break;
-            case 'Ostermontag':
-                holidayDate = this.getDateRelativeToEasterSunday(year, 1);
-                break;
-            case 'Ostern':
-                // We use the easter sunday as main day of eastern
-                holidayDate = this.getDateRelativeToEasterSunday(year, 0);
-                break;
-            case 'Tag der Arbeit':
-                holidayDate = new Date(year, 4, 1);
-                break;
-            case 'Christi Himmelfahrt':
-                holidayDate = this.getDateRelativeToEasterSunday(year, 39);
-                break;
-            case 'Pfingstsonntag':
-                holidayDate = this.getDateRelativeToEasterSunday(year, 49);
-                break;
-            case 'Pfingstmontag':
-                holidayDate = this.getDateRelativeToEasterSunday(year, 50);
-                break;
-            case 'Pfingsten':
-                // We use the sunday of pentecost as main day of pentecost
-                holidayDate = this.getDateRelativeToEasterSunday(year, 49);
-                break;
-            case 'Fronleichnam':
-                holidayDate = this.getDateRelativeToEasterSunday(year, 60);
-                break;
-            case 'Maria Himmelfahrt':
-                holidayDate = new Date(year, 7, 15);
-                break;
-            case 'Tag der Deutschen Einheit':
-                holidayDate = new Date(year, 9, 3);
-                break;
-            case 'Reformationstag':
-                holidayDate = new Date(year, 9, 31);
-                break;
-            case 'Allerheiligen':
-                holidayDate = new Date(year, 10, 1);
-                break;
-            case 'Buß und Bettag':
-                holidayDate = new Date(year, 10, 21);
-                break;
-            case 'Weihnachten':
-                holidayDate = new Date(year, 11, 25);
-                break;
-            case '1. Weihnachtsfeiertag':
-                holidayDate = new Date(year, 11, 25);
-                break;
-            case '2. Weihnachtsfeiertag':
-                holidayDate = new Date(year, 11, 26);
-                break;
-            case 'Silvester':
-                holidayDate = new Date(year, 11, 31);
-                break;
-            case 'Heiligabend':
-                holidayDate = new Date(year, 11, 24);
-                break;
-        }
+        // Set the default fallback date to the today
+        const holidayDate: Date = publicHolidayToDate.get( fuzzyDatePublicHolidays );
 
         return {name: nameOfFuzzyDate,
                 date: holidayDate};
