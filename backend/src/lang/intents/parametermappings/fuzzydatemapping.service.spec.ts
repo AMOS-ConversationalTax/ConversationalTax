@@ -12,8 +12,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateMonth - Without a FuzzyDateModifier', () => {
         it('FuzzyDateMonth = Januar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -33,8 +33,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Februar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -54,8 +54,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = März', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -75,8 +75,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = April', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -96,8 +96,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Mai', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -117,8 +117,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juni', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -138,8 +138,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juli', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -159,8 +159,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = August', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -180,8 +180,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = September', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -201,8 +201,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Oktober', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -222,8 +222,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = November', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -243,8 +243,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Dezember', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -267,8 +267,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateMonth - FuzzyDateModifier = Anfang', () => {
         it('FuzzyDateMonth = Januar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -291,8 +291,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Februar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -315,8 +315,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = März', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -339,8 +339,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = April', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -363,8 +363,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Mai', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -387,8 +387,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juni', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -411,8 +411,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juli', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -435,8 +435,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = August', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -459,8 +459,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = September', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -483,8 +483,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Oktober', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -507,8 +507,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = November', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -531,8 +531,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Dezember', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -558,8 +558,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateMonth - FuzzyDateModifier = Mitte', () => {
         it('FuzzyDateMonth = Januar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -582,8 +582,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Februar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -606,8 +606,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = März', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -630,8 +630,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = April', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -654,8 +654,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Mai', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -678,8 +678,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juni', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -702,8 +702,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juli', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -726,8 +726,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = August', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -750,8 +750,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = September', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -774,8 +774,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Oktober', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -798,8 +798,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = November', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -822,8 +822,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Dezember', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -849,8 +849,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateMonth - FuzzyDateModifier = Ende', () => {
         it('FuzzyDateMonth = Januar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -873,8 +873,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Februar', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -897,8 +897,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = März', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -921,8 +921,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = April', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -945,8 +945,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Mai', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -969,8 +969,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juni', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -993,8 +993,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Juli', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1017,8 +1017,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = August', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1041,8 +1041,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = September', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1065,8 +1065,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Oktober', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1089,8 +1089,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = November', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1113,8 +1113,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateMonth = Dezember', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1140,8 +1140,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - Without a FuzzyDateModifier', () => {
         it('FuzzyDateSeason = Frühjahr', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1161,8 +1161,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Sommer', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1182,8 +1182,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Herbst', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1203,8 +1203,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Winter', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1224,8 +1224,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Hochsommer', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1248,8 +1248,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Anfang', () => {
         it('FuzzyDateSeason = Frühjahr', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1272,8 +1272,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Sommer', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1296,8 +1296,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Herbst', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1320,8 +1320,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Winter', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1344,8 +1344,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Hochsommer', async () => {
 
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1371,8 +1371,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Mitte', () => {
         it('FuzzyDateSeason = Frühjahr', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1395,8 +1395,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Sommer', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1419,8 +1419,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Herbst', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1443,8 +1443,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Winter', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1467,8 +1467,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Hochsommer', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1494,8 +1494,8 @@ describe('FuzzyDateMappingService', () => {
     describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateSeason - FuzzyDateModifier = Ende', () => {
         it('FuzzyDateSeason = Frühjahr', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1518,8 +1518,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Sommer', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1542,8 +1542,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Herbst', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1566,8 +1566,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Winter', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1590,8 +1590,8 @@ describe('FuzzyDateMappingService', () => {
         });
         it('FuzzyDateSeason = Hochsommer', async () => {
     
-            // We use a hard coded 'currentDate' to ensure the possibility
-            // of repetition of tests
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
             expect(fuzzyDateMappingService.mapFuzzyDate(
                 // Set the input FuzzyDate struct 
                 { fields:
@@ -1613,4 +1613,304 @@ describe('FuzzyDateMappingService', () => {
     
         });
     }); 
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateRelative - Without a FuzzyDateModifier', () => {
+        it('FuzzyDateRelative = Nächste Woche', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächste Woche',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,0,7,0,0,0),
+                    'name': 'Nächste Woche'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächster Monat', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächster Monat',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,1,1,0,0,0),
+                    'name': 'Nächster Monat'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächster Monat - Special case: Next month is in next year', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächster Monat',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,11,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2019,0,1,0,0,0),
+                    'name': 'Nächster Monat'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächstes Jahr', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächstes Jahr',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2019,0,1,0,0,0),
+                    'name': 'Nächstes Jahr'
+                });
+
+        });
+    });
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateRelative - FuzzyDateModifier = Anfang', () => {
+        it('FuzzyDateRelative = Nächste Woche', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächste Woche',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,0,7,0,0,0),
+                    'name': 'Anfang Nächste Woche'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächster Monat', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächster Monat',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,1,1,0,0,0),
+                    'name': 'Anfang Nächster Monat'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächstes Jahr', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächstes Jahr',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Anfang',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2019,0,1,0,0,0),
+                    'name': 'Anfang Nächstes Jahr'
+                });
+
+        });
+    });
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateRelative - FuzzyDateModifier = Mitte', () => {
+        it('FuzzyDateRelative = Nächste Woche', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächste Woche',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,0,10,0,0,0),
+                    'name': 'Mitte Nächste Woche'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächster Monat', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächster Monat',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,1,15,0,0,0),
+                    'name': 'Mitte Nächster Monat'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächstes Jahr', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächstes Jahr',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Mitte',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2019,6,1,0,0,0),
+                    'name': 'Mitte Nächstes Jahr'
+                });
+
+        });
+    });
+
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDateRelative - FuzzyDateModifier = Ende', () => {
+        it('FuzzyDateRelative = Nächste Woche', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächste Woche',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,0,13,0,0,0),
+                    'name': 'Ende Nächste Woche'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächster Monat', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächster Monat',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2018,1,31,0,0,0),
+                    'name': 'Ende Nächster Monat'
+                });
+
+        });
+        it('FuzzyDateRelative = Nächstes Jahr', async () => {
+
+            // We always test in 2018
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDateRelative: 
+                        { stringValue: 'Nächstes Jahr',
+                          kind: 'stringValue' },
+                      FuzzyDateModifier: 
+                        { stringValue: 'Ende',
+                          kind: 'stringValue' }
+                    }
+                },
+                // Set the currentDate to ensure repeatability of tests
+                new Date (2018,0,1,0,0,0)
+                // Compare it with the expected output 
+                )).toEqual({
+                    'date': new Date(2019,11,31,0,0,0),
+                    'name': 'Ende Nächstes Jahr'
+                });
+
+        });
+    });
+
 });
