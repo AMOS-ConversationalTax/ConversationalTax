@@ -1913,4 +1913,469 @@ describe('FuzzyDateMappingService', () => {
         });
     });
 
+    describe('mapFuzzyDate() - FuzzyDate is a FuzzyDatePublicHolidays', () => {
+        it('FuzzyDatePublicHolidays = Neujahr', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Neujahr',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,0,1,0,0,0,0),
+                    'name': 'Neujahr'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Heilige Drei Könige', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Heilige Drei Könige',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,0,6,0,0,0,0),
+                    'name': 'Heilige Drei Könige'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Karfreitag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Karfreitag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,2,30,0,0,0,0),
+                    'name': 'Karfreitag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Ostersonntag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Ostersonntag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,3,1,0,0,0,0),
+                    'name': 'Ostersonntag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Ostermontag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Ostermontag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,3,2,0,0,0,0),
+                    'name': 'Ostermontag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Ostern', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Ostern',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,3,1,0,0,0,0),
+                    'name': 'Ostern'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Tag der Arbeit', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Tag der Arbeit',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,1,0,0,0,0),
+                    'name': 'Tag der Arbeit'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Christi Himmelfahrt', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Christi Himmelfahrt',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,10,0,0,0,0),
+                    'name': 'Christi Himmelfahrt'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Pfingstsonntag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Pfingstsonntag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,20,0,0,0,0),
+                    'name': 'Pfingstsonntag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Pfingstmontag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Pfingstmontag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,21,0,0,0,0),
+                    'name': 'Pfingstmontag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Pfingsten', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Pfingsten',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,20,0,0,0,0),
+                    'name': 'Pfingsten'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Fronleichnam', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Fronleichnam',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,4,31,0,0,0,0),
+                    'name': 'Fronleichnam'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Maria Himmelfahrt', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Maria Himmelfahrt',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,7,15,0,0,0,0),
+                    'name': 'Maria Himmelfahrt'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Tag der Deutschen Einheit', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Tag der Deutschen Einheit',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,9,3,0,0,0,0),
+                    'name': 'Tag der Deutschen Einheit'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Reformationstag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Reformationstag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,9,31,0,0,0,0),
+                    'name': 'Reformationstag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Allerheiligen', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Allerheiligen',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,10,1,0,0,0,0),
+                    'name': 'Allerheiligen'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Buß und Bettag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Buß und Bettag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,10,21,0,0,0,0),
+                    'name': 'Buß und Bettag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = 1. Weihnachtsfeiertag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: '1. Weihnachtsfeiertag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,25,0,0,0,0),
+                    'name': '1. Weihnachtsfeiertag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = 2. Weihnachtsfeiertag', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: '2. Weihnachtsfeiertag',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,26,0,0,0,0),
+                    'name': '2. Weihnachtsfeiertag'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Silvester', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Silvester',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,31,0,0,0,0),
+                    'name': 'Silvester'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Heiligabend', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Heiligabend',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,24,0,0,0,0),
+                    'name': 'Heiligabend'
+                });
+    
+        });
+        it('FuzzyDatePublicHolidays = Weihnachten', async () => {
+
+            // We always test in 2018
+            // The year is coded in FuzzyDateYear
+            expect(fuzzyDateMappingService.mapFuzzyDate(
+                // Set the input FuzzyDate struct 
+                { fields:
+                    { FuzzyDatePublicHolidays: 
+                        { stringValue: 'Weihnachten',
+                          kind: 'stringValue' },
+                      FuzzyDateYear: 
+                        { stringValue: '2018',
+                          kind: 'stringValue' }
+                    }
+                // Compare it with the expected output 
+                })).toEqual({
+                    'date': new Date(2018,11,25,0,0,0,0),
+                    'name': 'Weihnachten'
+                });
+    
+        });
+    });
+
 });

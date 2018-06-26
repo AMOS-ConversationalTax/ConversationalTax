@@ -107,6 +107,11 @@ export class FuzzyDateMappingService {
 
             }
 
+        } else if ( fuzzyDate.fields.hasOwnProperty('FuzzyDatePublicHolidays') ) {
+
+            return this.mapFuzzyDatePublicHolidays(year,
+                                                   fuzzyDate.fields.FuzzyDatePublicHolidays.stringValue);
+
         }
 
         // No valid fuzzyDate recognized
@@ -399,6 +404,97 @@ export class FuzzyDateMappingService {
     }
 
     /**
+     * Map a fuzzyDatePublicHolidays
+     * @param {Date} year The year the public holiday takes place in
+     * @param {string} fuzzyDatePublicHolidays The fuzzy date public holiday
+     * @returns {FuzzyDateReturn} The suiting name / date pair
+     */
+    private mapFuzzyDatePublicHolidays(year: number, fuzzyDatePublicHolidays: string): FuzzyDateReturn {
+
+        // Set the name of the fuzzy date
+        const nameOfFuzzyDate: string = fuzzyDatePublicHolidays;
+
+        // Set the default fallback date to the today
+        let holidayDate: Date = new Date();
+
+        // Switch through the different public holidays
+        switch ( fuzzyDatePublicHolidays ) {
+            case 'Neujahr':
+                holidayDate = new Date(year, 0, 1);
+                break;
+            case 'Heilige Drei Könige':
+                holidayDate = new Date(year, 0, 6);
+                break;
+            case 'Karfreitag':
+                holidayDate = this.getDateRelativeToEasterSunday(year, -2);
+                break;
+            case 'Ostersonntag':
+                holidayDate = this.getDateRelativeToEasterSunday(year, 0);
+                break;
+            case 'Ostermontag':
+                holidayDate = this.getDateRelativeToEasterSunday(year, 1);
+                break;
+            case 'Ostern':
+                // We use the easter sunday as main day of eastern
+                holidayDate = this.getDateRelativeToEasterSunday(year, 0);
+                break;
+            case 'Tag der Arbeit':
+                holidayDate = new Date(year, 4, 1);
+                break;
+            case 'Christi Himmelfahrt':
+                holidayDate = this.getDateRelativeToEasterSunday(year, 39);
+                break;
+            case 'Pfingstsonntag':
+                holidayDate = this.getDateRelativeToEasterSunday(year, 49);
+                break;
+            case 'Pfingstmontag':
+                holidayDate = this.getDateRelativeToEasterSunday(year, 50);
+                break;
+            case 'Pfingsten':
+                // We use the sunday of pentecost as main day of pentecost
+                holidayDate = this.getDateRelativeToEasterSunday(year, 49);
+                break;
+            case 'Fronleichnam':
+                holidayDate = this.getDateRelativeToEasterSunday(year, 60);
+                break;
+            case 'Maria Himmelfahrt':
+                holidayDate = new Date(year, 7, 15);
+                break;
+            case 'Tag der Deutschen Einheit':
+                holidayDate = new Date(year, 9, 3);
+                break;
+            case 'Reformationstag':
+                holidayDate = new Date(year, 9, 31);
+                break;
+            case 'Allerheiligen':
+                holidayDate = new Date(year, 10, 1);
+                break;
+            case 'Buß und Bettag':
+                holidayDate = new Date(year, 10, 21);
+                break;
+            case 'Weihnachten':
+                holidayDate = new Date(year, 11, 25);
+                break;
+            case '1. Weihnachtsfeiertag':
+                holidayDate = new Date(year, 11, 25);
+                break;
+            case '2. Weihnachtsfeiertag':
+                holidayDate = new Date(year, 11, 26);
+                break;
+            case 'Silvester':
+                holidayDate = new Date(year, 11, 31);
+                break;
+            case 'Heiligabend':
+                holidayDate = new Date(year, 11, 24);
+                break;
+        }
+
+        return {name: nameOfFuzzyDate,
+                date: holidayDate};
+
+    }
+
+    /**
      * Map a FuzzyDateRelative
      * @param {Date} currentDate The current date - the fuzzyDate will be computed relative to it
      * @param {string} fuzzyDateRelative The fuzzyDateRelative
@@ -407,7 +503,7 @@ export class FuzzyDateMappingService {
      */
     private mapFuzzyDateRelative(currentDate: Date, fuzzyDateRelative: string, fuzzyDateModifier?: string): FuzzyDateReturn {
 
-        // Constants for calculating on dates
+        // Constant for calculating on dates
         const oneDay: number = 86400000;
 
         // Set the name of the fuzzy date
@@ -539,6 +635,47 @@ export class FuzzyDateMappingService {
         // Fallback: Return current Date
         return {name: nameOfFuzzyDate,
                 date: currentDate};
+
+    }
+
+    /**
+     * In Germany a lot of public holidays are relative to the date of easter sunday
+     * This function computes these days. A list of dateDiffs can be found at
+     * http://www.arstechnica.de/index.html?name=http://www.arstechnica.de/computer/JavaScript/JS11_07.html
+     * @param {year} year The year the public holiday is part of
+     * @param {number} dayDiff The optional date difference the public holiday has to easter sunday
+     * @returns {Date} The final date
+     */
+    private getDateRelativeToEasterSunday(year: number, dayDiff?: number): Date {
+
+        // Constant for calculating on dates
+        const oneDay: number = 86400000;
+
+        // If no dateDiff is given, set it to zero
+        if (dayDiff === undefined) {
+
+            dayDiff = 0;
+
+        }
+
+        // This part is inspired by
+        // http://www.arstechnica.de/index.html?name=http://www.arstechnica.de/computer/JavaScript/JS11_07.html
+        const a: number = year % 19;
+        const d: number = (19 * a + 24) % 30;
+        let day: number  = d + (2 * (year % 4) + 4 * (year % 7) + 6 * d + 5) % 7;
+
+        if ( day === 35 || (day === 34 && d === 28 && a > 10)) {
+
+            day -= 7;
+
+        }
+
+        const easterDate: Date = new Date(year, 2, 22);
+
+        easterDate.setTime(easterDate.getTime() + oneDay * dayDiff + oneDay * day);
+
+        // Remove time of date
+        return new Date(easterDate.getFullYear(), easterDate.getMonth(), easterDate.getDate());
 
     }
 
