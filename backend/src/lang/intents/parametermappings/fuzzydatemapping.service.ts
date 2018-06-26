@@ -216,6 +216,9 @@ export class FuzzyDateMappingService {
      */
     private mapFuzzyDateSeason(year: number, fuzzyDateSeason: string, fuzzyDateModifier?: string): FuzzyDateReturn {
 
+        // Constant for calculating on dates
+        const oneDay: number = 86400000;
+
         // Set the name of the fuzzy date
         let nameOfFuzzyDate: string = fuzzyDateSeason;
 
@@ -242,13 +245,12 @@ export class FuzzyDateMappingService {
             } else if ( fuzzyDateModifier === 'Mitte' ) {
 
                 // As the days each month has may vary, we have to compute this one
-                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+                const dateDiff: number = Math.floor((endDate.getTime() - beginDate.getTime()) / oneDay);
 
-                // Set the middleDate to the beginDate plus the dateDiff
-                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+                const dateDiffHalf: number = Math.floor((dateDiff / 2));
 
                 // This middleDateExact is not always at change of day => Use only its year, month and day
-                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+                const middleDate: Date = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate() + dateDiffHalf);
 
                 return {name: nameOfFuzzyDate,
                         date: middleDate};
@@ -275,13 +277,12 @@ export class FuzzyDateMappingService {
             } else if ( fuzzyDateModifier === 'Mitte' ) {
 
                 // As the days each month has may vary, we have to compute this one
-                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+                const dateDiff: number = Math.floor((endDate.getTime() - beginDate.getTime()) / oneDay);
 
-                // Set the middleDate to the beginDate plus the dateDiff
-                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+                const dateDiffHalf: number = Math.floor((dateDiff / 2));
 
                 // This middleDateExact is not always at change of day => Use only its year, month and day
-                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+                const middleDate: Date = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate() + dateDiffHalf);
 
                 return {name: nameOfFuzzyDate,
                         date: middleDate};
@@ -308,13 +309,12 @@ export class FuzzyDateMappingService {
             } else if ( fuzzyDateModifier === 'Mitte' ) {
 
                 // As the days each month has may vary, we have to compute this one
-                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+                const dateDiff: number = Math.floor((endDate.getTime() - beginDate.getTime()) / oneDay);
 
-                // Set the middleDate to the beginDate plus the dateDiff
-                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+                const dateDiffHalf: number = Math.floor((dateDiff / 2));
 
                 // This middleDateExact is not always at change of day => Use only its year, month and day
-                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+                const middleDate: Date = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate() + dateDiffHalf);
 
                 return {name: nameOfFuzzyDate,
                         date: middleDate};
@@ -341,13 +341,12 @@ export class FuzzyDateMappingService {
             } else if ( fuzzyDateModifier === 'Mitte' ) {
 
                 // As the days each month has may vary, we have to compute this one
-                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+                const dateDiff: number = Math.floor((endDate.getTime() - beginDate.getTime()) / oneDay);
 
-                // Set the middleDate to the beginDate plus the dateDiff
-                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+                const dateDiffHalf: number = Math.floor((dateDiff / 2));
 
                 // This middleDateExact is not always at change of day => Use only its year, month and day
-                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+                const middleDate: Date = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate() + dateDiffHalf);
 
                 return {name: nameOfFuzzyDate,
                         date: middleDate};
@@ -376,13 +375,12 @@ export class FuzzyDateMappingService {
             } else if ( fuzzyDateModifier === 'Mitte' ) {
 
                 // As the days each month has may vary, we have to compute this one
-                const dateDiff: number = endDate.getTime() - beginDate.getTime();
+                const dateDiff: number = Math.floor((endDate.getTime() - beginDate.getTime()) / oneDay);
 
-                // Set the middleDate to the beginDate plus the dateDiff
-                const middleDateExact: Date = new Date(beginDate.getTime() + Math.floor(dateDiff / 2));
+                const dateDiffHalf: number = Math.floor((dateDiff / 2));
 
                 // This middleDateExact is not always at change of day => Use only its year, month and day
-                const middleDate: Date = new Date(middleDateExact.getFullYear(), middleDateExact.getMonth(), middleDateExact.getDate());
+                const middleDate: Date = new Date(beginDate.getFullYear(), beginDate.getMonth(), beginDate.getDate() + dateDiffHalf);
 
                 return {name: nameOfFuzzyDate,
                         date: middleDate};

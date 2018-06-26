@@ -1436,7 +1436,7 @@ describe('FuzzyDateMappingService', () => {
                     }
                 // Compare it with the expected output 
                 })).toEqual({
-                    'date': new Date(2018,10,5,0,0,0,0),
+                    'date': new Date(2018,10,6,0,0,0,0),
                     'name': 'Mitte Herbst'
                 });
     
