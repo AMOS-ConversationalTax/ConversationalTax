@@ -166,14 +166,15 @@ export class LangController {
   // TODO move to new architecture as soon as it has been finished.
   // TODO intent name should be moved into a const (as part of the above task)
   private async handleIntent(uid: string, intent: Intent, dialogflowResponse: DetectIntentResponse): Promise<ReturnText | undefined> {
-    if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
-
+    //if (intent.name === 'projects/test-c7ec0/agent/intents/ae4cd4c7-67ea-41e3-b064-79b0a75505c5') {
+    if (intent.name === 'projects/test-c7ec0/agent/intents/b0159b15-0635-4d2e-a673-88cc10c03422') {
       if (!await this.userService.exists(uid)) {
 
         this.userService.create(uid);
 
       }
-      await this.contractService.create(uid);
+      const contractID = await this.contractService.create(uid);
+      this.contractService.editName(contractID, 'Uvex');
 
     } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
 
@@ -276,11 +277,21 @@ export class LangController {
       return { text: 'Es gibt keine letzte Anfrage zu der ich dir den Kontext nennen könnte' };
     } else if (intent.name === INTENT_LISTALLCONTRACTS) {
       // Get the list of all contracts
-      const contracts = await this.listAllContractsService.getAllContracts(uid);
+      let contracts = await this.listAllContractsService.getAllContracts(uid);
       // Get the Answer from Dialogflow
-      const answer = 'Das sind deine Arbeitsverträge. ';
+      let answer : string = '';
+      answer = dialogflowResponse.queryResult.fulfillmentText;
       // Combine the answer with the list as strings and return it
-      const text = answer + contracts.toString();
+      
+      let text : string = 'fehler';
+      let contractNames : string = '';
+      if(contracts.length >= 0) {
+        for(var i = 0; i < contracts.length; i++){
+          contractNames += ' ' + contracts.pop().name;
+        }
+        text = answer + ' ' + contracts.length.toString() + contractNames;
+      }
+      
       return { text };
 	}
     return undefined;

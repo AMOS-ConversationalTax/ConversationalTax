@@ -10,7 +10,7 @@ export class ListAllContractsService {
 
     constructor (private employmentContractService: EmploymentContractService){}
 
-    async getAllContracts(userID: string): Promise<EmploymentContract[]> {
+    async getAllContracts(userID: string): Promise<Array<EmploymentContract>> {
         const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
         return contracts;
     }
