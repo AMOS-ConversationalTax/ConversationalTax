@@ -276,4 +276,31 @@ export class DialogFlowService {
         return detectIntent.queryResult.action;
     }
 
+    /**
+     * Extracts the answer of DialogFlow to read it out to the user.
+     * @param {DetectIntentResponse} detectIntent Response from DialogFlow
+     * @returns {boolean} Whether all params are set
+     */
+    public extractReqParameterPresent(detectIntent: DetectIntentResponse): boolean {
+        return detectIntent.queryResult.allRequiredParamsPresent;
+    }
+
+    /**
+     * Extracts the parameter of the DialogFlow response
+     * @param {DetectIntentResponse} detectIntent - Response from DialogFlow
+     * @returns {object} - Returns a JSON Object containing the parameters
+     */
+    public extractParameter(detectIntent: DetectIntentResponse): object {
+        return detectIntent.queryResult.parameters;
+    }
+
+    /**
+     * Extract the action of the DialogFlow response
+     * @param {DetectIntentResponse} detectIntent - Response from DialogFlow
+     * @returns {string} - Returns the action extracted from the DialogFlow answer
+     */
+    public extractAction(detectIntent: DetectIntentResponse): string {
+        return detectIntent.queryResult.action;
+    }
+
 }

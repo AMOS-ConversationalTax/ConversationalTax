@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { DialogFlowStructure, IntentInformation, ActionInformation } from '../dialog-flow/dialogflow-structure';
+import { DialogFlowStructure, IntentInformation, ActionInformation, DIALOGFLOW_INTENT_IDS } from '../dialog-flow/dialogflow-structure';
 import { ConversationHistoryIntent } from '../../database/conversationHistory/interfaces/conversationHistoryIntent.interface';
+import IntentConfig from '../intents/IntentConfig';
 
 /**
  * A default helptext to use in case of fallback
@@ -13,6 +14,12 @@ const FALLBACK_HELPTEXT: string = 'Zur letzten Antwort kann ich dir leider keine
  * @type {string}
  */
 const FALLBACK_CONTEXT_EXPLANATION: string = 'Wir haben gerade über kein spezifisches Thema geredet.';
+
+export const IGNORE_INTENTS = [
+    IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Fallback,
+    IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Help,
+    IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Context,
+];
 
 /**
  * Provides helptexts and information about the current context.
