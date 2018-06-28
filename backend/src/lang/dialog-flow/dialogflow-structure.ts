@@ -12,9 +12,9 @@ export interface ActionInformation {
 
     /**
      * The helpText for a action
-     * @type{string}
+     * @type{string | null}
      */
-    helpText: string;
+    helpText: string | null;
 }
 
 /**
@@ -56,6 +56,7 @@ export enum DIALOGFLOW_INTENT_IDS {
     Fallback = '41d8bfa1-b463-4d15-a1ea-9491f5ee1a76', // Default Fallback Intent
     Help = 'e695c10c-0a85-4ede-a899-67f264ff5275', // Hilfe? - Fallback
     Context = '39611549-cad9-4152-9130-22ed7879e700', // Kontext? - Fallback
+    WhatToDo = 'c29ddbfb-571c-46e2-a817-4aa5bdc06251', // What-to-Do? Fallback
     Contract_Create = 'b0159b15-0635-4d2e-a673-88cc10c03422', // Arbeitsvertrag mit Startdatum erstellen
     Contract_ListAll = '92883a98-404c-4e9f-b385-a5a9108a4764', // Arbeitsvertrag - Alle auflisten
     Contract_Enddate = '9694cec4-f8e8-478b-b9cc-fa1879b7a202', // Arbeitsvertrag - Enddatum
@@ -78,11 +79,11 @@ export const DialogFlowStructure: IntentInformation[] = [
         actions: [
             {
                 name: 'Default',
-                helpText: 'TODO',
+                helpText: null,
             },
             {
-                name: 'VertragsName',
-                helpText: 'Du musst den Arbeitnehmer benennen, damit ich den Vertrag später zuordnen kann.',
+                name: 'ContractName',
+                helpText: 'Du musst den Arbeitsvertrag benennen, damit ich den Vertrag später zuordnen kann.',
             },
         ],
     },
@@ -94,7 +95,7 @@ export const DialogFlowStructure: IntentInformation[] = [
         actions: [
             {
                 name: 'Default',
-                helpText: 'TODO',
+                helpText: null,
             },
             {
                 name: 'EndDate',
@@ -114,10 +115,10 @@ export const DialogFlowStructure: IntentInformation[] = [
         actions: [
             {
                 name: 'Default',
-                helpText: 'TODO',
+                helpText: null,
             },
             {
-                name: 'Startdatum',
+                name: 'StartDate',
                 helpText: 'Um das Startdatum zuändern, musst du uns mitteilen, wann der Vertrag ausläuft.',
             },
             {
