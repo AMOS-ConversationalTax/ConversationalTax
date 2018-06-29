@@ -7,13 +7,25 @@ import { CreateContractFactory } from '../factory/factory.createcontract';
 import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 import { AbortFactory } from '../factory/factory.abort';
 import { HandlerModule } from '../handlers/handler.module';
+import { WhatToDoFactory } from './factory.whatToDo';
+
+const modules = [
+    EndDateFactory,
+    AddStartDateFactory,
+    ContextFactory,
+    HelpFactory,
+    CreateContractFactory,
+    EndDateOpenFactory,
+    AbortFactory,
+    WhatToDoFactory,
+];
 
 /**
  * Exports and bundles the IntentFactory
  */
 @Module({
     imports: [HandlerModule],
-    providers: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory, AbortFactory],
-    exports: [EndDateFactory, AddStartDateFactory, ContextFactory, HelpFactory, CreateContractFactory, EndDateOpenFactory, AbortFactory],
+    providers: modules,
+    exports: modules,
 })
 export class FactoryModule { }

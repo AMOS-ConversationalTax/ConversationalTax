@@ -11,15 +11,26 @@ import { ExplanationService } from '../../explanation/explanation.service';
 import { ContextIntentHandler } from './handler.context';
 import { CreateContractIntentHandler } from './handler.createcontract';
 import { ParameterMappingsModule } from '../parametermappings/parametermappings.module';
+import { WhatToDoIntentHandler } from './handler.whatToDo';
+
+const modules = [
+    EndDateIntentHandler,
+    EndDateOpenIntentHandler,
+    AddStartDateIntentHandler,
+    HelpIntentHandler,
+    ContextIntentHandler,
+    CreateContractIntentHandler,
+    ExplanationService,
+    AbortIntentHandler,
+    WhatToDoIntentHandler,
+];
 
 /**
  * Exports and bundles the IntentHandlers
  */
 @Module({
     imports: [EmploymentContractModule, UserModule, ConnectorsModule, ParameterMappingsModule],
-    providers: [EndDateIntentHandler, EndDateOpenIntentHandler, AddStartDateIntentHandler, HelpIntentHandler,
-            	ContextIntentHandler, CreateContractIntentHandler, ExplanationService, AbortIntentHandler],
-    exports: [EndDateIntentHandler, EndDateOpenIntentHandler, AddStartDateIntentHandler, HelpIntentHandler,
-                ContextIntentHandler, CreateContractIntentHandler, ExplanationService, AbortIntentHandler],
+    providers: modules,
+    exports: modules,
 })
 export class HandlerModule { }

@@ -7,18 +7,22 @@ import IntentConfig from '../intents/IntentConfig';
  * A default helptext to use in case of fallback
  * @type {string}
  */
-const FALLBACK_HELPTEXT: string = 'Zur letzten Antwort kann ich dir leider keine Erklärung anbieten.';
+const FALLBACK_HELPTEXT = 'Zur letzten Antwort kann ich dir leider keine Erklärung anbieten.';
 
 /**
  * A default explanation text to use in case of fallback
  * @type {string}
  */
-const FALLBACK_CONTEXT_EXPLANATION: string = 'Wir haben gerade über kein spezifisches Thema geredet.';
+const FALLBACK_CONTEXT_EXPLANATION = 'Wir haben gerade über kein spezifisches Thema geredet.';
 
+/**
+ * Intents, that should be ignored for the explanations
+ */
 export const IGNORE_INTENTS = [
     IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Fallback,
     IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Help,
     IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Context,
+    IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.WhatToDo,
 ];
 
 /**
@@ -50,7 +54,7 @@ export class ExplanationService {
 
         if (actionName !== undefined) {
             const actionInfo = this.getActionInformation(intent, actionName);
-            if (actionInfo !== undefined) {
+            if (actionInfo !== undefined && actionInfo.helpText !== null) {
                 return actionInfo.helpText;
             }
         }
