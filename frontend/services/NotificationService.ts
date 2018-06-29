@@ -53,6 +53,13 @@ export class NotificationServiceInstance {
      * The constructor for the NotificationService
      */
     private constructor() {
+        this.init();
+    }
+
+    /**
+     * Init the NotificationService
+     */
+    private async init(): Promise<void> {
         // WebSocket
         this.websocket = new WebSocketClient(Config.WEBSOCKET_URL);
         this.websocket.registerOpenedHandler(() => {

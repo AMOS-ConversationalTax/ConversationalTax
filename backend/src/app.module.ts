@@ -11,6 +11,7 @@ import { WebsocketModule } from './websocket/websocket.module';
 import Config from 'conv-tax-shared/config/config';
 import { NotificationsDBModule } from 'database/notifications/notifications.module';
 import { DebugModule } from './dev/dev.module';
+import { AppController } from './app.controller';
 
 /**
  * Class that exports the main module of the backend
@@ -27,9 +28,9 @@ import { DebugModule } from './dev/dev.module';
     NotificationsModule,
     WebsocketModule,
     MongooseModule.forRoot(Config.MONGO_URL),
-    DebugModule
+    DebugModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
