@@ -81,4 +81,18 @@ export class ConversationHistoryService {
 
     }
 
+    /**
+     * Delete a specific histroy items
+     * @param {string} _id - The id of the history item
+     */
+    async deleteConversationHistoryItem(_id: string) {
+        const historyItem = await this.conversationHistoryModel.find({ '_id': _id });
+        if (historyItem.length === 1) {
+            // Edit the employmentContract
+            await this.conversationHistoryModel.remove({ '_id': _id });
+        } else {
+            throw new Error('EmploymentContract does not exists');
+        }
+    }
+
 }

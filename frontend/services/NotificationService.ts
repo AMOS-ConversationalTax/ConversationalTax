@@ -53,13 +53,6 @@ export class NotificationServiceInstance {
      * The constructor for the NotificationService
      */
     private constructor() {
-        this.init();
-    }
-    
-    /**
-     * Establishes a websocket connection and fetches old notifications via the rest API.
-     */
-    private async init(): Promise<void> {
         // WebSocket
         this.websocket = new WebSocketClient(Config.WEBSOCKET_URL);
         this.websocket.registerOpenedHandler(() => {
@@ -68,14 +61,8 @@ export class NotificationServiceInstance {
         this.websocket.registerMessageHandler(NotificationsConfig.NOTI_EVENT, (data: object) => {
             this.handleNotificationMessage(data as NotificationMessage);
         });
-        // RestClient
-        this.restClient = new RestConnection();
-        const oldNotifications = await this.restClient.getNotifications();
-        oldNotifications.forEach(notification => {
-            this.notifications.unshift(notification);
-        })
-        this.newNotification.next();
-        this.notificationCount.next(this.countUnread());
+
+        this.reloadNotifications();
     }
 
     /**
@@ -99,6 +86,21 @@ export class NotificationServiceInstance {
         this.newNotification.next();
         Vibration.vibrate(500, false);
         PushNotificationService.presentLocalNotification(data.title, data.description);
+    }
+
+    /**
+     * Reloads all Notifications from the backend
+     */
+    public async reloadNotifications(): Promise<void> {
+        this.notifications = [];
+        // RestClient
+        this.restClient = new RestConnection();
+        const oldNotifications = await this.restClient.getNotifications();
+        oldNotifications.forEach(notification => {
+            this.notifications.unshift(notification);
+        });
+        this.newNotification.next();
+        this.notificationCount.next(this.countUnread());
     }
 
     /**
