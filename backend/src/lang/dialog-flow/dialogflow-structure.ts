@@ -127,4 +127,40 @@ export const DialogFlowStructure: IntentInformation[] = [
             },
         ],
     },
+    {
+        displayName: 'Arbeitsvertrag - Enddatum "unbefristet"',
+        name: IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_EnddateUnlimited,
+        contextText: 'Wir waren gerade dabei das Enddatum auf unbefristet zu ändern',
+        helpText: 'Falls dein Arbeitsvertrag unbefristet läuft, kannst du dies abspeichern.',
+        actions: [
+            {
+                name: 'Default',
+                helpText: null,
+            },
+            {
+                name: 'EmploymentContract',
+                helpText: 'Du musst den Arbeitsvertrag benennen, damit ich das Enddatum zuordnen kann.',
+            },
+        ],
+    },
+    {
+        displayName: 'Arbeitsvertrag - Namensänderung',
+        name: IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_Rename,
+        contextText: 'Wir waren gerade dabei den Namen eines Arbeitsvertrags zu ändern',
+        helpText: 'Falls dir der bisherige Name eines Vertrags nicht gefällt, kannst du diesen ändern.',
+        actions: [
+            {
+                name: 'Default',
+                helpText: null,
+            },
+            {
+                name: 'EmploymentContract',
+                helpText: 'Du musst den bisherigen Namen des Arbeitsvertrags nennen, damit dieser geändert werden kann.',
+            },
+            {
+                name: 'NewContractName',
+                helpText: 'Du musst den neuen Namen des Arbeitsvertrags nennen, damit ich diesen speichern kann.',
+            },
+        ],
+    },
 ];

@@ -9,6 +9,7 @@ import { CreateContractFactory } from '../factory/factory.createcontract';
 import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 import { AbortFactory } from '../factory/factory.abort';
 import { WhatToDoFactory } from '../factory/factory.whatToDo';
+import { RenameFactory } from '../factory/factory.rename';
 
 /**
  * Class to get the right handler for an intent
@@ -24,9 +25,10 @@ export class IntentStrategy {
                 createContactFactory: CreateContractFactory,
                 endDateOpenFactory: EndDateOpenFactory,
                 abortFactory: AbortFactory,
-                whatToDoFactory: WhatToDoFactory) {
+                whatToDoFactory: WhatToDoFactory,
+                renameFactory: RenameFactory ) {
         this.intentFactories = [endDateFactory, addStartDateFactory, contextFactory, helpFactory,
-            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory];
+            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory, renameFactory];
     }
 
     /**
