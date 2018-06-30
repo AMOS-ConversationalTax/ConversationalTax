@@ -12,6 +12,7 @@ import { ContextIntentHandler } from './handler.context';
 import { CreateContractIntentHandler } from './handler.createcontract';
 import { ParameterMappingsModule } from '../parametermappings/parametermappings.module';
 import { WhatToDoIntentHandler } from './handler.whatToDo';
+import { RenameIntentHandler } from './handler.rename';
 
 const modules = [
     EndDateIntentHandler,
@@ -23,6 +24,7 @@ const modules = [
     ExplanationService,
     AbortIntentHandler,
     WhatToDoIntentHandler,
+    RenameIntentHandler,
 ];
 
 /**
