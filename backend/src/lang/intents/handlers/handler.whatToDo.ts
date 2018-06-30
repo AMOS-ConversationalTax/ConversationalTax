@@ -85,8 +85,7 @@ export class WhatToDoIntentHandler extends IntentHandler{
         contracts.forEach(contract => {
             if (contract.startDate_exact === undefined && contract.startDate_string === undefined) {
                 missingInput.startDate.push(contract.name);
-            }
-            if (contract.endDate_exact === undefined && contract.endDate_string === undefined) {
+            } else if (contract.endDate_exact === undefined && contract.endDate_string === undefined) {
                 missingInput.endDate.push(contract.name);
             }
         });

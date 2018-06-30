@@ -10,6 +10,11 @@ import { NotificationMessage } from 'conv-tax-shared/typings/Notification';
 const DEFAULT_OPTIONS: any = { 'timeout': 10000 };
 
 /**
+ * The items of a user that can be reseted.
+ */
+type ResetItems = 'resetUserContracts' | 'resetUserHistory' | 'resetUserNotification';
+
+/**
  * Implements a default REST connection
  */
 export default class RestConnection implements IConnection {
@@ -196,6 +201,25 @@ export default class RestConnection implements IConnection {
      */
     public markNotificationsAsRead(): Promise<void> {
         const url = `${Config.SERVER_URL}/notifications/markAsRead?u_id=${Expo.Constants.deviceId}`;
+        const promise = new Promise<void>((resolve, reject) => {
+            axios.get(url, DEFAULT_OPTIONS)
+                .then((response) => {
+                    resolve();
+                })
+                .catch((error) => {
+                    reject('Couldn\'t mark the Notifications as read');
+                });
+        });
+        return promise;
+    }
+
+    /**
+     * Tell the backend to reset a specific type of items
+     * @param {ResetItems} type The type of item to delete
+     * @returns {Promise<void>} Returns as soon as the request has finished
+     */
+    public reset(type: ResetItems): Promise<void> {
+        const url = `${Config.SERVER_URL}/dev/${type}?u_id=${Expo.Constants.deviceId}`;
         const promise = new Promise<void>((resolve, reject) => {
             axios.get(url, DEFAULT_OPTIONS)
                 .then((response) => {
