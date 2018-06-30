@@ -20,7 +20,7 @@ export class RenameIntentHandler extends IntentHandler{
     public async handle(intentData: IIntentData): Promise<ReturnText | undefined> {
 
         if (intentData.allParameterSet) {
-        
+
             try {
 
                 const id: string = this.extractData(intentData.parameter, 'EmploymentContract', 'EmploymentContract');
@@ -31,7 +31,7 @@ export class RenameIntentHandler extends IntentHandler{
             } catch {
 
                 return {text: 'Beim Ändern des Vertragsnamens ist ein Fehler aufgetreten.'};
-                
+
             }
 
         }
