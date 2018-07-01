@@ -32,7 +32,7 @@ describe('ExplanationService', () => {
 
         it('should return action helptext if action is set', () => {
             const intentInfo = DialogFlowStructure[0];
-            const actionInfo = intentInfo.actions[0];
+            const actionInfo = intentInfo.actions[1];
             const intent = { displayName: intentInfo.displayName, name: intentInfo.name };
             const contextExplanation = explanationService.getHelpText(intent, actionInfo.name);
             expect(contextExplanation).toBe(actionInfo.helpText);

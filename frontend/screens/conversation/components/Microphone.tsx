@@ -15,16 +15,27 @@ import Loader from './Loader';
 import RecordIcon from './RecordIcon';
 import { NavigationService } from '../../../services/NavigationService';
 
+/**
+ * The property interface used in the class Microphone
+ * @interface IProps
+ */
 interface IProps {
     recordingService: RecordingService,
     restClient: RestConnection,
     speechService: SpeechService,
 }
 
+/**
+ * The state interface used in the class Microphone
+ * @interface IState
+ */
 interface IState {
     currentState: RecordingState,
 }
 
+/**
+ * A enum of allowed RecordingStates
+ */
 enum RecordingState {
     hasNoPermission,
     waitingToRecord,
@@ -68,8 +79,9 @@ export default class Microphone extends Component<IProps, IState> {
 
     /**
      * Render the Microphone component
+     * @returns {JSX.Element} The markup element that is displayed
      */
-    public render() {
+    public render(): JSX.Element {
         // In case we don't have the recording permission
         let recordingButtonDisabled = true;
         let recordingIcon = <Ionicons name={'md-mic-off'} size={75} color="#000" />;
@@ -143,10 +155,6 @@ export default class Microphone extends Component<IProps, IState> {
         // Upload the audio file
         let responseText = await this.props.restClient.uploadAudioAsync(filepath);
 
-        if (responseText.text.length < 2) {
-            responseText.text = 'Ich konnte dich leider nicht verstehen.';
-        }
-
         //Read out the response
         this.props.speechService.speak(responseText.text);
 
@@ -156,7 +164,11 @@ export default class Microphone extends Component<IProps, IState> {
 
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the microphone
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
     view: {
         alignItems: 'center',
         justifyContent: 'center',

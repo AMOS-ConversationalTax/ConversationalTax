@@ -6,6 +6,10 @@ import NotificationsConfig from 'conv-tax-shared/config/notifications.config';
 import { NotificationsDBService } from '../database/notifications/notifications.service';
 import { NavigatableRoutes } from 'conv-tax-shared/config/navigation.config';
 
+/**
+ * A constant containing the demo notifications we use
+ * @type {NotificationMessage[]}
+ */
 const DEMO_NOTI: NotificationMessage[] = [
 {
     title: 'Arbeitsvertrag XYZ',
@@ -25,19 +29,35 @@ const DEMO_NOTI: NotificationMessage[] = [
     read: false,
 }];
 
+/**
+ * The class implementing the notification service
+ */
 @Injectable()
 export class NotificationService {
-    // Stores the currently active user's Observable/Subject in order to send them notifications
-    private userSubscriptions = new Map<number, Subject<WsResponse<NotificationMessage>>>();
-    // Stores a map from the real user ids to the websocket client ids.
-    private userIdToId = new Map<string, number[]>();
 
+    /**
+     * Stores the currently active user's Observable/Subject in order to send them notifications
+     * @type {Map<number, Subject<WsResponse<NotificationMessage>>>}
+     */
+    private userSubscriptions: Map<number, Subject<WsResponse<NotificationMessage>>>
+                                = new Map<number, Subject<WsResponse<NotificationMessage>>>();
+
+    /**
+     * Stores a map from the real user ids to the websocket client ids.
+     * @type {Map<string, number[]>}
+     */
+    private userIdToId: Map<string, number[]> = new Map<string, number[]>();
+
+    /**
+     * The constructor for the NotificationService
+     * @param {NotificationsDBService} notificationDb A instance of the NotificationsDBService - injected by DI
+     */
     constructor(private readonly notificationDb: NotificationsDBService) {}
 
     /**
      * Adds a notification for a specific user. If the user is connected via a websocket, the notification will be delivered async.
-     * @param userId The user's id
-     * @param notification The notification for the user.
+     * @param {string} userId The user's id
+     * @param {NotificationMessage} notification The notification for the user.
      */
     public addNotification(userId: string, notification: NotificationMessage) {
         this.notificationDb.create(userId, notification.title, notification.description, notification.navigateTo, notification.textForDialogflow);
@@ -52,8 +72,8 @@ export class NotificationService {
 
     /**
      * Subscribes a user for async notifications
-     * @param id websocket client id
-     * @param userId The user's id
+     * @param {number} id websocket client id
+     * @param {string} userId The user's id
      * @returns {Observable<WsResponse<NotificationMessage>>} Returns an Observable through which notifications are beeing sent.
      */
     public subscribeUser(id: number, userId: string): Observable<WsResponse<NotificationMessage>> {
@@ -68,7 +88,7 @@ export class NotificationService {
 
     /**
      * Unsubscribes a user for async notifications, e.g. disconnect.
-     * @param id websocket client id
+     * @param {number} id websocket client id
      */
     public unsubscribeUser(id: number) {
         this.userSubscriptions.get(id).complete();
@@ -95,7 +115,7 @@ export class NotificationService {
 
     /**
      * Packs a notification the be delivered via the websocket
-     * @param notification the notification
+     * @param {NotificationMessage} notification the notification
      * @returns {WsResponse<NotificationMessage>} The websocket response
      */
     private packNotification(notification: NotificationMessage): WsResponse<NotificationMessage> {

@@ -10,12 +10,23 @@ import autobind from 'autobind-decorator';
 import global_styles from '../../global_styles';
 import { NavigationService } from '../../services/NavigationService';
 
+/**
+ * The property interface used in the class Start
+ * @interface IProps
+ */
 interface IProps {
 }
 
+/**
+ * Implements the start screen
+ */
 export default class Start extends Component<IProps> {
 
-  public render() {
+  /**
+   * The rendering function for the start screen
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  public render(): JSX.Element {
     return (
       <View style={styles.container}>
         <View style={styles.logoContainer}>
@@ -36,6 +47,9 @@ export default class Start extends Component<IProps> {
     );
   }
 
+  /**
+   * Implements the functionality of the "home button"
+   */
   @autobind
   private goHome() {
     NavigationService.navigate('Conversation');
@@ -43,7 +57,11 @@ export default class Start extends Component<IProps> {
 
 }
 
-const styles = StyleSheet.create({
+/**
+ * The styles that are used by the class Start
+ * @type {any}
+ */
+const styles: any = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',

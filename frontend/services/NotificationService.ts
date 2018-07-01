@@ -12,20 +12,52 @@ import { PushNotificationService } from './PushNotificationService';
  * Singleton NotificationService
  */
 export class NotificationServiceInstance {
+
+    /**
+     * A list of open notifications
+     * @type {NotificationMessage[]}
+     */
     public notifications: NotificationMessage[] = [];
+
+    /**
+     * A place for new notifications
+     * @type {Subject<void>}
+     */
     public newNotification: Subject<void> = new Subject();
+
+    /**
+     * The current count of notifications
+     * @type {Subject<number>}
+     */
     public notificationCount: Subject<number> = new Subject();
 
+    /**
+     * A instance of the NotificationService
+     * @type {NotificationServiceInstance}
+     */
     private static _instance: NotificationServiceInstance;
+
+    /**
+     * A connection to the websocket
+     * @type {WebSocketClient}
+     */
     private websocket: WebSocketClient;
+
+    /**
+     * A instance of the RestConnection
+     * @type {RestConnection}
+     */
     private restClient: RestConnection;
 
+    /**
+     * The constructor for the NotificationService
+     */
     private constructor() {
         this.init();
     }
-    
+
     /**
-     * Establishes a websocket connection and fetches old notifications via the rest API.
+     * Init the NotificationService
      */
     private async init(): Promise<void> {
         // WebSocket
@@ -36,14 +68,8 @@ export class NotificationServiceInstance {
         this.websocket.registerMessageHandler(NotificationsConfig.NOTI_EVENT, (data: object) => {
             this.handleNotificationMessage(data as NotificationMessage);
         });
-        // RestClient
-        this.restClient = new RestConnection();
-        const oldNotifications = await this.restClient.getNotifications();
-        oldNotifications.forEach(notification => {
-            this.notifications.unshift(notification);
-        })
-        this.newNotification.next();
-        this.notificationCount.next(this.countUnread());
+
+        this.reloadNotifications();
     }
 
     /**
@@ -59,7 +85,7 @@ export class NotificationServiceInstance {
 
     /**
      * Handles incoming messages of the websocket
-     * @param data The new notification
+     * @param {NotificationMessage} data The new notification
      */
     private handleNotificationMessage(data: NotificationMessage): void {
         this.notifications.unshift(data);
@@ -67,6 +93,21 @@ export class NotificationServiceInstance {
         this.newNotification.next();
         Vibration.vibrate(500, false);
         PushNotificationService.presentLocalNotification(data.title, data.description);
+    }
+
+    /**
+     * Reloads all Notifications from the backend
+     */
+    public async reloadNotifications(): Promise<void> {
+        this.notifications = [];
+        // RestClient
+        this.restClient = new RestConnection();
+        const oldNotifications = await this.restClient.getNotifications();
+        oldNotifications.forEach(notification => {
+            this.notifications.unshift(notification);
+        });
+        this.newNotification.next();
+        this.notificationCount.next(this.countUnread());
     }
 
     /**
@@ -97,4 +138,8 @@ export class NotificationServiceInstance {
     }
 }
 
-export const NotificationService = NotificationServiceInstance.Instance
+/**
+ * A instance of the NotificationService
+ * @type {NotificationServiceInstance}
+ */
+export const NotificationService: NotificationServiceInstance = NotificationServiceInstance.Instance

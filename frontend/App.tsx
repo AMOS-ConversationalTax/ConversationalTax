@@ -16,7 +16,7 @@ import ConversationHistory from './screens/conversationHistory/ConversationHisto
 import Notifications from './screens/notifications/Notifications';
 import Debug from './screens/debug/Debug';
 import Scanner from './screens/scanner/Scanner';
-import { createDrawerNavigator } from 'react-navigation';
+import { createDrawerNavigator, NavigationContainer } from 'react-navigation';
 import globalStyles, { BackgroundColors } from './global_styles';
 import { View, StatusBar } from 'react-native';
 import CustomDrawerContentComponent from './shared/DrawerNavigationContent';
@@ -32,8 +32,12 @@ Audio.setAudioModeAsync({
   interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
 });
 
-// Add screens that should be routable. 
-const DrawerNavigation = createDrawerNavigator({
+/**
+ * A simple navigation container
+ * (Add screens that should be routable.)
+ * @type {NavigationContainer}
+ */
+const DrawerNavigation: NavigationContainer = createDrawerNavigator({
     Start,
     Conversation,
     Notifications,
@@ -46,14 +50,22 @@ const DrawerNavigation = createDrawerNavigator({
 });
 
 /**
- * Preloades everthing
+ * The main class that loads the whole application
  */
 export default class App extends React.Component {
-  state = {
+
+  /**
+   * The state of the app
+   */
+  state: any = {
     isReady: false,
   };
 
-  render() {
+  /**
+   * The rendering function for the app
+   * @returns {JSX.Element} The markup element that is displayed
+   */
+  render(): JSX.Element {
     if (!this.state.isReady) {
       return (
         <AppLoading
@@ -83,11 +95,17 @@ export default class App extends React.Component {
   );
   }
 
+  /**
+   * Function to set the app on state ready
+   */
   @autobind
   private setReady() {
     this.setState({ isReady: true });
   }
 
+  /**
+   * This loads the needed images an other ressources into cache
+   */
   private async _cacheResourcesAsync(): Promise<void> {
     const images = [
       require('./assets/logo.png'),

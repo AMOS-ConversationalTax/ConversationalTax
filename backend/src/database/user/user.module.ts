@@ -6,6 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { userSchema } from './schemas/user.schema';
 import DBConfig from '../dbconfig';
 
+/**
+ * The class that exports the user module
+ */
 @Module({
     imports: [DatabaseModule,
               MongooseModule.forFeature([{ name: DBConfig.USER_MODEL_PROVIDER,

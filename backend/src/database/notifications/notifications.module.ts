@@ -6,6 +6,9 @@ import { NotificationsSchema } from './schemas/notifications.schema';
 import { NotificationsDBService } from './notifications.service';
 import { NotificationsProviders } from './notifications.providers';
 
+/**
+ * The class that exports the notifications module
+ */
 @Module({
     imports: [DatabaseModule,
         MongooseModule.forFeature([{

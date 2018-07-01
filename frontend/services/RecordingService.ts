@@ -1,5 +1,9 @@
 import { Permissions, Audio } from 'expo';
 
+/**
+ * The custom recording options we use
+ * @type {Audio.RecordingOptions}
+ */
 const RECORDING_OPTIONS_CUSTOM: Audio.RecordingOptions = {
     android: {
         extension: '.awb',
@@ -25,9 +29,13 @@ const RECORDING_OPTIONS_CUSTOM: Audio.RecordingOptions = {
 /**
  * Minimal recording time in ms
  * Min has to be above 300ms due to https://github.com/expo/expo/issues/1709
+ * @type {number}
  */
-const MIN_RECORDING_TIME = 400;
+const MIN_RECORDING_TIME: number = 400;
 
+/**
+ * A service implementing the recording functionality
+ */
 export default class RecordingService {
     /**
      * The recording object for Expo.io
@@ -38,6 +46,7 @@ export default class RecordingService {
 
     /**
      * Recording is in need of seperate permissions - This function asks for them
+     * @returns {Promise<boolean>} A promise containing a success value
      */
     public async askForPermissions(): Promise<boolean> {
         const response = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
@@ -45,8 +54,8 @@ export default class RecordingService {
     }
 
     /**
-    * Starts a new recording if no other recording is running or processing
-    */
+     * Starts a new recording if no other recording is running or processing
+     */
     public async startRecording() {
         if (this.recordingObject !== null) {
             const error = 'Cannot start Recording. Another recording is running.';
@@ -79,8 +88,9 @@ export default class RecordingService {
     }
 
     /**
-    * Ends a recording if a recording is running
-    */
+     * Ends a recording if a recording is running
+     * @returns {Promise<string>} The filepath of the recording
+     */
     public async stopRecording(): Promise<string> {
         if (this.recordingObject === null) {
             const error = 'Cannot stop Recording. No recording is running.';
@@ -101,8 +111,9 @@ export default class RecordingService {
     }
 
     /**
-    * Helper function for stopRecording() to enable the setTimeout functionality
-    */
+     * Helper function for stopRecording() to enable the setTimeout functionality
+     * @returns {Promise<string>} A promise containing the filepath to the recording
+     */
     private async doStopRecording(): Promise<string> {
         if (this.recordingObject === null) {
             const error = 'RecordingObject was unexpectedly null';

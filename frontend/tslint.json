@@ -1,7 +1,8 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint-react"
+        "tslint-react",
+        "tslint-eslint-rules"
     ],
     "jsRules": {},
     "rules": {
@@ -9,7 +10,25 @@
         "object-literal-sort-keys": false,
         "no-empty-interface": false,
         "linebreak-style": false,
-        "no-unused-variable": true
+        "no-unused-variable": true,
+        "completed-docs": [
+            true,
+            {
+                "classes": true,
+                "functions": true,
+                "methods": true
+            }
+        ],
+        "jsdoc-format": true,
+        "valid-jsdoc": [
+            true,
+            {
+                "requireReturn": false,
+                "prefer": {
+                    "return": "returns"
+                }
+            }
+        ]
     },
     "rulesDirectory": [],
     "linterOptions": {
