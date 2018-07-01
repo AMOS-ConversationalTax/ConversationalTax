@@ -14,4 +14,9 @@ export class ListAllContractsService {
         const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
         return contracts;
     }
+
+    async getContractOfId(contractID: string): Promise<Array<EmploymentContract>> {
+        const contract = await this.employmentContractService.findEmploymentContract(contractID);
+        return contract;
+    }
 }

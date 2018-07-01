@@ -7,6 +7,7 @@ import { ExplanationService } from './explanation/explanation.service';
 import { ListAllContractsService } from './listAllContracts/listAllContracts.service';
 import { DatabaseLangService } from '../connectors/database-lang.service';
 import { ConversationHistory } from '../database/conversationHistory/interfaces/conversationHistory.interface';
+import { EmploymentContract } from 'database/employmentContract/interfaces/employmentContract.interface';
 
 const ANDROID_AUDIO_SETTINGS = {
   encoding: 'AUDIO_ENCODING_AMR_WB',
@@ -174,7 +175,13 @@ export class LangController {
 
       }
       const contractID = await this.contractService.create(uid);
-      this.contractService.editName(contractID, 'Uvex');
+      let contract: EmploymentContract[] = null;
+      try{
+        contract = await this.listAllContractsService.getContractOfId(contractID);
+        this.contractService.editName(contractID, contract[0].name.toString());
+      }catch{
+        this.contractService.editName(contractID, 'unbekannt');
+      }
 
     } else if (intent.name === 'projects/test-c7ec0/agent/intents/99d07e41-0833-4e50-991e-5f49ba4e9bc4') {
 
@@ -287,9 +294,9 @@ export class LangController {
       let contractNames : string = '';
       if(contracts.length >= 0) {
         for(var i = 0; i < contracts.length; i++){
-          contractNames += ' ' + contracts.pop().name;
+          contractNames += ' ' + contracts[i].name;
         }
-        text = answer + ' ' + contracts.length.toString() + contractNames;
+        text = answer + ' ' + contracts.length.toString() + ' ' + contractNames;
       }
       
       return { text };
