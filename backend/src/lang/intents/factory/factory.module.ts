@@ -9,6 +9,7 @@ import { AbortFactory } from '../factory/factory.abort';
 import { HandlerModule } from '../handlers/handler.module';
 import { WhatToDoFactory } from './factory.whatToDo';
 import { RenameFactory } from './factory.rename';
+import { DeleteContractFactory } from './factory.deletecontract';
 
 const modules = [
     EndDateFactory,
@@ -20,6 +21,7 @@ const modules = [
     AbortFactory,
     WhatToDoFactory,
     RenameFactory,
+    DeleteContractFactory,
 ];
 
 /**
