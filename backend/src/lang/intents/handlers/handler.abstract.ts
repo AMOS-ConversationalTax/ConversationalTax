@@ -1,5 +1,3 @@
-/* tslint:disable:completed-docs */
-
 /**
  * Class to handle a specific Intent
  */
