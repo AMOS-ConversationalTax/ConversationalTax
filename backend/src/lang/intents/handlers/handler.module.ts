@@ -13,7 +13,6 @@ import { CreateContractIntentHandler } from './handler.createcontract';
 import { ParameterMappingsModule } from '../parametermappings/parametermappings.module';
 import { WhatToDoIntentHandler } from './handler.whatToDo';
 import { RenameIntentHandler } from './handler.rename';
-import { DeleteContractFactory } from '../factory/factory.deletecontract';
 import { DeleteContractIntentHandler } from './handler.deletecontract';
 
 const modules = [

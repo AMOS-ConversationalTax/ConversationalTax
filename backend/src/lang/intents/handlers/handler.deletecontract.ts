@@ -1,7 +1,6 @@
 import { EmploymentContractService } from './../../../database/employmentContract/employmentContract.service';
 import { Injectable } from '@nestjs/common';
 import { IntentHandler } from './handler.abstract';
-import { EmploymentContract } from './../../../database/employmentContract/interfaces/employmentContract.interface';
 
 /**
  * Class to handle a specific Intent
