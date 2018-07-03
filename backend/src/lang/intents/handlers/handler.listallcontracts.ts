@@ -1,7 +1,6 @@
 import { EmploymentContractService } from './../../../database/employmentContract/employmentContract.service';
 import { Injectable } from '@nestjs/common';
 import { IntentHandler } from './handler.abstract';
-import { DialogFlowService } from '../../dialog-flow/dialog-flow.service';
 
 /**
  * Class to handle a specific Intent
@@ -9,7 +8,7 @@ import { DialogFlowService } from '../../dialog-flow/dialog-flow.service';
 @Injectable()
 export class ListAllContractsIntentHandler extends IntentHandler{
 
-    constructor(private employmentContractService: EmploymentContractService, private dialogFlowService: DialogFlowService){
+    constructor(private employmentContractService: EmploymentContractService){
         super();
     }
 
@@ -27,7 +26,7 @@ export class ListAllContractsIntentHandler extends IntentHandler{
         // Get the Answer from Dialogflow
         let answer : string = '';
         //answer = dialogflowResponse.queryResult.fulfillmentText;
-        answer = this.dialogFlowService.extractResponseText(intentData.parameter[0]);
+        answer = intentData.fulfillmentText;
         // Combine the answer with the list as strings and return it
         let text : string = 'fehler';
         let contractNames : string = '';
