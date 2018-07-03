@@ -12,7 +12,6 @@ export class ListAllContractsIntentHandler extends IntentHandler{
         super();
     }
 
-
     /**
      * Proccesses a given DialogFlow Reponse
      * @param {IIntentData} intentData Parts of the DialogFlow response
@@ -22,19 +21,16 @@ export class ListAllContractsIntentHandler extends IntentHandler{
 
         const userID = intentData.user.toString();
         // Get the list of all contracts
-        let contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
+        const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
         // Get the Answer from Dialogflow
-        let answer : string = '';
-        //answer = dialogflowResponse.queryResult.fulfillmentText;
+        let answer: string = '';
         answer = intentData.fulfillmentText;
-        // Combine the answer with the list as strings and return it
-        let text : string = 'fehler';
-        let contractNames : string = '';
-        if(contracts.length >= 0) {
-        for(var i = 0; i < contracts.length; i++){
-            contractNames += ' ' + contracts[i].name;
-        }
-        text = answer + ' ' + contracts.length.toString() + ' ' + contractNames;
+        // Combine the answer with the enumerated list as strings and return it
+        let text: string = answer;
+        if (contracts.length >= 0) {
+            for (let i = 0; i < contracts.length; i++) {
+                text += ' ' + i.toString() + ' ' + contracts[i].name;
+            }
         }
 
         return { text };
