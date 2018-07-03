@@ -21,9 +21,9 @@ export abstract class IntentHandler{
      * @param {object} data Json of all parameter given by the Dialogflow response
      * @param {string} parameterName The name of the parameter which should be extracted
      * @param {string} parameterType The type of the parameter which should be extracted
-     * @returns {string} The extracted parameter
+     * @returns {any} The extracted parameter as string or Date
      */
-    protected extractData(data: object, parameterName: string, parameterType: string): string {
+    protected extractData(data: object, parameterName: string, parameterType: string): any {
         const reducedParameter = this.reducer(data, this.getParameterPath(parameterName));
         if (reducedParameter !== null) {
             return reducedParameter;
