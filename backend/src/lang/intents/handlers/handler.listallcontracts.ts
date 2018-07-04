@@ -22,18 +22,20 @@ export class ListAllContractsIntentHandler extends IntentHandler{
         const userID = intentData.user.toString();
         // Get the list of all contracts
         const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
+        // if the user has no contracts then return
+        if (contracts.length === 0) {
+            return { text : 'Du hast leider noch keine Verträge abgeschlossen.' };
+        }
         // Get the Answer from Dialogflow
         let answer: string = '';
         answer = intentData.fulfillmentText;
         // Combine the answer with the enumerated list as strings and return it
         let text: string = answer;
-        if (contracts.length >= 0) {
-            for (let index = 0; index < contracts.length; index++) {
-                if (index === contracts.length - 1) {
-                    text += ' und';
-                }
-                text += ' ' + contracts[index].name;
+        for (let index = 0; index < contracts.length; index++) {
+            if (index === contracts.length - 1) {
+                text += ' und';
             }
+            text += ' ' + contracts[index].name;
         }
 
         return { text };

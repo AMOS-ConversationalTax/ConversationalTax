@@ -23,6 +23,10 @@ export class ChooseContractByNumberIntentHandler extends IntentHandler{
             const userID = intentData.user.toString();
             // Get the list of all contracts
             const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
+            // if the user has no contracts then return
+            if (contracts.length === 0) {
+                return undefined;
+            }
             // Get the Answer from Dialogflow
             const answer: string = intentData.fulfillmentText;
             // Get the position given by the user
@@ -31,12 +35,13 @@ export class ChooseContractByNumberIntentHandler extends IntentHandler{
             const position: number = parameter.fields.Number.numberValue - 1;
             // Choose the right contract
             let contract: EmploymentContract = null;
-            let text: string = 'Der Vertrag wurde leider nicht gefunden.';
             if (position < contracts.length) {
                 contract = contracts[position];
-                text = answer + ' Der ausgewählte Vertrag lautet ' + contract.name;
+                return { text: answer + ' Der ausgewählte Vertrag lautet ' + contract.name };
+            }else{
+                return { text: 'Der Vertrag wurde leider nicht gefunden.'};
             }
-            return { text };
+            
         }
         return undefined;
     }

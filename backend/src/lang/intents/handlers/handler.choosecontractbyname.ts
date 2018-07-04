@@ -22,6 +22,10 @@ export class ChooseContractByNameIntentHandler extends IntentHandler{
             const userID = intentData.user.toString();
             // Get the list of all contracts
             const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
+            // if the user has no contracts then return
+            if (contracts.length === 0) {
+                return undefined;
+            }
             // Get the Answer from Dialogflow
             const answer: string = intentData.fulfillmentText;
             let text: string = 'Der Vertrag wurde leider nicht gefunden.';
