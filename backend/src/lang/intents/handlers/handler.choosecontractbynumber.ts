@@ -41,7 +41,6 @@ export class ChooseContractByNumberIntentHandler extends IntentHandler{
             }else{
                 return { text: 'Der Vertrag wurde leider nicht gefunden.'};
             }
-            
         }
         return undefined;
     }
