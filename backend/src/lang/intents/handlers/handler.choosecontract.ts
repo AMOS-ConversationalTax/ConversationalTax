@@ -26,11 +26,11 @@ export class ChooseContractIntentHandler extends IntentHandler{
             const answer: string = intentData.fulfillmentText;
             let text: string = '';
             // Get the position given by the user
-            const position: string = this.extractData(intentData.parameter, 'Number', 'Number');
+            const parameter: any = intentData.parameter;
+            const position: number = parameter.fields.Number.numberValue;
             // const position: number = parameter.fields.Number.valueOf();
-            // const contract = contracts[position];
-            text += answer + ' ' + 'Position ist ' + position;
-
+            const contract = contracts[position];
+            text += answer + ' Der ausgewählte Vertrag lautet ' + contract.name;
             return { text };
         }
         return undefined;
