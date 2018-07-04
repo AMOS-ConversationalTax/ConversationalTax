@@ -110,7 +110,7 @@ services:
             - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
-        image: mongo
+        image: mongo:3.6.5-jessie
         container_name: conversational-tax-mongo
         expose:
             - 27017
@@ -139,7 +139,7 @@ services:
             - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
-        image: mongo
+        image: mongo:3.6.5-jessie
         container_name: conversational-tax-dev-mongo
         expose:
             - 27017
@@ -168,7 +168,7 @@ services:
             - /home/docker/amos_files/config/config.ts:/usr/src/app/shared/config/config.ts
     mongo:
         restart: always
-        image: mongo
+        image: mongo:3.6.5-jessie
         container_name: conversational-tax-test-mongo
         expose:
             - 27017

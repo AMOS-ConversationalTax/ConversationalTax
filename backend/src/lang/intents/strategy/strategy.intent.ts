@@ -8,6 +8,9 @@ import { HelpFactory } from '../factory/factory.help';
 import { CreateContractFactory } from '../factory/factory.createcontract';
 import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 import { AbortFactory } from '../factory/factory.abort';
+import { WhatToDoFactory } from '../factory/factory.whatToDo';
+import { RenameFactory } from '../factory/factory.rename';
+import { DeleteContractFactory } from '../factory/factory.deletecontract';
 
 /**
  * Class to get the right handler for an intent
@@ -22,9 +25,12 @@ export class IntentStrategy {
                 helpFactory: HelpFactory,
                 createContactFactory: CreateContractFactory,
                 endDateOpenFactory: EndDateOpenFactory,
-                abortFactory: AbortFactory) {
+                abortFactory: AbortFactory,
+                whatToDoFactory: WhatToDoFactory,
+                renameFactory: RenameFactory ,
+                deleteFactory: DeleteContractFactory) {
         this.intentFactories = [endDateFactory, addStartDateFactory, contextFactory, helpFactory,
-                                createContactFactory, abortFactory, endDateOpenFactory];
+            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory, renameFactory, deleteFactory];
     }
 
     /**
@@ -37,7 +43,7 @@ export class IntentStrategy {
 
         if (intentFactory.length === 0) {
             // tslint:disable-next-line:no-console
-            console.error('For this Intent no handler has been defined.');
+            console.error(`For this Intent (${intentID}) no handler has been defined.`);
             throw new InternalServerErrorException('For this Intent no handler has been defined.');
         } else if (intentFactory.length > 1) {
             // tslint:disable-next-line:no-console

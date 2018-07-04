@@ -11,6 +11,7 @@ import * as request from 'superagent';
 import Config from 'conv-tax-shared/config/config';
 import RestConnection from './../../services/RestConnection';
 import Wrapper from '../../shared/Wrapper';
+import { NotificationService } from '../../services/NotificationService';
 
 /**
  * The property interface used in the class Debug
@@ -69,6 +70,11 @@ export default class Debug extends Component<IProps> {
           <View style={styles.topMargin}>
             <Button title="Emit a Notification to all connected users" onPress={this.emitNoti} />
           </View>
+          <View style={styles.topMargin}>
+            <Button title="Arbeitsverträge löschen" onPress={this.resetUserContracts} />
+            <Button title="Verlauf löschen" onPress={this.resetUserHistory} />
+            <Button title="Benachrichtigungen löschen" onPress={this.resetUserNotification} />
+          </View>
         </View>
       </Wrapper>
     );
@@ -94,6 +100,32 @@ export default class Debug extends Component<IProps> {
   private emitNoti() {
     this.restClient.emitDebugNotificationToAllUsers();
   }
+
+  /**
+   * Reset all contracts
+   */
+  @autobind
+  private resetUserContracts() {
+    this.restClient.reset('resetUserContracts');
+  }
+
+  /**
+   * Reset all contracts
+   */
+  @autobind
+  private resetUserHistory() {
+    this.restClient.reset('resetUserHistory');
+  }
+
+  /**
+   * Reset all contracts
+   */
+  @autobind
+  private async resetUserNotification() {
+    this.restClient.reset('resetUserNotification');
+    NotificationService.reloadNotifications();
+  }
+
 
 }
 
