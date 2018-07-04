@@ -29,9 +29,9 @@ export class ChooseContractByNameIntentHandler extends IntentHandler{
             const parameter: any = intentData.parameter;
             const chosenContractName: string = parameter.fields.ContractName.stringValue;
             // search for the first entry in the list. if a match was found this contract is chosen
-            for(let i = 0; i < contracts.length; i++) {
-                if(chosenContractName === contracts[i].name) {
-                    text = answer + ' Der ausgewählte Vertrag lautet ' + contracts[i].name;
+            for (const index in contracts) {
+                if (chosenContractName === contracts[index].name) {
+                    text = answer + ' Der ausgewählte Vertrag lautet ' + contracts[index].name;
                     continue;
                 }
             }

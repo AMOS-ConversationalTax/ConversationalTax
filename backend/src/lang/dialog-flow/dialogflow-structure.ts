@@ -169,7 +169,7 @@ export const DialogFlowStructure: IntentInformation[] = [
         displayName: 'Arbeitsvertrag - Auflisten',
         name: IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_ListAll,
         contextText: 'Wir waren gerade dabei alle Verträge aufzulisten. Du kannst nun einen Vertrag mit Namen oder Nummer auswählen.',
-        helpText: 'Du kannst nun einen Vertrag mit Namen oder Nummer auswählen. Sage zum Beispiel: Wähle eins aus. So kannst du den ersten Vertrag auswählen. Oder Wähle den Vertrag einfach mit dem Namen aus.',
+        helpText: 'Sage zum Beispiel: Wähle eins aus. So kannst du den ersten Vertrag auswählen. Oder Wähle den Vertrag einfach mit dem Namen aus.',
         actions: [
             {
                 name: 'Default',

@@ -28,12 +28,11 @@ export class ListAllContractsIntentHandler extends IntentHandler{
         // Combine the answer with the enumerated list as strings and return it
         let text: string = answer;
         if (contracts.length >= 0) {
-            for (let i = 0; i < contracts.length; i++) {
-                if(i === contracts.length - 1){
+            for (let index = 0; index < contracts.length; index++) {
+                if (index === contracts.length - 1) {
                     text += ' und';
                 }
-                text += ' ' + contracts[i].name;
-                
+                text += ' ' + contracts[index].name;
             }
         }
 

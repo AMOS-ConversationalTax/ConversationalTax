@@ -32,10 +32,10 @@ export class ChooseContractByNumberIntentHandler extends IntentHandler{
             // Choose the right contract
             let contract: EmploymentContract = null;
             let text: string = 'Der Vertrag wurde leider nicht gefunden.';
-            if(position < contracts.length) {
+            if (position < contracts.length) {
                 contract = contracts[position];
                 text = answer + ' Der ausgewählte Vertrag lautet ' + contract.name;
-            }            
+            }
             return { text };
         }
         return undefined;
