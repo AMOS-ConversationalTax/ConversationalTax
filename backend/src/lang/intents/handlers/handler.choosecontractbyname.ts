@@ -28,18 +28,16 @@ export class ChooseContractByNameIntentHandler extends IntentHandler{
             }
             // Get the Answer from Dialogflow
             const answer: string = intentData.fulfillmentText;
-            let text: string = 'Der Vertrag wurde leider nicht gefunden.';
             // Get the contract name given by the user
             const parameter: any = intentData.parameter;
             const chosenContractName: string = parameter.fields.ContractName.stringValue;
             // search for the first entry in the list. if a match was found this contract is chosen
             for (const index in contracts) {
                 if (chosenContractName === contracts[index].name) {
-                    text = answer + ' Der ausgewählte Vertrag lautet ' + contracts[index].name;
-                    continue;
+                    return { text: answer + ' Der ausgewählte Vertrag lautet ' + contracts[index].name };
                 }
             }
-            return { text };
+            return { text: 'Der Vertrag wurde leider nicht gefunden.' };
         }
         return undefined;
     }
