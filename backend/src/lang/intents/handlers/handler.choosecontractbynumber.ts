@@ -1,12 +1,13 @@
 import { EmploymentContractService } from './../../../database/employmentContract/employmentContract.service';
 import { Injectable } from '@nestjs/common';
 import { IntentHandler } from './handler.abstract';
+import { EmploymentContract } from 'database/employmentContract/interfaces/employmentContract.interface';
 
 /**
  * Class to handle a specific follow-up Intent
  */
 @Injectable()
-export class ChooseContractIntentHandler extends IntentHandler{
+export class ChooseContractByNumberIntentHandler extends IntentHandler{
 
     constructor(private employmentContractService: EmploymentContractService){
         super();
@@ -24,13 +25,17 @@ export class ChooseContractIntentHandler extends IntentHandler{
             const contracts = await this.employmentContractService.findEmploymentContractsOfUser(userID);
             // Get the Answer from Dialogflow
             const answer: string = intentData.fulfillmentText;
-            let text: string = '';
             // Get the position given by the user
             const parameter: any = intentData.parameter;
-            const position: number = parameter.fields.Number.numberValue;
-            // const position: number = parameter.fields.Number.valueOf();
-            const contract = contracts[position];
-            text += answer + ' Der ausgewählte Vertrag lautet ' + contract.name;
+            // In Dialogflow the parameter type @sys.number is represented by "numberValue"
+            const position: number = parameter.fields.Number.numberValue - 1;
+            // Choose the right contract
+            let contract: EmploymentContract = null;
+            let text: string = 'Der Vertrag wurde leider nicht gefunden.';
+            if(position < contracts.length) {
+                contract = contracts[position];
+                text = answer + ' Der ausgewählte Vertrag lautet ' + contract.name;
+            }            
             return { text };
         }
         return undefined;

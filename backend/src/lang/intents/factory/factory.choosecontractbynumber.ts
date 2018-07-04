@@ -1,5 +1,5 @@
 import { IntentHandler } from './../handlers/handler.abstract';
-import { ChooseContractIntentHandler } from '../handlers/handler.choosecontract';
+import { ChooseContractByNumberIntentHandler } from '../handlers/handler.choosecontractbynumber';
 import { IIntentFactory } from './factory.interface';
 import { Injectable } from '@nestjs/common';
 import IntentConfig from './../IntentConfig';
@@ -9,9 +9,9 @@ import { DIALOGFLOW_INTENT_IDS } from '../../dialog-flow/dialogflow-structure';
  * A Factory to handle a specific follow-up intent
  */
 @Injectable()
-export class ChooseContractFactory implements IIntentFactory {
+export class ChooseContractByNumberFactory implements IIntentFactory {
 
-    constructor(private chooseContractIntentHandler: ChooseContractIntentHandler) {
+    constructor(private chooseContractByNumberIntentHandler: ChooseContractByNumberIntentHandler) {
     }
 
     /**
@@ -19,7 +19,7 @@ export class ChooseContractFactory implements IIntentFactory {
      * @returns {IntentHandler} The IntentHandler instance
      */
     createIntentHandler(): IntentHandler {
-        return this.chooseContractIntentHandler;
+        return this.chooseContractByNumberIntentHandler;
     }
 
     /**
@@ -28,6 +28,6 @@ export class ChooseContractFactory implements IIntentFactory {
      * @returns {boolean} Returns whether this factory applies
      */
     appliesTo(intentID: string): boolean {
-        return (intentID === IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_ChooseContract);
+        return (intentID === IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_ChooseContractByNumber);
     }
 }

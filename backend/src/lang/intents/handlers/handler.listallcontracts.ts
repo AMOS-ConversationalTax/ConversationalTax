@@ -29,7 +29,11 @@ export class ListAllContractsIntentHandler extends IntentHandler{
         let text: string = answer;
         if (contracts.length >= 0) {
             for (let i = 0; i < contracts.length; i++) {
-                text += ' ' + i.toString() + ' ' + contracts[i].name;
+                if(i === contracts.length - 1){
+                    text += ' und';
+                }
+                text += ' ' + contracts[i].name;
+                
             }
         }
 
