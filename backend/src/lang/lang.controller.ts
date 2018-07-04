@@ -149,9 +149,10 @@ export class LangController {
   private createIntentData(dialogflowResponse: DetectIntentResponse, params: TextIntentParams | AudioIntentParams): IIntentData {
     const responseParam = this.dialogFlowService.extractParameter(dialogflowResponse);
     const allParamSet = this.dialogFlowService.extractReqParameterPresent(dialogflowResponse);
+    const responseText = this.dialogFlowService.extractResponseText(dialogflowResponse);
 
     return {
-      parameter: responseParam, allParameterSet: allParamSet, user: params.u_id,
+      parameter: responseParam, allParameterSet: allParamSet, user: params.u_id, fulfillmentText: responseText,
     };
   }
 
@@ -209,5 +210,4 @@ export class LangController {
     const queryText = ' ' + dialogflowResponse.queryResult.queryText + ' ';
     return queryText.includes(' nicht ');
   }
-
 }

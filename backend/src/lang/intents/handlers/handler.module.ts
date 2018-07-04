@@ -13,6 +13,9 @@ import { CreateContractIntentHandler } from './handler.createcontract';
 import { ParameterMappingsModule } from '../parametermappings/parametermappings.module';
 import { WhatToDoIntentHandler } from './handler.whatToDo';
 import { RenameIntentHandler } from './handler.rename';
+import { ListAllContractsIntentHandler } from './handler.listallcontracts';
+import { ChooseContractByNumberIntentHandler } from './handler.choosecontractbynumber';
+import { ChooseContractByNameIntentHandler } from './handler.choosecontractbyname';
 import { DeleteContractIntentHandler } from './handler.deletecontract';
 
 const modules = [
@@ -26,6 +29,9 @@ const modules = [
     AbortIntentHandler,
     WhatToDoIntentHandler,
     RenameIntentHandler,
+    ListAllContractsIntentHandler,
+    ChooseContractByNumberIntentHandler,
+    ChooseContractByNameIntentHandler,
     DeleteContractIntentHandler,
 ];
 

@@ -10,6 +10,9 @@ import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 import { AbortFactory } from '../factory/factory.abort';
 import { WhatToDoFactory } from '../factory/factory.whatToDo';
 import { RenameFactory } from '../factory/factory.rename';
+import { ListAllContractsFactory } from '../factory/factory.listallcontracts';
+import { ChooseContractByNumberFactory } from '../factory/factory.choosecontractbynumber';
+import { ChooseContractByNameFactory } from '../factory/factory.choosecontractbyname';
 import { DeleteContractFactory } from '../factory/factory.deletecontract';
 
 /**
@@ -27,10 +30,14 @@ export class IntentStrategy {
                 endDateOpenFactory: EndDateOpenFactory,
                 abortFactory: AbortFactory,
                 whatToDoFactory: WhatToDoFactory,
-                renameFactory: RenameFactory ,
+                renameFactory: RenameFactory,
+                listAllContractsFactory: ListAllContractsFactory,
+                chooseContractByNumberFactory: ChooseContractByNumberFactory,
+                chooseContractByNameFactory: ChooseContractByNameFactory,
                 deleteFactory: DeleteContractFactory) {
         this.intentFactories = [endDateFactory, addStartDateFactory, contextFactory, helpFactory,
-            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory, renameFactory, deleteFactory];
+            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory, renameFactory,
+            listAllContractsFactory, chooseContractByNumberFactory, chooseContractByNameFactory, deleteFactory];
     }
 
     /**

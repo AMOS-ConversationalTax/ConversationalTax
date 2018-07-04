@@ -9,6 +9,9 @@ import { AbortFactory } from '../factory/factory.abort';
 import { HandlerModule } from '../handlers/handler.module';
 import { WhatToDoFactory } from './factory.whatToDo';
 import { RenameFactory } from './factory.rename';
+import { ListAllContractsFactory } from './factory.listallcontracts';
+import { ChooseContractByNumberFactory } from './factory.choosecontractbynumber';
+import {ChooseContractByNameFactory } from './factory.choosecontractbyname';
 import { DeleteContractFactory } from './factory.deletecontract';
 
 const modules = [
@@ -21,6 +24,9 @@ const modules = [
     AbortFactory,
     WhatToDoFactory,
     RenameFactory,
+    ListAllContractsFactory,
+    ChooseContractByNumberFactory,
+    ChooseContractByNameFactory,
     DeleteContractFactory,
 ];
 
