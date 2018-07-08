@@ -1,5 +1,8 @@
 # Conversational Tax 
-Conversational Tax is a students' project taking place in the summersemester 2018. It is part of the AMOS course teached at the Friedrich-Alexander-University Erlangen-Nuremberg.
+ConTax is a students' project, which took place in the summersemester 2018. It was part of 'The AMOS project' course teached at the Friedrich-Alexander-University Erlangen-Nuremberg. ConTax is an app focusing on a conversational interface. It guides the user through (parts) of his/her tax declaration.
+
+## Technologies
+The app is based on the **React Native** framework to achieve a cross-platform mobile application. Furthermore, the frontend uses **Expo** to simplify the deployment and developing process. The backend uses **NestJS**, a Node.js framework for server-side applications. It is based on ExpressJS and heavily inspired by Angular. Last but not least, both parts are written **TypeScript** for strong-typed source code.
 
 ## Documentation
 - [Development Environment](docs/dev-environment.md)
@@ -10,18 +13,10 @@ Conversational Tax is a students' project taking place in the summersemester 201
 - [How to Unit Test](docs/testing.md)
 - [DialogFlow](docs/dialogflow.md)
 
-## Build Status
+## CI/CD Status
 
 ### Master Branch
-
-Build status for the Master branch should be green all the time: 
-
 [![Build Status](https://semaphoreci.com/api/v1/amosconversationaltax/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/amosconversationaltax/conversationaltax-3)
 
 ### Develop Branch
-
-Build status for the Develop branch should be green all the time, too:
-
 [![Build Status](https://semaphoreci.com/api/v1/amosconversationaltax/conversationaltax-3/branches/develop/badge.svg)](https://semaphoreci.com/amosconversationaltax/conversationaltax-3)
-
-To be totally honest with you: All branches should feature a green build status. **All the time!**
