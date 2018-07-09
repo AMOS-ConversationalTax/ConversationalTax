@@ -13,7 +13,7 @@ The app is based on the **React Native** framework to achieve a cross-platform m
 - [How to Unit Test](docs/testing.md)
 - [DialogFlow](docs/dialogflow.md)
 
-## CI/CD Status
+## CI Build Status
 
 ### Master Branch
 [![Build Status](https://semaphoreci.com/api/v1/amosconversationaltax/conversationaltax-3/branches/master/badge.svg)](https://semaphoreci.com/amosconversationaltax/conversationaltax-3)
