@@ -17,6 +17,7 @@ import { ListAllContractsIntentHandler } from './handler.listallcontracts';
 import { ChooseContractByNumberIntentHandler } from './handler.choosecontractbynumber';
 import { ChooseContractByNameIntentHandler } from './handler.choosecontractbyname';
 import { DeleteContractIntentHandler } from './handler.deletecontract';
+import { DefaultIntentHandler } from './handler.default';
 
 const modules = [
     EndDateIntentHandler,
@@ -33,6 +34,7 @@ const modules = [
     ChooseContractByNumberIntentHandler,
     ChooseContractByNameIntentHandler,
     DeleteContractIntentHandler,
+    DefaultIntentHandler,
 ];
 
 /**

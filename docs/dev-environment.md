@@ -5,7 +5,7 @@ You need the following tools:
 - NodeJS 8.X
 - NPM 6.X
 - Editor of your choice, e.g. Visual Studio Code
-- A terminal e.g. GitBash
+- A terminal e.g. GitBash/PowerShell
 
 ## Setting up the dev enviroment
 
@@ -20,11 +20,6 @@ VS Code ist an open source editor developed by Microsoft. You may use Atom or si
 - Install the following extensions:
 - Recommended: ESLint, Auto Import - ES6 & TS, npm Intellisense
 - Optinal: React Native Tools, 
-
-### 3. Terminal of Choice e.g. GitBash
-You may use anything you like. For me personal, GitBash is the way to go.
-- Get GitBash from https://git-scm.com/downloads
-- Install it. You may want to configure your editor for commit messages, e.g. NotePad++. 
 
 ## NodeJS 101
 - Node is the "tool" which executes JS code. 

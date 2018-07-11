@@ -13,6 +13,7 @@ import { ListAllContractsFactory } from './factory.listallcontracts';
 import { ChooseContractByNumberFactory } from './factory.choosecontractbynumber';
 import {ChooseContractByNameFactory } from './factory.choosecontractbyname';
 import { DeleteContractFactory } from './factory.deletecontract';
+import { DefaultFactory } from './factory.default';
 
 const modules = [
     EndDateFactory,
@@ -28,6 +29,7 @@ const modules = [
     ChooseContractByNumberFactory,
     ChooseContractByNameFactory,
     DeleteContractFactory,
+    DefaultFactory,
 ];
 
 /**
