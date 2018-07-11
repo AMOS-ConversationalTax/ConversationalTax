@@ -59,6 +59,8 @@ export enum DIALOGFLOW_INTENT_IDS {
     WhatToDo = 'c29ddbfb-571c-46e2-a817-4aa5bdc06251', // What-to-Do? Fallback
     Contract_Create = 'b0159b15-0635-4d2e-a673-88cc10c03422', // Arbeitsvertrag mit Startdatum erstellen
     Contract_ListAll = '92883a98-404c-4e9f-b385-a5a9108a4764', // Arbeitsvertrag - Alle auflisten
+    Contract_ChooseContractByNumber = '924975c6-e281-46d4-81c0-d50162477673', // Arbeitsvertrag - Auswählen nach Nummer
+    Contract_ChooseContractByName = '375a53e9-0fcf-4a4b-bafa-5ed73f19a6ae', // Arbeitsvertrag - Auswählen nach Name
     Contract_Enddate = '9694cec4-f8e8-478b-b9cc-fa1879b7a202', // Arbeitsvertrag - Enddatum
     Contract_EnddateUnlimited = 'd1523cf3-bb4d-47cb-8fc4-bec3d669628e', // Arbeitsvertrag - Enddatum unbefristet
     Contract_Rename = '5ca04ab8-3856-4c1b-afd9-78052f35d929', // Arbeitsvertrag - Namensänderung
@@ -161,6 +163,54 @@ export const DialogFlowStructure: IntentInformation[] = [
             {
                 name: 'NewContractName',
                 helpText: 'Du musst den neuen Namen des Arbeitsvertrags nennen, damit ich diesen speichern kann.',
+            },
+        ],
+    },
+    {
+        displayName: 'Arbeitsvertrag - Auflisten',
+        name: IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_ListAll,
+        contextText: 'Wir waren gerade dabei alle Verträge aufzulisten. Du kannst nun einen Vertrag mit Namen oder Nummer auswählen.',
+        helpText: 'Sage zum Beispiel: Wähle eins aus. So kannst du den ersten Vertrag auswählen. Oder Wähle den Vertrag einfach mit dem Namen aus.',
+        actions: [
+            {
+                name: 'Default',
+                helpText: null,
+            },
+            {
+                name: 'EmploymentContract',
+                helpText: 'Du musst einen Vertrag aus der eben gennanten Liste auswählen.',
+            },
+        ],
+    },
+    {
+        displayName: 'Arbeitsvertrag - Auswählen nach Nummer',
+        name: IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_ChooseContractByNumber,
+        contextText: 'Wir waren gerade dabei einen Vertrag auszuwählen.',
+        helpText: 'Du kannst nun mit dem ausgewählten Vertrag weitermachen.',
+        actions: [
+            {
+                name: 'Default',
+                helpText: null,
+            },
+            {
+                name: 'EmploymentContract',
+                helpText: 'Du musst einen Vertrag aus der eben gennanten Liste auswählen.',
+            },
+        ],
+    },
+    {
+        displayName: 'Arbeitsvertrag - Auswählen nach Name',
+        name: IntentConfig.INTENT_PREFIX + DIALOGFLOW_INTENT_IDS.Contract_ChooseContractByName,
+        contextText: 'Wir waren gerade dabei einen Vertrag auszuwählen.',
+        helpText: 'Du kannst nun mit dem ausgewählten Vertrag weitermachen.',
+        actions: [
+            {
+                name: 'Default',
+                helpText: null,
+            },
+            {
+                name: 'EmploymentContract',
+                helpText: 'Du musst einen Vertrag aus der eben gennanten Liste auswählen.',
             },
         ],
     },

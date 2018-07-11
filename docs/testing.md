@@ -158,8 +158,3 @@ it('should return true on success', async () => {
 });
 ```
 
-
-## Tests for React Native
-
-Will be added later as soon as we get more experience with it.
-

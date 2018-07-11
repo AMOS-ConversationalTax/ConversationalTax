@@ -1,6 +1,6 @@
 import { IIntentFactory } from '../factory/factory.interface';
 import { IntentHandler } from '../handlers/handler.abstract';
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { EndDateFactory } from '../factory/factory.enddate';
 import { AddStartDateFactory } from '../factory/factory.addstartdate';
 import { ContextFactory } from '../factory/factory.context';
@@ -10,7 +10,11 @@ import { EndDateOpenFactory } from '../factory/factory.enddateopen';
 import { AbortFactory } from '../factory/factory.abort';
 import { WhatToDoFactory } from '../factory/factory.whatToDo';
 import { RenameFactory } from '../factory/factory.rename';
+import { ListAllContractsFactory } from '../factory/factory.listallcontracts';
+import { ChooseContractByNumberFactory } from '../factory/factory.choosecontractbynumber';
+import { ChooseContractByNameFactory } from '../factory/factory.choosecontractbyname';
 import { DeleteContractFactory } from '../factory/factory.deletecontract';
+import { DefaultFactory } from '../factory/factory.default';
 
 /**
  * Class to get the right handler for an intent
@@ -27,10 +31,16 @@ export class IntentStrategy {
                 endDateOpenFactory: EndDateOpenFactory,
                 abortFactory: AbortFactory,
                 whatToDoFactory: WhatToDoFactory,
-                renameFactory: RenameFactory ,
-                deleteFactory: DeleteContractFactory) {
+                renameFactory: RenameFactory,
+                listAllContractsFactory: ListAllContractsFactory,
+                chooseContractByNumberFactory: ChooseContractByNumberFactory,
+                chooseContractByNameFactory: ChooseContractByNameFactory,
+                deleteFactory: DeleteContractFactory,
+                private readonly defaultFactory: DefaultFactory) {
         this.intentFactories = [endDateFactory, addStartDateFactory, contextFactory, helpFactory,
-            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory, renameFactory, deleteFactory];
+            createContactFactory, abortFactory, endDateOpenFactory, whatToDoFactory, renameFactory,
+            listAllContractsFactory, chooseContractByNumberFactory, chooseContractByNameFactory,
+            deleteFactory, this.defaultFactory];
     }
 
     /**
@@ -44,11 +54,10 @@ export class IntentStrategy {
         if (intentFactory.length === 0) {
             // tslint:disable-next-line:no-console
             console.error(`For this Intent (${intentID}) no handler has been defined.`);
-            throw new InternalServerErrorException('For this Intent no handler has been defined.');
+            return this.defaultFactory.createIntentHandler();
         } else if (intentFactory.length > 1) {
             // tslint:disable-next-line:no-console
             console.error('More than one IntentHandler is defined for this intent');
-            throw new InternalServerErrorException('More than one IntentHandler is defined for this intent');
         }
 
         return intentFactory[0].createIntentHandler();
